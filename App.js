@@ -6,8 +6,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {AuthProvider} from './providers/AuthProvider';
 import {TasksProvider} from './providers/TasksProvider';
 
-import {OfflineView} from './views/OfflineView';
 import {WelcomeView} from './views/WelcomeView';
+import {OnlineView} from './views/OnlineView';
 import {ProjectsView} from './views/ProjectsView';
 import {TasksView} from './views/TasksView';
 
@@ -21,13 +21,13 @@ const App = () => {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
-            name="Offline View"
-            component={OfflineView}
-            options={{title: 'Offline View'}}
-          />
-          <Stack.Screen
             name="Welcome View"
             component={WelcomeView}
+            options={{title: 'Welcome View'}}
+          />
+          <Stack.Screen
+            name="Online View"
+            component={OnlineView}
             options={{title: 'Task Tracker'}}
           />
           <Stack.Screen

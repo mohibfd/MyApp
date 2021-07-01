@@ -1,65 +1,109 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, TextInput, Button, Alert } from "react-native";
-import { useAuth } from "../providers/AuthProvider";
-import styles from "../stylesheet";
+import MMKVStorage, {useMMKVStorage} from 'react-native-mmkv-storage';
 
-export function WelcomeView({ navigation }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const { user, signUp, signIn } = useAuth();
+import React, {useEffect, useState} from 'react';
+import {View, SafeAreaView, Button, FlatList} from 'react-native';
+import styles from '../stylesheet';
+import uuid from 'react-native-uuid';
+import ListItem from '../components/ListItem';
+
+const MMKV = new MMKVStorage.Loader().initialize();
+
+export const useStorage = key => {
+  const [value, setValue] = useMMKVStorage(key, MMKV);
+  return [value, setValue];
+};
+
+export function WelcomeView({navigation}) {
+  let USER_3 = {
+    name: 'Bob',
+    key: uuid.v4(),
+    age: 22,
+    traits: {
+      hair: 'black',
+      eyes: 'brown',
+    },
+  };
+  let USER_2 = {
+    name: 'tom',
+    key: uuid.v4(),
+    age: 22,
+    traits: {
+      hair: 'black',
+      eyes: 'blue',
+    },
+  };
+
+  const [item, setItem] = useStorage('TOMATO');
+
+  const [value, setValue] = useState([]);
+
+  const readItemFromStorage = async () => {
+    setValue(item != null ? JSON.parse(item) : []);
+  };
+
+  const writeItemToStorage = async newValue => {
+    value.push(newValue);
+    setItem(JSON.stringify(value));
+    setValue(value);
+  };
+
+  const deleteItemFromStorage = key => {
+    setValue(prevItems => {
+      return prevItems.filter(item => item.key != key);
+    });
+    // The below code displays the alert dialog after two seconds.
+
+    console.log(value);
+    setTimeout(() => {
+      console.log(value);
+    }, 2000);
+
+    setItem(JSON.stringify(value));
+  };
+
+  const deleteListFromStorage = async () => {
+    MMKV.removeItem('TOMATO');
+
+    setValue([]);
+  };
 
   useEffect(() => {
-    // If there is a user logged in, go to the Projects page.
-    if (user != null) {
-      navigation.navigate("Projects");
-    }
-  }, [user]);
-
-  // The onPressSignIn method calls AuthProvider.signIn with the
-  // email/password in state.
-  const onPressSignIn = async () => {
-    console.log("Press sign in");
-    try {
-      await signIn(email, password);
-    } catch (error) {
-      Alert.alert(`Failed to sign in: ${error.message}`);
-    }
-  };
-
-  // The onPressSignUp method calls AuthProvider.signUp with the
-  // email/password in state and then signs in.
-  const onPressSignUp = async () => {
-    try {
-      await signUp(email, password);
-      signIn(email, password);
-    } catch (error) {
-      Alert.alert(`Failed to sign up: ${error.message}`);
-    }
-  };
+    readItemFromStorage();
+    // return () => {
+    //   console.log(value);
+    //   setItem(JSON.stringify(value));
+    // };
+  }, []);
 
   return (
-    <View>
-      <Text>Signup or Signin:</Text>
-      <View style={styles.inputContainer}>
-        <TextInput
-          onChangeText={setEmail}
-          value={email}
-          placeholder="email"
-          style={styles.inputStyle}
-          autoCapitalize="none"
+    <SafeAreaView style={styles.offlineStyle}>
+      <View style={styles.offlineStyle}>
+        <Button onPress={() => writeItemToStorage(USER_2)} title="Add bob" />
+        <FlatList
+          data={value}
+          renderItem={({item}) => (
+            <ListItem
+              list={item}
+              deleteItemFromStorage={deleteItemFromStorage}
+              navigation={navigation}
+            />
+          )}
         />
       </View>
-      <View style={styles.inputContainer}>
-        <TextInput
-          onChangeText={(text) => setPassword(text)}
-          value={password}
-          placeholder="password"
-          style={styles.inputStyle}
-          secureTextEntry
+      <View style={styles.goOnlineButton}>
+        <Button
+          onPress={() => deleteListFromStorage()}
+          title="Delete List"
+          color="#841584"
+        />
+        <Button
+          onPress={() => navigation.navigate('Online View')}
+          title="Go Online"
+          color="#841584"
         />
       </View>
-      <Button onPress={onPressSignIn} title="Sign In" />
-      <Button onPress={onPressSignUp} title="Sign Up" />
-    </View>
+    </SafeAreaView>
   );
 }
+
+// export default Welcome View;

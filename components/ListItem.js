@@ -7,7 +7,7 @@ const ListItem = ({list, deleteItemFromStorage, navigation}) => {
   return (
     <TouchableOpacity
       style={styles.ListItem}
-      onPress={() => navigation.navigate('Welcome View')}>
+      onPress={() => navigation.navigate('Online View')}>
       <View style={styles.ListItemView}>
         <Text style={styles.listItemText}>{list.name}</Text>
         <Icon
