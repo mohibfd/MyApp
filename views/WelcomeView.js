@@ -5,6 +5,7 @@ import {View, SafeAreaView, Button, FlatList} from 'react-native';
 import styles from '../stylesheet';
 import uuid from 'react-native-uuid';
 import ListItem from '../components/ListItem';
+import Header from '../components/Header';
 
 const MMKV = new MMKVStorage.Loader().initialize();
 
@@ -24,7 +25,7 @@ export function WelcomeView({navigation}) {
     },
   };
   let USER_2 = {
-    name: 'tom',
+    name: 'I LIKE YOU',
     key: uuid.v4(),
     age: 22,
     traits: {
@@ -77,6 +78,7 @@ export function WelcomeView({navigation}) {
 
   return (
     <SafeAreaView style={styles.offlineStyle}>
+      <Header title="My Items" />
       <View style={styles.offlineStyle}>
         <Button onPress={() => writeItemToStorage(USER_2)} title="Add bob" />
         <FlatList
