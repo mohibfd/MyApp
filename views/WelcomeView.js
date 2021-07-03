@@ -6,6 +6,7 @@ import styles from '../stylesheet';
 import uuid from 'react-native-uuid';
 import ListItem from '../components/ListItem';
 import Header from '../components/Header';
+import AddModal from '../components/addItemModal';
 
 const MMKV = new MMKVStorage.Loader().initialize();
 
@@ -47,6 +48,17 @@ export function WelcomeView({navigation}) {
     setItem(JSON.stringify(value));
     setValue(value);
   };
+  const addList = name => {
+    let newId = uuid.v4();
+
+    //adding new list to realm
+    // realm.create('todoList', { id: newId, name: text, children: []});
+
+    //returning the new list with all the previous ones to show on our app
+    setValue(prevItems => {
+      return [{id: newId, name, children: []}, ...prevItems];
+    });
+  };
 
   const deleteItemFromStorage = key => {
     setValue(prevItems => {
@@ -79,6 +91,9 @@ export function WelcomeView({navigation}) {
   return (
     <SafeAreaView style={styles.offlineStyle}>
       <Header title="My Items" />
+
+      <AddModal addList={addList} />
+
       <View style={styles.offlineStyle}>
         <Button onPress={() => writeItemToStorage(USER_2)} title="Add bob" />
         <FlatList
