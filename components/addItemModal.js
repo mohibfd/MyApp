@@ -4,11 +4,11 @@ import {
   Alert,
   Modal,
   Button,
-  StyleSheet,
   TextInput,
   TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import styles from '../stylesheet';
 
 const AddModal = ({addList}) => {
   //usestate to open or close modal
@@ -25,7 +25,7 @@ const AddModal = ({addList}) => {
           <Icon
             style={{...styles.modalToggle, ...styles.modalClose}}
             name="remove"
-            size={30}
+            size={50}
             color="red"
             onPress={() => setModalOpen(false)}
           />
@@ -54,31 +54,12 @@ const AddModal = ({addList}) => {
       <Icon
         style={styles.modalToggle}
         name="plus"
-        size={30}
+        size={50}
         color="green"
         onPress={() => setModalOpen(true)}
       />
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  modalToggle: {
-    borderColor: '#f2f2f2',
-    paddingTop: 10,
-    alignSelf: 'center',
-  },
-  modalClose: {
-    marginTop: 20,
-    marginBottom: 20,
-  },
-
-  input: {
-    height: 60,
-    padding: 8,
-    fontSize: 16,
-    marginBottom: 30,
-  },
-});
 
 export default AddModal;

@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
     fontSize: EStyleSheet.value('28rem'),
     fontWeight: '400',
   },
+
   //HEADER
   header: {
     height: 60,
@@ -61,6 +62,25 @@ const styles = StyleSheet.create({
     fontSize: 23,
     textAlign: 'center',
   },
+  //HEADER
+
+  //MODAL
+  modalToggle: {
+    borderColor: '#f2f2f2',
+    paddingTop: EStyleSheet.value('10rem'),
+    paddingRight: EStyleSheet.value('10rem'),
+    alignSelf: 'flex-end',
+  },
+  modalClose: {
+    alignSelf: 'center',
+  },
+  input: {
+    height: EStyleSheet.value('60rem'),
+    padding: EStyleSheet.value('8rem'),
+    fontSize: EStyleSheet.value('16rem'),
+    marginBottom: EStyleSheet.value('10rem'),
+  },
+  //MODAL
 });
 
 export default styles;

@@ -16,15 +16,6 @@ export const useStorage = key => {
 };
 
 export function WelcomeView({navigation}) {
-  let USER_3 = {
-    name: 'Bob',
-    key: uuid.v4(),
-    age: 22,
-    traits: {
-      hair: 'black',
-      eyes: 'brown',
-    },
-  };
   let USER_2 = {
     name: 'I LIKE YOU',
     key: uuid.v4(),
@@ -92,10 +83,8 @@ export function WelcomeView({navigation}) {
     <SafeAreaView style={styles.offlineStyle}>
       <Header title="My Items" />
 
-      <AddModal addList={addList} />
-
       <View style={styles.offlineStyle}>
-        <Button onPress={() => writeItemToStorage(USER_2)} title="Add bob" />
+        {/* <Button onPress={() => writeItemToStorage(USER_2)} title="Add bob" /> */}
         <FlatList
           data={value}
           renderItem={({item}) => (
@@ -107,6 +96,8 @@ export function WelcomeView({navigation}) {
           )}
         />
       </View>
+      <AddModal addList={addList} />
+
       <View style={styles.goOnlineButton}>
         <Button
           onPress={() => deleteListFromStorage()}
