@@ -1,14 +1,19 @@
 import React, {useState} from 'react';
 import {
+  Text,
   View,
   Alert,
   Modal,
   Button,
   TextInput,
+  FlatList,
   TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from '../stylesheet';
+import uuid from 'react-native-uuid';
+
+const defaultSize = 88;
 
 const AddModal = ({addList}) => {
   //usestate to open or close modal
@@ -17,6 +22,21 @@ const AddModal = ({addList}) => {
   //usestate to keep track of the text written
   const [text, setText] = useState('');
   const onChange = textValue => setText(textValue);
+
+  let menuItems = [
+    {name: 'test', icon: 'leaf', color: 'green', key: uuid.v4()},
+    {name: 'test2', icon: 'money', color: 'green', key: uuid.v4()},
+  ];
+
+  const [menuItem, setMenuItem] = useState(menuItems);
+
+  const Item = ({icon, color}) => (
+    <View style={styles.threeFlatList}>
+      <Icon name={icon} size={defaultSize} color={color} />
+    </View>
+  );
+
+  const renderItem = ({item}) => <Item icon={item.icon} color={item.color} />;
 
   return (
     <View>
@@ -29,7 +49,7 @@ const AddModal = ({addList}) => {
             color="red"
             onPress={() => setModalOpen(false)}
           />
-          <TextInput
+          {/* <TextInput
             placeholder="Add Item..."
             style={styles.input}
             onChangeText={onChange}
@@ -47,7 +67,9 @@ const AddModal = ({addList}) => {
               }
             }}
             title="Submit"
-          />
+          /> */}
+
+          <FlatList data={menuItem} renderItem={renderItem} numColumns={3} />
         </TouchableOpacity>
       </Modal>
 

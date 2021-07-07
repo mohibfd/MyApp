@@ -80,6 +80,9 @@ const styles = StyleSheet.create({
     fontSize: EStyleSheet.value('16rem'),
     marginBottom: EStyleSheet.value('10rem'),
   },
+  threeFlatList: {
+    padding: EStyleSheet.value('20rem'),
+  },
   //MODAL
 });
 

@@ -6,7 +6,8 @@ import styles from '../stylesheet';
 import uuid from 'react-native-uuid';
 import ListItem from '../components/ListItem';
 import Header from '../components/Header';
-import AddModal from '../components/addItemModal';
+import AddItemModal from '../components/addItemModal';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const MMKV = new MMKVStorage.Loader().initialize();
 
@@ -16,16 +17,6 @@ export const useStorage = key => {
 };
 
 export function WelcomeView({navigation}) {
-  let USER_2 = {
-    name: 'I LIKE YOU',
-    key: uuid.v4(),
-    age: 22,
-    traits: {
-      hair: 'black',
-      eyes: 'blue',
-    },
-  };
-
   const [item, setItem] = useStorage('TOMATO');
 
   const [value, setValue] = useState([]);
@@ -96,7 +87,8 @@ export function WelcomeView({navigation}) {
           )}
         />
       </View>
-      <AddModal addList={addList} />
+
+      <AddItemModal addList={addList} />
 
       <View style={styles.goOnlineButton}>
         <Button
