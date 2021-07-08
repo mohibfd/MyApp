@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from '../../stylesheet';
 import uuid from 'react-native-uuid';
 import RenderIcons from '../RenderIcons.js';
+import './../global.js';
 
 const AddModal = ({addMainItem}) => {
   //usestate to open or close modal
@@ -12,13 +13,6 @@ const AddModal = ({addMainItem}) => {
   //usestate to keep track of the text written
   const [text, setText] = useState('');
   const onChange = textValue => setText(textValue);
-
-  const menuItems = [
-    {name: 'plants', icon: 'leaf', color: 'green', key: uuid.v4()},
-    {name: 'investment', icon: 'money', color: 'green', key: uuid.v4()},
-  ];
-
-  const [menuItem, setMenuItem] = useState(menuItems);
 
   const toggleModal = () => {
     setModalOpen(!modalOpen);
@@ -55,7 +49,7 @@ const AddModal = ({addMainItem}) => {
           /> */}
 
           <FlatList
-            data={menuItem}
+            data={menuItems}
             renderItem={({item}) => (
               <RenderIcons
                 item={item}

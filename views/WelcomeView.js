@@ -23,6 +23,8 @@ export function WelcomeView({navigation}) {
 
   const [value, setValue] = useState();
 
+  // console.log(menuItems);
+
   const readItemFromStorage = async () => {
     newList = [];
     if (item1) {
@@ -95,11 +97,11 @@ export function WelcomeView({navigation}) {
       <AddItemModal addMainItem={addMainItem} />
 
       <View style={styles.goOnlineButton}>
-        <Button
+        {/* <Button
           onPress={() => deleteListFromStorage()}
           title="Delete List"
           color="#841584"
-        />
+        /> */}
         <Button
           onPress={() => navigation.navigate('Online View')}
           title="Go Online"
