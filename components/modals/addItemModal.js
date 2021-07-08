@@ -13,8 +13,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from '../../stylesheet';
 import uuid from 'react-native-uuid';
 import {set} from 'react-native-reanimated';
-
-const defaultSize = 88;
+import RenderIcons from '../RenderIcons.js';
 
 const AddModal = ({addList}) => {
   //usestate to open or close modal
@@ -47,30 +46,6 @@ const AddModal = ({addList}) => {
     </View>
   );
 
-  const createOrCancel = item => {
-    {
-      setMainItem(item);
-      console.log(item);
-    }
-    Alert.alert('Alert Title', 'My Alert Msg', [
-      {
-        text: 'Cancel',
-        onPress: () => console.log('Cancel Pressed'),
-        style: 'cancel',
-      },
-      {text: 'Yes', onPress: () => createMainItem()},
-    ]);
-  };
-
-  const createMainItem = () => {
-    // console.log(mainItem.name);
-    if (mainItem.name == 'test') {
-      console.log('1');
-    } else if (mainItem.name == 'test2') {
-      console.log('2');
-    }
-  };
-
   return (
     <View>
       <Modal visible={modalOpen} animationType="slide">
@@ -102,7 +77,11 @@ const AddModal = ({addList}) => {
             title="Submit"
           /> */}
 
-          <FlatList data={menuItem} renderItem={renderItem} numColumns={3} />
+          <FlatList
+            data={menuItem}
+            renderItem={({item}) => <RenderIcons item={item} />}
+            numColumns={3}
+          />
         </TouchableOpacity>
       </Modal>
 
