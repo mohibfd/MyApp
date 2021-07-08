@@ -1,13 +1,13 @@
 import MMKVStorage, {useMMKVStorage} from 'react-native-mmkv-storage';
 
 import React, {useEffect, useState} from 'react';
-import {View, SafeAreaView, Button, FlatList} from 'react-native';
+import {View, SafeAreaView, Button, FlatList, Alert} from 'react-native';
 import styles from '../stylesheet';
 import uuid from 'react-native-uuid';
 import ListItem from '../components/ListItem';
 import Header from '../components/Header';
 import AddItemModal from '../components/modals/addItemModal';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import '../components/global.js';
 
 const MMKV = new MMKVStorage.Loader().initialize();
 
@@ -17,57 +17,67 @@ export const useStorage = key => {
 };
 
 export function WelcomeView({navigation}) {
-  const [item, setItem] = useStorage('TOMATO');
+  const [item, setItem] = useStorage('idOne');
+  const [item1, setItem1] = useStorage('plantsId');
+  const [item2, setItem2] = useStorage('investmentId');
 
-  const [value, setValue] = useState([]);
+  const [value, setValue] = useState();
 
   const readItemFromStorage = async () => {
-    setValue(item != null ? JSON.parse(item) : []);
+    newList = [];
+    if (item1) {
+      newList.push(JSON.parse(item1));
+    }
+    if (item2) {
+      newList.push(JSON.parse(item2));
+    }
+
+    setValue(newList);
   };
 
-  const writeItemToStorage = async newValue => {
-    value.push(newValue);
-    setItem(JSON.stringify(value));
-    setValue(value);
-  };
-  const addMainItem = name => {
+  const addMainItem = mainItem => {
+    switch (mainItem.name) {
+      case 'plants':
+        setItem1(JSON.stringify(mainItem));
+        break;
+
+      case 'investment':
+        setItem2(JSON.stringify(mainItem));
+        break;
+      default:
+        Alert.alert('NOT FOUND');
+    }
+
     let newId = uuid.v4();
 
     //adding new list to realm
     // realm.create('todoList', { id: newId, name: text, children: []});
 
     //returning the new list with all the previous ones to show on our app
+
     setValue(prevItems => {
-      return [{id: newId, name, children: []}, ...prevItems];
+      return [{id: newId, name: mainItem.name, children: []}, ...prevItems];
     });
   };
 
-  const deleteItemFromStorage = key => {
+  const deleteItemFromStorage = mainItem => {
+    MMKV.removeItem(mainItem.name + 'Id');
     setValue(prevItems => {
-      return prevItems.filter(item => item.key != key);
+      return prevItems.filter(item => item.key != mainItem.key);
     });
     // The below code displays the alert dialog after two seconds.
-
-    console.log(value);
-    setTimeout(() => {
-      console.log(value);
-    }, 2000);
 
     setItem(JSON.stringify(value));
   };
 
   const deleteListFromStorage = async () => {
-    MMKV.removeItem('TOMATO');
+    MMKV.removeItem('idOne');
 
     setValue([]);
   };
 
   useEffect(() => {
     readItemFromStorage();
-    // return () => {
-    //   console.log(value);
-    //   setItem(JSON.stringify(value));
-    // };
   }, []);
 
   return (

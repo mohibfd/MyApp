@@ -64,6 +64,21 @@ const styles = StyleSheet.create({
   },
   //HEADER
 
+  //MAIN ITEMS LIST
+  ListItem: {
+    padding: 15,
+    paddingRight: 38,
+    borderBottomWidth: 1,
+  },
+  ListItemView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  listItemText: {
+    fontSize: 20,
+  },
+  //MAIN ITEMS LIST
+
   //MODAL
   modalToggle: {
     borderColor: '#f2f2f2',

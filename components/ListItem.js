@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import styles from '../stylesheet';
 
 const ListItem = ({list, deleteItemFromStorage, navigation}) => {
   //return our items alongside a delete icon that calls on deleteList function taking the element's id
@@ -14,26 +15,11 @@ const ListItem = ({list, deleteItemFromStorage, navigation}) => {
           name="remove"
           size={27}
           color="firebrick"
-          onPress={() => deleteItemFromStorage(list.key)}
+          onPress={() => deleteItemFromStorage(list)}
         />
       </View>
     </TouchableOpacity>
   );
 };
-
-const styles = StyleSheet.create({
-  ListItem: {
-    padding: 15,
-    paddingRight: 38,
-    borderBottomWidth: 1,
-  },
-  ListItemView: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  listItemText: {
-    fontSize: 20,
-  },
-});
 
 export default ListItem;

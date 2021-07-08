@@ -49,8 +49,7 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
   };
 
   const createMainItem = () => {
-    // console.log(mainItem.name);
-    addMainItem(item.name);
+    addMainItem(item);
     toggleMainModal();
   };
 

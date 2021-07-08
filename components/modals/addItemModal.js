@@ -1,18 +1,8 @@
 import React, {useState} from 'react';
-import {
-  Text,
-  View,
-  Alert,
-  Modal,
-  Button,
-  TextInput,
-  FlatList,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Modal, FlatList, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from '../../stylesheet';
 import uuid from 'react-native-uuid';
-import {set} from 'react-native-reanimated';
 import RenderIcons from '../RenderIcons.js';
 
 const AddModal = ({addMainItem}) => {
@@ -23,7 +13,7 @@ const AddModal = ({addMainItem}) => {
   const [text, setText] = useState('');
   const onChange = textValue => setText(textValue);
 
-  let menuItems = [
+  const menuItems = [
     {name: 'plants', icon: 'leaf', color: 'green', key: uuid.v4()},
     {name: 'investment', icon: 'money', color: 'green', key: uuid.v4()},
   ];
