@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Text,
   View,
@@ -14,47 +14,51 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from '../stylesheet';
 import uuid from 'react-native-uuid';
 import {set} from 'react-native-reanimated';
+import CreateOrCancel from './CreateOrCancel';
 const defaultSize = 88;
 
-export const RenderIcons = ({item}) => {
+const RenderIcons = ({item}) => {
+  const [isCreateOrCancel, setIsCreateOrCancel] = useState(false);
+
+  const toggleCreateOrCancel = () => {
+    setIsCreateOrCancel(!isCreateOrCancel);
+  };
+
+  const openCreateOrCancel = () => {
+    useEffect(() => {
+      toggleCreateOrCancel();
+    }, []);
+    return <CreateOrCancel action={createMainItem} />;
+  };
+
+  const Item = ({item, icon, color}) => {
+    return (
+      <View style={styles.threeFlatList}>
+        {/* <CreateOrCancel /> */}
+
+        <Icon
+          name={icon}
+          size={defaultSize}
+          color={color}
+          onPress={() => {
+            setIsCreateOrCancel(true);
+          }}
+        />
+
+        {isCreateOrCancel && openCreateOrCancel()}
+      </View>
+    );
+  };
+
+  const createMainItem = () => {
+    // console.log(mainItem.name);
+    if (item.name == 'test') {
+      console.log('1');
+    } else if (item.name == 'test2') {
+      console.log('2');
+    }
+  };
   return <Item item={item} icon={item.icon} color={item.color} />;
-};
-
-const Item = ({item, icon, color}) => {
-  return (
-    <View style={styles.threeFlatList}>
-      <Icon
-        name={icon}
-        size={defaultSize}
-        color={color}
-        onPress={() => createOrCancel(item)}
-      />
-    </View>
-  );
-};
-
-const createOrCancel = item => {
-  {
-    setMainItem(item);
-    console.log(item);
-  }
-  Alert.alert('Alert Title', 'My Alert Msg', [
-    {
-      text: 'Cancel',
-      onPress: () => console.log('Cancel Pressed'),
-      style: 'cancel',
-    },
-    {text: 'Yes', onPress: () => createMainItem()},
-  ]);
-};
-
-const createMainItem = () => {
-  // console.log(mainItem.name);
-  if (mainItem.name == 'test') {
-    console.log('1');
-  } else if (mainItem.name == 'test2') {
-    console.log('2');
-  }
 };
 
 export default RenderIcons;

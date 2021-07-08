@@ -22,7 +22,6 @@ const AddModal = ({addList}) => {
   //usestate to keep track of the text written
   const [text, setText] = useState('');
   const onChange = textValue => setText(textValue);
-  const [mainItem, setMainItem] = useState(null);
 
   let menuItems = [
     {name: 'test', icon: 'leaf', color: 'green', key: uuid.v4()},
@@ -31,20 +30,20 @@ const AddModal = ({addList}) => {
 
   const [menuItem, setMenuItem] = useState(menuItems);
 
-  const renderItem = ({item}) => (
-    <Item item={item} icon={item.icon} color={item.color} />
-  );
+  // const renderItem = ({item}) => (
+  //   <Item item={item} icon={item.icon} color={item.color} />
+  // );
 
-  const Item = ({item, icon, color}) => (
-    <View style={styles.threeFlatList}>
-      <Icon
-        name={icon}
-        size={defaultSize}
-        color={color}
-        onPress={() => createOrCancel(item)}
-      />
-    </View>
-  );
+  // const Item = ({item, icon, color}) => (
+  //   <View style={styles.threeFlatList}>
+  //     <Icon
+  //       name={icon}
+  //       size={defaultSize}
+  //       color={color}
+  //       onPress={() => createOrCancel(item)}
+  //     />
+  //   </View>
+  // );
 
   return (
     <View>
