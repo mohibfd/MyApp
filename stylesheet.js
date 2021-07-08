@@ -66,16 +66,18 @@ const styles = StyleSheet.create({
 
   //MAIN ITEMS LIST
   ListItem: {
-    padding: EStyleSheet.value('25rem'),
+    padding: EStyleSheet.value('20rem'),
     paddingRight: EStyleSheet.value('38rem'),
-    borderBottomWidth: EStyleSheet.value('1rem'),
+    paddingLeft: EStyleSheet.value('25rem'),
+
+    borderBottomWidth: EStyleSheet.value('2rem'),
   },
   ListItemView: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   listItemText: {
-    fontSize: EStyleSheet.value('40rem'),
+    fontSize: EStyleSheet.value('35rem'),
   },
   //MAIN ITEMS LIST
 
@@ -98,7 +100,7 @@ const styles = StyleSheet.create({
   threeFlatList: {
     padding: EStyleSheet.value('20rem'),
   },
-  test: {
+  redCross: {
     alignSelf: 'center',
   },
   //MODAL
