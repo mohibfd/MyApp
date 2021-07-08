@@ -17,7 +17,7 @@ import {set} from 'react-native-reanimated';
 import CreateOrCancel from './CreateOrCancel';
 const defaultSize = 88;
 
-const RenderIcons = ({item}) => {
+const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
   const [isCreateOrCancel, setIsCreateOrCancel] = useState(false);
 
   const toggleCreateOrCancel = () => {
@@ -31,17 +31,15 @@ const RenderIcons = ({item}) => {
     return <CreateOrCancel action={createMainItem} />;
   };
 
-  const Item = ({item, icon, color}) => {
+  const Item = ({icon, color}) => {
     return (
       <View style={styles.threeFlatList}>
-        {/* <CreateOrCancel /> */}
-
         <Icon
           name={icon}
           size={defaultSize}
           color={color}
           onPress={() => {
-            setIsCreateOrCancel(true);
+            toggleCreateOrCancel();
           }}
         />
 
@@ -52,12 +50,10 @@ const RenderIcons = ({item}) => {
 
   const createMainItem = () => {
     // console.log(mainItem.name);
-    if (item.name == 'test') {
-      console.log('1');
-    } else if (item.name == 'test2') {
-      console.log('2');
-    }
+    addMainItem(item.name);
+    toggleMainModal();
   };
+
   return <Item item={item} icon={item.icon} color={item.color} />;
 };
 

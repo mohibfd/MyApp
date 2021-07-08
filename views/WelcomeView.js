@@ -30,7 +30,7 @@ export function WelcomeView({navigation}) {
     setItem(JSON.stringify(value));
     setValue(value);
   };
-  const addList = name => {
+  const addMainItem = name => {
     let newId = uuid.v4();
 
     //adding new list to realm
@@ -88,7 +88,7 @@ export function WelcomeView({navigation}) {
         />
       </View>
 
-      <AddItemModal addList={addList} />
+      <AddItemModal addMainItem={addMainItem} />
 
       <View style={styles.goOnlineButton}>
         <Button

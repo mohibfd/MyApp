@@ -15,7 +15,7 @@ import uuid from 'react-native-uuid';
 import {set} from 'react-native-reanimated';
 import RenderIcons from '../RenderIcons.js';
 
-const AddModal = ({addList}) => {
+const AddModal = ({addMainItem}) => {
   //usestate to open or close modal
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -24,27 +24,15 @@ const AddModal = ({addList}) => {
   const onChange = textValue => setText(textValue);
 
   let menuItems = [
-    {name: 'test', icon: 'leaf', color: 'green', key: uuid.v4()},
-    {name: 'test2', icon: 'money', color: 'green', key: uuid.v4()},
+    {name: 'plants', icon: 'leaf', color: 'green', key: uuid.v4()},
+    {name: 'investment', icon: 'money', color: 'green', key: uuid.v4()},
   ];
 
   const [menuItem, setMenuItem] = useState(menuItems);
 
-  // const renderItem = ({item}) => (
-  //   <Item item={item} icon={item.icon} color={item.color} />
-  // );
-
-  // const Item = ({item, icon, color}) => (
-  //   <View style={styles.threeFlatList}>
-  //     <Icon
-  //       name={icon}
-  //       size={defaultSize}
-  //       color={color}
-  //       onPress={() => createOrCancel(item)}
-  //     />
-  //   </View>
-  // );
-
+  const toggleModal = () => {
+    setModalOpen(!modalOpen);
+  };
   return (
     <View>
       <Modal visible={modalOpen} animationType="slide">
@@ -54,7 +42,7 @@ const AddModal = ({addList}) => {
             name="remove"
             size={50}
             color="red"
-            onPress={() => setModalOpen(false)}
+            onPress={() => toggleModal()}
           />
           {/* <TextInput
             placeholder="Add Item..."
@@ -68,7 +56,7 @@ const AddModal = ({addList}) => {
               if (!text) {
                 Alert.alert('Error', 'Item cannot be empty');
               } else {
-                addList(text);
+                addMainItem(text);
                 setModalOpen(false);
                 setText('');
               }
@@ -78,7 +66,13 @@ const AddModal = ({addList}) => {
 
           <FlatList
             data={menuItem}
-            renderItem={({item}) => <RenderIcons item={item} />}
+            renderItem={({item}) => (
+              <RenderIcons
+                item={item}
+                toggleMainModal={toggleModal}
+                addMainItem={addMainItem}
+              />
+            )}
             numColumns={3}
           />
         </TouchableOpacity>
@@ -89,7 +83,7 @@ const AddModal = ({addList}) => {
         name="plus"
         size={50}
         color="green"
-        onPress={() => setModalOpen(true)}
+        onPress={() => toggleModal()}
       />
     </View>
   );
