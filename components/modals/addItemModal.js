@@ -49,7 +49,7 @@ const AddModal = ({addMainItem}) => {
           /> */}
 
           <FlatList
-            data={menuItems}
+            data={globalMenuItems}
             renderItem={({item}) => (
               <RenderIcons
                 item={item}
@@ -65,7 +65,7 @@ const AddModal = ({addMainItem}) => {
       <Icon
         style={styles.modalToggle}
         name="plus"
-        size={50}
+        size={75}
         color="green"
         onPress={() => toggleModal()}
       />

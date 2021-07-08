@@ -9,14 +9,11 @@ const rem =
 EStyleSheet.build({$rem: rem});
 
 const styles = StyleSheet.create({
-  offlineStyle: {
+  welcome: {
     flex: 1,
   },
-  goOnlineButton: {
-    paddingBottom: EStyleSheet.value('50rem'),
-    alignSelf: 'center',
-    width: '50%',
-  },
+
+  //ONLINE
   inputContainer: {
     padding: EStyleSheet.value('5rem'),
   },
@@ -50,6 +47,7 @@ const styles = StyleSheet.create({
     fontSize: EStyleSheet.value('28rem'),
     fontWeight: '400',
   },
+  //ONLINE
 
   //HEADER
   header: {
@@ -64,30 +62,46 @@ const styles = StyleSheet.create({
   },
   //HEADER
 
-  //MAIN ITEMS LIST
-  ListItem: {
-    padding: EStyleSheet.value('20rem'),
-    paddingRight: EStyleSheet.value('38rem'),
-    paddingLeft: EStyleSheet.value('25rem'),
+  //MAIN HOME PAGE
 
-    borderBottomWidth: EStyleSheet.value('2rem'),
+  ListItem: {
+    flex: 3,
+    paddingVertical: EStyleSheet.value('30rem'),
+    width: '50%',
+    borderWidth: EStyleSheet.value('2rem'),
   },
   ListItemView: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
   },
   listItemText: {
-    fontSize: EStyleSheet.value('35rem'),
+    fontSize: EStyleSheet.value('40rem'),
+    paddingHorizontal: EStyleSheet.value('15rem'),
   },
-  //MAIN ITEMS LIST
+  redCross: {
+    paddingHorizontal: EStyleSheet.value('5rem'),
+    alignSelf: 'center',
+  },
 
-  //MODAL
   modalToggle: {
     borderColor: '#f2f2f2',
-    paddingTop: EStyleSheet.value('10rem'),
-    paddingRight: EStyleSheet.value('10rem'),
+    padding: EStyleSheet.value('30rem'),
+    paddingRight: EStyleSheet.value('25rem'),
+    position: 'absolute',
     alignSelf: 'flex-end',
+    bottom: EStyleSheet.value('-450rem'),
   },
+
+  goOnlineButton: {
+    position: 'absolute',
+    paddingBottom: EStyleSheet.value('50rem'),
+    alignSelf: 'center',
+    width: '50%',
+    bottom: 0,
+  },
+  //MAIN HOME PAGE
+
+  //MODAL
   modalClose: {
     alignSelf: 'center',
   },
@@ -100,9 +114,7 @@ const styles = StyleSheet.create({
   threeFlatList: {
     padding: EStyleSheet.value('20rem'),
   },
-  redCross: {
-    alignSelf: 'center',
-  },
+
   //MODAL
 });
 

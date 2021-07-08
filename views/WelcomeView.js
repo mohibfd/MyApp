@@ -19,11 +19,9 @@ export const useStorage = key => {
 export function WelcomeView({navigation}) {
   const [item, setItem] = useStorage('idOne');
   const [item1, setItem1] = useStorage('plantsId');
-  const [item2, setItem2] = useStorage('investmentId');
+  const [item2, setItem2] = useStorage('investId');
 
   const [value, setValue] = useState();
-
-  // console.log(menuItems);
 
   const readItemFromStorage = async () => {
     newList = [];
@@ -43,7 +41,7 @@ export function WelcomeView({navigation}) {
         setItem1(JSON.stringify(mainItem));
         break;
 
-      case 'investment':
+      case 'invest':
         setItem2(JSON.stringify(mainItem));
         break;
       default:
@@ -61,15 +59,6 @@ export function WelcomeView({navigation}) {
     setValue(prevItems => {
       return prevItems.filter(item => item.key != mainItem.key);
     });
-    // The below code displays the alert dialog after two seconds.
-
-    setItem(JSON.stringify(value));
-  };
-
-  const deleteListFromStorage = async () => {
-    MMKV.removeItem('idOne');
-
-    setValue([]);
   };
 
   useEffect(() => {
@@ -77,11 +66,10 @@ export function WelcomeView({navigation}) {
   }, []);
 
   return (
-    <SafeAreaView style={styles.offlineStyle}>
+    <SafeAreaView style={styles.welcome}>
       <Header title="My Items" />
 
-      <View style={styles.offlineStyle}>
-        {/* <Button onPress={() => writeItemToStorage(USER_2)} title="Add bob" /> */}
+      <View>
         <FlatList
           data={value}
           renderItem={({item}) => (
@@ -91,17 +79,13 @@ export function WelcomeView({navigation}) {
               navigation={navigation}
             />
           )}
+          numColumns={2}
         />
       </View>
 
       <AddItemModal addMainItem={addMainItem} />
 
       <View style={styles.goOnlineButton}>
-        {/* <Button
-          onPress={() => deleteListFromStorage()}
-          title="Delete List"
-          color="#841584"
-        /> */}
         <Button
           onPress={() => navigation.navigate('Online View')}
           title="Go Online"
