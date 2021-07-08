@@ -10,8 +10,9 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import styles from '../stylesheet';
+import styles from '../../stylesheet';
 import uuid from 'react-native-uuid';
+import {set} from 'react-native-reanimated';
 
 const defaultSize = 88;
 
@@ -22,6 +23,7 @@ const AddModal = ({addList}) => {
   //usestate to keep track of the text written
   const [text, setText] = useState('');
   const onChange = textValue => setText(textValue);
+  const [mainItem, setMainItem] = useState(null);
 
   let menuItems = [
     {name: 'test', icon: 'leaf', color: 'green', key: uuid.v4()},
@@ -30,13 +32,44 @@ const AddModal = ({addList}) => {
 
   const [menuItem, setMenuItem] = useState(menuItems);
 
-  const Item = ({icon, color}) => (
+  const renderItem = ({item}) => (
+    <Item item={item} icon={item.icon} color={item.color} />
+  );
+
+  const Item = ({item, icon, color}) => (
     <View style={styles.threeFlatList}>
-      <Icon name={icon} size={defaultSize} color={color} />
+      <Icon
+        name={icon}
+        size={defaultSize}
+        color={color}
+        onPress={() => createOrCancel(item)}
+      />
     </View>
   );
 
-  const renderItem = ({item}) => <Item icon={item.icon} color={item.color} />;
+  const createOrCancel = item => {
+    {
+      setMainItem(item);
+      console.log(item);
+    }
+    Alert.alert('Alert Title', 'My Alert Msg', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {text: 'Yes', onPress: () => createMainItem()},
+    ]);
+  };
+
+  const createMainItem = () => {
+    // console.log(mainItem.name);
+    if (mainItem.name == 'test') {
+      console.log('1');
+    } else if (mainItem.name == 'test2') {
+      console.log('2');
+    }
+  };
 
   return (
     <View>

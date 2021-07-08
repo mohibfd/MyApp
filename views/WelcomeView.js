@@ -6,7 +6,7 @@ import styles from '../stylesheet';
 import uuid from 'react-native-uuid';
 import ListItem from '../components/ListItem';
 import Header from '../components/Header';
-import AddItemModal from '../components/addItemModal';
+import AddItemModal from '../components/modals/addItemModal';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const MMKV = new MMKVStorage.Loader().initialize();
