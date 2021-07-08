@@ -48,15 +48,9 @@ export function WelcomeView({navigation}) {
         Alert.alert('NOT FOUND');
     }
 
-    let newId = uuid.v4();
-
-    //adding new list to realm
-    // realm.create('todoList', { id: newId, name: text, children: []});
-
     //returning the new list with all the previous ones to show on our app
-
     setValue(prevItems => {
-      return [{id: newId, name: mainItem.name, children: []}, ...prevItems];
+      return [{id: uuid.v4(), name: mainItem.name, children: []}, ...prevItems];
     });
   };
 

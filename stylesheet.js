@@ -53,8 +53,8 @@ const styles = StyleSheet.create({
 
   //HEADER
   header: {
-    height: 60,
-    padding: 15,
+    height: EStyleSheet.value('60rem'),
+    padding: EStyleSheet.value('15rem'),
     backgroundColor: 'darkslateblue',
   },
   text: {
@@ -66,16 +66,16 @@ const styles = StyleSheet.create({
 
   //MAIN ITEMS LIST
   ListItem: {
-    padding: 15,
-    paddingRight: 38,
-    borderBottomWidth: 1,
+    padding: EStyleSheet.value('25rem'),
+    paddingRight: EStyleSheet.value('38rem'),
+    borderBottomWidth: EStyleSheet.value('1rem'),
   },
   ListItemView: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   listItemText: {
-    fontSize: 20,
+    fontSize: EStyleSheet.value('40rem'),
   },
   //MAIN ITEMS LIST
 
@@ -97,6 +97,9 @@ const styles = StyleSheet.create({
   },
   threeFlatList: {
     padding: EStyleSheet.value('20rem'),
+  },
+  test: {
+    alignSelf: 'center',
   },
   //MODAL
 });

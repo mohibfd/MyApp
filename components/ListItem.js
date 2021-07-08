@@ -12,8 +12,9 @@ const ListItem = ({list, deleteItemFromStorage, navigation}) => {
       <View style={styles.ListItemView}>
         <Text style={styles.listItemText}>{list.name}</Text>
         <Icon
+          style={styles.test}
           name="remove"
-          size={27}
+          size={50}
           color="firebrick"
           onPress={() => deleteItemFromStorage(list)}
         />
