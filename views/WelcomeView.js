@@ -21,7 +21,7 @@ export function WelcomeView({navigation}) {
   const [item1, setItem1] = useStorage('plantsId');
   const [item2, setItem2] = useStorage('investId');
 
-  const [value, setValue] = useState();
+  const [items, setItems] = useState();
 
   const readItemFromStorage = async () => {
     newList = [];
@@ -32,37 +32,46 @@ export function WelcomeView({navigation}) {
       newList.push(JSON.parse(item2));
     }
 
-    setValue(newList);
+    setItems(newList);
   };
 
   const addMainItem = mainItem => {
-    globalMenuItems.map(item => {
+    let breakFunction;
+
+    items.map(item => {
       if (item.name == mainItem.name) {
-        return;
+        breakFunction = true;
       }
     });
 
+    if (breakFunction) {
+      return;
+    }
     switch (mainItem.name) {
       case 'plants':
-        setItem1(JSON.stringify(mainItem));
+        setItem1(mainItem);
+
         break;
       case 'invest':
-        setItem2(JSON.stringify(mainItem));
+        setItem2(mainItem);
         break;
       default:
         Alert.alert('NOT FOUND');
     }
 
     //returning the new list with all the previous ones to show on our app
-    setValue(prevItems => {
+    setItems(prevItems => {
       return [{id: uuid.v4(), name: mainItem.name, children: []}, ...prevItems];
     });
   };
 
   const deleteItemFromStorage = mainItem => {
     MMKV.removeItem(mainItem.name + 'Id');
-    setValue(prevItems => {
-      return prevItems.filter(item => item.key != mainItem.key);
+
+    console.log(mainItem);
+
+    setItems(prevItems => {
+      return prevItems.filter(item => item != mainItem);
     });
   };
 
@@ -75,7 +84,7 @@ export function WelcomeView({navigation}) {
       <Header title="My Items" />
 
       <FlatList
-        data={value}
+        data={items}
         renderItem={({item}) => (
           <ListItem
             list={item}
