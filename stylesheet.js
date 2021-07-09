@@ -102,14 +102,15 @@ const styles = StyleSheet.create({
 
   //MODAL
   modalClose: {
+    paddingTop: EStyleSheet.value('10rem'),
     alignSelf: 'center',
   },
-  input: {
-    height: EStyleSheet.value('60rem'),
-    padding: EStyleSheet.value('8rem'),
-    fontSize: EStyleSheet.value('16rem'),
-    marginBottom: EStyleSheet.value('10rem'),
-  },
+  // input: {
+  //   height: EStyleSheet.value('60rem'),
+  //   padding: EStyleSheet.value('8rem'),
+  //   fontSize: EStyleSheet.value('16rem'),
+  //   marginBottom: EStyleSheet.value('10rem'),
+  // },
   threeFlatList: {
     padding: EStyleSheet.value('20rem'),
   },

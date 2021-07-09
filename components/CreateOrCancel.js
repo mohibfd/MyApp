@@ -1,7 +1,7 @@
 import {Alert} from 'react-native';
 
 const CreateOrCancel = ({action}) => {
-  Alert.alert('Alert Title', 'My Alert Msg', [
+  Alert.alert('Create item?', '', [
     {
       text: 'Cancel',
       onPress: () => console.log('Cancel Pressed'),

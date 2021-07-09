@@ -22,7 +22,7 @@ const AddModal = ({addMainItem}) => {
       <Modal visible={modalOpen} animationType="slide">
         <TouchableOpacity>
           <Icon
-            style={{...styles.modalToggle, ...styles.modalClose}}
+            style={styles.modalClose}
             name="remove"
             size={50}
             color="red"
