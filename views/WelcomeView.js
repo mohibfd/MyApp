@@ -1,13 +1,12 @@
 import MMKVStorage, {useMMKVStorage} from 'react-native-mmkv-storage';
-
 import React, {useEffect, useState} from 'react';
 import {View, SafeAreaView, Button, FlatList, Alert} from 'react-native';
-import styles from '../stylesheet';
 import uuid from 'react-native-uuid';
+
+import styles from '../stylesheet';
 import ListItem from '../components/ListItem';
 import Header from '../components/Header';
 import AddItemModal from '../components/modals/addItemModal';
-import '../components/global.js';
 
 const MMKV = new MMKVStorage.Loader().initialize();
 
@@ -18,42 +17,42 @@ export const useStorage = key => {
 
 export function WelcomeView({navigation}) {
   // const [item, setItem] = useStorage('idOne');
-  const [item1, setItem1] = useStorage('plantsId');
-  const [item2, setItem2] = useStorage('investId');
+  const [item1, setItem1] = useStorage('PlantsId');
+  const [item2, setItem2] = useStorage('InvestId');
+  const [item3, setItem3] = useStorage('WorkoutId');
 
   const [items, setItems] = useState();
 
   const readItemFromStorage = async () => {
     newList = [];
     if (item1) {
-      newList.push(JSON.parse(item1));
+      newList.push(item1);
     }
     if (item2) {
-      newList.push(JSON.parse(item2));
+      newList.push(item2);
     }
-
+    if (item3) {
+      newList.push(item3);
+    }
     setItems(newList);
   };
 
+  //adding list to storage
   const addMainItem = mainItem => {
-    let breakFunction;
-
-    items.map(item => {
-      if (item.name == mainItem.name) {
-        breakFunction = true;
-      }
-    });
-
-    if (breakFunction) {
+    if (isDuplicate(mainItem)) {
       return;
     }
+
     switch (mainItem.name) {
-      case 'plants':
+      case 'Plants':
         setItem1(mainItem);
 
         break;
-      case 'invest':
+      case 'Invest':
         setItem2(mainItem);
+        break;
+      case 'Workout':
+        setItem3(mainItem);
         break;
       default:
         Alert.alert('NOT FOUND');
@@ -65,10 +64,20 @@ export function WelcomeView({navigation}) {
     });
   };
 
+  //checks if this item has been created already
+  const isDuplicate = mainItem => {
+    let breakFunction = false;
+    items.map(item => {
+      if (item.name == mainItem.name) {
+        breakFunction = true;
+      }
+    });
+    return breakFunction;
+  };
+
+  //deleting item from storage
   const deleteItemFromStorage = mainItem => {
     MMKV.removeItem(mainItem.name + 'Id');
-
-    console.log(mainItem);
 
     setItems(prevItems => {
       return prevItems.filter(item => item != mainItem);

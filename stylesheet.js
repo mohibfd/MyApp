@@ -80,7 +80,8 @@ const styles = StyleSheet.create({
   },
   redCross: {
     paddingHorizontal: EStyleSheet.value('5rem'),
-    alignSelf: 'center',
+    flexDirection: 'row',
+    alignSelf: 'flex-end',
   },
 
   modalToggle: {
