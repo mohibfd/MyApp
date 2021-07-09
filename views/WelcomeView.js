@@ -17,7 +17,7 @@ export const useStorage = key => {
 };
 
 export function WelcomeView({navigation}) {
-  const [item, setItem] = useStorage('idOne');
+  // const [item, setItem] = useStorage('idOne');
   const [item1, setItem1] = useStorage('plantsId');
   const [item2, setItem2] = useStorage('investId');
 
@@ -36,11 +36,16 @@ export function WelcomeView({navigation}) {
   };
 
   const addMainItem = mainItem => {
+    globalMenuItems.map(item => {
+      if (item.name == mainItem.name) {
+        return;
+      }
+    });
+
     switch (mainItem.name) {
       case 'plants':
         setItem1(JSON.stringify(mainItem));
         break;
-
       case 'invest':
         setItem2(JSON.stringify(mainItem));
         break;
@@ -69,19 +74,17 @@ export function WelcomeView({navigation}) {
     <SafeAreaView style={styles.welcome}>
       <Header title="My Items" />
 
-      <View>
-        <FlatList
-          data={value}
-          renderItem={({item}) => (
-            <ListItem
-              list={item}
-              deleteItemFromStorage={deleteItemFromStorage}
-              navigation={navigation}
-            />
-          )}
-          numColumns={2}
-        />
-      </View>
+      <FlatList
+        data={value}
+        renderItem={({item}) => (
+          <ListItem
+            list={item}
+            deleteItemFromStorage={deleteItemFromStorage}
+            navigation={navigation}
+          />
+        )}
+        numColumns={2}
+      />
 
       <AddItemModal addMainItem={addMainItem} />
 

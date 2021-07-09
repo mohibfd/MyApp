@@ -9,10 +9,6 @@ const rem =
 EStyleSheet.build({$rem: rem});
 
 const styles = StyleSheet.create({
-  welcome: {
-    flex: 1,
-  },
-
   //ONLINE
   inputContainer: {
     padding: EStyleSheet.value('5rem'),
@@ -63,7 +59,12 @@ const styles = StyleSheet.create({
   //HEADER
 
   //MAIN HOME PAGE
+  welcome: {
+    flex: 1,
+  },
+
   ListItem: {
+    // flex: 1,
     backgroundColor: '#e6ffff',
     paddingVertical: EStyleSheet.value('30rem'),
     width: '50%',
@@ -84,19 +85,15 @@ const styles = StyleSheet.create({
 
   modalToggle: {
     borderColor: '#f2f2f2',
-    padding: EStyleSheet.value('30rem'),
+    padding: EStyleSheet.value('20rem'),
     paddingRight: EStyleSheet.value('25rem'),
-    position: 'absolute',
     alignSelf: 'flex-end',
-    bottom: EStyleSheet.value('-450rem'),
   },
 
   goOnlineButton: {
-    position: 'absolute',
     paddingBottom: EStyleSheet.value('40rem'),
     alignSelf: 'center',
-    width: '50%',
-    bottom: 0,
+    width: '75%',
   },
   //MAIN HOME PAGE
 

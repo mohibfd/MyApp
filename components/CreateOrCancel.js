@@ -1,13 +1,12 @@
 import {Alert} from 'react-native';
 
-const CreateOrCancel = ({action}) => {
-  Alert.alert('Create item?', '', [
+const CreateOrCancel = ({icon, action}) => {
+  Alert.alert('Create item?', 'Do you want to create <' + icon + '> icon?', [
     {
       text: 'Cancel',
-      onPress: () => console.log('Cancel Pressed'),
-      style: 'cancel',
+      style: 'destructive',
     },
-    {text: 'Yes', onPress: () => action()},
+    {text: 'Yes', onPress: () => action(), style: 'default'},
   ]);
   return null;
 };

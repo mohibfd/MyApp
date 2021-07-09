@@ -28,7 +28,7 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
     useEffect(() => {
       toggleCreateOrCancel();
     }, []);
-    return <CreateOrCancel action={createMainItem} />;
+    return <CreateOrCancel icon={item.icon} action={createMainItem} />;
   };
 
   const Item = ({icon, color}) => {
