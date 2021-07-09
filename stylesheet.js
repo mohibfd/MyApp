@@ -63,9 +63,8 @@ const styles = StyleSheet.create({
   //HEADER
 
   //MAIN HOME PAGE
-
   ListItem: {
-    flex: 3,
+    backgroundColor: '#e6ffff',
     paddingVertical: EStyleSheet.value('30rem'),
     width: '50%',
     borderWidth: EStyleSheet.value('2rem'),
@@ -94,7 +93,7 @@ const styles = StyleSheet.create({
 
   goOnlineButton: {
     position: 'absolute',
-    paddingBottom: EStyleSheet.value('50rem'),
+    paddingBottom: EStyleSheet.value('40rem'),
     alignSelf: 'center',
     width: '50%',
     bottom: 0,
