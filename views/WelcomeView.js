@@ -23,6 +23,10 @@ export function WelcomeView({navigation}) {
 
   const [items, setItems] = useState();
 
+  useEffect(() => {
+    readItemFromStorage();
+  }, []);
+
   const readItemFromStorage = async () => {
     newList = [];
     if (item1) {
@@ -46,7 +50,6 @@ export function WelcomeView({navigation}) {
     switch (mainItem.name) {
       case 'Plants':
         setItem1(mainItem);
-
         break;
       case 'Invest':
         setItem2(mainItem);
@@ -83,10 +86,6 @@ export function WelcomeView({navigation}) {
       return prevItems.filter(item => item != mainItem);
     });
   };
-
-  useEffect(() => {
-    readItemFromStorage();
-  }, []);
 
   return (
     <SafeAreaView style={styles.welcome}>

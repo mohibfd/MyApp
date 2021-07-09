@@ -62,28 +62,26 @@ const styles = StyleSheet.create({
   welcome: {
     flex: 1,
   },
-
   ListItem: {
-    // flex: 1,
+    flex: 1,
+    width: '50%',
     backgroundColor: '#e6ffff',
     paddingVertical: EStyleSheet.value('30rem'),
-    width: '50%',
     borderWidth: EStyleSheet.value('2rem'),
   },
   ListItemView: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    alignItems: 'center',
   },
   listItemText: {
-    fontSize: EStyleSheet.value('40rem'),
-    paddingHorizontal: EStyleSheet.value('15rem'),
+    flex: 4,
+    fontSize: EStyleSheet.value('35rem'),
+    marginLeft: EStyleSheet.value('10rem'),
   },
   redCross: {
+    flex: 1,
     paddingHorizontal: EStyleSheet.value('5rem'),
-    flexDirection: 'row',
-    alignSelf: 'flex-end',
   },
-
   modalToggle: {
     borderColor: '#f2f2f2',
     padding: EStyleSheet.value('20rem'),
