@@ -88,22 +88,12 @@ export function WelcomeView({navigation}) {
     return breakFunction;
   };
 
-  //deleting item from storage
-  const deleteItemFromStorage = mainItem => {
+  //deleting item from storage pop up
+  const openDeleteOrCancel = mainItem => {
     toggleDeleteOrCancel();
     setDeleteItem(mainItem);
-    // const completeDeletion = () => {
-    //   MMKV.removeItem(mainItem.name + 'Id');
-
-    //   setItems(prevItems => {
-    //     return prevItems.filter(item => item != mainItem);
-    //   });
-    // };
-
-    // return (
-
-    // );
   };
+
   const completeDeletion = () => {
     toggleDeleteOrCancel();
 
@@ -122,7 +112,7 @@ export function WelcomeView({navigation}) {
         renderItem={({item}) => (
           <ListItem
             item={item}
-            deleteItemFromStorage={deleteItemFromStorage}
+            deleteItemFromStorage={openDeleteOrCancel}
             navigation={navigation}
           />
         )}
@@ -142,6 +132,7 @@ export function WelcomeView({navigation}) {
         <CreateOrCancel
           name={deleteItem.name}
           action={completeDeletion}
+          action2={toggleDeleteOrCancel}
           deletion
         />
       )}

@@ -8,7 +8,6 @@ import styles from '../stylesheets/stylesheet';
 function PlantItem({task}) {
   const [actionSheetVisible, setActionSheetVisible] = useState(false);
 
-  console.log(task.name);
   return (
     <>
       {/* <ActionSheet

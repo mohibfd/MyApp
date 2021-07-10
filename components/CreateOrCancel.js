@@ -1,6 +1,6 @@
 import {Alert} from 'react-native';
 
-const CreateOrCancel = ({name, action, deletion}) => {
+const CreateOrCancel = ({name, action, action2, deletion}) => {
   if (deletion) {
     Alert.alert(
       'Delete item?',
@@ -9,6 +9,7 @@ const CreateOrCancel = ({name, action, deletion}) => {
         {
           text: 'Cancel',
           style: 'default',
+          onPress: () => action2(),
         },
         {text: 'Yes', onPress: () => action(), style: 'destructive'},
       ],

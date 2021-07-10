@@ -28,7 +28,7 @@ export function PlantsView({navigation}) {
 
   const createTask = newPlantName => {
     setPlants(prevItems => {
-      return [{name: newPlantName, id: uuid.v4()}, ...prevItems];
+      return [{name: newPlantName, key: uuid.v4()}, ...prevItems];
     });
   };
 
