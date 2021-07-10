@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
 import {Overlay, Input, Button, Text} from 'react-native-elements';
-import styles from '../../stylesheets/onlineStylesheet';
+import styles from '../stylesheets/stylesheet';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 // The AddTask is a button for adding tasks. When the button is pressed, an
 // overlay shows up to request user input for the new task name. When the
 // "Create" button on the overlay is pressed, the overlay closes and the new
 // task is created in the realm.
-export function AddTask({createTask}) {
+export function AddPlant({createTask}) {
   const [overlayVisible, setOverlayVisible] = useState(false);
   const [newTaskName, setNewTaskName] = useState('');
 
@@ -31,11 +32,11 @@ export function AddTask({createTask}) {
           />
         </>
       </Overlay>
-
-      <Button
-        type="clear"
-        titleStyle={styles.plusButton}
-        title="&#x2b;"
+      <Icon
+        style={styles.plusButton}
+        name="plus"
+        size={75}
+        color="green"
         onPress={() => {
           setOverlayVisible(true);
         }}

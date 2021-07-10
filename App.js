@@ -23,8 +23,16 @@ const App = () => {
         <Stack.Navigator
         // screenOptions={{headerShown: false}}
         >
-          <Stack.Screen name="Welcome View" component={WelcomeView} />
-          <Stack.Screen name="Plants View" component={PlantsView} />
+          <Stack.Screen
+            name="Welcome View"
+            component={WelcomeView}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Plants View"
+            component={PlantsView}
+            options={{headerShown: false}}
+          />
 
           <Stack.Screen
             name="Online View"

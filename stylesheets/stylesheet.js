@@ -11,14 +11,27 @@ EStyleSheet.build({$rem: rem});
 const styles = StyleSheet.create({
   //HEADER
   header: {
-    height: EStyleSheet.value('60rem'),
-    padding: EStyleSheet.value('15rem'),
+    height: '7%',
     backgroundColor: 'darkslateblue',
+    justifyContent: 'center',
+  },
+  textContainer: {
+    position: 'absolute',
+    alignSelf: 'center',
   },
   text: {
+    textAlign: 'left',
     color: '#fff',
-    fontSize: 23,
-    textAlign: 'center',
+    fontSize: EStyleSheet.value('25rem'),
+  },
+  plusButtonContainer: {
+    position: 'absolute',
+    alignSelf: 'flex-end',
+  },
+  plusButton: {
+    alignSelf: 'flex-end',
+    fontSize: EStyleSheet.value('40rem'),
+    marginRight: EStyleSheet.value('7rem'),
   },
   //HEADER
 

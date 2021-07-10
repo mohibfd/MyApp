@@ -1,6 +1,6 @@
 import MMKVStorage, {useMMKVStorage} from 'react-native-mmkv-storage';
 import React, {useEffect, useState} from 'react';
-import {View, SafeAreaView, Text, Button, FlatList, Alert} from 'react-native';
+import {View, SafeAreaView, Button, FlatList, Alert} from 'react-native';
 import uuid from 'react-native-uuid';
 
 import styles from '../stylesheets/stylesheet.js';
@@ -24,9 +24,24 @@ export function PlantsView({navigation}) {
 
   const [items, setItems] = useState();
 
+  const createTask = newTaskName => {
+    console.log('?');
+    const projectRealm = realmRef.current;
+    projectRealm.write(() => {
+      // Create a new task in the same partition -- that is, in the same project.
+      projectRealm.create(
+        'Task',
+        new Task({
+          name: newTaskName || 'New Task',
+          partition: projectPartition,
+        }),
+      );
+    });
+  };
+
   return (
     <SafeAreaView style={styles.welcome}>
-      <Text>heys</Text>
+      <Header title="My Plants" add={createTask} />
     </SafeAreaView>
   );
 }
