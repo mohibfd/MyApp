@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
-import {View, Button, Text} from 'react-native';
+import {View, Button} from 'react-native';
 import styles from '../../stylesheets/onlineStylesheet';
 
 import {Overlay} from 'react-native-elements';

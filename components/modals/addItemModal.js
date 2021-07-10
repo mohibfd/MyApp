@@ -9,10 +9,6 @@ const AddModal = ({addMainItem}) => {
   //usestate to open or close modal
   const [modalOpen, setModalOpen] = useState(false);
 
-  //usestate to keep track of the text written
-  const [text, setText] = useState('');
-  const onChange = textValue => setText(textValue);
-
   const toggleModal = () => {
     setModalOpen(!modalOpen);
   };
@@ -27,25 +23,6 @@ const AddModal = ({addMainItem}) => {
             color="red"
             onPress={() => toggleModal()}
           />
-          {/* <TextInput
-            placeholder="Add Item..."
-            style={styles.input}
-            onChangeText={onChange}
-          />
-          <Button
-            color="#800080"
-            // safety check to make sure that the passed in item is not empty
-            onPress={() => {
-              if (!text) {
-                Alert.alert('Error', 'Item cannot be empty');
-              } else {
-                addMainItem(text);
-                setModalOpen(false);
-                setText('');
-              }
-            }}
-            title="Submit"
-          /> */}
 
           <FlatList
             data={globalMenuItems}

@@ -1,14 +1,11 @@
 import MMKVStorage, {useMMKVStorage} from 'react-native-mmkv-storage';
 import React, {useEffect, useState} from 'react';
-import {View, SafeAreaView, Button, FlatList, Alert} from 'react-native';
+import {SafeAreaView} from 'react-native';
 import uuid from 'react-native-uuid';
 
 import styles from '../stylesheets/stylesheet.js';
-
-import ListItem from '../components/ListItem';
 import Header from '../components/Header';
 import PlantItem from '../components/PlantItem';
-
 import DeleteOrCancel from '../components/CreateOrCancel.js';
 
 const MMKV = new MMKVStorage.Loader().initialize();
