@@ -21,17 +21,14 @@ export const useStorage = key => {
 export function PlantsView() {
   const [plantsStorage, setPlantsStorage] = useStorage('plantss');
 
-  const [plants, setPlants] = useState([]);
+  const [plants, setPlants] = useState(plantsStorage);
 
   const [isDeleteOrCancel, setIsDeleteOrCancel] = useState(false);
 
   const [deletePlant, setDeletePlant] = useState(null);
 
-  const [example, setExample] = useState(null);
-
   useEffect(() => {
-    setExample(plants);
-    console.log(example);
+    setPlantsStorage(plants);
   });
 
   const toggleDeleteOrCancel = () => {
@@ -51,8 +48,6 @@ export function PlantsView() {
 
   const completeDeletion = () => {
     toggleDeleteOrCancel();
-
-    // MMKV.removeItem(deleteItem.name + 'Id');
 
     setPlants(prevItems => {
       return prevItems.filter(item => item != deletePlant);
