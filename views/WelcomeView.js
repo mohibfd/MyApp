@@ -90,8 +90,6 @@ export function WelcomeView({navigation}) {
 
   return (
     <SafeAreaView style={styles.welcome}>
-      <Header title="My Items" />
-
       <FlatList
         data={items}
         renderItem={({item}) => (

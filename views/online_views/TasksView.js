@@ -50,5 +50,3 @@ export function TasksView({navigation, route}) {
     </View>
   );
 }
-
-export default styles;

@@ -20,7 +20,9 @@ const App = () => {
   return (
     <AuthProvider>
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Navigator
+        // screenOptions={{headerShown: false}}
+        >
           <Stack.Screen name="Welcome View" component={WelcomeView} />
           <Stack.Screen name="Plants View" component={PlantsView} />
 

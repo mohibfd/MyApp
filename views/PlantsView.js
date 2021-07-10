@@ -1,6 +1,6 @@
 import MMKVStorage, {useMMKVStorage} from 'react-native-mmkv-storage';
 import React, {useEffect, useState} from 'react';
-import {View, SafeAreaView, Button, FlatList, Alert} from 'react-native';
+import {View, SafeAreaView, Text, Button, FlatList, Alert} from 'react-native';
 import uuid from 'react-native-uuid';
 
 import styles from '../stylesheets/stylesheet.js';
@@ -26,7 +26,7 @@ export function PlantsView({navigation}) {
 
   return (
     <SafeAreaView style={styles.welcome}>
-      <Header title="My Plants" />
+      <Text>heys</Text>
     </SafeAreaView>
   );
 }

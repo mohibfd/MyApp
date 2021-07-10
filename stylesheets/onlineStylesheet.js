@@ -9,12 +9,7 @@ const rem =
 EStyleSheet.build({$rem: rem});
 
 const styles = StyleSheet.create({
-  //ONLINE
-  listItemContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-
+  //LOGIN
   inputContainer: {
     padding: EStyleSheet.value('5rem'),
   },
@@ -24,6 +19,20 @@ const styles = StyleSheet.create({
     padding: EStyleSheet.value('10rem'),
     borderRadius: EStyleSheet.value('2rem'),
   },
+  //LOGIN
+
+  //TASKS
+  plusButton: {
+    fontSize: EStyleSheet.value('28rem'),
+    fontWeight: '400',
+  },
+  listItemContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  //TASKS
+
+  //MANAGE TEAM
   manageTeamWrapper: {
     width: EStyleSheet.value('350rem'),
   },
@@ -44,11 +53,7 @@ const styles = StyleSheet.create({
     borderBottomColor: 'grey',
     borderBottomWidth: EStyleSheet.value('1rem'),
   },
-  plusButton: {
-    fontSize: EStyleSheet.value('28rem'),
-    fontWeight: '400',
-  },
-  //ONLINE
+  //MANAGE TEAM
 });
 
 export default styles;
