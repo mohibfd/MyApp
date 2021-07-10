@@ -8,7 +8,7 @@ import styles from '../stylesheets/stylesheet.js';
 import ListItem from '../components/ListItem';
 import Header from '../components/Header';
 import AddItemModal from '../components/modals/addItemModal';
-import CreateOrCancel from '../components/CreateOrCancel.js';
+import DeleteOrCancel from '../components/CreateOrCancel.js';
 
 const MMKV = new MMKVStorage.Loader().initialize();
 
@@ -18,7 +18,6 @@ export const useStorage = key => {
 };
 
 export function WelcomeView({navigation}) {
-  // const [item, setItem] = useStorage('idOne');
   const [item1, setItem1] = useStorage('PlantsId');
   const [item2, setItem2] = useStorage('InvestId');
   const [item3, setItem3] = useStorage('WorkoutId');
@@ -129,7 +128,7 @@ export function WelcomeView({navigation}) {
         />
       </View>
       {isDeleteOrCancel && (
-        <CreateOrCancel
+        <DeleteOrCancel
           name={deleteItem.name}
           action={completeDeletion}
           action2={toggleDeleteOrCancel}

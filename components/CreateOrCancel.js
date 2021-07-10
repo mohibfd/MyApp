@@ -4,7 +4,7 @@ const CreateOrCancel = ({name, action, action2, deletion}) => {
   if (deletion) {
     Alert.alert(
       'Delete item?',
-      'Are you sure you want to delete <' + name + '> icon?',
+      'Are you sure you want to delete <' + name + '> ?',
       [
         {
           text: 'Cancel',

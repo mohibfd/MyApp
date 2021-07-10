@@ -9,7 +9,7 @@ import ListItem from '../components/ListItem';
 import Header from '../components/Header';
 import PlantItem from '../components/PlantItem';
 
-import AddItemModal from '../components/modals/addItemModal';
+import DeleteOrCancel from '../components/CreateOrCancel.js';
 
 const MMKV = new MMKVStorage.Loader().initialize();
 
@@ -18,26 +18,64 @@ export const useStorage = key => {
   return [value, setValue];
 };
 
-export function PlantsView({navigation}) {
-  // const [item, setItem] = useStorage('idOne');
-  const [item1, setItem1] = useStorage('PlantsId');
-  const [item2, setItem2] = useStorage('InvestId');
-  const [item3, setItem3] = useStorage('WorkoutId');
+export function PlantsView() {
+  const [plantsStorage, setPlantsStorage] = useStorage('plantss');
 
   const [plants, setPlants] = useState([]);
 
-  const createTask = newPlantName => {
+  const [isDeleteOrCancel, setIsDeleteOrCancel] = useState(false);
+
+  const [deletePlant, setDeletePlant] = useState(null);
+
+  const [example, setExample] = useState(null);
+
+  useEffect(() => {
+    setExample(plants);
+    console.log(example);
+  });
+
+  const toggleDeleteOrCancel = () => {
+    setIsDeleteOrCancel(!isDeleteOrCancel);
+  };
+
+  const createPlant = newPlantName => {
     setPlants(prevItems => {
       return [{name: newPlantName, key: uuid.v4()}, ...prevItems];
     });
   };
 
+  const openDeleteOrCancel = mainItem => {
+    toggleDeleteOrCancel();
+    setDeletePlant(mainItem);
+  };
+
+  const completeDeletion = () => {
+    toggleDeleteOrCancel();
+
+    // MMKV.removeItem(deleteItem.name + 'Id');
+
+    setPlants(prevItems => {
+      return prevItems.filter(item => item != deletePlant);
+    });
+  };
+
   return (
     <SafeAreaView style={styles.welcome}>
-      <Header title="My Plants" add={createTask} />
+      <Header title="My Plants" add={createPlant} />
 
-      {/* <PlantItem task={plants} /> */}
-      {plants.map(task => (task ? <PlantItem task={task} /> : null))}
+      {plants.map(plant =>
+        plant ? (
+          <PlantItem plant={plant} deletion={openDeleteOrCancel} />
+        ) : null,
+      )}
+      {isDeleteOrCancel && (
+        <DeleteOrCancel
+          name={deletePlant.name}
+          action={completeDeletion}
+          action2={toggleDeleteOrCancel}
+          deletion
+        />
+      )}
     </SafeAreaView>
   );
 }
