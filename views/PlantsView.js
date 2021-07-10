@@ -18,7 +18,7 @@ export const useStorage = key => {
 export function PlantsView() {
   const [plantsStorage, setPlantsStorage] = useStorage('plantss');
 
-  const [plants, setPlants] = useState(plantsStorage);
+  const [plants, setPlants] = useState(plantsStorage ? plantsStorage : []);
 
   const [isDeleteOrCancel, setIsDeleteOrCancel] = useState(false);
 
@@ -33,9 +33,12 @@ export function PlantsView() {
   };
 
   const createPlant = newPlantName => {
+    console.log('here');
+
     setPlants(prevItems => {
       return [{name: newPlantName, key: uuid.v4()}, ...prevItems];
     });
+    console.log('here3');
   };
 
   const openDeleteOrCancel = mainItem => {
@@ -55,11 +58,12 @@ export function PlantsView() {
     <SafeAreaView style={styles.welcome}>
       <Header title="My Plants" add={createPlant} />
 
-      {plants.map(plant =>
-        plant ? (
-          <PlantItem plant={plant} deletion={openDeleteOrCancel} />
-        ) : null,
-      )}
+      {plants &&
+        plants.map(plant =>
+          plant ? (
+            <PlantItem plant={plant} deletion={openDeleteOrCancel} />
+          ) : null,
+        )}
       {isDeleteOrCancel && (
         <DeleteOrCancel
           name={deletePlant.name}

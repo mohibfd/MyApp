@@ -15,6 +15,8 @@ function PlantItem({plant, deletion}) {
     },
   ];
 
+  console.log(plant.key);
+
   return (
     <>
       <ActionSheet
@@ -31,7 +33,7 @@ function PlantItem({plant, deletion}) {
           setActionSheetVisible(true);
         }}
         bottomDivider>
-        <ListItem.Content style={styles.listItemContainer}>
+        <ListItem.Content key={plant.key} style={styles.listItemContainer}>
           <ListItem.Title>{plant.name}</ListItem.Title>
           {/* <Icon name="check" size={20} /> */}
         </ListItem.Content>
