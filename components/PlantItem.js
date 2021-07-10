@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
-import {Text, ListItem, Icon} from 'react-native-elements';
-import {useTasks} from '../../providers/TasksProvider';
+import {ListItem} from 'react-native-elements';
 import {ActionSheet} from './online_components/ActionSheet';
 import styles from '../stylesheets/stylesheet';
 
@@ -27,6 +26,7 @@ function PlantItem({plant, deletion}) {
       />
 
       <ListItem
+        key={plant.key}
         onPress={() => {
           setActionSheetVisible(true);
         }}
