@@ -15,8 +15,6 @@ function PlantItem({plant, deletion}) {
     },
   ];
 
-  console.log(plant.key);
-
   return (
     <>
       <ActionSheet

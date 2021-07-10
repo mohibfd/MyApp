@@ -33,12 +33,9 @@ export function PlantsView() {
   };
 
   const createPlant = newPlantName => {
-    console.log('here');
-
     setPlants(prevItems => {
       return [{name: newPlantName, key: uuid.v4()}, ...prevItems];
     });
-    console.log('here3');
   };
 
   const openDeleteOrCancel = mainItem => {
