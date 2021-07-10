@@ -7,6 +7,8 @@ import styles from '../stylesheets/stylesheet.js';
 
 import ListItem from '../components/ListItem';
 import Header from '../components/Header';
+import PlantItem from '../components/PlantItem';
+
 import AddItemModal from '../components/modals/addItemModal';
 
 const MMKV = new MMKVStorage.Loader().initialize();
@@ -22,26 +24,23 @@ export function PlantsView({navigation}) {
   const [item2, setItem2] = useStorage('InvestId');
   const [item3, setItem3] = useStorage('WorkoutId');
 
-  const [items, setItems] = useState();
+  let plant1 = {name: 'firstPlant', key: uuid.v4()};
+  let plant2 = {name: 'secondPlant', key: uuid.v4()};
 
-  const createTask = newTaskName => {
-    console.log('?');
-    const projectRealm = realmRef.current;
-    projectRealm.write(() => {
-      // Create a new task in the same partition -- that is, in the same project.
-      projectRealm.create(
-        'Task',
-        new Task({
-          name: newTaskName || 'New Task',
-          partition: projectPartition,
-        }),
-      );
-    });
+  // console.log('here', plant1);
+  const [plants, setPlants] = useState([plant1, plant2]);
+
+  const createTask = newPlantName => {
+    setPlants(newPlantName);
+    // console.log(plants);
   };
 
   return (
     <SafeAreaView style={styles.welcome}>
       <Header title="My Plants" add={createTask} />
+
+      {/* <PlantItem task={plants} /> */}
+      {plants.map(task => (task ? <PlantItem task={task} /> : null))}
     </SafeAreaView>
   );
 }

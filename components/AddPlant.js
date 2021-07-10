@@ -9,7 +9,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 // task is created in the realm.
 export function AddPlant({createTask}) {
   const [overlayVisible, setOverlayVisible] = useState(false);
-  const [newTaskName, setNewTaskName] = useState('');
+  const [newPlantName, setNewPlantName] = useState('');
 
   return (
     <>
@@ -19,15 +19,15 @@ export function AddPlant({createTask}) {
         onBackdropPress={() => setOverlayVisible(false)}>
         <>
           <Input
-            placeholder="New Task Name"
-            onChangeText={text => setNewTaskName(text)}
+            placeholder="New Plant Name"
+            onChangeText={text => setNewPlantName(text)}
             autoFocus={true}
           />
           <Button
             title="Create"
             onPress={() => {
               setOverlayVisible(false);
-              createTask(newTaskName);
+              createTask(newPlantName);
             }}
           />
         </>
