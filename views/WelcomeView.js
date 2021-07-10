@@ -8,6 +8,7 @@ import styles from '../stylesheets/stylesheet.js';
 import ListItem from '../components/ListItem';
 import Header from '../components/Header';
 import AddItemModal from '../components/modals/addItemModal';
+import CreateOrCancel from '../components/CreateOrCancel.js';
 
 const MMKV = new MMKVStorage.Loader().initialize();
 
@@ -23,6 +24,14 @@ export function WelcomeView({navigation}) {
   const [item3, setItem3] = useStorage('WorkoutId');
 
   const [items, setItems] = useState();
+
+  const [isDeleteOrCancel, setIsDeleteOrCancel] = useState(false);
+
+  const [deleteItem, setDeleteItem] = useState(null);
+
+  const toggleDeleteOrCancel = () => {
+    setIsDeleteOrCancel(!isDeleteOrCancel);
+  };
 
   useEffect(() => {
     readItemFromStorage();
@@ -64,7 +73,7 @@ export function WelcomeView({navigation}) {
 
     //returning the new list with all the previous ones to show on our app
     setItems(prevItems => {
-      return [{id: uuid.v4(), name: mainItem.name, children: []}, ...prevItems];
+      return [{name: mainItem.name, id: uuid.v4()}, ...prevItems];
     });
   };
 
@@ -81,13 +90,29 @@ export function WelcomeView({navigation}) {
 
   //deleting item from storage
   const deleteItemFromStorage = mainItem => {
-    MMKV.removeItem(mainItem.name + 'Id');
+    toggleDeleteOrCancel();
+    setDeleteItem(mainItem);
+    // const completeDeletion = () => {
+    //   MMKV.removeItem(mainItem.name + 'Id');
+
+    //   setItems(prevItems => {
+    //     return prevItems.filter(item => item != mainItem);
+    //   });
+    // };
+
+    // return (
+
+    // );
+  };
+  const completeDeletion = () => {
+    toggleDeleteOrCancel();
+
+    MMKV.removeItem(deleteItem.name + 'Id');
 
     setItems(prevItems => {
-      return prevItems.filter(item => item != mainItem);
+      return prevItems.filter(item => item != deleteItem);
     });
   };
-
   return (
     <SafeAreaView style={styles.welcome}>
       <Header title="My Items" />
@@ -113,6 +138,13 @@ export function WelcomeView({navigation}) {
           color="#841584"
         />
       </View>
+      {isDeleteOrCancel && (
+        <CreateOrCancel
+          name={deleteItem.name}
+          action={completeDeletion}
+          deletion
+        />
+      )}
     </SafeAreaView>
   );
 }

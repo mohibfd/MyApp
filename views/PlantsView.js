@@ -24,15 +24,12 @@ export function PlantsView({navigation}) {
   const [item2, setItem2] = useStorage('InvestId');
   const [item3, setItem3] = useStorage('WorkoutId');
 
-  let plant1 = {name: 'firstPlant', key: uuid.v4()};
-  let plant2 = {name: 'secondPlant', key: uuid.v4()};
-
-  // console.log('here', plant1);
-  const [plants, setPlants] = useState([plant1, plant2]);
+  const [plants, setPlants] = useState([]);
 
   const createTask = newPlantName => {
-    setPlants(newPlantName);
-    // console.log(plants);
+    setPlants(prevItems => {
+      return [{name: newPlantName, id: uuid.v4()}, ...prevItems];
+    });
   };
 
   return (
