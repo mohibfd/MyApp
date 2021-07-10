@@ -7,6 +7,7 @@ import {AuthProvider} from './providers/AuthProvider';
 import {TasksProvider} from './providers/TasksProvider';
 
 import {WelcomeView} from './views/WelcomeView';
+import {PlantsView} from './views/PlantsView';
 import {OnlineView} from './views/online_views/OnlineView';
 import {ProjectsView} from './views/online_views/ProjectsView';
 import {TasksView} from './views/online_views/TasksView';
@@ -21,6 +22,8 @@ const App = () => {
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false}}>
           <Stack.Screen name="Welcome View" component={WelcomeView} />
+          <Stack.Screen name="Plants View" component={PlantsView} />
+
           <Stack.Screen
             name="Online View"
             component={OnlineView}

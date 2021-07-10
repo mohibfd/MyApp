@@ -96,7 +96,7 @@ export function WelcomeView({navigation}) {
         data={items}
         renderItem={({item}) => (
           <ListItem
-            list={item}
+            item={item}
             deleteItemFromStorage={deleteItemFromStorage}
             navigation={navigation}
           />
@@ -116,5 +116,3 @@ export function WelcomeView({navigation}) {
     </SafeAreaView>
   );
 }
-
-// export default Welcome View;
