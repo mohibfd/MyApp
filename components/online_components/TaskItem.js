@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import {Text, ListItem} from 'react-native-elements';
-import {useTasks} from '../providers/TasksProvider';
+import {Text, ListItem, Icon} from 'react-native-elements';
+import {useTasks} from '../../providers/TasksProvider';
 import {ActionSheet} from './ActionSheet';
-import {Task} from '../schemas';
+import {Task} from '../../schemas';
+import styles from '../../stylesheets/onlineStylesheet';
 
 export function TaskItem({task}) {
   const [actionSheetVisible, setActionSheetVisible] = useState(false);
@@ -57,21 +58,22 @@ export function TaskItem({task}) {
         }}
         actions={actions}
       />
+
       <ListItem
         key={task.id}
         onPress={() => {
           setActionSheetVisible(true);
         }}
-        title={task.name}
-        bottomDivider
-        checkmark={
-          task.status === Task.STATUS_COMPLETE ? (
-            <Text>&#10004; {/* checkmark */}</Text>
+        bottomDivider>
+        <ListItem.Content style={styles.listItemContainer}>
+          <ListItem.Title>{task.name}</ListItem.Title>
+          {task.status === Task.STATUS_COMPLETE ? (
+            <Icon name="check" size={20} />
           ) : task.status === Task.STATUS_IN_PROGRESS ? (
             <Text>In Progress</Text>
-          ) : null
-        }
-      />
+          ) : null}
+        </ListItem.Content>
+      </ListItem>
     </>
   );
 }

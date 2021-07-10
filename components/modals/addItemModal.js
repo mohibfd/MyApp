@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
 import {View, Modal, FlatList, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import styles from '../../stylesheet';
-import uuid from 'react-native-uuid';
+import styles from '../../stylesheets/stylesheet';
 import RenderIcons from '../RenderIcons.js';
-import './../global.js';
+import '../../global.js';
 
 const AddModal = ({addMainItem}) => {
   //usestate to open or close modal

@@ -7,11 +7,11 @@ import {AuthProvider} from './providers/AuthProvider';
 import {TasksProvider} from './providers/TasksProvider';
 
 import {WelcomeView} from './views/WelcomeView';
-import {OnlineView} from './views/OnlineView';
-import {ProjectsView} from './views/ProjectsView';
-import {TasksView} from './views/TasksView';
+import {OnlineView} from './views/online_views/OnlineView';
+import {ProjectsView} from './views/online_views/ProjectsView';
+import {TasksView} from './views/online_views/TasksView';
 
-import {Logout} from './components/Logout';
+import {Logout} from './components/online_components/Logout';
 
 const Stack = createStackNavigator();
 

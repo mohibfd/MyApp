@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import styles from '../stylesheet';
+import styles from '../stylesheets/stylesheet';
 
 const ListItem = ({list, deleteItemFromStorage, navigation}) => {
   //return our items alongside a delete icon that calls on deleteList function taking the element's id

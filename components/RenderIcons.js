@@ -1,19 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {
-  Text,
-  View,
-  Alert,
-  Modal,
-  Button,
-  TextInput,
-  FlatList,
-  TouchableOpacity,
-} from 'react-native';
+import {View} from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
-import styles from '../stylesheet';
-import uuid from 'react-native-uuid';
-import {set} from 'react-native-reanimated';
+import styles from '../stylesheets/stylesheet';
 import CreateOrCancel from './CreateOrCancel';
 const defaultSize = 88;
 

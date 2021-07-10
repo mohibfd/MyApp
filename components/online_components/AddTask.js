@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Overlay, Input, Button} from 'react-native-elements';
-import styles from '../stylesheet';
+import styles from '../../stylesheets/onlineStylesheet';
 
 // The AddTask is a button for adding tasks. When the button is pressed, an
 // overlay shows up to request user input for the new task name. When the

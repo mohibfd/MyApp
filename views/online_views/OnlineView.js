@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, TextInput, Button, Alert} from 'react-native';
-import {useAuth} from '../providers/AuthProvider';
-import styles from '../stylesheet';
+import {useAuth} from '../../providers/AuthProvider';
+import styles from '../../stylesheets/onlineStylesheet';
 
 export function OnlineView({navigation}) {
   const [email, setEmail] = useState('');

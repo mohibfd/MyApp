@@ -1,14 +1,14 @@
 import React, {useState, useEffect} from 'react';
 
 import {View, Button, Text} from 'react-native';
-import styles from '../stylesheet';
+import styles from '../../stylesheets/onlineStylesheet';
 
 import {Overlay} from 'react-native-elements';
-import {ManageTeam} from '../components/ManageTeam';
+import {ManageTeam} from '../../components/online_components/ManageTeam';
 
-import {useTasks} from '../providers/TasksProvider';
-import {TaskItem} from '../components/TaskItem';
-import {AddTask} from '../components/AddTask';
+import {useTasks} from '../../providers/TasksProvider';
+import {TaskItem} from '../../components/online_components/TaskItem';
+import {AddTask} from '../../components/online_components/AddTask';
 
 export function TasksView({navigation, route}) {
   const {name} = route.params;
@@ -27,7 +27,7 @@ export function TasksView({navigation, route}) {
 
   return (
     <View>
-      <Text>{tasks.length}</Text>
+      {/* <Text>{tasks.length}</Text> */}
       {tasks.map(task =>
         task ? <TaskItem key={`${task._id}`} task={task} /> : null,
       )}

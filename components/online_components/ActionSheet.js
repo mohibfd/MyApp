@@ -20,12 +20,14 @@ export function ActionSheet({actions, visible, closeOverlay}) {
         {[...actions, cancelAction].map(({title, action}) => (
           <ListItem
             key={title}
-            title={title}
             onPress={() => {
               closeOverlay();
               action();
-            }}
-          />
+            }}>
+            <ListItem.Content>
+              <ListItem.Title>{title}</ListItem.Title>
+            </ListItem.Content>
+          </ListItem>
         ))}
       </>
     </Overlay>

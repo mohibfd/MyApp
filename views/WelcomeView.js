@@ -3,7 +3,8 @@ import React, {useEffect, useState} from 'react';
 import {View, SafeAreaView, Button, FlatList, Alert} from 'react-native';
 import uuid from 'react-native-uuid';
 
-import styles from '../stylesheet';
+import styles from '../stylesheets/stylesheet.js';
+
 import ListItem from '../components/ListItem';
 import Header from '../components/Header';
 import AddItemModal from '../components/modals/addItemModal';
