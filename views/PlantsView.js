@@ -26,7 +26,10 @@ export function PlantsView() {
 
   const createPlant = newPlantName => {
     setPlants(prevItems => {
-      return [{name: newPlantName, key: uuid.v4()}, ...prevItems];
+      return [
+        {name: newPlantName, key: uuid.v4(), timeIntervals: null},
+        ...prevItems,
+      ];
     });
   };
 
@@ -53,6 +56,7 @@ export function PlantsView() {
             <PlantItem plant={plant} deletion={openDeleteOrCancel} />
           ) : null,
         )}
+
       {isDeleteOrCancel && (
         <DeleteOrCancel
           name={deletePlant.name}
