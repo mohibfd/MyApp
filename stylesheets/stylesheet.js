@@ -88,6 +88,11 @@ const styles = StyleSheet.create({
     paddingVertical: EStyleSheet.value('5rem'),
     alignItems: 'center',
   },
+  overlay: {
+    width: '90%',
+    height: '35%',
+    justifyContent: 'space-between',
+  },
   //PLANT VIEW
 });
 

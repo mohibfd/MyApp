@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import {View, Text, Overlay, overlayVisible, Input, Button} from 'react-native';
+import React from 'react';
+import {View, Text} from 'react-native';
 
 import {AddPlant} from './AddPlant';
 import styles from '../stylesheets/stylesheet';
