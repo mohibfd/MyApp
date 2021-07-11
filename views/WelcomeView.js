@@ -1,4 +1,3 @@
-import MMKVStorage, {useMMKVStorage} from 'react-native-mmkv-storage';
 import React, {useEffect, useState} from 'react';
 import {View, SafeAreaView, Button, FlatList, Alert} from 'react-native';
 import uuid from 'react-native-uuid';
@@ -9,13 +8,6 @@ import ListItem from '../components/ListItem';
 import Header from '../components/Header';
 import AddItemModal from '../components/modals/addItemModal';
 import DeleteOrCancel from '../components/CreateOrCancel.js';
-
-const MMKV = new MMKVStorage.Loader().initialize();
-
-export const useStorage = key => {
-  const [value, setValue] = useMMKVStorage(key, MMKV);
-  return [value, setValue];
-};
 
 export function WelcomeView({navigation}) {
   const [item1, setItem1] = useStorage('PlantsId');

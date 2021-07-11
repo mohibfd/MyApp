@@ -1,4 +1,3 @@
-import MMKVStorage, {useMMKVStorage} from 'react-native-mmkv-storage';
 import React, {useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native';
 import uuid from 'react-native-uuid';
@@ -7,13 +6,6 @@ import styles from '../stylesheets/stylesheet.js';
 import Header from '../components/Header';
 import PlantItem from '../components/PlantItem';
 import DeleteOrCancel from '../components/CreateOrCancel.js';
-
-const MMKV = new MMKVStorage.Loader().initialize();
-
-export const useStorage = key => {
-  const [value, setValue] = useMMKVStorage(key, MMKV);
-  return [value, setValue];
-};
 
 export function PlantsView() {
   const [plantsStorage, setPlantsStorage] = useStorage('plantss');

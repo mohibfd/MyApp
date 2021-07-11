@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   },
   listItemText: {
     flex: 4,
-    fontSize: EStyleSheet.value('35rem'),
+    fontSize: EStyleSheet.value('33rem'),
     marginLeft: EStyleSheet.value('10rem'),
   },
   redCross: {
