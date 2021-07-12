@@ -41,7 +41,7 @@ export function AddTimeInterval({createTimeInterval, closeModal}) {
           title="Add"
           onPress={() => {
             closeOverlays();
-            createTimeInterval(timeInterval);
+            createTimeInterval(value);
           }}
         />
       </>

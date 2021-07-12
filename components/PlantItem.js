@@ -29,8 +29,8 @@ function PlantItem({plant, deletion}) {
     });
   }
 
-  const createTimeInterval = () => {
-    console.log('hi');
+  const createTimeInterval = timeInterval => {
+    console.log(timeInterval);
   };
   // if (task.status !== Task.STATUS_IN_PROGRESS) {
   //   actions.push({

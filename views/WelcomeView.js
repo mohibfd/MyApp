@@ -9,6 +9,8 @@ import Header from '../components/Header';
 import AddItemModal from '../components/modals/addItemModal';
 import DeleteOrCancel from '../components/CreateOrCancel.js';
 
+import PushNotification from 'react-native-push-notification';
+
 export function WelcomeView({navigation}) {
   const [item1, setItem1] = useStorage('PlantsId');
   const [item2, setItem2] = useStorage('InvestId');
@@ -26,7 +28,15 @@ export function WelcomeView({navigation}) {
 
   useEffect(() => {
     readItemFromStorage();
+    createChannels();
   }, []);
+
+  const createChannels = () => {
+    PushNotification.createChannel({
+      channelId: 'test-channel',
+      channelName: 'Test Channel',
+    });
+  };
 
   const readItemFromStorage = async () => {
     newList = [];
