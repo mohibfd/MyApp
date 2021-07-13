@@ -30,6 +30,13 @@ const ListItem = ({item, deleteItemFromStorage, navigation}) => {
       title: 'babyyyyy',
       message: 'I really like you and miss you :)',
     });
+    // PushNotification.localNotificationSchedule({
+    //   channelId: 'test-channel',
+    //   title: 'Annika',
+    //   message: 'my cute cute cute cute cute baby',
+    //   date: new Date(Date.now() + 10 * 1000),
+    //   // allowWhileIdle: true,
+    // });
   };
 
   //return our items alongside a delete icon that calls on deleteList function taking the element's id
