@@ -26,7 +26,7 @@ const ListItem = ({item, deleteItemFromStorage, navigation}) => {
   const handleNotification = name => {
     // PushNotification.localNotification({
     //   channelId: 'test-channel',
-    //   // title: 'You clicked on' + name,
+    //   title: 'You clicked on' + name,
     //   title: 'babyyyyy',
     //   message: 'I really like you and miss you :)',
     // });

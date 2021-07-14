@@ -27,7 +27,7 @@ export function PlantsView() {
   const createPlant = newPlantName => {
     setPlants(prevItems => {
       return [
-        {name: newPlantName, key: uuid.v4(), timeIntervals: null},
+        {name: newPlantName, key: uuid.v4(), timeInterval: null},
         ...prevItems,
       ];
     });
@@ -42,7 +42,7 @@ export function PlantsView() {
     toggleDeleteOrCancel();
 
     setPlants(prevItems => {
-      return prevItems.filter(item => item != deletePlant);
+      return prevItems.filter(item => item.key != deletePlant.key);
     });
   };
 
@@ -53,7 +53,11 @@ export function PlantsView() {
       {plants &&
         plants.map(plant =>
           plant ? (
-            <PlantItem plant={plant} deletion={openDeleteOrCancel} />
+            <PlantItem
+              plant={plant}
+              deletion={openDeleteOrCancel}
+              setPlants={setPlants}
+            />
           ) : null,
         )}
 

@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
 import {ListItem} from 'react-native-elements';
+import uuid from 'react-native-uuid';
+
 import {ActionSheet} from './online_components/ActionSheet';
 import styles from '../stylesheets/stylesheet';
 import {AddTimeInterval} from './AddTimeInterval';
 
-function PlantItem({plant, deletion}) {
+function PlantItem({plant, deletion, setPlants}) {
   const [actionSheetVisible, setActionSheetVisible] = useState(false);
 
   const [showAddTimeInterval, setShowAddTimeInterval] = useState(false);
@@ -30,7 +32,14 @@ function PlantItem({plant, deletion}) {
   }
 
   const createTimeInterval = timeInterval => {
-    console.log(timeInterval);
+    //deleting item then recreating it to make it easier to modify one of its parameters
+    setPlants(prevItems => {
+      return prevItems.filter(item => item.key != plant.key);
+    });
+
+    setPlants(prevItems => {
+      return [{name: plant.name, key: uuid.v4(), timeInterval}, ...prevItems];
+    });
   };
   // if (task.status !== Task.STATUS_IN_PROGRESS) {
   //   actions.push({
