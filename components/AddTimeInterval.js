@@ -6,23 +6,23 @@ import styles from '../stylesheets/stylesheet';
 import PushNotification from 'react-native-push-notification';
 
 const handleNotification = (interval, plantName) => {
-  let notificationTime;
+  let repeatTime;
   switch (interval) {
     //these are all per week
     case 'daily':
-      notificationTime = 5;
+      repeatTime = 1;
       break;
     case 'three':
-      notificationTime = 5;
+      repeatTime = 2;
       break;
     case 'two':
-      notificationTime = 5;
+      repeatTime = 3;
       break;
     case 'one':
-      notificationTime = 5;
+      repeatTime = 7;
       break;
     case 'biweekly':
-      notificationTime = 20;
+      repeatTime = 14;
       break;
   }
 
@@ -37,9 +37,17 @@ const handleNotification = (interval, plantName) => {
     channelId: 'test-channel',
     title: plantName,
     message: `Reminder to water ${plantName} now`,
-    date: new Date(Date.now() + notificationTime * 1000),
+    date: new Date(Date.now() + repeatTime * 1000),
     allowWhileIdle: true,
+    // repeatType: 'day',
+    // repeatTime,
+    // repeatType: 'minute',
+    // repeatTime: 1,
   });
+
+  PushNotification.cancelAllLocalNotifications();
+
+  // console.log(PushNotification.getScheduledLocalNotifications('test-channel'));
 };
 
 export function AddTimeInterval({createTimeInterval, closeModal, plantName}) {

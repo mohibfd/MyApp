@@ -69,12 +69,11 @@ function PlantItem({plant, deletion, setPlants}) {
       />
 
       <ListItem
-        key={plant.key}
         onPress={() => {
           setActionSheetVisible(true);
         }}
         bottomDivider>
-        <ListItem.Content key={plant.key} style={styles.listItemContainer}>
+        <ListItem.Content style={styles.listItemContainer}>
           <ListItem.Title>{plant.name}</ListItem.Title>
           {/* <Icon name="check" size={20} /> */}
         </ListItem.Content>

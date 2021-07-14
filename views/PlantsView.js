@@ -54,6 +54,7 @@ export function PlantsView() {
         plants.map(plant =>
           plant ? (
             <PlantItem
+              key={plant.key}
               plant={plant}
               deletion={openDeleteOrCancel}
               setPlants={setPlants}
