@@ -83,6 +83,7 @@ function PlantItem({plant, deletion, setPlants}) {
         <AddTimeInterval
           createTimeInterval={createTimeInterval}
           closeModal={toggleShowAddTimeInterval}
+          plantName={plant.name}
         />
       )}
     </>

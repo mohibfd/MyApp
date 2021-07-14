@@ -3,7 +3,46 @@ import {Overlay, Input, Button} from 'react-native-elements';
 import DropDownPicker from 'react-native-dropdown-picker';
 import styles from '../stylesheets/stylesheet';
 
-export function AddTimeInterval({createTimeInterval, closeModal}) {
+import PushNotification from 'react-native-push-notification';
+
+const handleNotification = (interval, plantName) => {
+  let notificationTime;
+  switch (interval) {
+    //these are all per week
+    case 'daily':
+      notificationTime = 5;
+      break;
+    case 'three':
+      notificationTime = 5;
+      break;
+    case 'two':
+      notificationTime = 5;
+      break;
+    case 'one':
+      notificationTime = 5;
+      break;
+    case 'biweekly':
+      notificationTime = 20;
+      break;
+  }
+
+  // PushNotification.localNotification({
+  //   channelId: 'test-channel',
+  //   title: 'You clicked on' + name,
+  //   title: 'babyyyyy',
+  //   message: 'I really like you and miss you :)',
+  // });
+
+  PushNotification.localNotificationSchedule({
+    channelId: 'test-channel',
+    title: plantName,
+    message: `Reminder to water ${plantName} now`,
+    date: new Date(Date.now() + notificationTime * 1000),
+    allowWhileIdle: true,
+  });
+};
+
+export function AddTimeInterval({createTimeInterval, closeModal, plantName}) {
   const [overlayVisible, setOverlayVisible] = useState(true);
   // const [timeInterval, setTimeInterval] = useState('');
 
@@ -42,6 +81,7 @@ export function AddTimeInterval({createTimeInterval, closeModal}) {
           onPress={() => {
             closeOverlays();
             createTimeInterval(value);
+            handleNotification(value, plantName);
           }}
         />
       </>
