@@ -1,58 +1,78 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Overlay, Input, Button} from 'react-native-elements';
 import DropDownPicker from 'react-native-dropdown-picker';
-import styles from '../stylesheets/stylesheet';
-
+import uuid from 'react-native-uuid';
 import PushNotification from 'react-native-push-notification';
 
-const handleNotification = (interval, plantName) => {
-  let repeatTime;
-  switch (interval) {
-    //these are all per week
-    case 'daily':
-      repeatTime = 1;
-      break;
-    case 'three':
-      repeatTime = 2;
-      break;
-    case 'two':
-      repeatTime = 3;
-      break;
-    case 'one':
-      repeatTime = 7;
-      break;
-    case 'biweekly':
-      repeatTime = 14;
-      break;
-  }
-
-  // PushNotification.localNotification({
-  //   channelId: 'test-channel',
-  //   title: 'You clicked on' + name,
-  //   title: 'babyyyyy',
-  //   message: 'I really like you and miss you :)',
-  // });
-
-  PushNotification.localNotificationSchedule({
-    channelId: 'test-channel',
-    title: plantName,
-    message: `Reminder to water ${plantName} now`,
-    date: new Date(Date.now() + repeatTime * 1000),
-    allowWhileIdle: true,
-    // repeatType: 'day',
-    // repeatTime,
-    // repeatType: 'minute',
-    // repeatTime: 1,
-  });
-
-  PushNotification.cancelAllLocalNotifications();
-
-  // console.log(PushNotification.getScheduledLocalNotifications('test-channel'));
-};
+import styles from '../stylesheets/stylesheet';
 
 export function AddTimeInterval({createTimeInterval, closeModal, plantName}) {
+  const [savedNotificationsStorage, setSavedNotificationsStorage] = useStorage(
+    'plantsNotificationss',
+  );
+
+  const [savedNotifications, setSavedNotifications] = useStateWithPromise(
+    savedNotificationsStorage ? savedNotificationsStorage : [],
+  );
+
+  useEffect(() => {
+    setSavedNotificationsStorage(savedNotifications);
+    console.log('state nots', savedNotifications);
+  }, [savedNotifications]);
+
+  const handleNotification = async (interval, plantName) => {
+    let repeatTime;
+    switch (interval) {
+      //these are all per week
+      case 'daily':
+        repeatTime = 1;
+        break;
+      case 'three':
+        repeatTime = 2;
+        break;
+      case 'two':
+        repeatTime = 3;
+        break;
+      case 'one':
+        repeatTime = 7;
+        break;
+      case 'biweekly':
+        repeatTime = 14;
+        break;
+    }
+
+    PushNotification.localNotificationSchedule({
+      channelId: 'test-channel1',
+      title: plantName,
+      message: `Reminder to water ${plantName} now`,
+      date: new Date(Date.now()),
+      allowWhileIdle: true,
+      repeatType: 'day',
+      repeatTime,
+    });
+
+    PushNotification.getScheduledLocalNotifications(async nots => {
+      let notificationId = nots[nots.length - 1].id;
+
+      await setSavedNotifications(prevItems => {
+        return [{key: notificationId, repeatTime}, ...prevItems];
+      });
+
+      console.log('nots?', nots);
+
+      //these 2 lines will delete all notifications
+      //
+      // await setSavedNotifications([]);
+      // PushNotification.cancelAllLocalNotifications();
+      //
+
+      closeOverlays();
+
+      await createTimeInterval(value);
+    });
+  };
+
   const [overlayVisible, setOverlayVisible] = useState(true);
-  // const [timeInterval, setTimeInterval] = useState('');
 
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -64,6 +84,10 @@ export function AddTimeInterval({createTimeInterval, closeModal, plantName}) {
     {label: 'Once a week', value: 'one'},
     {label: 'Once every two weeks', value: 'biweekly'},
   ]);
+
+  const onPressFunction = async () => {
+    handleNotification(value, plantName);
+  };
 
   const closeOverlays = () => {
     setOverlayVisible(false);
@@ -87,9 +111,7 @@ export function AddTimeInterval({createTimeInterval, closeModal, plantName}) {
         <Button
           title="Add"
           onPress={() => {
-            closeOverlays();
-            createTimeInterval(value);
-            handleNotification(value, plantName);
+            onPressFunction();
           }}
         />
       </>

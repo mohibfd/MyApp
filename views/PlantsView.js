@@ -18,7 +18,7 @@ export function PlantsView() {
 
   useEffect(() => {
     setPlantsStorage(plants);
-  });
+  }, [plants]);
 
   const toggleDeleteOrCancel = () => {
     setIsDeleteOrCancel(!isDeleteOrCancel);

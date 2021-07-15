@@ -33,7 +33,7 @@ export function WelcomeView({navigation}) {
 
   const createChannels = () => {
     PushNotification.createChannel({
-      channelId: 'test-channel',
+      channelId: 'test-channel1',
       channelName: 'Test Channel',
     });
   };
