@@ -1,18 +1,39 @@
 import React, {useState} from 'react';
 import {ListItem} from 'react-native-elements';
 import uuid from 'react-native-uuid';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {ActionSheet} from './online_components/ActionSheet';
 import styles from '../stylesheets/stylesheet';
-import {AddTimeInterval} from './AddTimeInterval';
+import {TimeInterval} from './TimeInterval';
 
-function PlantItem({plant, deletion, setPlants}) {
+const PlantItem = ({plant, deletion, setPlants}) => {
   const [actionSheetVisible, setActionSheetVisible] = useState(false);
 
-  const [showAddTimeInterval, setShowAddTimeInterval] = useState(false);
+  //   const [showAddTimeInterval, setShowAddTimeInterval] = useState(false);
 
-  const toggleShowAddTimeInterval = () => {
-    setShowAddTimeInterval(!showAddTimeInterval);
+  //   const [showEditTimeInterval, setShowEditTimeInterval] = useState(false);
+
+  //   const [showDeleteTimeInterval, setShowDeleteTimeInterval] = useState(false);
+
+  const [timeIntervalAction, setTimeIntervalAction] = useState(false);
+
+  const [showTimeInterval, setShowTimeInterval] = useState(false);
+
+  //   const toggleShowAddTimeInterval = () => {
+  //     setShowAddTimeInterval(!showAddTimeInterval);
+  //   };
+
+  //   const toggleEditTimeInterval = () => {
+  //     setShowEditTimeInterval(!showEditTimeInterval);
+  //   };
+
+  //   const toggleDeleteTimeInterval = () => {
+  //     setShowDeleteTimeInterval(!showDeleteTimeInterval);
+  //   };
+
+  const toggleShowTimeInterval = () => {
+    setShowTimeInterval(!showTimeInterval);
   };
 
   const actions = [
@@ -27,36 +48,33 @@ function PlantItem({plant, deletion, setPlants}) {
   if (!plant.timeInterval) {
     actions.push({
       title: 'Set time interval',
-      action: () => toggleShowAddTimeInterval(),
+      action: () => (toggleShowTimeInterval(), setTimeIntervalAction('add')),
+    });
+  } else {
+    actions.push({
+      title: 'Edit time interval',
+      action: () => (toggleShowTimeInterval(), setTimeIntervalAction('edit')),
+    });
+
+    actions.push({
+      title: 'Delete time interval',
+      action: () => (toggleShowTimeInterval(), setTimeIntervalAction('delete')),
     });
   }
 
-  const createTimeInterval = timeInterval => {
+  const createTimeInterval = (timeInterval, notificationId) => {
     //deleting item then recreating it to make it easier to modify one of its parameters
     setPlants(prevItems => {
       return prevItems.filter(item => item.key != plant.key);
     });
 
     setPlants(prevItems => {
-      return [{name: plant.name, key: uuid.v4(), timeInterval}, ...prevItems];
+      return [
+        {name: plant.name, key: uuid.v4(), timeInterval, notificationId},
+        ...prevItems,
+      ];
     });
   };
-  // if (task.status !== Task.STATUS_IN_PROGRESS) {
-  //   actions.push({
-  //     title: 'Mark In Progress',
-  //     action: () => {
-  //       setTaskStatus(task, Task.STATUS_IN_PROGRESS);
-  //     },
-  //   });
-  // }
-  // if (task.status !== Task.STATUS_COMPLETE) {
-  //   actions.push({
-  //     title: 'Mark Complete',
-  //     action: () => {
-  //       setTaskStatus(task, Task.STATUS_COMPLETE);
-  //     },
-  //   });
-  // }
 
   return (
     <>
@@ -75,18 +93,19 @@ function PlantItem({plant, deletion, setPlants}) {
         bottomDivider>
         <ListItem.Content style={styles.listItemContainer}>
           <ListItem.Title>{plant.name}</ListItem.Title>
-          {/* <Icon name="check" size={20} /> */}
+          {plant.timeInterval && <Icon name="check" size={20} />}
         </ListItem.Content>
       </ListItem>
-      {showAddTimeInterval && (
-        <AddTimeInterval
+      {showTimeInterval && (
+        <TimeInterval
           createTimeInterval={createTimeInterval}
-          closeModal={toggleShowAddTimeInterval}
+          closeModal={toggleShowTimeInterval}
           plantName={plant.name}
+          timeIntervalAction={timeIntervalAction}
         />
       )}
     </>
   );
-}
+};
 
 export default PlantItem;

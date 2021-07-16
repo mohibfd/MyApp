@@ -85,12 +85,20 @@ const styles = StyleSheet.create({
 
   //PLANT VIEW
   listItemContainer: {
+    flexDirection: 'row',
     paddingVertical: EStyleSheet.value('5rem'),
-    alignItems: 'center',
   },
   overlay: {
     width: '90%',
     height: '35%',
+    justifyContent: 'space-between',
+  },
+  deleteOverlayText: {
+    fontSize: EStyleSheet.value('25rem'),
+  },
+  deleteOverlay: {
+    width: '90%',
+    height: '25%',
     justifyContent: 'space-between',
   },
   //PLANT VIEW

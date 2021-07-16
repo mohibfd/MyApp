@@ -18,6 +18,7 @@ export function PlantsView() {
 
   useEffect(() => {
     setPlantsStorage(plants);
+    console.log(plants);
   }, [plants]);
 
   const toggleDeleteOrCancel = () => {
@@ -27,7 +28,12 @@ export function PlantsView() {
   const createPlant = newPlantName => {
     setPlants(prevItems => {
       return [
-        {name: newPlantName, key: uuid.v4(), timeInterval: null},
+        {
+          name: newPlantName,
+          key: uuid.v4(),
+          timeInterval: null,
+          notificationId: null,
+        },
         ...prevItems,
       ];
     });
