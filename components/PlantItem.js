@@ -11,27 +11,9 @@ import PushNotification from 'react-native-push-notification';
 const PlantItem = ({plant, deletion, setPlants}) => {
   const [actionSheetVisible, setActionSheetVisible] = useState(false);
 
-  //   const [showAddTimeInterval, setShowAddTimeInterval] = useState(false);
-
-  //   const [showEditTimeInterval, setShowEditTimeInterval] = useState(false);
-
-  //   const [showDeleteTimeInterval, setShowDeleteTimeInterval] = useState(false);
-
   const [timeIntervalAction, setTimeIntervalAction] = useState(false);
 
   const [showTimeInterval, setShowTimeInterval] = useState(false);
-
-  //   const toggleShowAddTimeInterval = () => {
-  //     setShowAddTimeInterval(!showAddTimeInterval);
-  //   };
-
-  //   const toggleEditTimeInterval = () => {
-  //     setShowEditTimeInterval(!showEditTimeInterval);
-  //   };
-
-  //   const toggleDeleteTimeInterval = () => {
-  //     setShowDeleteTimeInterval(!showDeleteTimeInterval);
-  //   };
 
   const toggleShowTimeInterval = () => {
     setShowTimeInterval(!showTimeInterval);
@@ -39,9 +21,10 @@ const PlantItem = ({plant, deletion, setPlants}) => {
 
   const actions = [
     {
-      title: 'Delete',
+      title: 'Delete plant',
       action: () => {
         deletion(plant);
+        PushNotification.cancelLocalNotifications({id: plant.notificationId});
       },
     },
   ];
@@ -52,10 +35,10 @@ const PlantItem = ({plant, deletion, setPlants}) => {
       action: () => (toggleShowTimeInterval(), setTimeIntervalAction('add')),
     });
   } else {
-    actions.push({
-      title: 'Edit time interval',
-      action: () => (toggleShowTimeInterval(), setTimeIntervalAction('edit')),
-    });
+    // actions.push({
+    //   title: 'Edit time interval',
+    //   action: () => (toggleShowTimeInterval(), setTimeIntervalAction('edit')),
+    // });
 
     actions.push({
       title: 'Delete time interval',
@@ -77,8 +60,11 @@ const PlantItem = ({plant, deletion, setPlants}) => {
     });
   };
 
-  const deleteTimeInterval = notificationId => {
-    PushNotification.cancelLocalNotifications({id: notificationId});
+  const deleteTimeInterval = () => {
+    PushNotification.cancelLocalNotifications({id: plant.notificationId});
+
+    //delete all notifications
+    // PushNotification.cancelAllLocalNotifications();
 
     //deleting item then recreating it to make it easier to modify one of its parameters
     setPlants(prevItems => {
@@ -122,7 +108,7 @@ const PlantItem = ({plant, deletion, setPlants}) => {
         <TimeInterval
           createTimeInterval={createTimeInterval}
           closeModal={toggleShowTimeInterval}
-          plantName={plant.name}
+          plant={plant}
           timeIntervalAction={timeIntervalAction}
           deleteTimeInterval={deleteTimeInterval}
         />

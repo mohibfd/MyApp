@@ -69,7 +69,11 @@ export function PlantsView() {
         )}
 
       {isDeleteOrCancel && (
-        <DeleteOrCancel name={deletePlant.name} deletion={completeDeletion} />
+        <DeleteOrCancel
+          name={deletePlant.name}
+          deletion={completeDeletion}
+          closeOverlay={toggleDeleteOrCancel}
+        />
       )}
     </SafeAreaView>
   );

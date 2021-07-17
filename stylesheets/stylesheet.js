@@ -82,14 +82,14 @@ const styles = StyleSheet.create({
   threeFlatList: {
     padding: EStyleSheet.value('20rem'),
   },
-  modalView: {
-    flexDirection: 'row',
-  },
   centeredView: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 22,
+  },
+  modalView: {
+    flexDirection: 'row',
   },
   button: {
     width: '40%',

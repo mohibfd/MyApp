@@ -11,22 +11,11 @@ import DeleteOrCancel from '../components/DeleteOrCancel.js';
 export function TimeInterval({
   createTimeInterval,
   closeModal,
-  plantName,
+  plant,
   timeIntervalAction,
   deleteTimeInterval,
 }) {
-  //   const [savedNotificationsStorage, setSavedNotificationsStorage] = useStorage(
-  //     'plantsNotificationss',
-  //   );
-
-  //   const [savedNotifications, setSavedNotifications] = useStateWithPromise(
-  //     savedNotificationsStorage ? savedNotificationsStorage : [],
-  //   );
-
-  //   useEffect(() => {
-  //     setSavedNotificationsStorage(savedNotifications);
-  //     console.log('state nots', savedNotifications);
-  //   }, [savedNotifications]);
+  const plantName = plant.name;
 
   const handleNotification = async (interval, plantName) => {
     let repeatTime;
@@ -48,9 +37,17 @@ export function TimeInterval({
         repeatTime = 14;
         break;
     }
+    const min = 1;
+    const max = 100000000;
+    const rand = Math.round(min + Math.random() * (max - min));
+
+    console.log(rand);
+    // const id = uuid.v4();
+    const notificationId = '989832';
 
     const addNotification = () => {
       PushNotification.localNotificationSchedule({
+        id: notificationId,
         channelId: 'test-channel1',
         title: plantName,
         message: `Reminder to water ${plantName} now`,
@@ -59,37 +56,39 @@ export function TimeInterval({
         repeatType: 'day',
         repeatTime,
       });
+
+      // this will show us all stored notifications
+      PushNotification.getScheduledLocalNotifications(async nots => {
+        console.log('nots?', nots);
+      });
     };
 
     if (timeIntervalAction == 'add') {
       addNotification();
 
-      //this will store the id
-      PushNotification.getScheduledLocalNotifications(async nots => {
-        let notificationId = nots[nots.length - 1].id;
+      closeOverlays();
 
-        // await setSavedNotifications(prevItems => {
-        //   return [{key: notificationId, repeatTime}, ...prevItems];
-        // });
-
-        // console.log('nots?', nots);
-
-        //this lines will delete all notifications
-        //
-        // PushNotification.cancelAllLocalNotifications();
-        //
-
-        closeOverlays();
-
-        await createTimeInterval(value, notificationId);
-      });
-    } else if (timeIntervalAction == 'edit') {
-      console.log('edit');
-      // PushNotification.cancelLocalNotifications({id: '123'});
+      createTimeInterval(value, notificationId);
     }
+    // else if (timeIntervalAction == 'edit') {
+    //    deleteTimeInterval();
+
+    //   addNotification();
+
+    //   closeOverlays();
+
+    //   createTimeInterval(value, notificationId);
+    // }
   };
 
   const [overlayVisible, setOverlayVisible] = useState(true);
+
+  const [isDeleteOrCancel, setIsDeleteOrCancel] = useState(true);
+
+  const toggleDeleteOrCancel = () => {
+    setIsDeleteOrCancel(!isDeleteOrCancel);
+    // setIsDeleteOrCancel(!isDeleteOrCancel);
+  };
 
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -113,10 +112,13 @@ export function TimeInterval({
 
   if (timeIntervalAction == 'delete') {
     return (
-      <DeleteOrCancel
-        name={'this notification'}
-        deletion={deleteTimeInterval}
-      />
+      isDeleteOrCancel && (
+        <DeleteOrCancel
+          name={'this notification'}
+          deletion={deleteTimeInterval}
+          closeOverlay={toggleDeleteOrCancel}
+        />
+      )
     );
   } else {
     return (
@@ -144,3 +146,8 @@ export function TimeInterval({
     );
   }
 }
+
+// DeleteOrCancel.propTypes = {
+//   name: PropTypes.string.isRequired,
+//   deletion: PropTypes.func.isRequired,
+// };
