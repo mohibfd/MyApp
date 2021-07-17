@@ -69,12 +69,7 @@ export function PlantsView() {
         )}
 
       {isDeleteOrCancel && (
-        <DeleteOrCancel
-          name={deletePlant.name}
-          action={completeDeletion}
-          action2={toggleDeleteOrCancel}
-          deletion
-        />
+        <DeleteOrCancel name={deletePlant.name} deletion={completeDeletion} />
       )}
     </SafeAreaView>
   );

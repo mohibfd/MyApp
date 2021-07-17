@@ -74,11 +74,8 @@ export function TimeInterval({
 
         console.log('nots?', nots);
 
-        console.log('not here');
-
-        //these 2 lines will delete all notifications
+        //this lines will delete all notifications
         //
-        // await setSavedNotifications([]);
         // PushNotification.cancelAllLocalNotifications();
         //
 
@@ -89,8 +86,6 @@ export function TimeInterval({
     } else if (timeIntervalAction == 'edit') {
       console.log('edit');
       // PushNotification.cancelLocalNotifications({id: '123'});
-    } else if (timeIntervalAction == 'delete') {
-      console.log('delete');
     }
   };
 
@@ -117,7 +112,12 @@ export function TimeInterval({
   };
 
   if (timeIntervalAction == 'delete') {
-    return <DeleteOrCancel name={'this notification'} deletion={true} />;
+    return (
+      <DeleteOrCancel
+        name={'this notification'}
+        deletion={deleteTimeInterval}
+      />
+    );
   } else {
     return (
       <Overlay

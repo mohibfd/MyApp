@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {ActionSheet} from './online_components/ActionSheet';
 import styles from '../stylesheets/stylesheet';
 import {TimeInterval} from './TimeInterval';
+import PushNotification from 'react-native-push-notification';
 
 const PlantItem = ({plant, deletion, setPlants}) => {
   const [actionSheetVisible, setActionSheetVisible] = useState(false);
@@ -76,6 +77,27 @@ const PlantItem = ({plant, deletion, setPlants}) => {
     });
   };
 
+  const deleteTimeInterval = notificationId => {
+    PushNotification.cancelLocalNotifications({id: notificationId});
+
+    //deleting item then recreating it to make it easier to modify one of its parameters
+    setPlants(prevItems => {
+      return prevItems.filter(item => item.key != plant.key);
+    });
+
+    setPlants(prevItems => {
+      return [
+        {
+          name: plant.name,
+          key: uuid.v4(),
+          timeInterval: null,
+          notificationId: null,
+        },
+        ...prevItems,
+      ];
+    });
+  };
+
   return (
     <>
       <ActionSheet
@@ -102,6 +124,7 @@ const PlantItem = ({plant, deletion, setPlants}) => {
           closeModal={toggleShowTimeInterval}
           plantName={plant.name}
           timeIntervalAction={timeIntervalAction}
+          deleteTimeInterval={deleteTimeInterval}
         />
       )}
     </>
