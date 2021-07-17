@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-// import {View, Modal, Pressable, Text} from 'react-native';
+import PropTypes from 'prop-types';
 import {TouchableHighlight, Modal, Text, View} from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -51,6 +51,12 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
       </View>
     </View>
   );
+};
+
+RenderIcons.PropTypes = {
+  item: PropTypes.object,
+  toggleMainModal: PropTypes.func.isRequired,
+  addMainItem: PropTypes.func.isRequired,
 };
 
 export default RenderIcons;

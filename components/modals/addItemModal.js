@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import {View, Modal, FlatList, Pressable} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -46,6 +47,10 @@ const AddModal = ({addMainItem}) => {
       />
     </View>
   );
+};
+
+AddModal.PropTypes = {
+  addMainItem: PropTypes.func.isRequired,
 };
 
 export default AddModal;

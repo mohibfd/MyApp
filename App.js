@@ -6,8 +6,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {AuthProvider} from './providers/AuthProvider';
 import {TasksProvider} from './providers/TasksProvider';
 
-import {WelcomeView} from './views/WelcomeView';
-import {PlantsView} from './views/PlantsView';
+import WelcomeView from './views/WelcomeView';
+import PlantsView from './views/PlantsView';
 import {OnlineView} from './views/online_views/OnlineView';
 import {ProjectsView} from './views/online_views/ProjectsView';
 import {TasksView} from './views/online_views/TasksView';

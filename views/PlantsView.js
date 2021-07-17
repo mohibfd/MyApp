@@ -7,7 +7,7 @@ import Header from '../components/Header';
 import PlantItem from '../components/PlantItem';
 import DeleteOrCancel from '../components/DeleteOrCancel.js';
 
-export function PlantsView() {
+const PlantsView = () => {
   const [plantsStorage, setPlantsStorage] = useStorage('plantss');
 
   const [plants, setPlants] = useState(plantsStorage ? plantsStorage : []);
@@ -77,4 +77,6 @@ export function PlantsView() {
       )}
     </SafeAreaView>
   );
-}
+};
+
+export default PlantsView;

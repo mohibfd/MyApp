@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import {ListItem} from 'react-native-elements';
 import uuid from 'react-native-uuid';
@@ -115,6 +116,12 @@ const PlantItem = ({plant, deletion, setPlants}) => {
       )}
     </>
   );
+};
+
+TimeInterval.propTypes = {
+  plant: PropTypes.object.isRequired,
+  deletion: PropTypes.func.isRequired,
+  setPlants: PropTypes.func.isRequired,
 };
 
 export default PlantItem;

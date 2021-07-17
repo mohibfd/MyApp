@@ -34,10 +34,6 @@ const DeleteOrCancel = ({name, deletion, closeOverlay}) => {
   );
 };
 
-DeleteOrCancel.defaultProps = {
-  deletion: null,
-};
-
 DeleteOrCancel.propTypes = {
   name: PropTypes.string.isRequired,
   deletion: PropTypes.func.isRequired,

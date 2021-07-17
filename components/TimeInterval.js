@@ -8,19 +8,20 @@ import PushNotification from 'react-native-push-notification';
 import styles from '../stylesheets/stylesheet';
 import DeleteOrCancel from '../components/DeleteOrCancel.js';
 
-const TimeInterval = ({
-  createTimeInterval,
-  closeModal,
-  plant,
-  timeIntervalAction,
-  deleteTimeInterval,
-}) => {
+const TimeInterval = props => {
+  const {
+    createTimeInterval,
+    closeModal,
+    plant,
+    timeIntervalAction,
+    deleteTimeInterval,
+  } = props;
+
   const plantName = plant.name;
 
   const handleNotification = async (interval, plantName) => {
     let repeatTime;
     switch (interval) {
-      //these are all per week
       case 'daily':
         repeatTime = 1;
         break;

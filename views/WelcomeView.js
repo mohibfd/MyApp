@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {View, SafeAreaView, Button, FlatList, Alert} from 'react-native';
 import uuid from 'react-native-uuid';
-
 import styles from '../stylesheets/stylesheet';
 
 import ListItem from '../components/ListItem';
@@ -11,7 +10,7 @@ import DeleteOrCancel from '../components/DeleteOrCancel';
 
 import PushNotification from 'react-native-push-notification';
 
-export function WelcomeView({navigation}) {
+const WelcomeView = ({navigation}) => {
   const [item1, setItem1] = useStorage('PlantsId');
   const [item2, setItem2] = useStorage('InvestId');
   const [item3, setItem3] = useStorage('WorkoutId');
@@ -138,4 +137,6 @@ export function WelcomeView({navigation}) {
       )}
     </SafeAreaView>
   );
-}
+};
+
+export default WelcomeView;
