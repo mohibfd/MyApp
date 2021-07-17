@@ -37,6 +37,7 @@ const DeleteOrCancel = ({name, deletion, closeOverlay}) => {
 DeleteOrCancel.propTypes = {
   name: PropTypes.string.isRequired,
   deletion: PropTypes.func.isRequired,
+  closeOverlay: PropTypes.func.isRequired,
 };
 
 export default DeleteOrCancel;

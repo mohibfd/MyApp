@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
-import {View, Modal, FlatList, Pressable} from 'react-native';
+import {View, Modal, FlatList, Pressable, SafeAreaView} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from '../../stylesheets/stylesheet';
 import RenderIcons from '../RenderIcons.js';
@@ -13,29 +13,31 @@ const AddModal = ({addMainItem}) => {
     setModalOpen(!modalOpen);
   };
   return (
-    <View>
+    <>
       <Modal visible={modalOpen} animationType="slide">
-        <Pressable>
-          <Icon
-            style={styles.modalClose}
-            name="remove"
-            size={50}
-            color="red"
-            onPress={() => toggleModal()}
-          />
+        <SafeAreaView>
+          <Pressable>
+            <Icon
+              style={styles.modalClose}
+              name="remove"
+              size={50}
+              color="red"
+              onPress={() => toggleModal()}
+            />
 
-          <FlatList
-            data={globalMenuItems}
-            renderItem={({item}) => (
-              <RenderIcons
-                item={item}
-                toggleMainModal={toggleModal}
-                addMainItem={addMainItem}
-              />
-            )}
-            numColumns={3}
-          />
-        </Pressable>
+            <FlatList
+              data={globalMenuItems}
+              renderItem={({item}) => (
+                <RenderIcons
+                  item={item}
+                  toggleMainModal={toggleModal}
+                  addMainItem={addMainItem}
+                />
+              )}
+              numColumns={3}
+            />
+          </Pressable>
+        </SafeAreaView>
       </Modal>
 
       <Icon
@@ -45,7 +47,7 @@ const AddModal = ({addMainItem}) => {
         color="green"
         onPress={() => toggleModal()}
       />
-    </View>
+    </>
   );
 };
 

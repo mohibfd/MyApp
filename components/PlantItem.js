@@ -119,9 +119,11 @@ const PlantItem = ({plant, deletion, setPlants}) => {
 };
 
 TimeInterval.propTypes = {
+  createTimeInterval: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired,
   plant: PropTypes.object.isRequired,
-  deletion: PropTypes.func.isRequired,
-  setPlants: PropTypes.func.isRequired,
+  timeIntervalAction: PropTypes.string.isRequired,
+  deleteTimeInterval: PropTypes.func.isRequired,
 };
 
 export default PlantItem;
