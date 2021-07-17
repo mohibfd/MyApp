@@ -1,9 +1,8 @@
-import React, {useState, useEffect} from 'react';
-import {Overlay, Input, Button, View, Text} from 'react-native-elements';
+import React, {useState} from 'react';
+import {Overlay} from 'react-native-elements';
 import DropDownPicker from 'react-native-dropdown-picker';
-import uuid from 'react-native-uuid';
+import {Pressable, Text} from 'react-native';
 import PushNotification from 'react-native-push-notification';
-import {StyleSheet, Dimensions} from 'react-native';
 
 import styles from '../stylesheets/stylesheet';
 import DeleteOrCancel from '../components/DeleteOrCancel.js';
@@ -24,26 +23,22 @@ export function TimeInterval({
       case 'daily':
         repeatTime = 1;
         break;
-      case 'three':
+      case 'every two days':
         repeatTime = 2;
         break;
-      case 'two':
+      case 'every three day':
         repeatTime = 3;
         break;
-      case 'one':
+      case 'once a week':
         repeatTime = 7;
         break;
-      case 'biweekly':
+      case 'once every two weeks':
         repeatTime = 14;
         break;
     }
-    const min = 1;
-    const max = 100000000;
-    const rand = Math.round(min + Math.random() * (max - min));
 
-    console.log(rand);
-    // const id = uuid.v4();
-    const notificationId = '989832';
+    //generating random number for id
+    const notificationId = Math.round(Math.random() * 100000000);
 
     const addNotification = () => {
       PushNotification.localNotificationSchedule({
@@ -53,14 +48,16 @@ export function TimeInterval({
         message: `Reminder to water ${plantName} now`,
         date: new Date(Date.now()),
         allowWhileIdle: true,
-        repeatType: 'day',
+        repeatType: 'minute',
         repeatTime,
+        // repeatType: 'day',
+        // repeatTime,
       });
 
       // this will show us all stored notifications
-      PushNotification.getScheduledLocalNotifications(async nots => {
-        console.log('nots?', nots);
-      });
+      // PushNotification.getScheduledLocalNotifications(async nots => {
+      //   console.log('nots?', nots);
+      // });
     };
 
     if (timeIntervalAction == 'add') {
@@ -68,41 +65,31 @@ export function TimeInterval({
 
       closeOverlays();
 
-      createTimeInterval(value, notificationId);
+      createTimeInterval(dropDownPickerValue, notificationId);
     }
     // else if (timeIntervalAction == 'edit') {
     //    deleteTimeInterval();
-
     //   addNotification();
-
     //   closeOverlays();
-
     //   createTimeInterval(value, notificationId);
     // }
   };
 
   const [overlayVisible, setOverlayVisible] = useState(true);
 
-  const [isDeleteOrCancel, setIsDeleteOrCancel] = useState(true);
-
-  const toggleDeleteOrCancel = () => {
-    setIsDeleteOrCancel(!isDeleteOrCancel);
-    // setIsDeleteOrCancel(!isDeleteOrCancel);
-  };
-
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
+  const [showDropDownPicker, setShowDropDownPicker] = useState(false);
+  const [dropDownPickerValue, setDropDownPickerValue] = useState(null);
 
   const [timeInterval, setTimeInterval] = useState([
-    {label: 'Daily', value: 'daily'},
-    {label: 'Three times a week', value: 'three'},
-    {label: 'Twice a week', value: 'two'},
-    {label: 'Once a week', value: 'one'},
-    {label: 'Once every two weeks', value: 'biweekly'},
+    {label: 'Every day', value: 'daily'},
+    {label: 'Every 2 days', value: 'every two days'},
+    {label: 'Every 3 days', value: 'every three days'},
+    {label: 'Every week', value: 'once a week'},
+    {label: 'Every two weeks', value: 'once every two weeks'},
   ]);
 
   const onPressFunction = async () => {
-    handleNotification(value, plantName);
+    handleNotification(dropDownPickerValue, plantName);
   };
 
   const closeOverlays = () => {
@@ -112,13 +99,11 @@ export function TimeInterval({
 
   if (timeIntervalAction == 'delete') {
     return (
-      isDeleteOrCancel && (
-        <DeleteOrCancel
-          name={'this notification'}
-          deletion={deleteTimeInterval}
-          closeOverlay={toggleDeleteOrCancel}
-        />
-      )
+      <DeleteOrCancel
+        name={'this notification'}
+        deletion={deleteTimeInterval}
+        closeOverlay={() => closeOverlays()}
+      />
     );
   } else {
     return (
@@ -128,19 +113,18 @@ export function TimeInterval({
         onBackdropPress={() => closeOverlays()}>
         <>
           <DropDownPicker
-            open={open}
-            value={value}
+            open={showDropDownPicker}
+            value={dropDownPickerValue}
             items={timeInterval}
-            setOpen={setOpen}
-            setValue={setValue}
+            setOpen={setShowDropDownPicker}
+            setValue={setDropDownPickerValue}
             setItems={setTimeInterval}
           />
-          <Button
-            title="Add"
-            onPress={() => {
-              onPressFunction();
-            }}
-          />
+          <Pressable
+            style={[styles.addButton]}
+            onPress={() => onPressFunction()}>
+            <Text style={styles.textStylesDark}>Add</Text>
+          </Pressable>
         </>
       </Overlay>
     );

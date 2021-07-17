@@ -31,7 +31,7 @@ const PlantItem = ({plant, deletion, setPlants}) => {
 
   if (!plant.timeInterval) {
     actions.push({
-      title: 'Set time interval',
+      title: 'Set reminder',
       action: () => (toggleShowTimeInterval(), setTimeIntervalAction('add')),
     });
   } else {
@@ -41,7 +41,7 @@ const PlantItem = ({plant, deletion, setPlants}) => {
     // });
 
     actions.push({
-      title: 'Delete time interval',
+      title: 'Delete reminder',
       action: () => (toggleShowTimeInterval(), setTimeIntervalAction('delete')),
     });
   }

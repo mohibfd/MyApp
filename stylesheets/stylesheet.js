@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   },
   overlay: {
     width: '90%',
-    height: '35%',
+    height: '34%',
     justifyContent: 'space-between',
   },
 
@@ -136,6 +136,15 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingLeft: '5%',
     fontSize: EStyleSheet.value('25rem'),
+  },
+  addButton: {
+    width: '75%',
+    height: EStyleSheet.value('40rem'),
+    justifyContent: 'center',
+    alignSelf: 'center',
+    borderRadius: EStyleSheet.value('5rem'),
+    backgroundColor: 'black',
+    marginBottom: EStyleSheet.value('20rem'),
   },
   //PLANT VIEW
 
@@ -171,9 +180,9 @@ const styles = StyleSheet.create({
   },
   darkButtonContainer: {
     width: '45%',
-    height: 40,
+    height: EStyleSheet.value('40rem'),
     justifyContent: 'center',
-    borderRadius: 5,
+    borderRadius: EStyleSheet.value('5rem'),
     backgroundColor: 'black',
   },
   //DELETEORCANCEL
