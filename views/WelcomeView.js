@@ -103,6 +103,7 @@ const WelcomeView = ({navigation}) => {
       return prevItems.filter(item => item != deleteItem);
     });
   };
+
   return (
     <SafeAreaView style={styles.welcome}>
       <Header title="My Items" />

@@ -49,7 +49,7 @@ const AddModal = ({addMainItem}) => {
   );
 };
 
-AddModal.PropTypes = {
+AddModal.propTypes = {
   addMainItem: PropTypes.func.isRequired,
 };
 

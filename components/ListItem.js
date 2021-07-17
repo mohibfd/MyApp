@@ -11,6 +11,7 @@ const ListItem = ({item, deleteItemFromStorage, navigation}) => {
         navigation.navigate('Plants View');
         break;
       case 'Invest':
+        navigation.navigate('Invest View');
         break;
       case 'Workout':
         // navigation.navigate('Online View');

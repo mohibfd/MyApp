@@ -20,7 +20,7 @@ const Header = ({title, add}) => {
 };
 
 Header.defaultProps = {
-  title: 'You forgot to add header',
+  add: null,
 };
 
 Header.propTypes = {
