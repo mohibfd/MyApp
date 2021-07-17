@@ -119,6 +119,38 @@ const styles = StyleSheet.create({
   threeFlatList: {
     padding: EStyleSheet.value('20rem'),
   },
+  modalView: {
+    flexDirection: 'row',
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+
+  button: {
+    width: '40%',
+    marginHorizontal: '2%',
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+  },
   //MODAL
 
   //PLANT VIEW

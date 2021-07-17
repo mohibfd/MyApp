@@ -72,7 +72,7 @@ export function TimeInterval({
         //   return [{key: notificationId, repeatTime}, ...prevItems];
         // });
 
-        console.log('nots?', nots);
+        // console.log('nots?', nots);
 
         //this lines will delete all notifications
         //

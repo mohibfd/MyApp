@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {View, Text} from 'react-native';
 
@@ -20,6 +21,11 @@ const Header = ({title, add}) => {
 
 Header.defaultProps = {
   title: 'You forgot to add header',
+};
+
+Header.propTypes = {
+  title: PropTypes.string.isRequired,
+  add: PropTypes.func,
 };
 
 export default Header;

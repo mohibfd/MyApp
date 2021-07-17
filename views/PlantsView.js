@@ -18,7 +18,7 @@ export function PlantsView() {
 
   useEffect(() => {
     setPlantsStorage(plants);
-    console.log(plants);
+    // console.log(plants);
   }, [plants]);
 
   const toggleDeleteOrCancel = () => {
