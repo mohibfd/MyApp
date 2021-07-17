@@ -71,6 +71,44 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: '75%',
   },
+  ////
+  container: {
+    flexDirection: 'row',
+    //height: 40,
+    height: 50,
+    paddingVertical: 5,
+    //width: "100%"
+  },
+  textStyles: {
+    textAlign: 'center',
+    //flex: 1,
+    color: 'white',
+    //height: "100%",
+
+    //width: "100%",
+    //paddingVertical: 12,
+    //borderWidth: 2,
+    textAlignVertical: 'center',
+  },
+  textStylesDark: {
+    fontSize: EStyleSheet.value('20rem'),
+    textAlign: 'center',
+    //flex: 1,
+    color: 'white',
+    //height: "100%",
+
+    //width: "100%",
+    //paddingVertical: 12,
+    //borderWidth: 2,
+  },
+  darkButtonContainer: {
+    width: '45%',
+    height: 40,
+    justifyContent: 'center',
+    borderRadius: 5,
+    backgroundColor: 'black',
+  },
+  ////
   //MAIN HOME PAGE
 
   //MODAL
@@ -93,13 +131,17 @@ const styles = StyleSheet.create({
     height: '35%',
     justifyContent: 'space-between',
   },
-  deleteOverlayText: {
-    fontSize: EStyleSheet.value('25rem'),
-  },
+
   deleteOverlay: {
+    flex: 0.17,
     width: '90%',
-    height: '25%',
+    // height: '20%',
     justifyContent: 'space-between',
+  },
+  deleteOverlayText: {
+    flex: 1,
+    paddingLeft: '5%',
+    fontSize: EStyleSheet.value('25rem'),
   },
   //PLANT VIEW
 });

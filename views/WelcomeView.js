@@ -2,12 +2,12 @@ import React, {useEffect, useState} from 'react';
 import {View, SafeAreaView, Button, FlatList, Alert} from 'react-native';
 import uuid from 'react-native-uuid';
 
-import styles from '../stylesheets/stylesheet.js';
+import styles from '../stylesheets/stylesheet';
 
 import ListItem from '../components/ListItem';
 import Header from '../components/Header';
 import AddItemModal from '../components/modals/addItemModal';
-import DeleteOrCancel from '../components/CreateOrCancel.js';
+import CreateOrCancel from '../components/CreateOrCancel';
 
 import PushNotification from 'react-native-push-notification';
 
@@ -130,12 +130,7 @@ export function WelcomeView({navigation}) {
         />
       </View>
       {isDeleteOrCancel && (
-        <DeleteOrCancel
-          name={deleteItem.name}
-          action={completeDeletion}
-          action2={toggleDeleteOrCancel}
-          deletion
-        />
+        <CreateOrCancel name={deleteItem.name} deletion={completeDeletion} />
       )}
     </SafeAreaView>
   );

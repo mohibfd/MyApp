@@ -3,14 +3,17 @@ import {Overlay, Input, Button, View, Text} from 'react-native-elements';
 import DropDownPicker from 'react-native-dropdown-picker';
 import uuid from 'react-native-uuid';
 import PushNotification from 'react-native-push-notification';
+import {StyleSheet, Dimensions} from 'react-native';
 
 import styles from '../stylesheets/stylesheet';
+import DeleteOrCancel from '../components/CreateOrCancel.js';
 
 export function TimeInterval({
   createTimeInterval,
   closeModal,
   plantName,
   timeIntervalAction,
+  deleteTimeInterval,
 }) {
   //   const [savedNotificationsStorage, setSavedNotificationsStorage] = useStorage(
   //     'plantsNotificationss',
@@ -85,7 +88,7 @@ export function TimeInterval({
       });
     } else if (timeIntervalAction == 'edit') {
       console.log('edit');
-      //   PushNotification.cancelLocalNotifications({id: '123'});
+      // PushNotification.cancelLocalNotifications({id: '123'});
     } else if (timeIntervalAction == 'delete') {
       console.log('delete');
     }
@@ -114,25 +117,7 @@ export function TimeInterval({
   };
 
   if (timeIntervalAction == 'delete') {
-    return (
-      <Overlay
-        isVisible={overlayVisible}
-        overlayStyle={styles.overlay}
-        onBackdropPress={() => closeOverlays()}>
-        <>
-          <Text style={styles.deleteOverlayText}>
-            Are you sure you want to delete this notification?
-          </Text>
-
-          <Button
-            title="Delete"
-            onPress={() => {
-              onPressFunction();
-            }}
-          />
-        </>
-      </Overlay>
-    );
+    return <DeleteOrCancel name={'this notification'} deletion={true} />;
   } else {
     return (
       <Overlay
