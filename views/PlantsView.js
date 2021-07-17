@@ -5,7 +5,7 @@ import uuid from 'react-native-uuid';
 import styles from '../stylesheets/stylesheet.js';
 import Header from '../components/Header';
 import PlantItem from '../components/PlantItem';
-import DeleteOrCancel from '../components/CreateOrCancel.js';
+import DeleteOrCancel from '../components/DeleteOrCancel.js';
 
 export function PlantsView() {
   const [plantsStorage, setPlantsStorage] = useStorage('plantss');

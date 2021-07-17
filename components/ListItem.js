@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, Pressable} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from '../stylesheets/stylesheet';
 
@@ -22,7 +22,7 @@ const ListItem = ({item, deleteItemFromStorage, navigation}) => {
 
   //return our items alongside a delete icon that calls on deleteList function taking the element's id
   return (
-    <TouchableOpacity style={styles.ListItem} onPress={() => navigateTo()}>
+    <Pressable style={styles.ListItem} onPress={() => navigateTo()}>
       <View style={styles.ListItemView}>
         <Text style={styles.listItemText}>{item.name}</Text>
         <Icon
@@ -33,7 +33,7 @@ const ListItem = ({item, deleteItemFromStorage, navigation}) => {
           onPress={() => deleteItemFromStorage(item)}
         />
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

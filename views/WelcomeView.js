@@ -7,7 +7,7 @@ import styles from '../stylesheets/stylesheet';
 import ListItem from '../components/ListItem';
 import Header from '../components/Header';
 import AddItemModal from '../components/modals/addItemModal';
-import CreateOrCancel from '../components/CreateOrCancel';
+import DeleteOrCancel from '../components/DeleteOrCancel';
 
 import PushNotification from 'react-native-push-notification';
 
@@ -130,7 +130,7 @@ export function WelcomeView({navigation}) {
         />
       </View>
       {isDeleteOrCancel && (
-        <CreateOrCancel
+        <DeleteOrCancel
           name={deleteItem.name}
           deletion={completeDeletion}
           closeOverlay={toggleDeleteOrCancel}

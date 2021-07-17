@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {TouchableOpacity, View, Text, Modal} from 'react-native';
+import {Pressable, View, Text, Modal} from 'react-native';
 import {Overlay} from 'react-native-elements';
 
 import styles from '../stylesheets/stylesheet';
 
-const CreateOrCancel = ({name, deletion, closeOverlay}) => {
+const DeleteOrCancel = ({name, deletion, closeOverlay}) => {
   return (
     <Overlay
       isVisible={true}
@@ -17,18 +17,18 @@ const CreateOrCancel = ({name, deletion, closeOverlay}) => {
             Are you sure you want to delete {name} ?
           </Text>
           <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
-            <TouchableOpacity
+            <Pressable
               style={styles.darkButtonContainer}
               activeScale={0.7}
               onPress={() => closeOverlay()}>
               <Text style={styles.textStylesDark}>Cancel</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
+            </Pressable>
+            <Pressable
               style={styles.darkButtonContainer}
               activeScale={0.7}
               onPress={() => deletion()}>
               <Text style={styles.textStylesDark}>Delete</Text>
-            </TouchableOpacity>
+            </Pressable>
           </View>
         </>
       )}
@@ -36,13 +36,13 @@ const CreateOrCancel = ({name, deletion, closeOverlay}) => {
   );
 };
 
-CreateOrCancel.defaultProps = {
+DeleteOrCancel.defaultProps = {
   deletion: null,
 };
 
-CreateOrCancel.propTypes = {
+DeleteOrCancel.propTypes = {
   name: PropTypes.string.isRequired,
-  deletion: PropTypes.func,
+  deletion: PropTypes.func.isRequired,
 };
 
-export default CreateOrCancel;
+export default DeleteOrCancel;

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-// import {View, Modal, TouchableOpacity, Text} from 'react-native';
+// import {View, Modal, Pressable, Text} from 'react-native';
 import {TouchableHighlight, Modal, Text, View} from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';

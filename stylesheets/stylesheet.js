@@ -71,44 +71,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: '75%',
   },
-  ////
-  container: {
-    flexDirection: 'row',
-    //height: 40,
-    height: 50,
-    paddingVertical: 5,
-    //width: "100%"
-  },
-  textStyles: {
-    textAlign: 'center',
-    //flex: 1,
-    color: 'white',
-    //height: "100%",
 
-    //width: "100%",
-    //paddingVertical: 12,
-    //borderWidth: 2,
-    textAlignVertical: 'center',
-  },
-  textStylesDark: {
-    fontSize: EStyleSheet.value('20rem'),
-    textAlign: 'center',
-    //flex: 1,
-    color: 'white',
-    //height: "100%",
-
-    //width: "100%",
-    //paddingVertical: 12,
-    //borderWidth: 2,
-  },
-  darkButtonContainer: {
-    width: '45%',
-    height: 40,
-    justifyContent: 'center',
-    borderRadius: 5,
-    backgroundColor: 'black',
-  },
-  ////
   //MAIN HOME PAGE
 
   //MODAL
@@ -128,7 +91,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 22,
   },
-
   button: {
     width: '40%',
     marginHorizontal: '2%',
@@ -176,6 +138,45 @@ const styles = StyleSheet.create({
     fontSize: EStyleSheet.value('25rem'),
   },
   //PLANT VIEW
+
+  //DELETEORCANCEL
+  container: {
+    flexDirection: 'row',
+    //height: 40,
+    height: 50,
+    paddingVertical: 5,
+    //width: "100%"
+  },
+  textStyles: {
+    textAlign: 'center',
+    //flex: 1,
+    color: 'white',
+    //height: "100%",
+
+    //width: "100%",
+    //paddingVertical: 12,
+    //borderWidth: 2,
+    textAlignVertical: 'center',
+  },
+  textStylesDark: {
+    fontSize: EStyleSheet.value('20rem'),
+    textAlign: 'center',
+    //flex: 1,
+    color: 'white',
+    //height: "100%",
+
+    //width: "100%",
+    //paddingVertical: 12,
+    //borderWidth: 2,
+  },
+  darkButtonContainer: {
+    width: '45%',
+    height: 40,
+    justifyContent: 'center',
+    borderRadius: 5,
+    backgroundColor: 'black',
+  },
+  //DELETEORCANCEL
 });
 
 export default styles;

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Modal, FlatList, TouchableOpacity} from 'react-native';
+import {View, Modal, FlatList, Pressable} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from '../../stylesheets/stylesheet';
 import RenderIcons from '../RenderIcons.js';
@@ -14,7 +14,7 @@ const AddModal = ({addMainItem}) => {
   return (
     <View>
       <Modal visible={modalOpen} animationType="slide">
-        <TouchableOpacity>
+        <Pressable>
           <Icon
             style={styles.modalClose}
             name="remove"
@@ -34,7 +34,7 @@ const AddModal = ({addMainItem}) => {
             )}
             numColumns={3}
           />
-        </TouchableOpacity>
+        </Pressable>
       </Modal>
 
       <Icon

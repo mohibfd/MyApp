@@ -6,7 +6,7 @@ import PushNotification from 'react-native-push-notification';
 import {StyleSheet, Dimensions} from 'react-native';
 
 import styles from '../stylesheets/stylesheet';
-import DeleteOrCancel from '../components/CreateOrCancel.js';
+import DeleteOrCancel from '../components/DeleteOrCancel.js';
 
 export function TimeInterval({
   createTimeInterval,
