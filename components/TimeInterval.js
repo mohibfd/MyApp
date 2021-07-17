@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import {Overlay} from 'react-native-elements';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -7,13 +8,13 @@ import PushNotification from 'react-native-push-notification';
 import styles from '../stylesheets/stylesheet';
 import DeleteOrCancel from '../components/DeleteOrCancel.js';
 
-export function TimeInterval({
+const TimeInterval = ({
   createTimeInterval,
   closeModal,
   plant,
   timeIntervalAction,
   deleteTimeInterval,
-}) {
+}) => {
   const plantName = plant.name;
 
   const handleNotification = async (interval, plantName) => {
@@ -48,10 +49,8 @@ export function TimeInterval({
         message: `Reminder to water ${plantName} now`,
         date: new Date(Date.now()),
         allowWhileIdle: true,
-        repeatType: 'minute',
+        repeatType: 'day',
         repeatTime,
-        // repeatType: 'day',
-        // repeatTime,
       });
 
       // this will show us all stored notifications
@@ -121,7 +120,7 @@ export function TimeInterval({
             setItems={setTimeInterval}
           />
           <Pressable
-            style={[styles.addButton]}
+            style={[{...styles.darkButtonContainer, ...styles.addButton}]}
             onPress={() => onPressFunction()}>
             <Text style={styles.textStylesDark}>Add</Text>
           </Pressable>
@@ -129,9 +128,14 @@ export function TimeInterval({
       </Overlay>
     );
   }
-}
+};
 
-// DeleteOrCancel.propTypes = {
-//   name: PropTypes.string.isRequired,
-//   deletion: PropTypes.func.isRequired,
-// };
+TimeInterval.propTypes = {
+  createTimeInterval: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired,
+  plant: PropTypes.object.isRequired,
+  timeIntervalAction: PropTypes.string.isRequired,
+  deleteTimeInterval: PropTypes.func.isRequired,
+};
+
+export default TimeInterval;

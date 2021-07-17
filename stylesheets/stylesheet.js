@@ -139,12 +139,7 @@ const styles = StyleSheet.create({
   },
   addButton: {
     width: '75%',
-    height: EStyleSheet.value('40rem'),
-    justifyContent: 'center',
     alignSelf: 'center',
-    borderRadius: EStyleSheet.value('5rem'),
-    backgroundColor: 'black',
-    marginBottom: EStyleSheet.value('20rem'),
   },
   //PLANT VIEW
 

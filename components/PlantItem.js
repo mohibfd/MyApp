@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {ActionSheet} from './online_components/ActionSheet';
 import styles from '../stylesheets/stylesheet';
-import {TimeInterval} from './TimeInterval';
+import TimeInterval from './TimeInterval';
 import PushNotification from 'react-native-push-notification';
 
 const PlantItem = ({plant, deletion, setPlants}) => {
