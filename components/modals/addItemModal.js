@@ -6,7 +6,6 @@ import RenderIcons from '../RenderIcons.js';
 import '../../global.js';
 
 const AddModal = ({addMainItem}) => {
-  //usestate to open or close modal
   const [modalOpen, setModalOpen] = useState(false);
 
   const toggleModal = () => {

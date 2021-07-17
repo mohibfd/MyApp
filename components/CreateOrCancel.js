@@ -1,55 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import {Alert, StyleSheet, Button} from 'react-native';
 import {TouchableOpacity, View, Text, Modal} from 'react-native';
 import {Overlay} from 'react-native-elements';
 
-// import Modal from 'react-native-modal';
-
 import styles from '../stylesheets/stylesheet';
 
-const CreateOrCancel = ({name, deletion, addition}) => {
-  const [overlayVisible, setOverlayVisible] = useState(true);
-
-  const [modalOpen, setModalOpen] = useState(true);
-
-  if (addition) {
-    <Modal visible={modalOpen} animationType="slide">
-      <>
-        <Text style={styles.deleteOverlayText}>
-          Are you sure you want to delete {name} ?
-        </Text>
-        <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
-          <TouchableOpacity
-            style={styles.darkButtonContainer}
-            activeScale={0.7}
-            onPress={() => setOverlayVisible(false)}>
-            <Text style={styles.textStylesDark}>Cancel</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.darkButtonContainer}
-            activeScale={0.7}
-            onPress={() => addition()}>
-            <Text style={styles.textStylesDark}>Delete</Text>
-          </TouchableOpacity>
-        </View>
-      </>
-    </Modal>;
-
-    // Alert.alert('Create item?', 'Do you want to create <' + name + '> icon?', [
-    //   {
-    //     text: 'Cancel',
-    //     style: 'destructive',
-    //   },
-    //   {text: 'Yes', onPress: () => addition(), style: 'default'},
-    // ]);
-    // return null;
-  }
+const CreateOrCancel = ({name, deletion, closeOverlay}) => {
   return (
     <Overlay
-      isVisible={overlayVisible}
+      isVisible={true}
       overlayStyle={styles.deleteOverlay}
-      onBackdropPress={() => setOverlayVisible(false)}>
+      onBackdropPress={() => closeOverlay()}>
       {deletion && (
         <>
           <Text style={styles.deleteOverlayText}>
@@ -59,7 +20,7 @@ const CreateOrCancel = ({name, deletion, addition}) => {
             <TouchableOpacity
               style={styles.darkButtonContainer}
               activeScale={0.7}
-              onPress={() => setOverlayVisible(false)}>
+              onPress={() => closeOverlay()}>
               <Text style={styles.textStylesDark}>Cancel</Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -76,14 +37,12 @@ const CreateOrCancel = ({name, deletion, addition}) => {
 };
 
 CreateOrCancel.defaultProps = {
-  addition: null,
   deletion: null,
 };
 
 CreateOrCancel.propTypes = {
   name: PropTypes.string.isRequired,
   deletion: PropTypes.func,
-  addition: PropTypes.func,
 };
 
 export default CreateOrCancel;

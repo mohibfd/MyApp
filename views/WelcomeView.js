@@ -130,7 +130,11 @@ export function WelcomeView({navigation}) {
         />
       </View>
       {isDeleteOrCancel && (
-        <CreateOrCancel name={deleteItem.name} deletion={completeDeletion} />
+        <CreateOrCancel
+          name={deleteItem.name}
+          deletion={completeDeletion}
+          closeOverlay={toggleDeleteOrCancel}
+        />
       )}
     </SafeAreaView>
   );
