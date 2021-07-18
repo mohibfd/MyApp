@@ -94,9 +94,8 @@ const styles = StyleSheet.create({
   button: {
     width: '40%',
     marginHorizontal: '2%',
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
+    borderRadius: EStyleSheet.value('20rem'),
+    padding: EStyleSheet.value('10rem'),
   },
   buttonOpen: {
     backgroundColor: '#F194FF',
@@ -110,7 +109,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   modalText: {
-    marginBottom: 15,
+    marginBottom: EStyleSheet.value('15rem'),
     textAlign: 'center',
   },
   //MODAL
@@ -126,7 +125,7 @@ const styles = StyleSheet.create({
 
   //PLANT VIEW
   plantText: {
-    fontSize: EStyleSheet.value('25rem'),
+    fontSize: EStyleSheet.value('40rem'),
   },
   overlay: {
     width: '90%',
@@ -154,9 +153,8 @@ const styles = StyleSheet.create({
   //DELETEORCANCEL
   container: {
     flexDirection: 'row',
-    //height: 40,
-    height: 50,
-    paddingVertical: 5,
+    height: EStyleSheet.value('50rem'),
+    paddingVertical: EStyleSheet.value('5rem'),
     //width: "100%"
   },
   textStyles: {
@@ -192,7 +190,7 @@ const styles = StyleSheet.create({
 
   //INVESTMENT VIEW
   investmentContainer: {
-    height: 80,
+    height: EStyleSheet.value('80rem'),
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -212,14 +210,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   investmentText: {
-    fontSize: 16,
     flex: 7,
+    fontSize: EStyleSheet.value('16rem'),
     alignSelf: 'center',
     textAlign: 'right',
   },
   currencyInputContainer: {
     flex: 4,
-    fontSize: 18,
+    fontSize: EStyleSheet.value('18rem'),
   },
   //INVESTMENT VIEW
 });
