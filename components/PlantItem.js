@@ -102,7 +102,7 @@ const PlantItem = ({plant, deletion, setPlants}) => {
         bottomDivider>
         <ListItem.Content style={styles.listItemContainer}>
           <ListItem.Title style={styles.plantText}>{plant.name}</ListItem.Title>
-          {plant.notificationId && <Icon name="check" size={20} />}
+          {plant.notificationId && <Icon name="check" size={40} />}
         </ListItem.Content>
       </ListItem>
       {showTimeInterval && (

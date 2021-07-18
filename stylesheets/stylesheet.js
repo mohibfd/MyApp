@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
   },
   overlay: {
     width: '90%',
-    height: '34%',
+    height: '31%',
     justifyContent: 'space-between',
   },
 

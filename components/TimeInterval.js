@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
+import {Pressable, Text, Platform, Alert} from 'react-native';
 import {Overlay} from 'react-native-elements';
 import DropDownPicker from 'react-native-dropdown-picker';
-import {Pressable, Text, Platform} from 'react-native';
 import PushNotification from 'react-native-push-notification';
 
 import styles from '../stylesheets/stylesheet';
@@ -33,6 +33,13 @@ const TimeInterval = props => {
   ]);
 
   const handleNotification = async (interval, plantName) => {
+    if (!interval) {
+      Alert.alert('Error', 'Please choose one of the available options', [
+        {text: 'OK', onPress: () => console.log('OK Pressed')},
+      ]);
+      return;
+    }
+
     let repeatTime;
     switch (interval) {
       case 'daily':
