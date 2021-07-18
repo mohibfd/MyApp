@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {View, Text} from 'react-native';
 
-import {AddPlant} from './AddPlant';
+import AddItemHeader from './AddItemHeader';
 import styles from '../stylesheets/stylesheet';
 
 //simple function that styles headers
@@ -13,7 +13,7 @@ const Header = ({title, add}) => {
         <Text style={styles.text}>{title}</Text>
       </View>
       <View style={styles.plusButtonContainer}>
-        {add && <AddPlant createTask={add} />}
+        {add && <AddItemHeader createTask={add} />}
       </View>
     </View>
   );

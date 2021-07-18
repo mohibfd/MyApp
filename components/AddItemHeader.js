@@ -1,11 +1,12 @@
+import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import {Overlay, Input, Button, Text} from 'react-native-elements';
 import styles from '../stylesheets/stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-export function AddPlant({createTask}) {
+const AddItemHeader = ({createTask}) => {
   const [overlayVisible, setOverlayVisible] = useState(false);
-  const [newPlantName, setNewPlantName] = useState('');
+  const [newItemName, setNewItemName] = useState('');
 
   return (
     <>
@@ -15,15 +16,15 @@ export function AddPlant({createTask}) {
         onBackdropPress={() => setOverlayVisible(false)}>
         <>
           <Input
-            placeholder="New Plant Name"
-            onChangeText={text => setNewPlantName(text)}
+            placeholder="New Item Name"
+            onChangeText={text => setNewItemName(text)}
             autoFocus={true}
           />
           <Button
             title="Create"
             onPress={() => {
               setOverlayVisible(false);
-              createTask(newPlantName);
+              createTask(newItemName);
             }}
           />
         </>
@@ -39,4 +40,10 @@ export function AddPlant({createTask}) {
       />
     </>
   );
-}
+};
+
+AddItemHeader.propTypes = {
+  createTask: PropTypes.func.isRequired,
+};
+
+export default AddItemHeader;
