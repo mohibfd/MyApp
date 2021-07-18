@@ -105,7 +105,9 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
         }}
         bottomDivider>
         <ListItem.Content style={styles.listItemContainer}>
-          <ListItem.Title>{investment.name}</ListItem.Title>
+          <ListItem.Title style={styles.listItemText}>
+            {investment.name}
+          </ListItem.Title>
           {investment.timeInterval && <Icon name="check" size={20} />}
         </ListItem.Content>
       </ListItem>

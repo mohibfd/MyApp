@@ -13,7 +13,7 @@ const Header = ({title, add}) => {
         <Text style={styles.text}>{title}</Text>
       </View>
       <View style={styles.plusButtonContainer}>
-        {add && <AddItemHeader createTask={add} />}
+        {add && <AddItemHeader createItem={add} />}
       </View>
     </View>
   );

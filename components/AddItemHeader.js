@@ -4,7 +4,7 @@ import {Overlay, Input, Button, Text} from 'react-native-elements';
 import styles from '../stylesheets/stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const AddItemHeader = ({createTask}) => {
+const AddItemHeader = ({createItem}) => {
   const [overlayVisible, setOverlayVisible] = useState(false);
   const [newItemName, setNewItemName] = useState('');
 
@@ -24,7 +24,7 @@ const AddItemHeader = ({createTask}) => {
             title="Create"
             onPress={() => {
               setOverlayVisible(false);
-              createTask(newItemName);
+              createItem(newItemName);
             }}
           />
         </>
@@ -43,7 +43,7 @@ const AddItemHeader = ({createTask}) => {
 };
 
 AddItemHeader.propTypes = {
-  createTask: PropTypes.func.isRequired,
+  createItem: PropTypes.func.isRequired,
 };
 
 export default AddItemHeader;

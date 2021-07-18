@@ -51,15 +51,6 @@ const InvestView = () => {
   const completeDeletion = () => {
     toggleDeleteOrCancel();
 
-    if (deleteInvestment.notificationId) {
-      [...Array(globalRepeatNotifications)].map((e, i) => {
-        if (i != 0) {
-          const id = deleteInvestment.notificationId + i;
-          PushNotification.cancelLocalNotifications({id});
-        }
-      });
-    }
-
     setInvestments(prevItems => {
       return prevItems.filter(item => item.key != deleteInvestment.key);
     });

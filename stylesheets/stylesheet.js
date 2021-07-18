@@ -115,11 +115,16 @@ const styles = StyleSheet.create({
   },
   //MODAL
 
-  //PLANT VIEW
+  //ITEM VIEW
   listItemContainer: {
     flexDirection: 'row',
-    paddingVertical: EStyleSheet.value('5rem'),
+    paddingVertical: EStyleSheet.value('20rem'),
   },
+
+  //ITEM VIEW
+
+  //PLANT VIEW
+
   overlay: {
     width: '90%',
     height: '34%',
