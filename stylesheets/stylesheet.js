@@ -118,13 +118,16 @@ const styles = StyleSheet.create({
   //ITEM VIEW
   listItemContainer: {
     flexDirection: 'row',
-    paddingVertical: EStyleSheet.value('20rem'),
+    alignItems: 'center',
+    // paddingVertical: EStyleSheet.value('15rem'),
   },
 
   //ITEM VIEW
 
   //PLANT VIEW
-
+  plantText: {
+    fontSize: EStyleSheet.value('25rem'),
+  },
   overlay: {
     width: '90%',
     height: '34%',
