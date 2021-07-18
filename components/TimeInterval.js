@@ -41,7 +41,7 @@ const TimeInterval = props => {
       case 'every two days':
         repeatTime = 2;
         break;
-      case 'every three day':
+      case 'every three days':
         repeatTime = 3;
         break;
       case 'once a week':
