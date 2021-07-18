@@ -8,7 +8,6 @@ import {ActionSheet} from './online_components/ActionSheet';
 import styles from '../stylesheets/stylesheet';
 import TimeInterval from './TimeInterval';
 import PushNotification from 'react-native-push-notification';
-import PushNotificationIOS from '@react-native-community/push-notification-ios';
 
 const PlantItem = ({plant, deletion, setPlants}) => {
   const [actionSheetVisible, setActionSheetVisible] = useState(false);
@@ -26,7 +25,6 @@ const PlantItem = ({plant, deletion, setPlants}) => {
       title: 'Delete plant',
       action: () => {
         deletion(plant);
-        PushNotification.cancelLocalNotifications({id: plant.notificationId});
       },
     },
   ];
@@ -63,7 +61,12 @@ const PlantItem = ({plant, deletion, setPlants}) => {
   };
 
   const deleteTimeInterval = () => {
-    PushNotification.cancelLocalNotifications({id: plant.notificationId});
+    [...Array(globalRepeatNotifications)].map((e, i) => {
+      if (i != 0) {
+        const id = plant.notificationId + i;
+        PushNotification.cancelLocalNotifications({id});
+      }
+    });
 
     //delete all notifications
     // PushNotification.cancelAllLocalNotifications();

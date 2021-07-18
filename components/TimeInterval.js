@@ -2,9 +2,8 @@ import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import {Overlay} from 'react-native-elements';
 import DropDownPicker from 'react-native-dropdown-picker';
-import {Pressable, Text} from 'react-native';
+import {Pressable, Text, Platform} from 'react-native';
 import PushNotification from 'react-native-push-notification';
-import PushNotificationIOS from '@react-native-community/push-notification-ios';
 
 import styles from '../stylesheets/stylesheet';
 import DeleteOrCancel from '../components/DeleteOrCancel.js';
@@ -19,6 +18,19 @@ const TimeInterval = props => {
   } = props;
 
   const plantName = plant.name;
+
+  const [overlayVisible, setOverlayVisible] = useState(true);
+
+  const [showDropDownPicker, setShowDropDownPicker] = useState(false);
+  const [dropDownPickerValue, setDropDownPickerValue] = useState(null);
+
+  const [timeInterval, setTimeInterval] = useState([
+    {label: 'Every day', value: 'daily'},
+    {label: 'Every 2 days', value: 'every two days'},
+    {label: 'Every 3 days', value: 'every three days'},
+    {label: 'Every week', value: 'once a week'},
+    {label: 'Every two weeks', value: 'once every two weeks'},
+  ]);
 
   const handleNotification = async (interval, plantName) => {
     let repeatTime;
@@ -40,33 +52,32 @@ const TimeInterval = props => {
         break;
     }
 
-    let temp = Date().toString();
-    console.log(temp);
-    PushNotificationIOS.addNotificationRequest({
-      id: new Date().toString(),
-      alertTitle: 'test',
-      alertBody: 'test2',
-    });
-
     //generating random number for id
-    const notificationId = Math.round(Math.random() * 100000000);
+    const dateId = Date().toString();
+    const numberId = Math.round(Math.random() * 100000000);
+    const notificationId = Platform.OS === 'ios' ? dateId : numberId;
 
     const addNotification = () => {
-      PushNotification.localNotificationSchedule({
-        id: notificationId,
-        channelId: 'test-channel1',
-        title: plantName,
-        message: `Reminder to water ${plantName} now`,
-        date: new Date(Date.now()),
-        allowWhileIdle: true,
-        repeatType: 'day',
-        repeatTime,
-      });
+      [...Array(globalRepeatNotifications)].map((e, i) => {
+        if (i != 0) {
+          const oneDayInSeconds = 86400;
+          //86400 is one day's time
+          const specificDate = new Date(
+            Date.now() + oneDayInSeconds * i * 1000 * repeatTime,
+          );
 
-      // this will show us all stored notifications
-      // PushNotification.getScheduledLocalNotifications(async nots => {
-      //   console.log('nots?', nots);
-      // });
+          const newId = notificationId + i;
+
+          PushNotification.localNotificationSchedule({
+            channelId: 'test-channel1',
+            id: newId,
+            date: specificDate,
+            title: plantName,
+            message: `Reminder to water ${plantName} now`,
+            allowWhileIdle: true,
+          });
+        }
+      });
     };
 
     if (timeIntervalAction == 'add') {
@@ -80,22 +91,9 @@ const TimeInterval = props => {
     //    deleteTimeInterval();
     //   addNotification();
     //   closeOverlays();
-    //   createTimeInterval(value, notificationId);
+    //   createTimeInterval(value, dateId);
     // }
   };
-
-  const [overlayVisible, setOverlayVisible] = useState(true);
-
-  const [showDropDownPicker, setShowDropDownPicker] = useState(false);
-  const [dropDownPickerValue, setDropDownPickerValue] = useState(null);
-
-  const [timeInterval, setTimeInterval] = useState([
-    {label: 'Every day', value: 'daily'},
-    {label: 'Every 2 days', value: 'every two days'},
-    {label: 'Every 3 days', value: 'every three days'},
-    {label: 'Every week', value: 'once a week'},
-    {label: 'Every two weeks', value: 'once every two weeks'},
-  ]);
 
   const onPressFunction = async () => {
     handleNotification(dropDownPickerValue, plantName);

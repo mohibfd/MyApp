@@ -45,10 +45,14 @@ const menuItems = [
   {name: 'Workout', icon: 'heartbeat', color: 'black', key: uuid.v4()},
 ];
 
+const repeatNotifications = 100;
+
 global.MMKV = MMKV;
 
 global.useStorage = useStorage;
 
+global.useStateWithPromise = useStateWithPromise;
+
 global.globalMenuItems = menuItems;
 
-global.useStateWithPromise = useStateWithPromise;
+global.globalRepeatNotifications = repeatNotifications;

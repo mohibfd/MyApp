@@ -1,15 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {View, SafeAreaView, Button, FlatList, Alert} from 'react-native';
 import uuid from 'react-native-uuid';
-import styles from '../stylesheets/stylesheet';
+import PushNotification from 'react-native-push-notification';
 
+import styles from '../stylesheets/stylesheet';
 import ListItem from '../components/ListItem';
 import Header from '../components/Header';
 import AddItemModal from '../components/modals/addItemModal';
 import DeleteOrCancel from '../components/DeleteOrCancel';
-
-import PushNotification from 'react-native-push-notification';
-import PushNotificationIOS from '@react-native-community/push-notification-ios';
 
 const WelcomeView = ({navigation}) => {
   const [item1, setItem1] = useStorage('PlantsId');

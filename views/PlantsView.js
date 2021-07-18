@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native';
 import uuid from 'react-native-uuid';
+import PushNotification from 'react-native-push-notification';
 
 import styles from '../stylesheets/stylesheet.js';
 import Header from '../components/Header';
@@ -39,6 +40,7 @@ const PlantsView = () => {
     });
   };
 
+  //also returns plant to be deleted
   const openDeleteOrCancel = mainItem => {
     toggleDeleteOrCancel();
     setDeletePlant(mainItem);
@@ -46,6 +48,15 @@ const PlantsView = () => {
 
   const completeDeletion = () => {
     toggleDeleteOrCancel();
+
+    if (deletePlant.notificationId) {
+      [...Array(globalRepeatNotifications)].map((e, i) => {
+        if (i != 0) {
+          const id = deletePlant.notificationId + i;
+          PushNotification.cancelLocalNotifications({id});
+        }
+      });
+    }
 
     setPlants(prevItems => {
       return prevItems.filter(item => item.key != deletePlant.key);
