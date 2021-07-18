@@ -4,6 +4,7 @@ import {Overlay} from 'react-native-elements';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {Pressable, Text} from 'react-native';
 import PushNotification from 'react-native-push-notification';
+import PushNotificationIOS from '@react-native-community/push-notification-ios';
 
 import styles from '../stylesheets/stylesheet';
 import DeleteOrCancel from '../components/DeleteOrCancel.js';
@@ -38,6 +39,14 @@ const TimeInterval = props => {
         repeatTime = 14;
         break;
     }
+
+    let temp = Date().toString();
+    console.log(temp);
+    PushNotificationIOS.addNotificationRequest({
+      id: new Date().toString(),
+      alertTitle: 'test',
+      alertBody: 'test2',
+    });
 
     //generating random number for id
     const notificationId = Math.round(Math.random() * 100000000);

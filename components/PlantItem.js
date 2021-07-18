@@ -8,6 +8,7 @@ import {ActionSheet} from './online_components/ActionSheet';
 import styles from '../stylesheets/stylesheet';
 import TimeInterval from './TimeInterval';
 import PushNotification from 'react-native-push-notification';
+import PushNotificationIOS from '@react-native-community/push-notification-ios';
 
 const PlantItem = ({plant, deletion, setPlants}) => {
   const [actionSheetVisible, setActionSheetVisible] = useState(false);
