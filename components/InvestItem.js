@@ -113,53 +113,51 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
           setActionSheetVisible(true);
         }}
         bottomDivider>
-        <ListItem.Content style={styles.listItemContainer}>
-          <ListItem.Title style={styles.listItemText}>
+        <ListItem.Content style={styles.investmentContainer}>
+          <ListItem.Title style={styles.investmentTitle}>
             {investment.name}
           </ListItem.Title>
-          <View style={{flexDirection: 'column'}}>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={{fontSize: 16, marginTop: 1}}>
-                Original investment:{' '}
-              </Text>
+          <View style={styles.textAndCurrencyContainer}>
+            <View style={styles.investmentTextContainer}>
+              <Text style={styles.investmentText}>Original investment: </Text>
               <CurrencyInput
-                style={{fontSize: 18}}
+                style={styles.currencyInputContainer}
                 value={value}
                 onChangeValue={setValue}
                 prefix="£"
                 delimiter=","
                 separator="."
-                precision={2}
+                precision={0}
                 onChangeText={formattedValue => {
                   console.log(formattedValue); // $2,310.46
                 }}
               />
             </View>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={{fontSize: 16, marginTop: 1}}>Current amount: </Text>
+            <View style={styles.investmentTextContainer}>
+              <Text style={styles.investmentText}>Current amount: </Text>
               <CurrencyInput
-                style={{fontSize: 18}}
+                style={styles.currencyInputContainer}
                 value={value}
                 onChangeValue={setValue}
                 prefix="£"
                 delimiter=","
                 separator="."
-                precision={2}
+                precision={0}
                 onChangeText={formattedValue => {
                   console.log(formattedValue); // $2,310.46
                 }}
               />
             </View>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={{fontSize: 16, marginTop: 1}}>Gain/loss: </Text>
+            <View style={styles.investmentTextContainer}>
+              <Text style={styles.investmentText}>Gain/loss: </Text>
               <CurrencyInput
-                style={{fontSize: 18}}
+                style={styles.currencyInputContainer}
                 value={value}
                 onChangeValue={setValue}
                 prefix="£"
                 delimiter=","
                 separator="."
-                precision={2}
+                precision={0}
                 onChangeText={formattedValue => {
                   console.log(formattedValue); // $2,310.46
                 }}

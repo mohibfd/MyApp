@@ -189,6 +189,39 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   //DELETEORCANCEL
+
+  //INVESTMENT VIEW
+  investmentContainer: {
+    height: 80,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  investmentTitle: {
+    // flex: 1,
+    width: '35%',
+    fontSize: EStyleSheet.value('30rem'),
+
+    // marginLeft: EStyleSheet.value('10rem'),
+  },
+  textAndCurrencyContainer: {
+    flex: 1,
+    flexDirection: 'column',
+  },
+  investmentTextContainer: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  investmentText: {
+    fontSize: 16,
+    flex: 7,
+    alignSelf: 'center',
+    textAlign: 'right',
+  },
+  currencyInputContainer: {
+    flex: 4,
+    fontSize: 18,
+  },
+  //INVESTMENT VIEW
 });
 
 export default styles;
