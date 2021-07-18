@@ -29,7 +29,7 @@ const PlantItem = ({plant, deletion, setPlants}) => {
     },
   ];
 
-  if (!plant.timeInterval) {
+  if (!plant.notificationId) {
     actions.push({
       title: 'Set reminder',
       action: () => (toggleShowTimeInterval(), setTimeIntervalAction('add')),
@@ -46,17 +46,14 @@ const PlantItem = ({plant, deletion, setPlants}) => {
     });
   }
 
-  const createTimeInterval = (timeInterval, notificationId) => {
+  const createTimeInterval = notificationId => {
     //deleting item then recreating it to make it easier to modify one of its parameters
     setPlants(prevItems => {
       return prevItems.filter(item => item.key != plant.key);
     });
 
     setPlants(prevItems => {
-      return [
-        {name: plant.name, key: uuid.v4(), timeInterval, notificationId},
-        ...prevItems,
-      ];
+      return [{name: plant.name, key: uuid.v4(), notificationId}, ...prevItems];
     });
   };
 
@@ -81,7 +78,6 @@ const PlantItem = ({plant, deletion, setPlants}) => {
         {
           name: plant.name,
           key: uuid.v4(),
-          timeInterval: null,
           notificationId: null,
         },
         ...prevItems,
@@ -106,7 +102,7 @@ const PlantItem = ({plant, deletion, setPlants}) => {
         bottomDivider>
         <ListItem.Content style={styles.listItemContainer}>
           <ListItem.Title>{plant.name}</ListItem.Title>
-          {plant.timeInterval && <Icon name="check" size={20} />}
+          {plant.notificationId && <Icon name="check" size={20} />}
         </ListItem.Content>
       </ListItem>
       {showTimeInterval && (
@@ -122,10 +118,15 @@ const PlantItem = ({plant, deletion, setPlants}) => {
   );
 };
 
+TimeInterval.defaultProps = {
+  delete: null,
+  setPlants: null,
+};
+
 TimeInterval.propTypes = {
   plant: PropTypes.object.isRequired,
-  deletion: PropTypes.func.isRequired,
-  setPlants: PropTypes.func.isRequired,
+  deletion: PropTypes.func,
+  setPlants: PropTypes.func,
 };
 
 export default PlantItem;

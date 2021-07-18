@@ -85,7 +85,7 @@ const TimeInterval = props => {
 
       closeOverlays();
 
-      createTimeInterval(dropDownPickerValue, notificationId);
+      createTimeInterval(notificationId);
     }
     // else if (timeIntervalAction == 'edit') {
     //    deleteTimeInterval();

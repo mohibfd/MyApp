@@ -32,7 +32,6 @@ const PlantsView = () => {
         {
           name: newPlantName,
           key: uuid.v4(),
-          timeInterval: null,
           notificationId: null,
         },
         ...prevItems,
