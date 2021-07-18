@@ -7,21 +7,11 @@ import CurrencyInput from 'react-native-currency-input';
 
 import {ActionSheet} from './online_components/ActionSheet';
 import styles from '../stylesheets/stylesheet';
-// import TimeInterval from './TimeInterval';
-import PushNotification from 'react-native-push-notification';
 
 const InvestItem = ({investment, deletion, setInvestments}) => {
   const [actionSheetVisible, setActionSheetVisible] = useState(false);
 
-  const [timeIntervalAction, setTimeIntervalAction] = useState(false);
-
-  const [showTimeInterval, setShowTimeInterval] = useState(false);
-
   const [value, setValue] = React.useState(2310.458); // can also be null
-
-  const toggleShowTimeInterval = () => {
-    setShowTimeInterval(!showTimeInterval);
-  };
 
   const actions = [
     {
@@ -30,30 +20,7 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
         deletion(investment);
       },
     },
-    {
-      title: 'Add amount invested',
-      action: () => {
-        deletion(investment);
-      },
-    },
   ];
-
-  // if (!investment.timeInterval) {
-  //   actions.push({
-  //     title: 'Set reminder',
-  //     action: () => (toggleShowTimeInterval(), setTimeIntervalAction('add')),
-  //   });
-  // } else {
-  //   // actions.push({
-  //   //   title: 'Edit time interval',
-  //   //   action: () => (toggleShowTimeInterval(), setTimeIntervalAction('edit')),
-  //   // });
-
-  //   actions.push({
-  //     title: 'Delete reminder',
-  //     action: () => (toggleShowTimeInterval(), setTimeIntervalAction('delete')),
-  //   });
-  // }
 
   const createTimeInterval = (timeInterval, notificationId) => {
     //deleting item then recreating it to make it easier to modify one of its parameters
@@ -64,35 +31,6 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
     setInvestments(prevItems => {
       return [
         {name: investment.name, key: uuid.v4(), timeInterval, notificationId},
-        ...prevItems,
-      ];
-    });
-  };
-
-  const deleteTimeInterval = () => {
-    [...Array(globalRepeatNotifications)].map((e, i) => {
-      if (i != 0) {
-        const id = investment.notificationId + i;
-        PushNotification.cancelLocalNotifications({id});
-      }
-    });
-
-    //delete all notifications
-    // PushNotification.cancelAllLocalNotifications();
-
-    //deleting item then recreating it to make it easier to modify one of its parameters
-    setInvestments(prevItems => {
-      return prevItems.filter(item => item.key != investment.key);
-    });
-
-    setInvestments(prevItems => {
-      return [
-        {
-          name: investment.name,
-          key: uuid.v4(),
-          timeInterval: null,
-          notificationId: null,
-        },
         ...prevItems,
       ];
     });
@@ -122,7 +60,7 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
               <Text style={styles.investmentText}>Original investment: </Text>
               <CurrencyInput
                 style={styles.currencyInputContainer}
-                value={value}
+                value={investment.originalInvestment}
                 onChangeValue={setValue}
                 prefix="£"
                 delimiter=","
@@ -149,7 +87,7 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
               />
             </View>
             <View style={styles.investmentTextContainer}>
-              <Text style={styles.investmentText}>Gain/loss: </Text>
+              <Text style={styles.investmentText}>Gain/loss: %</Text>
               <CurrencyInput
                 style={styles.currencyInputContainer}
                 value={value}

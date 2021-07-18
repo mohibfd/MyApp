@@ -34,8 +34,8 @@ const InvestView = () => {
         {
           name: newInvestmentName,
           key: uuid.v4(),
-          timeInterval: null,
-          notificationId: null,
+          originalInvestment: 0,
+          currentAmount: 0,
         },
         ...prevItems,
       ];
@@ -81,11 +81,6 @@ const InvestView = () => {
       )}
     </SafeAreaView>
   );
-  // return (
-  //   <SafeAreaView style={styles.welcome}>
-  //     <Header title={'InvestView'} />
-  //   </SafeAreaView>
-  // );
 };
 
 export default InvestView;

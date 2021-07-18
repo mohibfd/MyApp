@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
   },
   overlay: {
     width: '90%',
-    height: '31%',
+    height: '40%',
     justifyContent: 'space-between',
   },
 
@@ -193,17 +193,18 @@ const styles = StyleSheet.create({
     height: EStyleSheet.value('80rem'),
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
   },
   investmentTitle: {
     // flex: 1,
-    width: '35%',
+    width: '30%',
     fontSize: EStyleSheet.value('30rem'),
 
     // marginLeft: EStyleSheet.value('10rem'),
   },
   textAndCurrencyContainer: {
     flex: 1,
-    flexDirection: 'column',
+    // flexDirection: 'column',
   },
   investmentTextContainer: {
     flex: 1,
@@ -217,7 +218,8 @@ const styles = StyleSheet.create({
   },
   currencyInputContainer: {
     flex: 4,
-    fontSize: EStyleSheet.value('18rem'),
+    // fontSize: EStyleSheet.value('18rem'),
+    textAlign: 'center',
   },
   //INVESTMENT VIEW
 });
