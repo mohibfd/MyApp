@@ -28,6 +28,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     alignSelf: 'flex-end',
   },
+  developerPlusButtonContainer: {
+    position: 'absolute',
+    // alignSelf: 'flex-start',
+  },
   plusButton: {
     alignSelf: 'flex-end',
     fontSize: EStyleSheet.value('40rem'),

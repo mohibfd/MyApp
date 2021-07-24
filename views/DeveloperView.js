@@ -1,29 +1,27 @@
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, FlatList} from 'react-native';
+import {SafeAreaView, Text} from 'react-native';
 import uuid from 'react-native-uuid';
 
 import styles from '../stylesheets/stylesheet.js';
 import Header from '../components/Header';
 import ListItem from '../components/ListItem';
-import DeleteOrCancel from '../components/DeleteOrCancel.js';
+import ListDeveloperItems from '../components/ListDeveloperItems';
+import {View} from 'react-native';
 
 const DeveloperView = () => {
   const [cardsStorage, setCardsStorage] = useStorage('cardss');
 
+  const [bugsStorage, setBugsStorage] = useStorage('bugss');
+
   const [cards, setCards] = useState(cardsStorage ? cardsStorage : []);
 
-  const [isDeleteOrCancel, setIsDeleteOrCancel] = useState(false);
-
-  const [deleteCard, setDeleteCard] = useState(null);
+  const [bugs, setBugs] = useState(bugsStorage ? bugsStorage : []);
 
   useEffect(() => {
     setCardsStorage(cards);
+    setBugsStorage(bugs);
     // console.log(cards);
-  }, [cards]);
-
-  const toggleDeleteOrCancel = () => {
-    setIsDeleteOrCancel(!isDeleteOrCancel);
-  };
+  }, [cards, bugs]);
 
   const createCard = newCardName => {
     setCards(prevItems => {
@@ -37,42 +35,62 @@ const DeveloperView = () => {
     });
   };
 
-  //also returns card to be deleted
-  const openDeleteOrCancel = mainItem => {
-    toggleDeleteOrCancel();
-    setDeleteCard(mainItem);
+  const createBug = newBugName => {
+    setBugs(prevItems => {
+      return [
+        {
+          name: '(bug) ' + newBugName,
+          key: uuid.v4(),
+        },
+        ...prevItems,
+      ];
+    });
   };
 
   const completeDeletion = card => {
-    // toggleDeleteOrCancel();
-
     setCards(prevItems => {
       return prevItems.filter(item => item.key != card.key);
     });
   };
 
+  const completeBugDeletion = bug => {
+    setBugs(prevItems => {
+      return prevItems.filter(item => item.key != bug.key);
+    });
+    console.log(bugsStorage);
+  };
+
   return (
-    <SafeAreaView style={styles.welcome}>
-      <Header title="My Cards" add={createCard} />
+    <SafeAreaView style={{flex: 1}}>
+      <Header title="My Cards" developerAdd={createCard} add={createBug} />
 
-      {/* <FlatList
-        data={cards}
-        renderItem={({card}) => (
-          <ListItem item={card} deleteItemFromStorage={openDeleteOrCancel} />
-        )}
-        numColumns={2}
-      /> */}
+      <View style={{flexDirection: 'row', flex: 1}}>
+        <View style={{flexDirection: 'column', flex: 1}}>
+          <Text style={{fontSize: 30, textAlign: 'center'}}> New Ideas</Text>
 
-      {cards &&
-        cards.map(card =>
-          card ? (
-            <ListItem
-              item={card}
-              deleteItemFromStorage={() => completeDeletion(card)}
-              developer={true}
-            />
-          ) : null,
-        )}
+          {cards &&
+            cards.map(card =>
+              card ? (
+                <ListDeveloperItems
+                  item={card}
+                  deleteItemFromStorage={() => completeDeletion(card)}
+                />
+              ) : null,
+            )}
+        </View>
+        <View style={{flexDirection: 'column', flex: 1}}>
+          <Text style={{fontSize: 30, textAlign: 'center'}}>Bugs</Text>
+          {bugs &&
+            bugs.map(bug =>
+              bug ? (
+                <ListDeveloperItems
+                  item={bug}
+                  deleteItemFromStorage={() => completeBugDeletion(bug)}
+                />
+              ) : null,
+            )}
+        </View>
+      </View>
     </SafeAreaView>
   );
 };
