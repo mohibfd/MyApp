@@ -90,11 +90,9 @@ const styles = StyleSheet.create({
   },
   modalView: {
     flexDirection: 'row',
-    // flex: 1,
   },
   button: {
     width: '44%',
-    // height: '10%',
     marginHorizontal: '2%',
     borderRadius: EStyleSheet.value('20rem'),
     paddingHorizontal: EStyleSheet.value('5rem'),
@@ -124,7 +122,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     // paddingVertical: EStyleSheet.value('15rem'),
   },
-
   //ITEM VIEW
 
   //PLANT VIEW
@@ -140,7 +137,6 @@ const styles = StyleSheet.create({
   deleteOverlay: {
     flex: 0.17,
     width: '90%',
-    // height: '20%',
     justifyContent: 'space-between',
   },
   deleteOverlayText: {
@@ -151,6 +147,11 @@ const styles = StyleSheet.create({
   addButton: {
     width: '75%',
     alignSelf: 'center',
+  },
+  splashText: {
+    color: 'red',
+    fontSize: EStyleSheet.value('25rem'),
+    textAlign: 'center',
   },
   //PLANT VIEW
 

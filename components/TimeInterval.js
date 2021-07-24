@@ -32,11 +32,19 @@ const TimeInterval = props => {
     {label: 'Every two weeks', value: 'once every two weeks'},
   ]);
 
+  const [showSplashText, setShowSplashText] = useState(false);
+
   const handleNotification = async (interval, plantName) => {
     if (!interval) {
-      Alert.alert('Error', 'Please choose one of the available options', [
-        {text: 'OK', onPress: () => console.log('OK Pressed')},
-      ]);
+      setShowSplashText(true);
+
+      setTimeout(() => {
+        setShowSplashText(false);
+      }, 2000);
+
+      // Alert.alert('Error', 'Please choose one of the available options', [
+      //   {text: 'OK', onPress: () => console.log('OK Pressed')},
+      // ]);
       return;
     }
 
@@ -132,6 +140,11 @@ const TimeInterval = props => {
             setValue={setDropDownPickerValue}
             setItems={setTimeInterval}
           />
+          <Text style={styles.splashText}>
+            {showSplashText
+              ? 'please select one of the available options'
+              : null}
+          </Text>
           <Pressable
             style={[{...styles.darkButtonContainer, ...styles.addButton}]}
             onPress={() => onPressFunction()}>
