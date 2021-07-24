@@ -66,24 +66,22 @@ const TimeInterval = props => {
 
     const addNotification = () => {
       [...Array(globalRepeatNotifications)].map((e, i) => {
-        if (i != 0) {
-          const oneDayInSeconds = 86400;
-          //86400 is one day's time
-          const specificDate = new Date(
-            Date.now() + oneDayInSeconds * i * 1000 * repeatTime,
-          );
+        const oneDayInSeconds = 86400;
+        //86400 is one day's time
+        const specificDate = new Date(
+          Date.now() + oneDayInSeconds * i * 1000 * repeatTime,
+        );
 
-          const newId = notificationId + i;
+        const newId = notificationId + i;
 
-          PushNotification.localNotificationSchedule({
-            channelId: 'test-channel1',
-            id: newId,
-            date: specificDate,
-            title: plantName,
-            message: `Reminder to water ${plantName} now`,
-            allowWhileIdle: true,
-          });
-        }
+        PushNotification.localNotificationSchedule({
+          channelId: 'test-channel1',
+          id: newId,
+          date: specificDate,
+          title: plantName,
+          message: `Reminder to water ${plantName} now`,
+          allowWhileIdle: true,
+        });
       });
     };
 

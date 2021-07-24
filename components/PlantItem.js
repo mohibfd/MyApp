@@ -59,10 +59,8 @@ const PlantItem = ({plant, deletion, setPlants}) => {
 
   const deleteTimeInterval = () => {
     [...Array(globalRepeatNotifications)].map((e, i) => {
-      if (i != 0) {
-        const id = plant.notificationId + i;
-        PushNotification.cancelLocalNotifications({id});
-      }
+      const id = plant.notificationId + i;
+      PushNotification.cancelLocalNotifications({id});
     });
 
     //delete all notifications

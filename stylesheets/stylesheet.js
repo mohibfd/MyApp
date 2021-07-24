@@ -90,12 +90,15 @@ const styles = StyleSheet.create({
   },
   modalView: {
     flexDirection: 'row',
+    // flex: 1,
   },
   button: {
-    width: '40%',
+    width: '44%',
+    // height: '10%',
     marginHorizontal: '2%',
     borderRadius: EStyleSheet.value('20rem'),
-    padding: EStyleSheet.value('10rem'),
+    paddingHorizontal: EStyleSheet.value('5rem'),
+    paddingVertical: EStyleSheet.value('10rem'),
   },
   buttonOpen: {
     backgroundColor: '#F194FF',
@@ -104,6 +107,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#2196F3',
   },
   textStyle: {
+    fontSize: EStyleSheet.value('20rem'),
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',

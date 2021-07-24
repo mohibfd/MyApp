@@ -50,10 +50,8 @@ const PlantsView = () => {
 
     if (deletePlant.notificationId) {
       [...Array(globalRepeatNotifications)].map((e, i) => {
-        if (i != 0) {
-          const id = deletePlant.notificationId + i;
-          PushNotification.cancelLocalNotifications({id});
-        }
+        const id = deletePlant.notificationId + i;
+        PushNotification.cancelLocalNotifications({id});
       });
     }
 
