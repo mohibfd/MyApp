@@ -62,7 +62,7 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
 };
 
 RenderIcons.propTypes = {
-  item: PropTypes.object,
+  item: PropTypes.object.isRequired,
   toggleMainModal: PropTypes.func.isRequired,
   addMainItem: PropTypes.func.isRequired,
 };

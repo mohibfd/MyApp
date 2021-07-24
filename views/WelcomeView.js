@@ -123,6 +123,14 @@ const WelcomeView = ({navigation}) => {
 
       <View style={styles.goOnlineButton}>
         <Button
+          onPress={() => navigation.navigate('Developer View')}
+          title="Go to developer menu"
+          color="gold"
+        />
+      </View>
+
+      <View style={styles.goOnlineButton}>
+        <Button
           onPress={() => navigation.navigate('Online View')}
           title="Go Online"
           color="#841584"

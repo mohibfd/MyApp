@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {View, Text, Pressable} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -6,18 +7,20 @@ import styles from '../stylesheets/stylesheet';
 const ListItem = ({item, deleteItemFromStorage, navigation}) => {
   //tells you which page to go to
   const navigateTo = () => {
-    switch (item.name) {
-      case 'Plants':
-        navigation.navigate('Plants View');
-        break;
-      case 'Invest':
-        navigation.navigate('Invest View');
-        break;
-      case 'Workout':
-        // navigation.navigate('Online View');
-        break;
-      default:
-        Alert.alert('NOT FOUND');
+    if (navigation) {
+      switch (item.name) {
+        case 'Plants':
+          navigation.navigate('Plants View');
+          break;
+        case 'Invest':
+          navigation.navigate('Invest View');
+          break;
+        case 'Workout':
+          // navigation.navigate('Online View');
+          break;
+        default:
+          Alert.alert('NOT FOUND');
+      }
     }
   };
 
@@ -36,6 +39,18 @@ const ListItem = ({item, deleteItemFromStorage, navigation}) => {
       </View>
     </Pressable>
   );
+};
+
+ListItem.defaultProps = {
+  navigation: null,
+  developer: false,
+};
+
+ListItem.propTypes = {
+  item: PropTypes.object.isRequired,
+  deleteItemFromStorage: PropTypes.func.isRequired,
+  navigation: PropTypes.object,
+  developer: PropTypes.bool,
 };
 
 export default ListItem;

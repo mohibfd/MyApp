@@ -9,6 +9,7 @@ import {TasksProvider} from './providers/TasksProvider';
 import WelcomeView from './views/WelcomeView';
 import PlantsView from './views/PlantsView';
 import InvestView from './views/InvestView';
+import DeveloperView from './views/DeveloperView';
 
 import {OnlineView} from './views/online_views/OnlineView';
 import {ProjectsView} from './views/online_views/ProjectsView';
@@ -38,6 +39,11 @@ const App = () => {
           <Stack.Screen
             name="Invest View"
             component={InvestView}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Developer View"
+            component={DeveloperView}
             options={{headerShown: false}}
           />
           <Stack.Screen
