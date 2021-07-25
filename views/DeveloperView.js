@@ -85,6 +85,7 @@ const DeveloperView = () => {
             bugs.map(bug =>
               bug ? (
                 <ListDeveloperItems
+                  key={bug.key}
                   item={bug}
                   deleteItemFromStorage={() => completeBugDeletion(bug)}
                 />
