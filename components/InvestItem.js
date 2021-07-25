@@ -66,6 +66,7 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
                 delimiter=","
                 separator="."
                 precision={0}
+                maxLength={10}
                 onChangeText={formattedValue => {
                   console.log(formattedValue); // $2,310.46
                 }}
@@ -81,6 +82,7 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
                 delimiter=","
                 separator="."
                 precision={0}
+                maxLength={10}
                 onChangeText={formattedValue => {
                   console.log(formattedValue); // $2,310.46
                 }}
@@ -96,6 +98,7 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
                 delimiter=","
                 separator="."
                 precision={0}
+                maxLength={10}
                 onChangeText={formattedValue => {
                   console.log(formattedValue); // $2,310.46
                 }}

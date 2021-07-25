@@ -206,28 +206,34 @@ const styles = StyleSheet.create({
   },
   investmentTitle: {
     // flex: 1,
-    width: '30%',
+    width: '31%',
     fontSize: EStyleSheet.value('30rem'),
 
     // marginLeft: EStyleSheet.value('10rem'),
   },
   textAndCurrencyContainer: {
     flex: 1,
+    // backgroundColor: 'gold',
+    // paddingVertical: 10,
+    // height: '140%',
+    // backgroundColor: 'gold',
     // flexDirection: 'column',
   },
   investmentTextContainer: {
-    flex: 1,
+    //for some reason 46% takes the entire space
+    height: '46%',
     flexDirection: 'row',
+    // paddingVertical: 10,
   },
   investmentText: {
     flex: 7,
-    fontSize: EStyleSheet.value('16rem'),
+    fontSize: EStyleSheet.value('15rem'),
     alignSelf: 'center',
     textAlign: 'right',
   },
   currencyInputContainer: {
     flex: 4,
-    // fontSize: EStyleSheet.value('18rem'),
+    fontSize: EStyleSheet.value('17rem'),
     textAlign: 'center',
   },
   //INVESTMENT VIEW
