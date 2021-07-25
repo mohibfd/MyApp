@@ -231,6 +231,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   //INVESTMENT VIEW
+
+  //DEVELOPER VIEW
+  hairBorder: {
+    borderWidth: EStyleSheet.hairlineWidth,
+  },
+  developerText: {
+    textAlign: 'center',
+    fontSize: EStyleSheet.value('30rem'),
+  },
+  //DEVELOPER VIEW
 });
 
 export default styles;

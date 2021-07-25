@@ -1,35 +1,21 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {View, Text, Pressable} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {Text, Pressable} from 'react-native';
 import styles from '../stylesheets/stylesheet';
 
 const ListDeveloperItems = ({item, deleteItemFromStorage}) => {
-  //return our items alongside a delete icon that calls on deleteList function taking the element's id
+  //this will delete the item when the user clicks twice
+  let temp = 0;
+  const deletion = () => {
+    temp += 1;
+    if (temp == 2) {
+      deleteItemFromStorage(item);
+    }
+  };
+
   return (
-    <Pressable
-      style={{
-        // flex: 1,
-        alignSelf: 'flex-end',
-        // position: 'absolute',
-        // left: 0,
-        // marginTop: '13.1%',
-        width: '100%',
-        backgroundColor: '#e6ffff',
-        // paddingVertical: 30,
-        borderWidth: 2,
-      }}
-      onPress={() => navigateTo()}>
-      <View style={styles.ListItemView}>
-        <Text style={styles.listItemText}>{item.name}</Text>
-        <Icon
-          style={styles.redCross}
-          name="remove"
-          size={50}
-          color="firebrick"
-          onPress={() => deleteItemFromStorage(item)}
-        />
-      </View>
+    <Pressable style={styles.hairBorder} onPress={() => deletion()}>
+      <Text style={styles.developerText}>{item.name}</Text>
     </Pressable>
   );
 };

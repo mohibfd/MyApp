@@ -39,7 +39,7 @@ const DeveloperView = () => {
     setBugs(prevItems => {
       return [
         {
-          name: '(bug) ' + newBugName,
+          name: newBugName,
           key: uuid.v4(),
         },
         ...prevItems,
@@ -72,6 +72,7 @@ const DeveloperView = () => {
             cards.map(card =>
               card ? (
                 <ListDeveloperItems
+                  key={card.key}
                   item={card}
                   deleteItemFromStorage={() => completeDeletion(card)}
                 />
