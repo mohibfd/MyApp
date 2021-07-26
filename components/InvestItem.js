@@ -11,7 +11,7 @@ import styles from '../stylesheets/stylesheet';
 const InvestItem = ({investment, deletion, setInvestments}) => {
   const [actionSheetVisible, setActionSheetVisible] = useState(false);
 
-  const [value, setValue] = React.useState(2310.458); // can also be null
+  const [value, setValue] = useState(investment.originalInvestment);
 
   const actions = [
     {
@@ -22,15 +22,41 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
     },
   ];
 
-  const createTimeInterval = (timeInterval, notificationId) => {
+  const setOriginalInvestment = formattedValue => {
     //deleting item then recreating it to make it easier to modify one of its parameters
+
     setInvestments(prevItems => {
       return prevItems.filter(item => item.key != investment.key);
     });
 
     setInvestments(prevItems => {
       return [
-        {name: investment.name, key: uuid.v4(), timeInterval, notificationId},
+        {
+          name: investment.name,
+          key: investment.key,
+          originalInvestment: formattedValue,
+          currentAmount: investment.currentAmount,
+        },
+        ...prevItems,
+      ];
+    });
+  };
+
+  const setCurrentAmount = formattedValue => {
+    //deleting item then recreating it to make it easier to modify one of its parameters
+
+    setInvestments(prevItems => {
+      return prevItems.filter(item => item.key != investment.key);
+    });
+
+    setInvestments(prevItems => {
+      return [
+        {
+          name: investment.name,
+          key: investment.key,
+          currentAmount: formattedValue,
+          originalInvestment: investment.originalInvestment,
+        },
         ...prevItems,
       ];
     });
@@ -61,7 +87,7 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
               <CurrencyInput
                 style={styles.currencyInputContainer}
                 value={investment.originalInvestment}
-                onChangeValue={setValue}
+                onChangeValue={setOriginalInvestment}
                 prefix="£"
                 delimiter=","
                 separator="."
@@ -76,8 +102,8 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
               <Text style={styles.investmentText}>Current amount: </Text>
               <CurrencyInput
                 style={styles.currencyInputContainer}
-                value={value}
-                onChangeValue={setValue}
+                value={investment.currentAmount}
+                onChangeValue={setCurrentAmount}
                 prefix="£"
                 delimiter=","
                 separator="."
