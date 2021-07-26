@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import {ListItem} from 'react-native-elements';
 import {View, Text} from 'react-native';
-import uuid from 'react-native-uuid';
 import CurrencyInput from 'react-native-currency-input';
+import {FakeCurrencyInput} from 'react-native-currency-input';
 
 import {ActionSheet} from './online_components/ActionSheet';
 import styles from '../stylesheets/stylesheet';
@@ -62,6 +62,10 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
     });
   };
 
+  const calculatePercentage = () => {
+    return (investment.currentAmount / investment.originalInvestment - 1) * 100;
+  };
+
   return (
     <>
       <ActionSheet
@@ -93,9 +97,10 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
                 separator="."
                 precision={0}
                 maxLength={10}
-                onChangeText={formattedValue => {
-                  console.log(formattedValue); // $2,310.46
-                }}
+                minValue={0}
+                // onChangeText={formattedValue => {
+                //   console.log(formattedValue); // $2,310.46
+                // }}
               />
             </View>
             <View style={styles.investmentTextContainer}>
@@ -109,26 +114,25 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
                 separator="."
                 precision={0}
                 maxLength={10}
+                minValue={0}
                 onChangeText={formattedValue => {
                   console.log(formattedValue); // $2,310.46
                 }}
               />
             </View>
             <View style={styles.investmentTextContainer}>
-              <Text style={styles.investmentText}>Gain/loss: %</Text>
-              <CurrencyInput
-                style={styles.currencyInputContainer}
-                value={value}
-                onChangeValue={setValue}
-                prefix="£"
-                delimiter=","
-                separator="."
-                precision={0}
-                maxLength={10}
-                onChangeText={formattedValue => {
-                  console.log(formattedValue); // $2,310.46
-                }}
-              />
+              <Text style={styles.investmentText}>Gain/loss:</Text>
+              <Text
+                style={[
+                  styles.currencyInputContainer,
+                  {
+                    color: calculatePercentage() >= 0 ? 'green' : 'red',
+                    marginHorizontal: 7,
+                    marginTop: 5,
+                  },
+                ]}>
+                {calculatePercentage().toFixed(2)}%
+              </Text>
             </View>
           </View>
         </ListItem.Content>
