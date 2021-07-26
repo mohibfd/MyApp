@@ -16,7 +16,7 @@ const ListItem = ({item, deleteItemFromStorage, navigation}) => {
           navigation.navigate('Invest View');
           break;
         case 'Workout':
-          // navigation.navigate('Online View');
+          navigation.navigate('Workout View');
           break;
         default:
           Alert.alert('NOT FOUND');
