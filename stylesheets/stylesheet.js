@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   },
   listItemText: {
     flex: 4,
-    fontSize: EStyleSheet.value('33rem'),
+    fontSize: EStyleSheet.value('32rem'),
     marginLeft: EStyleSheet.value('10rem'),
   },
   redCross: {
@@ -164,29 +164,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: EStyleSheet.value('50rem'),
     paddingVertical: EStyleSheet.value('5rem'),
-    //width: "100%"
   },
   textStyles: {
     textAlign: 'center',
-    //flex: 1,
     color: 'white',
-    //height: "100%",
-
-    //width: "100%",
-    //paddingVertical: 12,
-    //borderWidth: 2,
     textAlignVertical: 'center',
   },
   textStylesDark: {
     fontSize: EStyleSheet.value('20rem'),
     textAlign: 'center',
-    //flex: 1,
     color: 'white',
-    //height: "100%",
-
-    //width: "100%",
-    //paddingVertical: 12,
-    //borderWidth: 2,
   },
   darkButtonContainer: {
     width: '45%',
@@ -207,23 +194,17 @@ const styles = StyleSheet.create({
   investmentTitle: {
     // flex: 1,
     width: '31%',
-    fontSize: EStyleSheet.value('30rem'),
+    fontSize: EStyleSheet.value('27rem'),
 
     // marginLeft: EStyleSheet.value('10rem'),
   },
   textAndCurrencyContainer: {
     flex: 1,
-    // backgroundColor: 'gold',
-    // paddingVertical: 10,
-    // height: '140%',
-    // backgroundColor: 'gold',
-    // flexDirection: 'column',
   },
   investmentTextContainer: {
     //for some reason 46% takes the entire space
     height: '46%',
     flexDirection: 'row',
-    // paddingVertical: 10,
   },
   investmentText: {
     flex: 7,
@@ -232,11 +213,24 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
   currencyInputContainer: {
+    color: 'black',
     flex: 4,
-    fontSize: EStyleSheet.value('17rem'),
+    fontSize: EStyleSheet.value('15rem'),
     textAlign: 'center',
   },
   //INVESTMENT VIEW
+
+  //WORKOUT VIEW
+  imageContainer: {
+    position: 'absolute',
+    height: '100%',
+  },
+  qrCodeImage: {
+    alignSelf: 'center',
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').width,
+  },
+  //WORKOUT VIEW
 
   //DEVELOPER VIEW
   hairBorder: {

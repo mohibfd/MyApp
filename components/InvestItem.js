@@ -11,7 +11,7 @@ import styles from '../stylesheets/stylesheet';
 const InvestItem = ({investment, deletion, setInvestments}) => {
   const [actionSheetVisible, setActionSheetVisible] = useState(false);
 
-  const [value, setValue] = useState(investment.originalInvestment);
+  // const [value, setValue] = useState(investment.originalInvestment);
 
   const actions = [
     {

@@ -1,41 +1,24 @@
-import React, {useEffect, useState} from 'react';
-import {
-  SafeAreaView,
-  Button,
-  Image,
-  Dimensions,
-  Modal,
-  View,
-  TouchableHighlight,
-  Text,
-} from 'react-native';
-import uuid from 'react-native-uuid';
+import React, {useState} from 'react';
+import {SafeAreaView, Button, Image, Modal, View} from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
-import ImagePicker from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import styles from '../stylesheets/stylesheet.js';
 import Header from '../components/Header';
-import InvestItem from '../components/InvestItem';
-import DeleteOrCancel from '../components/DeleteOrCancel.js';
 
 const WorkoutView = () => {
+  const [imagePickedStorage, setImagePickedStorage] =
+    useStorage('imagePickedd');
+
   const [modalVisible, setModalVisible] = useState(false);
 
-  const [imagePicked, setImagePicked] = useState(null);
+  // const [imagePicked, setImagePicked] = useState(null);
 
-  console.log(imagePicked);
-
-  const test = () => {
+  const openImageLibrary = () => {
     let options = {};
     launchImageLibrary(options, response => {
-      console.log('Response = ', response);
-      console.log('uri = ', response.assets[0].uri);
-
-      setImagePicked(response.assets[0].uri);
-
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
+      if (response.assets) {
+        setImagePickedStorage(response.assets[0].uri);
       }
     });
   };
@@ -57,28 +40,28 @@ const WorkoutView = () => {
         onRequestClose={() => {
           setModalVisible(false);
         }}>
-        <Icon
-          style={styles.modalClose}
-          name="remove"
-          size={50}
-          color="red"
-          onPress={() => setModalVisible(false)}
-        />
-        <Button onPress={() => test()} title="open gallery" color="gold" />
-        <View
-          style={[styles.centeredView, {position: 'absolute', height: '100%'}]}>
-          {/* <View style={styles.modalView}></View> */}
-          <Image
-            style={{
-              alignSelf: 'center',
-              width: Dimensions.get('window').width,
-              height: Dimensions.get('window').width,
-            }}
-            source={{
-              uri: imagePicked,
-            }}
+        <SafeAreaView style={styles.welcome}>
+          <View style={[styles.centeredView, styles.imageContainer]}>
+            <Image
+              style={styles.qrCodeImage}
+              source={{
+                uri: imagePickedStorage,
+              }}
+            />
+          </View>
+          <Icon
+            style={styles.modalClose}
+            name="remove"
+            size={50}
+            color="red"
+            onPress={() => setModalVisible(false)}
           />
-        </View>
+          <Button
+            onPress={() => openImageLibrary()}
+            title="open gallery"
+            color="gold"
+          />
+        </SafeAreaView>
       </Modal>
     </SafeAreaView>
   );
