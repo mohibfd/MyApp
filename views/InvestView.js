@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView} from 'react-native';
+import {SafeAreaView, View, Text} from 'react-native';
 import uuid from 'react-native-uuid';
 
 import styles from '../stylesheets/stylesheet.js';
 import Header from '../components/Header';
 import InvestItem from '../components/InvestItem';
 import DeleteOrCancel from '../components/DeleteOrCancel.js';
+import {diff} from 'react-native-reanimated';
 
 const InvestView = () => {
   const [investmentsStorage, setInvestmentsStorage] =
@@ -18,6 +19,14 @@ const InvestView = () => {
   const [isDeleteOrCancel, setIsDeleteOrCancel] = useState(false);
 
   const [deleteInvestment, setDeleteInvestment] = useState(null);
+
+  let overallOriginalInvestment = 0;
+  let overallCurrentAmount = 0;
+
+  for (let i of investments) {
+    overallOriginalInvestment += i.originalInvestment;
+    overallCurrentAmount += i.currentAmount;
+  }
 
   useEffect(() => {
     setInvestmentsStorage(investments);
@@ -56,6 +65,18 @@ const InvestView = () => {
     });
   };
 
+  const calculateOverall = () => {
+    let difference = overallCurrentAmount - overallOriginalInvestment;
+
+    return difference;
+  };
+
+  const calculateOverallPercentage = () => {
+    let percentageDiff =
+      (overallCurrentAmount / overallOriginalInvestment - 1) * 100;
+    return percentageDiff.toFixed(2);
+  };
+
   return (
     <SafeAreaView style={styles.welcome}>
       <Header title="My Investments" add={createInvestment} />
@@ -79,6 +100,31 @@ const InvestView = () => {
           closeOverlay={toggleDeleteOrCancel}
         />
       )}
+
+      <View style={styles.overallGainLossContainer}>
+        <View style={{flexDirection: 'row'}}>
+          <Text style={styles.fontSizeStyle}>Overall Gain/Loss: </Text>
+          <Text
+            style={[
+              styles.fontSizeStyle,
+              {
+                color: calculateOverall() >= 0 ? 'green' : 'red',
+              },
+            ]}>
+            £{calculateOverall()}
+          </Text>
+          <Text
+            style={[
+              styles.fontSizeStyle,
+              {
+                color: calculateOverall() >= 0 ? 'green' : 'red',
+              },
+            ]}>
+            {'  '}
+            {calculateOverallPercentage()}%
+          </Text>
+        </View>
+      </View>
     </SafeAreaView>
   );
 };

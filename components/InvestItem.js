@@ -115,9 +115,9 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
                 precision={0}
                 maxLength={10}
                 minValue={0}
-                onChangeText={formattedValue => {
-                  console.log(formattedValue); // $2,310.46
-                }}
+                // onChangeText={formattedValue => {
+                // console.log(formattedValue); // $2,310.46
+                // }}
               />
             </View>
             <View style={styles.investmentTextContainer}>
@@ -137,15 +137,6 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
           </View>
         </ListItem.Content>
       </ListItem>
-      {/* {showTimeInterval && (
-        <TimeInterval
-          createTimeInterval={createTimeInterval}
-          closeModal={toggleShowTimeInterval}
-          investment={investment}
-          timeIntervalAction={timeIntervalAction}
-          deleteTimeInterval={deleteTimeInterval}
-        />
-      )} */}
     </>
   );
 };

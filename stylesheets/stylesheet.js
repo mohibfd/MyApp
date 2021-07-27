@@ -192,11 +192,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   investmentTitle: {
-    // flex: 1,
     width: '31%',
     fontSize: EStyleSheet.value('27rem'),
-
-    // marginLeft: EStyleSheet.value('10rem'),
   },
   textAndCurrencyContainer: {
     flex: 1,
@@ -217,6 +214,15 @@ const styles = StyleSheet.create({
     flex: 4,
     fontSize: EStyleSheet.value('15rem'),
     textAlign: 'center',
+  },
+  overallGainLossContainer: {
+    bottom: 0,
+    marginBottom: EStyleSheet.value('22rem'),
+    position: 'absolute',
+    alignSelf: 'center',
+  },
+  fontSizeStyle: {
+    fontSize: EStyleSheet.value('22rem'),
   },
   //INVESTMENT VIEW
 
