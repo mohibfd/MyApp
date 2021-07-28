@@ -79,11 +79,9 @@ const styles = StyleSheet.create({
   imageContainer: {
     position: 'absolute',
     alignSelf: 'center',
-
     height: '100%',
   },
   qrCodeImage: {
-    // alignSelf: 'center',
     width: Dimensions.get('window').width * 0.9,
     height: Dimensions.get('window').width * 0.9,
   },

@@ -10,7 +10,6 @@ import {
 import uuid from 'react-native-uuid';
 import PushNotification from 'react-native-push-notification';
 
-import generalStyles from '../stylesheets/generalStylesheet';
 import ListItem from '../components/ListItem';
 import Header from '../components/Header';
 import AddItemModal from '../components/modals/addItemModal';

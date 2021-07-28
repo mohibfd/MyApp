@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
 import {View, Button, StyleSheet} from 'react-native';
-import onlineStyles from '../../stylesheets/onlineStylesheet';
 
 import {Overlay} from 'react-native-elements';
 import {ManageTeam} from '../../components/online_components/ManageTeam';

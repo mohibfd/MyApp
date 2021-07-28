@@ -3,10 +3,7 @@ import React, {useState} from 'react';
 import {ListItem} from 'react-native-elements';
 import {View, Text, StyleSheet} from 'react-native';
 import CurrencyInput from 'react-native-currency-input';
-import {FakeCurrencyInput} from 'react-native-currency-input';
-
 import {ActionSheet} from './online_components/ActionSheet';
-import generalStyles from '../stylesheets/generalStylesheet';
 
 const InvestItem = ({investment, deletion, setInvestments}) => {
   const [actionSheetVisible, setActionSheetVisible] = useState(false);

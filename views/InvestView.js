@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {SafeAreaView, View, Text, StyleSheet} from 'react-native';
 import uuid from 'react-native-uuid';
 
-import generalStyles from '../stylesheets/generalStylesheet.js';
 import Header from '../components/Header';
 import InvestItem from '../components/InvestItem';
 import DeleteOrCancel from '../components/DeleteOrCancel.js';

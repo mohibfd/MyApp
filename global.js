@@ -1,7 +1,6 @@
 import {useState, useEffect, useRef, useCallback} from 'react';
 import uuid from 'react-native-uuid';
 import MMKVStorage, {useMMKVStorage} from 'react-native-mmkv-storage';
-import EStyleSheet from 'react-native-extended-stylesheet';
 import {Dimensions} from 'react-native';
 
 const MMKV = new MMKVStorage.Loader().initialize();
@@ -56,6 +55,7 @@ const rem =
     ? entireScreenHeight / 380
     : entireScreenWidth / 380;
 
+import EStyleSheet from 'react-native-extended-stylesheet';
 EStyleSheet.build({$rem: rem});
 
 global.MMKV = MMKV;
@@ -68,4 +68,5 @@ global.globalMenuItems = menuItems;
 
 global.globalRepeatNotifications = repeatNotifications;
 
+// global.rem = rem;
 global.EStyleSheet = EStyleSheet;

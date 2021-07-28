@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {View, Text, Pressable, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import generalStyles from '../stylesheets/generalStylesheet';
 
 const ListItem = ({item, deleteItemFromStorage, navigation}) => {
   //tells you which page to go to

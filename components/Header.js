@@ -3,7 +3,6 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
 import AddItemHeader from './AddItemHeader';
-import generalStyles from '../stylesheets/generalStylesheet';
 
 //simple function that styles headers
 const Header = ({title, add, developerAdd}) => {

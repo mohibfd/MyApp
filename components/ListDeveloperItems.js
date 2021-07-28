@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {Text, Pressable, StyleSheet} from 'react-native';
-import generalStyles from '../stylesheets/generalStylesheet';
 
 const ListDeveloperItems = ({item, deleteItemFromStorage}) => {
   //this will delete the item when the user clicks twice

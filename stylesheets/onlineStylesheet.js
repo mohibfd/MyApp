@@ -1,12 +1,4 @@
-import {StyleSheet, Dimensions} from 'react-native';
-import EStyleSheet from 'react-native-extended-stylesheet';
-const entireScreenWidth = Dimensions.get('window').width;
-const entireScreenHeight = Dimensions.get('window').height;
-const rem =
-  entireScreenWidth > entireScreenHeight
-    ? entireScreenHeight / 380
-    : entireScreenWidth / 380;
-EStyleSheet.build({$rem: rem});
+import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   inputContainer: {

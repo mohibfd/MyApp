@@ -6,7 +6,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {StyleSheet} from 'react-native';
 
 import {ActionSheet} from './online_components/ActionSheet';
-import generalStyles from '../stylesheets/generalStylesheet';
 import TimeInterval from './TimeInterval';
 import PushNotification from 'react-native-push-notification';
 
