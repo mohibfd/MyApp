@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, View, Text} from 'react-native';
+import {SafeAreaView, View, Text, StyleSheet} from 'react-native';
 import uuid from 'react-native-uuid';
 
-import styles from '../stylesheets/stylesheet.js';
+import generalStyles from '../stylesheets/generalStylesheet.js';
 import Header from '../components/Header';
 import InvestItem from '../components/InvestItem';
 import DeleteOrCancel from '../components/DeleteOrCancel.js';
-import {diff} from 'react-native-reanimated';
 
 const InvestView = () => {
   const [investmentsStorage, setInvestmentsStorage] =
@@ -78,7 +77,7 @@ const InvestView = () => {
   };
 
   return (
-    <SafeAreaView style={styles.welcome}>
+    <SafeAreaView style={{flex: 1}}>
       <Header title="My Investments" add={createInvestment} />
 
       {investments &&
@@ -128,5 +127,17 @@ const InvestView = () => {
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  overallGainLossContainer: {
+    bottom: 0,
+    marginBottom: EStyleSheet.value('22rem'),
+    position: 'absolute',
+    alignSelf: 'center',
+  },
+  fontSizeStyle: {
+    fontSize: EStyleSheet.value('22rem'),
+  },
+});
 
 export default InvestView;

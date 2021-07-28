@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Pressable, View, Text} from 'react-native';
+import {Pressable, View, Text, StyleSheet} from 'react-native';
 import {Overlay} from 'react-native-elements';
 
-import styles from '../stylesheets/stylesheet';
+import generalStyles from '../stylesheets/generalStylesheet';
 
 const DeleteOrCancel = ({name, deletion, closeOverlay}) => {
   return (
@@ -18,14 +18,14 @@ const DeleteOrCancel = ({name, deletion, closeOverlay}) => {
           </Text>
           <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
             <Pressable
-              style={styles.darkButtonContainer}
+              style={generalStyles.darkButtonContainer}
               onPress={() => closeOverlay()}>
-              <Text style={styles.textStylesDark}>Cancel</Text>
+              <Text style={generalStyles.textStylesDark}>Cancel</Text>
             </Pressable>
             <Pressable
-              style={styles.darkButtonContainer}
+              style={generalStyles.darkButtonContainer}
               onPress={() => deletion()}>
-              <Text style={styles.textStylesDark}>Delete</Text>
+              <Text style={generalStyles.textStylesDark}>Delete</Text>
             </Pressable>
           </View>
         </>
@@ -33,6 +33,19 @@ const DeleteOrCancel = ({name, deletion, closeOverlay}) => {
     </Overlay>
   );
 };
+
+const styles = StyleSheet.create({
+  deleteOverlay: {
+    flex: 0.17,
+    width: '90%',
+    justifyContent: 'space-between',
+  },
+  deleteOverlayText: {
+    flex: 1,
+    paddingLeft: '5%',
+    fontSize: EStyleSheet.value('25rem'),
+  },
+});
 
 DeleteOrCancel.propTypes = {
   name: PropTypes.string.isRequired,

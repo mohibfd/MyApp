@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, TextInput, Button, Alert} from 'react-native';
 import {useAuth} from '../../providers/AuthProvider';
-import styles from '../../stylesheets/onlineStylesheet';
+import onlineStyles from '../../stylesheets/onlineStylesheet';
 
 export function OnlineView({navigation}) {
   const [email, setEmail] = useState('');
@@ -39,21 +39,21 @@ export function OnlineView({navigation}) {
   return (
     <View>
       <Text>Signup or Signin:</Text>
-      <View style={styles.inputContainer}>
+      <View style={onlineStyles.inputContainer}>
         <TextInput
           onChangeText={setEmail}
           value={email}
           placeholder="email"
-          style={styles.inputStyle}
+          style={onlineStyles.inputStyle}
           autoCapitalize="none"
         />
       </View>
-      <View style={styles.inputContainer}>
+      <View style={onlineStyles.inputContainer}>
         <TextInput
           onChangeText={text => setPassword(text)}
           value={password}
           placeholder="password"
-          style={styles.inputStyle}
+          style={onlineStyles.inputStyle}
           secureTextEntry
         />
       </View>

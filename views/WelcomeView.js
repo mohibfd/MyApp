@@ -1,9 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {View, SafeAreaView, Button, FlatList, Alert} from 'react-native';
+import {
+  View,
+  SafeAreaView,
+  Button,
+  FlatList,
+  Alert,
+  StyleSheet,
+} from 'react-native';
 import uuid from 'react-native-uuid';
 import PushNotification from 'react-native-push-notification';
 
-import styles from '../stylesheets/stylesheet';
+import generalStyles from '../stylesheets/generalStylesheet';
 import ListItem from '../components/ListItem';
 import Header from '../components/Header';
 import AddItemModal from '../components/modals/addItemModal';
@@ -104,7 +111,7 @@ const WelcomeView = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView style={styles.welcome}>
+    <SafeAreaView style={{flex: 1}}>
       <Header title="My Items" />
 
       <FlatList
@@ -146,5 +153,13 @@ const WelcomeView = ({navigation}) => {
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  goOnlineButton: {
+    paddingBottom: EStyleSheet.value('40rem'),
+    alignSelf: 'center',
+    width: '75%',
+  },
+});
 
 export default WelcomeView;

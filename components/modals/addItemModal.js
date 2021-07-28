@@ -1,8 +1,14 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
-import {View, Modal, FlatList, Pressable, SafeAreaView} from 'react-native';
+import {
+  Modal,
+  FlatList,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import styles from '../../stylesheets/stylesheet';
+import generalStyles from '../../stylesheets/generalStylesheet';
 import RenderIcons from '../RenderIcons.js';
 import '../../global.js';
 
@@ -18,7 +24,7 @@ const AddModal = ({addMainItem}) => {
         <SafeAreaView>
           <Pressable>
             <Icon
-              style={styles.modalClose}
+              style={generalStyles.modalClose}
               name="remove"
               size={50}
               color="red"
@@ -50,6 +56,15 @@ const AddModal = ({addMainItem}) => {
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  modalToggle: {
+    borderColor: '#f2f2f2',
+    padding: EStyleSheet.value('20rem'),
+    paddingRight: EStyleSheet.value('25rem'),
+    alignSelf: 'flex-end',
+  },
+});
 
 AddModal.propTypes = {
   addMainItem: PropTypes.func.isRequired,

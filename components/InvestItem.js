@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import {ListItem} from 'react-native-elements';
-import {View, Text} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import CurrencyInput from 'react-native-currency-input';
 import {FakeCurrencyInput} from 'react-native-currency-input';
 
 import {ActionSheet} from './online_components/ActionSheet';
-import styles from '../stylesheets/stylesheet';
+import generalStyles from '../stylesheets/generalStylesheet';
 
 const InvestItem = ({investment, deletion, setInvestments}) => {
   const [actionSheetVisible, setActionSheetVisible] = useState(false);
@@ -140,6 +140,39 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  investmentContainer: {
+    height: EStyleSheet.value('80rem'),
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  investmentTitle: {
+    width: '31%',
+    fontSize: EStyleSheet.value('27rem'),
+  },
+  textAndCurrencyContainer: {
+    flex: 1,
+  },
+  investmentTextContainer: {
+    //for some reason 46% takes the entire space
+    height: '46%',
+    flexDirection: 'row',
+  },
+  investmentText: {
+    flex: 7,
+    fontSize: EStyleSheet.value('15rem'),
+    alignSelf: 'center',
+    textAlign: 'right',
+  },
+  currencyInputContainer: {
+    color: 'black',
+    flex: 4,
+    fontSize: EStyleSheet.value('15rem'),
+    textAlign: 'center',
+  },
+});
 
 InvestItem.propTypes = {
   investment: PropTypes.object.isRequired,

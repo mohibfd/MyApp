@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import {View, Button, TextInput, Alert} from 'react-native';
-import styles from '../../stylesheets/onlineStylesheet';
+import {View, Button, TextInput, Alert, StyleSheet} from 'react-native';
+import onlineStyles from '../../stylesheets/onlineStylesheet';
 import {Text, ListItem} from 'react-native-elements';
 
 import {useAuth} from '../../providers/AuthProvider';
@@ -77,7 +77,7 @@ export function ManageTeam() {
       ))}
 
       <Text h4> Add member:</Text>
-      <View style={styles.inputContainer}>
+      <View style={onlineStyles.inputContainer}>
         <TextInput
           onChangeText={text => setNewTeamMember(text)}
           value={newTeamMember}
@@ -90,3 +90,18 @@ export function ManageTeam() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  manageTeamWrapper: {
+    width: EStyleSheet.value('350rem'),
+  },
+  manageTeamTitle: {
+    marginBottom: EStyleSheet.value('10rem'),
+  },
+  addTeamMemberInput: {
+    borderBottomColor: 'black',
+    borderBottomWidth: EStyleSheet.value('1rem'),
+    marginTop: EStyleSheet.value('5rem'),
+    fontSize: EStyleSheet.value('18rem'),
+  },
+});

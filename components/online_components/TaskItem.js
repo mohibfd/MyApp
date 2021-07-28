@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
+import {stylesheet} from 'react-native';
 import {Text, ListItem, Icon} from 'react-native-elements';
 import {useTasks} from '../../providers/TasksProvider';
 import {ActionSheet} from './ActionSheet';
 import {Task} from '../../schemas';
-import styles from '../../stylesheets/onlineStylesheet';
+import onlineStyles from '../../stylesheets/onlineStylesheet';
 
 export function TaskItem({task}) {
   const [actionSheetVisible, setActionSheetVisible] = useState(false);
@@ -77,3 +78,10 @@ export function TaskItem({task}) {
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  listItemContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+});

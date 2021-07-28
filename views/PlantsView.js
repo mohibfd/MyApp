@@ -3,7 +3,7 @@ import {SafeAreaView} from 'react-native';
 import uuid from 'react-native-uuid';
 import PushNotification from 'react-native-push-notification';
 
-import styles from '../stylesheets/stylesheet.js';
+import generalStyles from '../stylesheets/generalStylesheet.js';
 import Header from '../components/Header';
 import PlantItem from '../components/PlantItem';
 import DeleteOrCancel from '../components/DeleteOrCancel.js';
@@ -61,7 +61,7 @@ const PlantsView = () => {
   };
 
   return (
-    <SafeAreaView style={styles.welcome}>
+    <SafeAreaView style={{flex: 1}}>
       <Header title="My Plants" add={createPlant} />
 
       {plants &&

@@ -1,12 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, Text} from 'react-native';
+import {SafeAreaView, Text, View} from 'react-native';
 import uuid from 'react-native-uuid';
 
-import styles from '../stylesheets/stylesheet.js';
 import Header from '../components/Header';
-import ListItem from '../components/ListItem';
 import ListDeveloperItems from '../components/ListDeveloperItems';
-import {View} from 'react-native';
 
 const DeveloperView = () => {
   const [cardsStorage, setCardsStorage] = useStorage('cardss');

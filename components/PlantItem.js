@@ -3,9 +3,10 @@ import React, {useState} from 'react';
 import {ListItem} from 'react-native-elements';
 import uuid from 'react-native-uuid';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {StyleSheet} from 'react-native';
 
 import {ActionSheet} from './online_components/ActionSheet';
-import styles from '../stylesheets/stylesheet';
+import generalStyles from '../stylesheets/generalStylesheet';
 import TimeInterval from './TimeInterval';
 import PushNotification from 'react-native-push-notification';
 
@@ -99,7 +100,12 @@ const PlantItem = ({plant, deletion, setPlants}) => {
         }}
         bottomDivider>
         <ListItem.Content style={styles.listItemContainer}>
-          <ListItem.Title style={styles.plantText}>{plant.name}</ListItem.Title>
+          <ListItem.Title
+            style={{
+              fontSize: EStyleSheet.value('40rem'),
+            }}>
+            {plant.name}
+          </ListItem.Title>
           {plant.notificationId && <Icon name="check" size={40} />}
         </ListItem.Content>
       </ListItem>
@@ -115,6 +121,13 @@ const PlantItem = ({plant, deletion, setPlants}) => {
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  listItemContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+});
 
 TimeInterval.defaultProps = {
   delete: null,

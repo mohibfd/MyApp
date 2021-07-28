@@ -9,7 +9,6 @@ const rem =
 EStyleSheet.build({$rem: rem});
 
 const styles = StyleSheet.create({
-  //LOGIN
   inputContainer: {
     padding: EStyleSheet.value('5rem'),
   },
@@ -19,41 +18,10 @@ const styles = StyleSheet.create({
     padding: EStyleSheet.value('10rem'),
     borderRadius: EStyleSheet.value('2rem'),
   },
-  //LOGIN
-
-  //TASKS
   plusButton: {
     fontSize: EStyleSheet.value('28rem'),
     fontWeight: '400',
   },
-  listItemContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  //TASKS
-
-  //MANAGE TEAM
-  manageTeamWrapper: {
-    width: EStyleSheet.value('350rem'),
-  },
-  manageTeamTitle: {
-    marginBottom: EStyleSheet.value('10rem'),
-  },
-  addTeamMemberInput: {
-    borderBottomColor: 'black',
-    borderBottomWidth: EStyleSheet.value('1rem'),
-    marginTop: EStyleSheet.value('5rem'),
-    fontSize: EStyleSheet.value('18rem'),
-  },
-  manageTeamButtonContainer: {
-    paddingTop: EStyleSheet.value('50rem'),
-    alignSelf: 'center',
-    width: '50%',
-    borderTopColor: 'grey',
-    borderBottomColor: 'grey',
-    borderBottomWidth: EStyleSheet.value('1rem'),
-  },
-  //MANAGE TEAM
 });
 
 export default styles;

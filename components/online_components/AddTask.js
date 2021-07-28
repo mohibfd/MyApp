@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Overlay, Input, Button, Text} from 'react-native-elements';
-import styles from '../../stylesheets/onlineStylesheet';
+import generalStyles from '../../stylesheets/onlineStylesheet';
 
 // The AddTask is a button for adding tasks. When the button is pressed, an
 // overlay shows up to request user input for the new task name. When the
@@ -34,7 +34,7 @@ export function AddTask({createTask}) {
 
       <Button
         type="clear"
-        titleStyle={styles.plusButton}
+        titleStyle={generalStyles.plusButton}
         title="&#x2b;"
         onPress={() => {
           setOverlayVisible(true);

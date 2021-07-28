@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
-import {Pressable, Text, Platform, Alert} from 'react-native';
+import {Pressable, Text, Platform, StyleSheet} from 'react-native';
 import {Overlay} from 'react-native-elements';
 import DropDownPicker from 'react-native-dropdown-picker';
 import PushNotification from 'react-native-push-notification';
 
-import styles from '../stylesheets/stylesheet';
 import DeleteOrCancel from '../components/DeleteOrCancel.js';
+import generalStyles from '../stylesheets/generalStylesheet';
 
 const TimeInterval = props => {
   const {
@@ -140,21 +140,38 @@ const TimeInterval = props => {
             setValue={setDropDownPickerValue}
             setItems={setTimeInterval}
           />
-          <Text style={styles.splashText}>
+          <Text style={generalStyles.splashText}>
             {showSplashText
               ? 'please select one of the available options'
               : null}
           </Text>
           <Pressable
-            style={[{...styles.darkButtonContainer, ...styles.addButton}]}
+            style={[
+              {
+                ...generalStyles.darkButtonContainer,
+                ...styles.addButton,
+              },
+            ]}
             onPress={() => onPressFunction()}>
-            <Text style={styles.textStylesDark}>Add</Text>
+            <Text style={generalStyles.textStylesDark}>Add</Text>
           </Pressable>
         </>
       </Overlay>
     );
   }
 };
+
+const styles = StyleSheet.create({
+  overlay: {
+    width: '90%',
+    height: '40%',
+    justifyContent: 'space-between',
+  },
+  addButton: {
+    width: '75%',
+    alignSelf: 'center',
+  },
+});
 
 TimeInterval.propTypes = {
   createTimeInterval: PropTypes.func.isRequired,

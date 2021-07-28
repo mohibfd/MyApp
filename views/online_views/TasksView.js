@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 
-import {View, Button} from 'react-native';
-import styles from '../../stylesheets/onlineStylesheet';
+import {View, Button, StyleSheet} from 'react-native';
+import onlineStyles from '../../stylesheets/onlineStylesheet';
 
 import {Overlay} from 'react-native-elements';
 import {ManageTeam} from '../../components/online_components/ManageTeam';
@@ -50,3 +50,14 @@ export function TasksView({navigation, route}) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  manageTeamButtonContainer: {
+    paddingTop: EStyleSheet.value('50rem'),
+    alignSelf: 'center',
+    width: '50%',
+    borderTopColor: 'grey',
+    borderBottomColor: 'grey',
+    borderBottomWidth: EStyleSheet.value('1rem'),
+  },
+});

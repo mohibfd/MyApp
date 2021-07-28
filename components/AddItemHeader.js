@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import {Overlay, Input, Button, Text} from 'react-native-elements';
-import styles from '../stylesheets/stylesheet';
+import generalStyles from '../stylesheets/generalStylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const AddItemHeader = ({createItem}) => {
@@ -30,7 +30,7 @@ const AddItemHeader = ({createItem}) => {
         </>
       </Overlay>
       <Icon
-        style={styles.plusButton}
+        style={generalStyles.plusButton}
         name="plus"
         size={75}
         color="green"

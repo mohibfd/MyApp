@@ -1,9 +1,17 @@
 import React, {useState} from 'react';
-import {SafeAreaView, Button, Image, Modal, View} from 'react-native';
+import {
+  SafeAreaView,
+  Button,
+  Image,
+  Modal,
+  View,
+  StyleSheet,
+  Dimensions,
+} from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import styles from '../stylesheets/stylesheet.js';
+import generalStyles from '../stylesheets/generalStylesheet';
 import Header from '../components/Header';
 
 const WorkoutView = () => {
@@ -24,7 +32,7 @@ const WorkoutView = () => {
   };
 
   return (
-    <SafeAreaView style={styles.welcome}>
+    <SafeAreaView style={{flex: 1}}>
       <Header title="My Workouts" />
 
       <Button
@@ -40,7 +48,7 @@ const WorkoutView = () => {
         onRequestClose={() => {
           setModalVisible(false);
         }}>
-        <SafeAreaView style={styles.welcome}>
+        <SafeAreaView style={{flex: 1}}>
           <View style={[styles.centeredView, styles.imageContainer]}>
             <Image
               style={styles.qrCodeImage}
@@ -50,7 +58,7 @@ const WorkoutView = () => {
             />
           </View>
           <Icon
-            style={styles.modalClose}
+            style={generalStyles.modalClose}
             name="remove"
             size={50}
             color="red"
@@ -66,5 +74,23 @@ const WorkoutView = () => {
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  imageContainer: {
+    position: 'absolute',
+    height: '100%',
+  },
+  qrCodeImage: {
+    alignSelf: 'center',
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').width,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+});
 
 export default WorkoutView;

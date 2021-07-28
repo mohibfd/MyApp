@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {View, Text, Pressable} from 'react-native';
+import {View, Text, Pressable, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import styles from '../stylesheets/stylesheet';
+import generalStyles from '../stylesheets/generalStylesheet';
 
 const ListItem = ({item, deleteItemFromStorage, navigation}) => {
   //tells you which page to go to
@@ -40,6 +40,29 @@ const ListItem = ({item, deleteItemFromStorage, navigation}) => {
     </Pressable>
   );
 };
+
+const styles = StyleSheet.create({
+  ListItem: {
+    flex: 1,
+    width: '50%',
+    backgroundColor: '#e6ffff',
+    paddingVertical: EStyleSheet.value('30rem'),
+    borderWidth: EStyleSheet.value('2rem'),
+  },
+  ListItemView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  listItemText: {
+    flex: 4,
+    fontSize: EStyleSheet.value('32rem'),
+    marginLeft: EStyleSheet.value('10rem'),
+  },
+  redCross: {
+    flex: 1,
+    paddingHorizontal: EStyleSheet.value('5rem'),
+  },
+});
 
 ListItem.defaultProps = {
   navigation: null,
