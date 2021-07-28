@@ -49,7 +49,7 @@ const WorkoutView = () => {
           setModalVisible(false);
         }}>
         <SafeAreaView style={{flex: 1}}>
-          <View style={[styles.centeredView, styles.imageContainer]}>
+          <View style={[generalStyles.centeredView, styles.imageContainer]}>
             <Image
               style={styles.qrCodeImage}
               source={{
@@ -78,18 +78,14 @@ const WorkoutView = () => {
 const styles = StyleSheet.create({
   imageContainer: {
     position: 'absolute',
+    alignSelf: 'center',
+
     height: '100%',
   },
   qrCodeImage: {
-    alignSelf: 'center',
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').width,
-  },
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 22,
+    // alignSelf: 'center',
+    width: Dimensions.get('window').width * 0.9,
+    height: Dimensions.get('window').width * 0.9,
   },
 });
 
