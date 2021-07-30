@@ -21,11 +21,6 @@ const styles = StyleSheet.create({
     fontSize: EStyleSheet.value('25rem'),
     textAlign: 'center',
   },
-  textStyles: {
-    textAlign: 'center',
-    color: 'white',
-    textAlignVertical: 'center',
-  },
   textStylesDark: {
     fontSize: EStyleSheet.value('20rem'),
     textAlign: 'center',
