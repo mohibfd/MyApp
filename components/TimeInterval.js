@@ -28,6 +28,7 @@ const TimeInterval = props => {
     {label: 'Every day', value: 'daily'},
     {label: 'Every 2 days', value: 'every two days'},
     {label: 'Every 3 days', value: 'every three days'},
+    {label: 'Twice a week', value: 'twice a week'},
     {label: 'Every week', value: 'once a week'},
     {label: 'Every two weeks', value: 'once every two weeks'},
   ]);
@@ -58,6 +59,9 @@ const TimeInterval = props => {
         break;
       case 'every three days':
         repeatTime = 3;
+        break;
+      case 'twice a week':
+        repeatTime = 3.5;
         break;
       case 'once a week':
         repeatTime = 7;
