@@ -58,12 +58,20 @@ const DeveloperView = () => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: myBlack}}>
       <Header title="My Cards" developerAdd={createCard} add={createBug} />
 
       <View style={{flexDirection: 'row', flex: 1}}>
         <View style={{flexDirection: 'column', flex: 1}}>
-          <Text style={{fontSize: 30, textAlign: 'center'}}> New Ideas</Text>
+          <Text
+            style={{
+              fontSize: 30,
+              textAlign: 'center',
+              color: myWhite,
+            }}>
+            {' '}
+            New Ideas
+          </Text>
 
           {cards &&
             cards.map(card =>
@@ -77,7 +85,14 @@ const DeveloperView = () => {
             )}
         </View>
         <View style={{flexDirection: 'column', flex: 1}}>
-          <Text style={{fontSize: 30, textAlign: 'center'}}>Bugs</Text>
+          <Text
+            style={{
+              fontSize: 30,
+              textAlign: 'center',
+              color: myWhite,
+            }}>
+            Bugs
+          </Text>
           {bugs &&
             bugs.map(bug =>
               bug ? (

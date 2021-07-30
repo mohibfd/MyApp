@@ -97,14 +97,10 @@ const PlantItem = ({plant, deletion, setPlants}) => {
         onPress={() => {
           setActionSheetVisible(true);
         }}
+        containerStyle={{backgroundColor: myBlue}}
         bottomDivider>
         <ListItem.Content style={styles.listItemContainer}>
-          <ListItem.Title
-            style={{
-              fontSize: EStyleSheet.value('40rem'),
-            }}>
-            {plant.name}
-          </ListItem.Title>
+          <ListItem.Title style={styles.plantName}>{plant.name}</ListItem.Title>
           {plant.notificationId && <Icon name="check" size={40} />}
         </ListItem.Content>
       </ListItem>
@@ -125,6 +121,10 @@ const styles = StyleSheet.create({
   listItemContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  plantName: {
+    fontSize: EStyleSheet.value('40rem'),
+    color: myWhite,
   },
 });
 

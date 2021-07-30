@@ -1,4 +1,5 @@
 import React from 'react';
+import {StyleSheet} from 'react-native';
 import {ListItem, Overlay} from 'react-native-elements';
 
 // Action sheet contains a list of actions. Each action should have a `title`
@@ -13,19 +14,20 @@ export function ActionSheet({actions, visible, closeOverlay}) {
   };
   return (
     <Overlay
-      overlayStyle={{width: '90%'}}
+      overlayStyle={styles.overlayContainer}
       isVisible={visible}
       onBackdropPress={closeOverlay}>
       <>
         {[...actions, cancelAction].map(({title, action}) => (
           <ListItem
+            containerStyle={{backgroundColor: myBlack}}
             key={title}
             onPress={() => {
               closeOverlay();
               action();
             }}>
             <ListItem.Content>
-              <ListItem.Title>{title}</ListItem.Title>
+              <ListItem.Title style={{color: myWhite}}>{title}</ListItem.Title>
             </ListItem.Content>
           </ListItem>
         ))}
@@ -33,3 +35,12 @@ export function ActionSheet({actions, visible, closeOverlay}) {
     </Overlay>
   );
 }
+
+const styles = StyleSheet.create({
+  overlayContainer: {
+    width: '90%',
+    backgroundColor: myBlack,
+    borderWidth: 2,
+    borderColor: myWhite,
+  },
+});

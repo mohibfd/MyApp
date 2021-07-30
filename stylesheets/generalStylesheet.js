@@ -24,14 +24,14 @@ const styles = StyleSheet.create({
   textStylesDark: {
     fontSize: EStyleSheet.value('20rem'),
     textAlign: 'center',
-    color: 'white',
+    color: myWhite,
   },
   darkButtonContainer: {
     width: '45%',
     height: EStyleSheet.value('40rem'),
     justifyContent: 'center',
     borderRadius: EStyleSheet.value('5rem'),
-    backgroundColor: 'black',
+    backgroundColor: myBlue,
   },
 });
 

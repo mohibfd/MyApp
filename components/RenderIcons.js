@@ -15,7 +15,7 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
   };
 
   return (
-    <View style={{padding: EStyleSheet.value('20rem')}}>
+    <View style={styles.container}>
       <Icon
         name={item.icon}
         size={defaultSize}
@@ -62,17 +62,18 @@ const styles = StyleSheet.create({
     paddingVertical: EStyleSheet.value('10rem'),
   },
   buttonOpen: {
-    backgroundColor: '#F194FF',
+    backgroundColor: myPurple,
   },
   buttonClose: {
-    backgroundColor: '#2196F3',
+    backgroundColor: myBlue,
   },
   textStyle: {
     fontSize: EStyleSheet.value('20rem'),
-    color: 'white',
+    color: myWhite,
     fontWeight: 'bold',
     textAlign: 'center',
   },
+  container: {padding: EStyleSheet.value('20rem')},
 });
 
 RenderIcons.propTypes = {

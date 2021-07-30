@@ -21,7 +21,7 @@ const AddModal = ({addMainItem}) => {
   return (
     <>
       <Modal visible={modalOpen} animationType="slide">
-        <SafeAreaView>
+        <SafeAreaView style={styles.container}>
           <Pressable>
             <Icon
               style={generalStyles.modalClose}
@@ -58,6 +58,7 @@ const AddModal = ({addMainItem}) => {
 };
 
 const styles = StyleSheet.create({
+  container: {flex: 1, backgroundColor: myBlack},
   modalToggle: {
     borderColor: '#f2f2f2',
     padding: EStyleSheet.value('20rem'),

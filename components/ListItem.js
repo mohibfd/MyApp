@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   ListItem: {
     flex: 1,
     width: '50%',
-    backgroundColor: '#e6ffff',
+    backgroundColor: myBlue,
     paddingVertical: EStyleSheet.value('30rem'),
     borderWidth: EStyleSheet.value('2rem'),
   },
@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
     flex: 4,
     fontSize: EStyleSheet.value('32rem'),
     marginLeft: EStyleSheet.value('10rem'),
+    color: myWhite,
   },
   redCross: {
     flex: 1,

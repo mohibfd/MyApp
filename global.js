@@ -3,6 +3,20 @@ import uuid from 'react-native-uuid';
 import MMKVStorage, {useMMKVStorage} from 'react-native-mmkv-storage';
 import {Dimensions} from 'react-native';
 
+const myGreen = '#033E3E';
+const myBlue = '#323766';
+const myPurple = '#36013F';
+const myRed = '#C32148';
+const myWhite = '#FAEEFF';
+const myBlack = '#121212';
+
+global.myGreen = myGreen;
+global.myBlue = myBlue;
+global.myPurple = myPurple;
+global.myRed = myRed;
+global.myWhite = myWhite;
+global.myBlack = myBlack;
+
 const MMKV = new MMKVStorage.Loader().initialize();
 
 const useStorage = key => {
@@ -41,9 +55,9 @@ const useStateWithPromise = initialState => {
 };
 
 const menuItems = [
-  {name: 'Plants', icon: 'leaf', color: 'green', key: uuid.v4()},
-  {name: 'Invest', icon: 'money', color: 'green', key: uuid.v4()},
-  {name: 'Workout', icon: 'heartbeat', color: 'black', key: uuid.v4()},
+  {name: 'Plants', icon: 'leaf', color: myGreen, key: uuid.v4()},
+  {name: 'Invest', icon: 'money', color: myGreen, key: uuid.v4()},
+  {name: 'Workout', icon: 'heartbeat', color: myRed, key: uuid.v4()},
 ];
 
 const repeatNotifications = 70;

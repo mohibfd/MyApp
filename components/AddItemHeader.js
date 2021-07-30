@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
-import {Overlay, Input, Button, Text} from 'react-native-elements';
+import {Pressable, View, Text, StyleSheet} from 'react-native';
+import {Overlay, Input} from 'react-native-elements';
 import generalStyles from '../stylesheets/generalStylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -12,21 +13,32 @@ const AddItemHeader = ({createItem}) => {
     <>
       <Overlay
         isVisible={overlayVisible}
-        overlayStyle={{width: '90%'}}
+        overlayStyle={styles.overlayStyle}
         onBackdropPress={() => setOverlayVisible(false)}>
         <>
           <Input
             placeholder="New Item Name"
             onChangeText={text => setNewItemName(text)}
             autoFocus={true}
+            style={{color: myWhite}}
           />
-          <Button
-            title="Create"
-            onPress={() => {
-              setOverlayVisible(false);
-              createItem(newItemName);
-            }}
-          />
+          <View style={styles.buttonContainer}>
+            <Pressable
+              style={generalStyles.darkButtonContainer}
+              onPress={() => {
+                setOverlayVisible(false);
+              }}>
+              <Text style={generalStyles.textStylesDark}>Cancel</Text>
+            </Pressable>
+            <Pressable
+              style={generalStyles.darkButtonContainer}
+              onPress={() => {
+                setOverlayVisible(false);
+                createItem(newItemName);
+              }}>
+              <Text style={generalStyles.textStylesDark}>Create</Text>
+            </Pressable>
+          </View>
         </>
       </Overlay>
       <Icon
@@ -42,6 +54,15 @@ const AddItemHeader = ({createItem}) => {
   );
 };
 
+const styles = StyleSheet.create({
+  overlayStyle: {
+    width: '90%',
+    backgroundColor: myBlack,
+    borderWidth: 2,
+    borderColor: myWhite,
+  },
+  buttonContainer: {flexDirection: 'row', justifyContent: 'space-evenly'},
+});
 AddItemHeader.propTypes = {
   createItem: PropTypes.func.isRequired,
 };

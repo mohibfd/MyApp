@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     marginBottom: EStyleSheet.value('10rem'),
   },
   addTeamMemberInput: {
-    borderBottomColor: 'black',
+    borderBottomColor: myBlack,
     borderBottomWidth: EStyleSheet.value('1rem'),
     marginTop: EStyleSheet.value('5rem'),
     fontSize: EStyleSheet.value('18rem'),

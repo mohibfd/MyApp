@@ -64,7 +64,7 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
   };
 
   return (
-    <>
+    <View style={{backgroundColor: myBlack}}>
       <ActionSheet
         visible={actionSheetVisible}
         closeOverlay={() => {
@@ -77,6 +77,7 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
         onPress={() => {
           setActionSheetVisible(true);
         }}
+        containerStyle={{backgroundColor: myBlue}}
         bottomDivider>
         <ListItem.Content style={styles.investmentContainer}>
           <ListItem.Title style={styles.investmentTitle}>
@@ -134,7 +135,7 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
           </View>
         </ListItem.Content>
       </ListItem>
-    </>
+    </View>
   );
 };
 
@@ -148,6 +149,7 @@ const styles = StyleSheet.create({
   investmentTitle: {
     width: '31%',
     fontSize: EStyleSheet.value('27rem'),
+    color: myWhite,
   },
   textAndCurrencyContainer: {
     flex: 1,
@@ -162,9 +164,10 @@ const styles = StyleSheet.create({
     fontSize: EStyleSheet.value('15rem'),
     alignSelf: 'center',
     textAlign: 'right',
+    color: myWhite,
   },
   currencyInputContainer: {
-    color: 'black',
+    color: myWhite,
     flex: 4,
     fontSize: EStyleSheet.value('15rem'),
     textAlign: 'center',

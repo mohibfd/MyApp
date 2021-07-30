@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
     padding: EStyleSheet.value('5rem'),
   },
   inputStyle: {
-    borderColor: 'black',
+    borderColor: myBlack,
     borderWidth: EStyleSheet.value('1rem'),
     padding: EStyleSheet.value('10rem'),
     borderRadius: EStyleSheet.value('2rem'),

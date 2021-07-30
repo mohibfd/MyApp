@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, Alert} from 'react-native';
+import {SafeAreaView, Alert, Text, StyleSheet} from 'react-native';
 import uuid from 'react-native-uuid';
 import PushNotification from 'react-native-push-notification';
 
-import generalStyles from '../stylesheets/generalStylesheet.js';
 import Header from '../components/Header';
 import PlantItem from '../components/PlantItem';
 import DeleteOrCancel from '../components/DeleteOrCancel.js';
@@ -69,9 +68,11 @@ const PlantsView = () => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={styles.container}>
       <Header title="My Plants" add={createPlant} />
-
+      <Text style={styles.warning}>
+        Each plant's notifications will trigger 70 times before stopping
+      </Text>
       {plants &&
         plants.map(plant =>
           plant ? (
@@ -94,5 +95,14 @@ const PlantsView = () => {
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {flex: 1, backgroundColor: myBlack},
+  warning: {
+    fontSize: EStyleSheet.value('12rem'),
+    textAlign: 'center',
+    color: myWhite,
+  },
+});
 
 export default PlantsView;

@@ -9,7 +9,7 @@ const Header = ({title, add, developerAdd}) => {
   return (
     <View style={styles.header}>
       <View style={styles.developerPlusButtonContainer}>
-        {developerAdd && <AddItemHeader createItem={developerAdd} />}
+        {developerAdd ? <AddItemHeader createItem={developerAdd} /> : null}
       </View>
       <View style={styles.textContainer}>
         <Text style={styles.text}>{title}</Text>
@@ -24,7 +24,7 @@ const Header = ({title, add, developerAdd}) => {
 const styles = StyleSheet.create({
   header: {
     height: '7%',
-    backgroundColor: 'darkslateblue',
+    backgroundColor: myPurple,
     justifyContent: 'center',
   },
   textContainer: {
@@ -33,12 +33,11 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: 'left',
-    color: '#fff',
+    color: '#FAEEFF',
     fontSize: EStyleSheet.value('25rem'),
   },
   developerPlusButtonContainer: {
     position: 'absolute',
-    // alignSelf: 'flex-start',
   },
   plusButtonContainer: {
     position: 'absolute',

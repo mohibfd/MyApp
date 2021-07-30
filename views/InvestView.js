@@ -76,7 +76,7 @@ const InvestView = () => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: myBlack}}>
       <Header title="My Investments" add={createInvestment} />
 
       {investments &&
@@ -136,6 +136,7 @@ const styles = StyleSheet.create({
   },
   fontSizeStyle: {
     fontSize: EStyleSheet.value('22rem'),
+    color: myWhite,
   },
 });
 

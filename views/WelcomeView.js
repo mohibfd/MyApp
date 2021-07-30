@@ -110,7 +110,7 @@ const WelcomeView = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={styles.container}>
       <Header title="My Items" />
 
       <FlatList
@@ -131,7 +131,7 @@ const WelcomeView = ({navigation}) => {
         <Button
           onPress={() => navigation.navigate('Developer View')}
           title="Go to developer menu"
-          color="gold"
+          color={myGreen}
         />
       </View>
 
@@ -139,7 +139,7 @@ const WelcomeView = ({navigation}) => {
         <Button
           onPress={() => navigation.navigate('Online View')}
           title="Go Online"
-          color="#841584"
+          color="#550A35"
         />
       </View>
       {isDeleteOrCancel && (
@@ -154,6 +154,7 @@ const WelcomeView = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
+  container: {flex: 1, backgroundColor: myBlack},
   goOnlineButton: {
     paddingBottom: EStyleSheet.value('40rem'),
     alignSelf: 'center',

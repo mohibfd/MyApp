@@ -32,13 +32,13 @@ const WorkoutView = () => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={styles.container}>
       <Header title="My Workouts" />
 
       <Button
         onPress={() => setModalVisible(true)}
         title="QR Code"
-        color="black"
+        color={myGreen}
       />
 
       <Modal
@@ -76,6 +76,7 @@ const WorkoutView = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {flex: 1, backgroundColor: myBlack},
   imageContainer: {
     position: 'absolute',
     alignSelf: 'center',
