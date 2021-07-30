@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView} from 'react-native';
+import {SafeAreaView, Alert} from 'react-native';
 import uuid from 'react-native-uuid';
 import PushNotification from 'react-native-push-notification';
 
@@ -19,7 +19,6 @@ const PlantsView = () => {
 
   useEffect(() => {
     setPlantsStorage(plants);
-    // console.log(plants);
   }, [plants]);
 
   const toggleDeleteOrCancel = () => {
@@ -27,6 +26,15 @@ const PlantsView = () => {
   };
 
   const createPlant = newPlantName => {
+    if (plants.length == 7) {
+      Alert.alert(
+        'Too many plants',
+        'Sorry you cannot have more than 7 plants at a time',
+        [{text: 'OK', onPress: () => console.log('OK Pressed')}],
+      );
+      return;
+    }
+
     setPlants(prevItems => {
       return [
         {

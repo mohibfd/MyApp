@@ -46,7 +46,7 @@ const menuItems = [
   {name: 'Workout', icon: 'heartbeat', color: 'black', key: uuid.v4()},
 ];
 
-const repeatNotifications = 100;
+const repeatNotifications = 70;
 
 const entireScreenWidth = Dimensions.get('window').width;
 const entireScreenHeight = Dimensions.get('window').height;

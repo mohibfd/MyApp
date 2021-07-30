@@ -36,7 +36,7 @@ const DeleteOrCancel = ({name, deletion, closeOverlay}) => {
 
 const styles = StyleSheet.create({
   deleteOverlay: {
-    flex: 0.17,
+    flex: 0.22,
     width: '90%',
     justifyContent: 'space-between',
   },
