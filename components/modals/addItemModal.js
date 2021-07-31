@@ -8,9 +8,11 @@ import {
   StyleSheet,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import uuid from 'react-native-uuid';
+
 import generalStyles from '../../stylesheets/generalStylesheet';
 import RenderIcons from '../RenderIcons.js';
-import '../../global.js';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 const AddModal = ({addMainItem}) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -18,6 +20,12 @@ const AddModal = ({addMainItem}) => {
   const toggleModal = () => {
     setModalOpen(!modalOpen);
   };
+
+  const menuItems = [
+    {name: 'Plants', icon: 'leaf', color: myGreen, key: uuid.v4()},
+    {name: 'Invest', icon: 'money', color: myGreen, key: uuid.v4()},
+    {name: 'Workout', icon: 'heartbeat', color: myRed, key: uuid.v4()},
+  ];
   return (
     <>
       <Modal visible={modalOpen} animationType="slide">
@@ -26,13 +34,13 @@ const AddModal = ({addMainItem}) => {
             <Icon
               style={generalStyles.modalClose}
               name="remove"
-              size={50}
+              size={EStyleSheet.value(50)}
               color="red"
               onPress={() => toggleModal()}
             />
 
             <FlatList
-              data={globalMenuItems}
+              data={menuItems}
               renderItem={({item}) => (
                 <RenderIcons
                   item={item}

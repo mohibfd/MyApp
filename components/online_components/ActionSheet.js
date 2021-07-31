@@ -27,7 +27,8 @@ export function ActionSheet({actions, visible, closeOverlay}) {
             onPress={() => {
               closeOverlay();
               action();
-            }}>
+            }}
+            bottomDivider>
             <ListItem.Content>
               <ListItem.Title style={{color: myWhite}}>{title}</ListItem.Title>
             </ListItem.Content>

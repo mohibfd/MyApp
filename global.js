@@ -1,7 +1,7 @@
 import {useState, useEffect, useRef, useCallback} from 'react';
-import uuid from 'react-native-uuid';
 import MMKVStorage, {useMMKVStorage} from 'react-native-mmkv-storage';
 import {Dimensions} from 'react-native';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 const myGreen = '#033E3E';
 const myBlue = '#323766';
@@ -54,12 +54,6 @@ const useStateWithPromise = initialState => {
   return [state, handleSetState];
 };
 
-const menuItems = [
-  {name: 'Plants', icon: 'leaf', color: myGreen, key: uuid.v4()},
-  {name: 'Invest', icon: 'money', color: myGreen, key: uuid.v4()},
-  {name: 'Workout', icon: 'heartbeat', color: myRed, key: uuid.v4()},
-];
-
 const repeatNotifications = 70;
 
 const entireScreenWidth = Dimensions.get('window').width;
@@ -69,7 +63,6 @@ const rem =
     ? entireScreenHeight / 380
     : entireScreenWidth / 380;
 
-import EStyleSheet from 'react-native-extended-stylesheet';
 EStyleSheet.build({$rem: rem});
 
 global.MMKV = MMKV;
@@ -78,9 +71,6 @@ global.useStorage = useStorage;
 
 global.useStateWithPromise = useStateWithPromise;
 
-global.globalMenuItems = menuItems;
-
 global.globalRepeatNotifications = repeatNotifications;
 
-// global.rem = rem;
 global.EStyleSheet = EStyleSheet;
