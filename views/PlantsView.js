@@ -5,7 +5,6 @@ import {
   Text,
   StyleSheet,
   ImageBackground,
-  Image,
 } from 'react-native';
 import uuid from 'react-native-uuid';
 import PushNotification from 'react-native-push-notification';

@@ -9,11 +9,13 @@ import {
 } from 'react-native';
 import uuid from 'react-native-uuid';
 import PushNotification from 'react-native-push-notification';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import ListItem from '../components/ListItem';
 import Header from '../components/Header';
 import AddIconModal from '../components/modals/AddIconModal';
 import DeleteOrCancel from '../components/DeleteOrCancel';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 const WelcomeView = ({navigation}) => {
   const [item1, setItem1] = useStorage('PlantsId');
@@ -31,6 +33,8 @@ const WelcomeView = ({navigation}) => {
   const [isDeleteOrCancel, setIsDeleteOrCancel] = useState(false);
 
   const [deleteItem, setDeleteItem] = useState(null);
+
+  const [openModal, setOpenModal] = useState(false);
 
   const menuItems = [
     {name: 'Plants', icon: 'envira', color: myGreen, key: uuid.v4()},
@@ -178,8 +182,21 @@ const WelcomeView = ({navigation}) => {
         )}
         numColumns={2}
       />
+      {openModal && (
+        <AddIconModal
+          menuItems={menuItems}
+          addMainItem={addMainItem}
+          setModalVisible={setOpenModal}
+        />
+      )}
 
-      <AddIconModal menuItems={menuItems} addMainItem={addMainItem} />
+      <Icon
+        style={styles.modalToggle}
+        name="plus"
+        size={EStyleSheet.value('75rem')}
+        color="green"
+        onPress={() => setOpenModal(true)}
+      />
 
       <View style={styles.goOnlineButton}>
         <Button
@@ -213,6 +230,10 @@ const styles = StyleSheet.create({
     paddingBottom: EStyleSheet.value('40rem'),
     alignSelf: 'center',
     width: '75%',
+  },
+  modalToggle: {
+    paddingRight: EStyleSheet.value('25rem'),
+    alignSelf: 'flex-end',
   },
 });
 

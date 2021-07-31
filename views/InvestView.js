@@ -6,8 +6,6 @@ import Header from '../components/Header';
 import InvestItem from '../components/InvestItem';
 import DeleteOrCancel from '../components/DeleteOrCancel';
 
-import AddIconModal from '../components/modals/AddIconModal';
-
 import getCryptoData from '../services/CryptoData';
 
 const InvestView = () => {
@@ -51,6 +49,7 @@ const InvestView = () => {
           key: uuid.v4(),
           originalInvestment: 0,
           currentAmount: 0,
+          assets: [],
         },
         ...prevItems,
       ];

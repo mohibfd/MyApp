@@ -1,16 +1,24 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import {ListItem} from 'react-native-elements';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Image} from 'react-native';
 import CurrencyInput from 'react-native-currency-input';
+import uuid from 'react-native-uuid';
+
 import {ActionSheet} from './online_components/ActionSheet';
+import AddIconModal from '../components/modals/AddIconModal';
 
 const InvestItem = ({investment, deletion, setInvestments}) => {
   const [actionSheetVisible, setActionSheetVisible] = useState(false);
-
-  // const [value, setValue] = useState(investment.originalInvestment);
+  const [isAddAsset, setIsAddAsset] = useState(false);
 
   const actions = [
+    {
+      title: 'Add asset',
+      action: () => {
+        addAsset(investment);
+      },
+    },
     {
       title: 'Delete investment',
       action: () => {
@@ -18,6 +26,48 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
       },
     },
   ];
+
+  // <Image
+  //   style={styles.tinyLogo}
+  //   source={require('@expo/snack-static/react-native-logo.png')}
+  // />;
+
+  const menuItems = [
+    {
+      name: 'Ethereum',
+      imageSource: '../components/assets/Plants.jpeg',
+      key: uuid.v4(),
+    },
+    {name: 'Bitcoin', imageSource: 'btc', key: uuid.v4()},
+  ];
+
+  const addAsset = () => {
+    console.log('added?');
+    setIsAddAsset(true);
+  };
+
+  const setAsset = asset => {
+    //deleting item then recreating it to make it easier to modify one of its parameters
+
+    setInvestments(prevItems => {
+      return prevItems.filter(item => item.key != investment.key);
+    });
+
+    assets = investment.assets.push(asset);
+
+    setInvestments(prevItems => {
+      return [
+        {
+          name: investment.name,
+          key: investment.key,
+          originalInvestment: investment.originalInvestment,
+          currentAmount: investment.currentAmount,
+          assets,
+        },
+        ...prevItems,
+      ];
+    });
+  };
 
   const setOriginalInvestment = formattedValue => {
     //deleting item then recreating it to make it easier to modify one of its parameters
@@ -33,6 +83,7 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
           key: investment.key,
           originalInvestment: formattedValue,
           currentAmount: investment.currentAmount,
+          assets: investment.assets,
         },
         ...prevItems,
       ];
@@ -53,6 +104,7 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
           key: investment.key,
           currentAmount: formattedValue,
           originalInvestment: investment.originalInvestment,
+          assets: investment.assets,
         },
         ...prevItems,
       ];
@@ -72,7 +124,6 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
         }}
         actions={actions}
       />
-
       <ListItem
         onPress={() => {
           setActionSheetVisible(true);
@@ -135,6 +186,9 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
           </View>
         </ListItem.Content>
       </ListItem>
+      {isAddAsset ? (
+        <AddIconModal menuItems={menuItems} addMainItem={setAsset} />
+      ) : null}
     </View>
   );
 };

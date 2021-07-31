@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     width: '35%',
   },
   textStyle: {
-    fontSize: EStyleSheet.value('20rem'),
+    fontSize: EStyleSheet.value('18rem'),
     color: myWhite,
     fontWeight: 'bold',
     textAlign: 'center',
