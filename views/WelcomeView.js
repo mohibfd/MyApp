@@ -6,6 +6,8 @@ import {
   FlatList,
   Alert,
   StyleSheet,
+  Pressable,
+  Text,
 } from 'react-native';
 import uuid from 'react-native-uuid';
 import PushNotification from 'react-native-push-notification';
@@ -16,6 +18,7 @@ import Header from '../components/Header';
 import AddIconModal from '../components/modals/AddIconModal';
 import DeleteOrCancel from '../components/DeleteOrCancel';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import generalStyles from '../stylesheets/generalStylesheet';
 
 const WelcomeView = ({navigation}) => {
   const [item1, setItem1] = useStorage('PlantsId');
@@ -198,21 +201,21 @@ const WelcomeView = ({navigation}) => {
         onPress={() => setOpenModal(true)}
       />
 
-      <View style={styles.goOnlineButton}>
-        <Button
-          onPress={() => navigation.navigate('Developer View')}
-          title="Go to developer menu"
-          color={myGreen}
-        />
-      </View>
+      <Pressable
+        style={styles.button}
+        onPress={() => navigation.navigate('Developer View')}>
+        <Text style={[generalStyles.textStylesDark, {color: myGreen}]}>
+          Go to developer menu
+        </Text>
+      </Pressable>
+      <Pressable
+        style={styles.button}
+        onPress={() => navigation.navigate('Online View')}>
+        <Text style={[generalStyles.textStylesDark, {color: '#550A35'}]}>
+          Go to online section
+        </Text>
+      </Pressable>
 
-      <View style={styles.goOnlineButton}>
-        <Button
-          onPress={() => navigation.navigate('Online View')}
-          title="Go Online"
-          color="#550A35"
-        />
-      </View>
       {isDeleteOrCancel && (
         <DeleteOrCancel
           name={deleteItem.name}
@@ -226,10 +229,15 @@ const WelcomeView = ({navigation}) => {
 
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: myBlack},
-  goOnlineButton: {
-    paddingBottom: EStyleSheet.value('40rem'),
+  button: {
+    borderWidth: 1,
+    borderColor: myWhite,
+    borderRadius: 20,
+    marginVertical: EStyleSheet.value('20rem'),
+    padding: EStyleSheet.value('10rem'),
     alignSelf: 'center',
-    width: '75%',
+    width: '70%',
+    backgroundColor: myWhite + 10,
   },
   modalToggle: {
     paddingRight: EStyleSheet.value('25rem'),
