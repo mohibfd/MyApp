@@ -97,7 +97,7 @@ const PlantItem = ({plant, deletion, setPlants}) => {
         onPress={() => {
           setActionSheetVisible(true);
         }}
-        containerStyle={{backgroundColor: myBlue}}
+        containerStyle={{backgroundColor: myGreen}}
         bottomDivider>
         <ListItem.Content style={styles.listItemContainer}>
           <ListItem.Title style={styles.plantName}>{plant.name}</ListItem.Title>

@@ -33,6 +33,12 @@ const styles = StyleSheet.create({
     borderRadius: EStyleSheet.value('5rem'),
     backgroundColor: myBlue,
   },
+  borderContainer: {
+    width: '90%',
+    backgroundColor: myBlack,
+    borderWidth: EStyleSheet.value('2rem'),
+    borderColor: myWhite,
+  },
 });
 
 export default styles;

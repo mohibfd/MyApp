@@ -13,7 +13,7 @@ const AddItemHeader = ({createItem}) => {
     <>
       <Overlay
         isVisible={overlayVisible}
-        overlayStyle={styles.overlayStyle}
+        overlayStyle={generalStyles.borderContainer}
         onBackdropPress={() => setOverlayVisible(false)}>
         <>
           <Input
@@ -55,12 +55,6 @@ const AddItemHeader = ({createItem}) => {
 };
 
 const styles = StyleSheet.create({
-  overlayStyle: {
-    width: '90%',
-    backgroundColor: myBlack,
-    borderWidth: 2,
-    borderColor: myWhite,
-  },
   buttonContainer: {flexDirection: 'row', justifyContent: 'space-evenly'},
 });
 AddItemHeader.propTypes = {

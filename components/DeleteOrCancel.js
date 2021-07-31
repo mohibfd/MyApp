@@ -9,7 +9,7 @@ const DeleteOrCancel = ({name, deletion, closeOverlay}) => {
   return (
     <Overlay
       isVisible={true}
-      overlayStyle={styles.deleteOverlay}
+      overlayStyle={[styles.deleteOverlay, generalStyles.borderContainer]}
       onBackdropPress={() => closeOverlay()}>
       {deletion && (
         <>
@@ -37,11 +37,7 @@ const DeleteOrCancel = ({name, deletion, closeOverlay}) => {
 const styles = StyleSheet.create({
   deleteOverlay: {
     flex: 0.22,
-    width: '90%',
     justifyContent: 'space-between',
-    backgroundColor: myBlack,
-    borderWidth: 2,
-    borderColor: myWhite,
   },
   deleteOverlayText: {
     flex: 1,

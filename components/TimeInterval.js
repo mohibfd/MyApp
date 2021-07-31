@@ -43,9 +43,6 @@ const TimeInterval = props => {
         setShowSplashText(false);
       }, 2000);
 
-      // Alert.alert('Error', 'Please choose one of the available options', [
-      //   {text: 'OK', onPress: () => console.log('OK Pressed')},
-      // ]);
       return;
     }
 
@@ -133,7 +130,7 @@ const TimeInterval = props => {
     return (
       <Overlay
         isVisible={overlayVisible}
-        overlayStyle={styles.overlay}
+        overlayStyle={[styles.overlay, generalStyles.borderContainer]}
         onBackdropPress={() => closeOverlays()}>
         <>
           <DropDownPicker
@@ -143,6 +140,11 @@ const TimeInterval = props => {
             setOpen={setShowDropDownPicker}
             setValue={setDropDownPickerValue}
             setItems={setTimeInterval}
+            arrowIconStyle={{tintColor: myWhite}}
+            tickIconStyle={{tintColor: myWhite}}
+            style={{backgroundColor: myGreen}}
+            dropDownContainerStyle={{backgroundColor: myGreen}}
+            textStyle={{color: myWhite}}
           />
           <Text style={generalStyles.splashText}>
             {showSplashText
@@ -167,7 +169,6 @@ const TimeInterval = props => {
 
 const styles = StyleSheet.create({
   overlay: {
-    width: '90%',
     height: '40%',
     justifyContent: 'space-between',
   },

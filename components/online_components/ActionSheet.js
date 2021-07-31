@@ -2,6 +2,8 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import {ListItem, Overlay} from 'react-native-elements';
 
+import generalStyles from '../../stylesheets/generalStylesheet';
+
 // Action sheet contains a list of actions. Each action should have a `title`
 // string and `action` function property. A "Cancel" action is automatically
 // added to the end of your list of actions. You must also provide the
@@ -14,7 +16,7 @@ export function ActionSheet({actions, visible, closeOverlay}) {
   };
   return (
     <Overlay
-      overlayStyle={styles.overlayContainer}
+      overlayStyle={generalStyles.borderContainer}
       isVisible={visible}
       onBackdropPress={closeOverlay}>
       <>
@@ -36,11 +38,4 @@ export function ActionSheet({actions, visible, closeOverlay}) {
   );
 }
 
-const styles = StyleSheet.create({
-  overlayContainer: {
-    width: '90%',
-    backgroundColor: myBlack,
-    borderWidth: 2,
-    borderColor: myWhite,
-  },
-});
+const styles = StyleSheet.create({});
