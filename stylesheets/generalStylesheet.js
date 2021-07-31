@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
     backgroundColor: myBlack,
     borderWidth: EStyleSheet.value('2rem'),
     borderColor: myWhite,
+    borderRadius: 5,
   },
 });
 

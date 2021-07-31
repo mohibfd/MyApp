@@ -1,5 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, Alert, Text, StyleSheet} from 'react-native';
+import {
+  SafeAreaView,
+  Alert,
+  Text,
+  StyleSheet,
+  ImageBackground,
+  Image,
+} from 'react-native';
 import uuid from 'react-native-uuid';
 import PushNotification from 'react-native-push-notification';
 
@@ -69,29 +76,34 @@ const PlantsView = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="My Plants" add={createPlant} />
-      <Text style={styles.warning}>
-        Each plant's notifications will trigger 70 times before stopping
-      </Text>
-      {plants &&
-        plants.map(plant =>
-          plant ? (
-            <PlantItem
-              key={plant.key}
-              plant={plant}
-              deletion={openDeleteOrCancel}
-              setPlants={setPlants}
-            />
-          ) : null,
-        )}
+      <ImageBackground
+        source={require('../components/assets/Plants.jpeg')}
+        style={{width: '100%', height: '100%'}}>
+        <Header title="My Plants" add={createPlant} />
 
-      {isDeleteOrCancel && (
-        <DeleteOrCancel
-          name={deletePlant.name}
-          deletion={completeDeletion}
-          closeOverlay={toggleDeleteOrCancel}
-        />
-      )}
+        <Text style={styles.warning}>
+          Each plant's notifications will trigger 70 times before stopping
+        </Text>
+        {plants &&
+          plants.map(plant =>
+            plant ? (
+              <PlantItem
+                key={plant.key}
+                plant={plant}
+                deletion={openDeleteOrCancel}
+                setPlants={setPlants}
+              />
+            ) : null,
+          )}
+
+        {isDeleteOrCancel && (
+          <DeleteOrCancel
+            name={deletePlant.name}
+            deletion={completeDeletion}
+            closeOverlay={toggleDeleteOrCancel}
+          />
+        )}
+      </ImageBackground>
     </SafeAreaView>
   );
 };

@@ -97,11 +97,13 @@ const PlantItem = ({plant, deletion, setPlants}) => {
         onPress={() => {
           setActionSheetVisible(true);
         }}
-        containerStyle={{backgroundColor: myGreen}}
+        containerStyle={{backgroundColor: myGreen + '99'}}
         bottomDivider>
         <ListItem.Content style={styles.listItemContainer}>
           <ListItem.Title style={styles.plantName}>{plant.name}</ListItem.Title>
-          {plant.notificationId && <Icon name="check" size={40} />}
+          {plant.notificationId && (
+            <Icon name="check" size={40} color={'#00FF004D'} />
+          )}
         </ListItem.Content>
       </ListItem>
       {showTimeInterval && (
