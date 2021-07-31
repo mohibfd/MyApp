@@ -8,30 +8,18 @@ import {
   StyleSheet,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import uuid from 'react-native-uuid';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 import generalStyles from '../../stylesheets/generalStylesheet';
 import RenderIcons from '../RenderIcons.js';
-import EStyleSheet from 'react-native-extended-stylesheet';
 
-const AddModal = ({addMainItem}) => {
+const AddIconModal = ({menuItems, addMainItem}) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const toggleModal = () => {
     setModalOpen(!modalOpen);
   };
 
-  const menuItems = [
-    {name: 'Plants', icon: 'envira', color: myGreen, key: uuid.v4()},
-    {name: 'Invest', icon: 'money', color: 'green', key: uuid.v4()},
-    {name: 'Workout', icon: 'heartbeat', color: myRed, key: uuid.v4()},
-    {name: 'Meditate', icon: 'pause', color: myWhite, key: uuid.v4()},
-    {name: 'Books', icon: 'book', color: myBrown, key: uuid.v4()},
-    {name: 'Cooking', icon: 'lemon-o', color: myYellow, key: uuid.v4()},
-    {name: 'Productivity', icon: 'themeisle', color: 'pink', key: uuid.v4()},
-    {name: 'Reminders', icon: 'calendar', color: 'orange', key: uuid.v4()},
-    {name: 'Wakeboarding', icon: 'tint', color: myBlue, key: uuid.v4()},
-  ];
   return (
     <>
       <Modal visible={modalOpen} animationType="slide">
@@ -51,7 +39,7 @@ const AddModal = ({addMainItem}) => {
                 <RenderIcons
                   item={item}
                   toggleMainModal={toggleModal}
-                  addMainItem={addMainItem}
+                  addMainItem={() => addMainItem(item)}
                 />
               )}
               numColumns={3}
@@ -81,8 +69,8 @@ const styles = StyleSheet.create({
   },
 });
 
-AddModal.propTypes = {
+AddIconModal.propTypes = {
   addMainItem: PropTypes.func.isRequired,
 };
 
-export default AddModal;
+export default AddIconModal;

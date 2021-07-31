@@ -4,9 +4,17 @@ import uuid from 'react-native-uuid';
 
 import Header from '../components/Header';
 import InvestItem from '../components/InvestItem';
-import DeleteOrCancel from '../components/DeleteOrCancel.js';
+import DeleteOrCancel from '../components/DeleteOrCancel';
+
+import AddIconModal from '../components/modals/AddIconModal';
+
+import getCryptoData from '../services/CryptoData';
 
 const InvestView = () => {
+  useEffect(() => {
+    getCryptoData();
+  }, []);
+
   const [investmentsStorage, setInvestmentsStorage] =
     useStorage('investmentss');
 

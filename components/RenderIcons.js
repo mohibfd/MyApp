@@ -12,7 +12,7 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const createMainItem = () => {
-    addMainItem(item);
+    addMainItem();
     toggleMainModal();
   };
 
