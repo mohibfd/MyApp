@@ -10,6 +10,12 @@ import WelcomeView from './views/WelcomeView';
 import PlantsView from './views/PlantsView';
 import InvestView from './views/InvestView';
 import WorkoutView from './views/WorkoutView';
+import MeditateView from './views/MeditateView';
+import BooksView from './views/BooksView';
+import CookingView from './views/CookingView';
+import ProductivityView from './views/ProductivityView';
+import RemindersView from './views/RemindersView';
+import WakeboardingView from './views/WakeboardingView';
 
 import DeveloperView from './views/DeveloperView';
 
@@ -48,6 +54,37 @@ const App = () => {
             component={WorkoutView}
             options={{headerShown: false}}
           />
+          <Stack.Screen
+            name="Meditate View"
+            component={MeditateView}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Books View"
+            component={BooksView}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Cooking View"
+            component={CookingView}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Productivity View"
+            component={ProductivityView}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Reminders View"
+            component={RemindersView}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Wakeboarding View"
+            component={WakeboardingView}
+            options={{headerShown: false}}
+          />
+
           <Stack.Screen
             name="Developer View"
             component={DeveloperView}

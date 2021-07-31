@@ -19,6 +19,12 @@ const WelcomeView = ({navigation}) => {
   const [item1, setItem1] = useStorage('PlantsId');
   const [item2, setItem2] = useStorage('InvestId');
   const [item3, setItem3] = useStorage('WorkoutId');
+  const [item4, setItem4] = useStorage('MeditateId');
+  const [item5, setItem5] = useStorage('BooksId');
+  const [item6, setItem6] = useStorage('CookingId');
+  const [item7, setItem7] = useStorage('ProductivityId');
+  const [item8, setItem8] = useStorage('RemindersId');
+  const [item9, setItem9] = useStorage('WakeboardingId');
 
   const [items, setItems] = useState();
 
@@ -53,6 +59,24 @@ const WelcomeView = ({navigation}) => {
     if (item3) {
       newList.push(item3);
     }
+    if (item4) {
+      newList.push(item4);
+    }
+    if (item5) {
+      newList.push(item5);
+    }
+    if (item6) {
+      newList.push(item6);
+    }
+    if (item7) {
+      newList.push(item7);
+    }
+    if (item8) {
+      newList.push(item8);
+    }
+    if (item9) {
+      newList.push(item9);
+    }
     setItems(newList);
   };
 
@@ -71,6 +95,24 @@ const WelcomeView = ({navigation}) => {
         break;
       case 'Workout':
         setItem3(mainItem);
+        break;
+      case 'Meditate':
+        setItem4(mainItem);
+        break;
+      case 'Books':
+        setItem5(mainItem);
+        break;
+      case 'Cooking':
+        setItem6(mainItem);
+        break;
+      case 'Productivity':
+        setItem7(mainItem);
+        break;
+      case 'Reminders':
+        setItem8(mainItem);
+        break;
+      case 'Wakeboarding':
+        setItem9(mainItem);
         break;
       default:
         Alert.alert('NOT FOUND');

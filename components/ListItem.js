@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {View, Text, Pressable, StyleSheet} from 'react-native';
+import {View, Text, Pressable, StyleSheet, Alert} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const ListItem = ({item, deleteItemFromStorage, navigation}) => {
@@ -17,6 +17,25 @@ const ListItem = ({item, deleteItemFromStorage, navigation}) => {
         case 'Workout':
           navigation.navigate('Workout View');
           break;
+        case 'Meditate':
+          navigation.navigate('Meditate View');
+          break;
+        case 'Books':
+          navigation.navigate('Books View');
+          break;
+        case 'Cooking':
+          navigation.navigate('Cooking View');
+          break;
+        case 'Productivity':
+          navigation.navigate('Productivity View');
+          break;
+        case 'Reminders':
+          navigation.navigate('Reminders View');
+          break;
+        case 'Wakeboarding':
+          navigation.navigate('Wakeboarding View');
+          break;
+
         default:
           Alert.alert('NOT FOUND');
       }
@@ -31,7 +50,7 @@ const ListItem = ({item, deleteItemFromStorage, navigation}) => {
         <Icon
           style={styles.redCross}
           name="remove"
-          size={50}
+          size={EStyleSheet.value('40rem')}
           color="firebrick"
           onPress={() => deleteItemFromStorage(item)}
         />
@@ -54,7 +73,7 @@ const styles = StyleSheet.create({
   },
   listItemText: {
     flex: 4,
-    fontSize: EStyleSheet.value('32rem'),
+    fontSize: EStyleSheet.value('25rem'),
     marginLeft: EStyleSheet.value('10rem'),
     color: myWhite,
   },

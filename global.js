@@ -9,6 +9,8 @@ const myPurple = '#36013F';
 const myRed = '#C32148';
 const myWhite = '#FAEEFF';
 const myBlack = '#121212';
+const myBrown = '#964B00';
+const myYellow = '#c1c71e';
 
 global.myGreen = myGreen;
 global.myBlue = myBlue;
@@ -16,6 +18,8 @@ global.myPurple = myPurple;
 global.myRed = myRed;
 global.myWhite = myWhite;
 global.myBlack = myBlack;
+global.myBrown = myBrown;
+global.myYellow = myYellow;
 
 const MMKV = new MMKVStorage.Loader().initialize();
 

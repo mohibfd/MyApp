@@ -71,7 +71,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    width: '55%',
     marginHorizontal: '2%',
     borderRadius: EStyleSheet.value('20rem'),
     paddingHorizontal: EStyleSheet.value('5rem'),
@@ -79,6 +78,7 @@ const styles = StyleSheet.create({
   },
   buttonOpen: {
     backgroundColor: myPurple,
+    width: '55%',
   },
   buttonClose: {
     backgroundColor: myBlue,
