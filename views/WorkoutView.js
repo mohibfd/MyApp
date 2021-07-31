@@ -59,7 +59,7 @@ const WorkoutView = () => {
             />
           </View>
           <Icon
-            style={generalStyles.modalClose}
+            style={[generalStyles.modalClose, {zIndex: 1}]}
             name="remove"
             size={EStyleSheet.value('50rem')}
             color="red"
