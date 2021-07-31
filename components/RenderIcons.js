@@ -1,12 +1,24 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
-import {TouchableHighlight, Modal, Text, View, StyleSheet} from 'react-native';
+import {Dimensions} from 'react-native';
+import {
+  TouchableHighlight,
+  Modal,
+  Text,
+  View,
+  StyleSheet,
+  Pressable,
+  ImageBackground,
+  Image,
+} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import generalStyles from '../stylesheets/generalStylesheet';
 
 const defaultSize = EStyleSheet.value('80rem');
+
+const imageSize = Dimensions.get('window').width * 0.28;
 
 const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -16,16 +28,41 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
     toggleMainModal();
   };
 
+  {
+    /* <ImageBackground source={item.imageSource} style={styles.smallImage}>
+          <Pressable
+            style={{zIndex: 1}}
+            onPress={() => {
+              console.log('???');
+              setModalVisible(true);
+            }}></Pressable>
+          </ImageBackground> */
+  }
+
   return (
     <View style={styles.container}>
-      <Icon
-        name={item.icon}
-        size={defaultSize}
-        color={item.color}
-        onPress={() => {
-          setModalVisible(true);
-        }}
-      />
+      {item.icon ? (
+        <Icon
+          name={item.icon}
+          size={defaultSize}
+          color={item.color}
+          onPress={() => {
+            setModalVisible(true);
+          }}
+        />
+      ) : (
+        <View style={styles.smallImage}>
+          <Pressable
+            onPress={() => {
+              setModalVisible(true);
+            }}>
+            <Image
+              style={{width: '100%', height: '100%'}}
+              source={item.imageSource}
+            />
+          </Pressable>
+        </View>
+      )}
 
       <View style={styles.centeredView}>
         <Modal
@@ -65,10 +102,9 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: EStyleSheet.value('10rem'),
-    // justifyContent: 'space-',
-    width: '33%',
     alignItems: 'center',
+    padding: EStyleSheet.value('10rem'),
+    width: '33%',
   },
   button: {
     marginHorizontal: '2%',
@@ -89,6 +125,10 @@ const styles = StyleSheet.create({
     color: myWhite,
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  smallImage: {
+    width: imageSize,
+    height: imageSize,
   },
 });
 

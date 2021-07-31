@@ -10,13 +10,13 @@ import AddIconModal from '../components/modals/AddIconModal';
 
 const InvestItem = ({investment, deletion, setInvestments}) => {
   const [actionSheetVisible, setActionSheetVisible] = useState(false);
-  const [isAddAsset, setIsAddAsset] = useState(false);
+  const [openAddAssetModal, setOpenAddAssetModal] = useState(false);
 
   const actions = [
     {
       title: 'Add asset',
       action: () => {
-        addAsset(investment);
+        setOpenAddAssetModal(true);
       },
     },
     {
@@ -27,24 +27,73 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
     },
   ];
 
-  // <Image
-  //   style={styles.tinyLogo}
-  //   source={require('@expo/snack-static/react-native-logo.png')}
-  // />;
-
   const menuItems = [
     {
       name: 'Ethereum',
-      imageSource: '../components/assets/Plants.jpeg',
+      imageSource: require('../components/assets/Ethereum.jpeg'),
       key: uuid.v4(),
     },
-    {name: 'Bitcoin', imageSource: 'btc', key: uuid.v4()},
+    {
+      name: 'MSCI World',
+      imageSource: require('../components/assets/MSCIWorldIndex.png'),
+      key: uuid.v4(),
+    },
+    {
+      name: 'Bitcoin',
+      imageSource: require('../components/assets/Bitcoin.jpeg'),
+      key: uuid.v4(),
+    },
+    {
+      name: 'XRP',
+      imageSource: require('../components/assets/XRP.jpeg'),
+      key: uuid.v4(),
+    },
+    {
+      name: 'BNB',
+      imageSource: require('../components/assets/BNB.jpeg'),
+      key: uuid.v4(),
+    },
+    {
+      name: 'Cardano',
+      imageSource: require('../components/assets/Cardano.png'),
+      key: uuid.v4(),
+    },
+    {
+      name: 'Polygon',
+      imageSource: require('../components/assets/Polygon.jpeg'),
+      key: uuid.v4(),
+    },
+    {
+      name: 'XLM',
+      imageSource: require('../components/assets/XLM.jpeg'),
+      key: uuid.v4(),
+    },
+    {
+      name: 'Nano',
+      imageSource: require('../components/assets/Nano.png'),
+      key: uuid.v4(),
+    },
+    {
+      name: 'XMR',
+      imageSource: require('../components/assets/XMR.jpeg'),
+      key: uuid.v4(),
+    },
+    {
+      name: 'Link',
+      imageSource: require('../components/assets/LINK.jpeg'),
+      key: uuid.v4(),
+    },
+    {
+      name: 'Algo',
+      imageSource: require('../components/assets/Algo.jpeg'),
+      key: uuid.v4(),
+    },
+    {
+      name: 'Tron',
+      imageSource: require('../components/assets/Tron.jpeg'),
+      key: uuid.v4(),
+    },
   ];
-
-  const addAsset = () => {
-    console.log('added?');
-    setIsAddAsset(true);
-  };
 
   const setAsset = asset => {
     //deleting item then recreating it to make it easier to modify one of its parameters
@@ -186,9 +235,13 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
           </View>
         </ListItem.Content>
       </ListItem>
-      {isAddAsset ? (
-        <AddIconModal menuItems={menuItems} addMainItem={setAsset} />
-      ) : null}
+      {openAddAssetModal && (
+        <AddIconModal
+          menuItems={menuItems}
+          addMainItem={setAsset}
+          setModalVisible={setOpenAddAssetModal}
+        />
+      )}
     </View>
   );
 };
