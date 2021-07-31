@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import {TouchableHighlight, Modal, Text, View, StyleSheet} from 'react-native';
+import EStyleSheet from 'react-native-extended-stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import generalStyles from '../stylesheets/generalStylesheet';
-const defaultSize = EStyleSheet.value('88rem');
+
+const defaultSize = EStyleSheet.value('80rem');
 
 const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -34,7 +36,15 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
             setModalVisible(false);
           }}>
           <View style={generalStyles.centeredView}>
-            <View style={{flexDirection: 'row'}}>
+            <View
+              style={{
+                flexDirection: 'row',
+                borderWidth: 2,
+                borderColor: myWhite,
+                borderRadius: 10,
+                paddingVertical: EStyleSheet.value('10rem'),
+                backgroundColor: myBlack + 'BF',
+              }}>
               <TouchableHighlight
                 style={[styles.button, styles.buttonClose]}
                 onPress={() => setModalVisible(false)}>
@@ -54,8 +64,14 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    padding: EStyleSheet.value('10rem'),
+    // justifyContent: 'space-',
+    width: '33%',
+    alignItems: 'center',
+  },
   button: {
-    width: '44%',
+    width: '55%',
     marginHorizontal: '2%',
     borderRadius: EStyleSheet.value('20rem'),
     paddingHorizontal: EStyleSheet.value('5rem'),
@@ -66,6 +82,7 @@ const styles = StyleSheet.create({
   },
   buttonClose: {
     backgroundColor: myBlue,
+    width: '35%',
   },
   textStyle: {
     fontSize: EStyleSheet.value('20rem'),
@@ -73,7 +90,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-  container: {padding: EStyleSheet.value('20rem')},
 });
 
 RenderIcons.propTypes = {

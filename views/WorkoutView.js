@@ -13,6 +13,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import generalStyles from '../stylesheets/generalStylesheet';
 import Header from '../components/Header';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 const WorkoutView = () => {
   const [imagePickedStorage, setImagePickedStorage] =
@@ -60,15 +61,18 @@ const WorkoutView = () => {
           <Icon
             style={generalStyles.modalClose}
             name="remove"
-            size={50}
+            size={EStyleSheet.value('50rem')}
             color="red"
             onPress={() => setModalVisible(false)}
           />
-          <Button
-            onPress={() => openImageLibrary()}
-            title="open gallery"
-            color="gold"
-          />
+          <View style={styles.cameraIconContainer}>
+            <Icon
+              name="camera-retro"
+              size={Dimensions.get('window').width * 0.9}
+              color={imagePickedStorage ? 'transparent' : 'gold'}
+              onPress={() => openImageLibrary()}
+            />
+          </View>
         </SafeAreaView>
       </Modal>
     </SafeAreaView>
@@ -85,6 +89,13 @@ const styles = StyleSheet.create({
   qrCodeImage: {
     width: Dimensions.get('window').width * 0.9,
     height: Dimensions.get('window').width * 0.9,
+  },
+  cameraIconContainer: {
+    height: '100%',
+    width: '100%',
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

@@ -22,9 +22,15 @@ const AddModal = ({addMainItem}) => {
   };
 
   const menuItems = [
-    {name: 'Plants', icon: 'leaf', color: myGreen, key: uuid.v4()},
+    {name: 'Plants', icon: 'envira', color: myGreen, key: uuid.v4()},
     {name: 'Invest', icon: 'money', color: myGreen, key: uuid.v4()},
     {name: 'Workout', icon: 'heartbeat', color: myRed, key: uuid.v4()},
+    {name: 'Meditate', icon: 'pause', color: myRed, key: uuid.v4()},
+    {name: 'Books', icon: 'book', color: myRed, key: uuid.v4()},
+    {name: 'Cooking', icon: 'lemon-o', color: myRed, key: uuid.v4()},
+    {name: 'Productivity', icon: 'themeisle', color: myRed, key: uuid.v4()},
+    {name: 'Reminders', icon: 'calendar', color: myRed, key: uuid.v4()},
+    {name: 'Wakeboarding', icon: 'tint', color: myRed, key: uuid.v4()},
   ];
   return (
     <>
