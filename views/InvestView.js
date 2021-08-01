@@ -1,11 +1,21 @@
-import React, {useEffect, useState} from 'react';
-import {SafeAreaView, View, Text, StyleSheet} from 'react-native';
+import React, {useEffect, useState, useCallback} from 'react';
+import {
+  SafeAreaView,
+  View,
+  Text,
+  StyleSheet,
+  RefreshControl,
+  ScrollView,
+} from 'react-native';
 import uuid from 'react-native-uuid';
 
 import Header from '../components/Header';
 import InvestItem from '../components/InvestItem';
 import DeleteOrCancel from '../components/DeleteOrCancel';
 
+const wait = timeout => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+};
 const InvestView = () => {
   const [investmentsStorage, setInvestmentsStorage] =
     useStorage('investmentss');
@@ -17,6 +27,22 @@ const InvestView = () => {
   const [isDeleteOrCancel, setIsDeleteOrCancel] = useState(false);
 
   const [deleteInvestment, setDeleteInvestment] = useState(null);
+
+  const [refreshing, setRefreshing] = useState(false);
+
+  //this state will allow us to refresh once
+  const [refresh, useRefresh] = useState('');
+
+  const onRefresh = useCallback(() => {
+    //giving it a random id so it always calls on a new state
+    useRefresh(uuid.v4());
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
+
+  useEffect(() => {
+    console.log('refreshed');
+  }, [refresh]);
 
   let overallOriginalInvestment = 0;
   let overallCurrentAmount = 0;
@@ -79,50 +105,56 @@ const InvestView = () => {
     <SafeAreaView style={{flex: 1, backgroundColor: myBlack}}>
       <Header title="My Investments" add={createInvestment} />
 
-      {investments &&
-        investments.map(investment =>
-          investment ? (
-            <InvestItem
-              key={investment.key}
-              investment={investment}
-              deletion={openDeleteOrCancel}
-              setInvestments={setInvestments}
-            />
-          ) : null,
+      <ScrollView
+        contentContainerStyle={styles.scrollView}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
+        {investments &&
+          investments.map(investment =>
+            investment ? (
+              <InvestItem
+                key={investment.key}
+                investment={investment}
+                deletion={openDeleteOrCancel}
+                setInvestments={setInvestments}
+              />
+            ) : null,
+          )}
+
+        {isDeleteOrCancel && (
+          <DeleteOrCancel
+            name={deleteInvestment.name}
+            deletion={completeDeletion}
+            closeOverlay={toggleDeleteOrCancel}
+          />
         )}
 
-      {isDeleteOrCancel && (
-        <DeleteOrCancel
-          name={deleteInvestment.name}
-          deletion={completeDeletion}
-          closeOverlay={toggleDeleteOrCancel}
-        />
-      )}
-
-      <View style={styles.overallGainLossContainer}>
-        <View style={{flexDirection: 'row'}}>
-          <Text style={styles.fontSizeStyle}>Overall Gain/Loss: </Text>
-          <Text
-            style={[
-              styles.fontSizeStyle,
-              {
-                color: calculateOverall() >= 0 ? 'green' : 'red',
-              },
-            ]}>
-            £{calculateOverall()}
-          </Text>
-          <Text
-            style={[
-              styles.fontSizeStyle,
-              {
-                color: calculateOverall() >= 0 ? 'green' : 'red',
-              },
-            ]}>
-            {'  '}
-            {calculateOverallPercentage()}%
-          </Text>
+        <View style={styles.overallGainLossContainer}>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={styles.fontSizeStyle}>Overall Gain/Loss: </Text>
+            <Text
+              style={[
+                styles.fontSizeStyle,
+                {
+                  color: calculateOverall() >= 0 ? 'green' : 'red',
+                },
+              ]}>
+              £{calculateOverall()}
+            </Text>
+            <Text
+              style={[
+                styles.fontSizeStyle,
+                {
+                  color: calculateOverall() >= 0 ? 'green' : 'red',
+                },
+              ]}>
+              {'  '}
+              {calculateOverallPercentage()}%
+            </Text>
+          </View>
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -137,6 +169,12 @@ const styles = StyleSheet.create({
   fontSizeStyle: {
     fontSize: EStyleSheet.value('20rem'),
     color: myWhite,
+  },
+  scrollView: {
+    flex: 1,
+    // backgroundColor: 'pink',
+    // alignItems: 'center',
+    // justifyContent: 'center',
   },
 });
 

@@ -204,14 +204,14 @@ const WelcomeView = ({navigation}) => {
       <Pressable
         style={styles.button}
         onPress={() => navigation.navigate('Developer View')}>
-        <Text style={[generalStyles.textStylesDark, {color: myGreen}]}>
+        <Text style={[generalStyles.textStylesDark, {color: '#5a9156'}]}>
           Go to developer menu
         </Text>
       </Pressable>
       <Pressable
         style={styles.button}
         onPress={() => navigation.navigate('Online View')}>
-        <Text style={[generalStyles.textStylesDark, {color: '#550A35'}]}>
+        <Text style={[generalStyles.textStylesDark, {color: '#bd444c'}]}>
           Go to online section
         </Text>
       </Pressable>

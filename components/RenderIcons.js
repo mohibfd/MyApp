@@ -16,7 +16,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import CurrencyInput from 'react-native-currency-input';
 
 import generalStyles from '../stylesheets/generalStylesheet';
-import {Input} from 'react-native-elements';
 
 const defaultSize = EStyleSheet.value('80rem');
 
