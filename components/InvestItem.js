@@ -198,6 +198,29 @@ const InvestItem = ({investment, deletion, setInvestments, refresh}) => {
     }
   };
 
+  const renderNumber = number => {
+    let numbersWithDecimal = [];
+    for (let i of number) {
+      numbersWithDecimal.push(i);
+    }
+
+    let numberAsList = [];
+    for (let i = 0; i < numbersWithDecimal.length; i++) {
+      if (i == 3) {
+        numberAsList.splice(numbersWithDecimal.length - (3 + i), 0, ',');
+      }
+      numberAsList.push(numbersWithDecimal[i]);
+    }
+
+    return numberAsList.join('');
+  };
+
+  const showCurrentAmount = () => {
+    let currentAmount = investment.currentAmount.toFixed(2);
+
+    return renderNumber(currentAmount);
+  };
+
   return (
     <View style={{backgroundColor: 'red'}}>
       <ActionSheet
@@ -262,7 +285,7 @@ const InvestItem = ({investment, deletion, setInvestments, refresh}) => {
             <View style={styles.investmentTextContainer}>
               <Text style={styles.investmentText}>Current amount: </Text>
               <Text style={styles.currencyInputContainer}>
-                £{investment.currentAmount.toFixed(2)}
+                £{showCurrentAmount()}
               </Text>
             </View>
             <View style={styles.investmentTextContainer}>
