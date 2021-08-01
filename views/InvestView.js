@@ -53,7 +53,7 @@ const InvestView = () => {
         investments.map(investment => {
           let currentAmount = 0;
           investment.assets.map(asset => {
-            console.log('<>>>>>>>>>>', asset);
+            // console.log('<>>>>>>>>>>', asset);
 
             switch (asset.name) {
               case 'Ethereum':

@@ -14,14 +14,6 @@ import generalStyles from '../../stylesheets/generalStylesheet';
 import RenderIcons from '../RenderIcons.js';
 
 const AddIconModal = ({menuItems, addMainItem, setModalVisible}) => {
-  // console.log(openModal);
-
-  // const [modalOpen, setModalOpen] = useState(openModal);
-
-  // const toggleModal = () => {
-  //   setModalOpen(!modalOpen);
-  // };
-
   return (
     <Modal visible={true} animationType="slide">
       <SafeAreaView style={styles.container}>

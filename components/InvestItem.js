@@ -8,6 +8,7 @@ import uuid from 'react-native-uuid';
 import {ActionSheet} from './online_components/ActionSheet';
 import AddIconModal from '../components/modals/AddIconModal';
 import {getCryptoData} from '../services/CryptoData';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 const InvestItem = ({investment, deletion, setInvestments}) => {
   const [actionSheetVisible, setActionSheetVisible] = useState(false);
@@ -192,7 +193,7 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
   };
 
   return (
-    <View style={{backgroundColor: myBlack}}>
+    <View style={{backgroundColor: 'red'}}>
       <ActionSheet
         visible={actionSheetVisible}
         closeOverlay={() => {
@@ -204,8 +205,11 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
         onPress={() => {
           setActionSheetVisible(true);
         }}
-        containerStyle={{backgroundColor: myBlue}}
-        bottomDivider>
+        containerStyle={{
+          backgroundColor: myBlack,
+          borderColor: 'gold',
+          borderWidth: 1.5,
+        }}>
         <ListItem.Content
           style={[styles.investmentContainer, {alignItems: alignWhere()}]}>
           <View
@@ -221,7 +225,11 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
                 {investment.assets.map(asset => {
                   return (
                     <Image
-                      style={{width: '33%', height: '100%'}}
+                      style={{
+                        width: '33%',
+                        height: '100%',
+                        marginVertical: EStyleSheet.value('5rem'),
+                      }}
                       source={asset.imageSource}
                       key={asset.imageSource}
                     />
