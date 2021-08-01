@@ -8,13 +8,15 @@ import {
   View,
   StyleSheet,
   Pressable,
-  ImageBackground,
   Image,
+  TextInput,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import CurrencyInput from 'react-native-currency-input';
 
 import generalStyles from '../stylesheets/generalStylesheet';
+import {Input} from 'react-native-elements';
 
 const defaultSize = EStyleSheet.value('80rem');
 
@@ -23,21 +25,16 @@ const imageSize = Dimensions.get('window').width * 0.28;
 const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
   const [modalVisible, setModalVisible] = useState(false);
 
+  const [numberInput, setNumberInput] = useState(0);
+
   const createMainItem = () => {
-    addMainItem();
+    if (item.icon) {
+      addMainItem(item);
+    } else {
+      addMainItem(item.price, numberInput);
+    }
     toggleMainModal();
   };
-
-  {
-    /* <ImageBackground source={item.imageSource} style={styles.smallImage}>
-          <Pressable
-            style={{zIndex: 1}}
-            onPress={() => {
-              console.log('???');
-              setModalVisible(true);
-            }}></Pressable>
-          </ImageBackground> */
-  }
 
   return (
     <View style={styles.container}>
@@ -73,15 +70,31 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
             setModalVisible(false);
           }}>
           <View style={generalStyles.centeredView}>
-            <View
-              style={{
-                flexDirection: 'row',
-                borderWidth: 2,
-                borderColor: myWhite,
-                borderRadius: 10,
-                paddingVertical: EStyleSheet.value('10rem'),
-                backgroundColor: myBlack + 'BF',
-              }}>
+            {item.imageSource && (
+              <View
+                style={{
+                  width: '100%',
+                  height: EStyleSheet.value('60rem'),
+                  // height: '12%',
+                  // marginBottom: EStyleSheet.value('30rem'),
+                }}>
+                <Text
+                  style={{
+                    color: myWhite,
+                    textAlign: 'center',
+                    fontSize: EStyleSheet.value('14rem'),
+                  }}>
+                  How much of {item.name} do you hold
+                </Text>
+                <CurrencyInput
+                  style={styles.currencyInputContainer}
+                  value={numberInput}
+                  onChangeValue={setNumberInput}
+                  maxLength={10}
+                />
+              </View>
+            )}
+            <View style={styles.buttonsContainer}>
               <TouchableHighlight
                 style={[styles.button, styles.buttonClose]}
                 onPress={() => setModalVisible(false)}>
@@ -90,7 +103,9 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
               <TouchableHighlight
                 style={[styles.button, styles.buttonOpen]}
                 onPress={() => createMainItem()}>
-                <Text style={styles.textStyle}>Create {item.name}</Text>
+                <Text style={styles.textStyle}>
+                  {item.icon ? 'Create' : 'Add'} {item.name}
+                </Text>
               </TouchableHighlight>
             </View>
           </View>
@@ -112,6 +127,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: EStyleSheet.value('5rem'),
     paddingVertical: EStyleSheet.value('10rem'),
   },
+  buttonsContainer: {
+    flexDirection: 'row',
+    borderWidth: 2,
+    borderColor: myWhite,
+    borderRadius: 10,
+    paddingVertical: EStyleSheet.value('10rem'),
+    backgroundColor: myBlack + 'BF',
+  },
   buttonOpen: {
     backgroundColor: myPurple,
     width: '55%',
@@ -129,6 +152,17 @@ const styles = StyleSheet.create({
   smallImage: {
     width: imageSize,
     height: imageSize,
+  },
+  currencyInputContainer: {
+    color: myWhite,
+    flex: 1,
+    width: '50%',
+    fontSize: EStyleSheet.value('18rem'),
+    textAlign: 'center',
+    alignSelf: 'center',
+    backgroundColor: myBlack,
+    borderWidth: EStyleSheet.value('2rem'),
+    borderColor: myWhite,
   },
 });
 

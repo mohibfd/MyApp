@@ -40,7 +40,7 @@ const AddIconModal = ({menuItems, addMainItem, setModalVisible}) => {
               <RenderIcons
                 item={item}
                 toggleMainModal={() => setModalVisible(false)}
-                addMainItem={() => addMainItem(item)}
+                addMainItem={addMainItem}
               />
             )}
             numColumns={3}

@@ -6,13 +6,7 @@ import Header from '../components/Header';
 import InvestItem from '../components/InvestItem';
 import DeleteOrCancel from '../components/DeleteOrCancel';
 
-import getCryptoData from '../services/CryptoData';
-
 const InvestView = () => {
-  useEffect(() => {
-    getCryptoData();
-  }, []);
-
   const [investmentsStorage, setInvestmentsStorage] =
     useStorage('investmentss');
 
@@ -34,7 +28,6 @@ const InvestView = () => {
 
   useEffect(() => {
     setInvestmentsStorage(investments);
-    // console.log(investments);
   }, [investments]);
 
   const toggleDeleteOrCancel = () => {
@@ -73,7 +66,7 @@ const InvestView = () => {
   const calculateOverall = () => {
     let difference = overallCurrentAmount - overallOriginalInvestment;
 
-    return difference;
+    return difference.toFixed(2);
   };
 
   const calculateOverallPercentage = () => {
@@ -142,7 +135,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   fontSizeStyle: {
-    fontSize: EStyleSheet.value('22rem'),
+    fontSize: EStyleSheet.value('20rem'),
     color: myWhite,
   },
 });

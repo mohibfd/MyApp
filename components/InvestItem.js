@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ListItem} from 'react-native-elements';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import CurrencyInput from 'react-native-currency-input';
@@ -7,14 +7,23 @@ import uuid from 'react-native-uuid';
 
 import {ActionSheet} from './online_components/ActionSheet';
 import AddIconModal from '../components/modals/AddIconModal';
+import {getCryptoData, test} from '../services/CryptoData';
 
 const InvestItem = ({investment, deletion, setInvestments}) => {
   const [actionSheetVisible, setActionSheetVisible] = useState(false);
   const [openAddAssetModal, setOpenAddAssetModal] = useState(false);
 
+  const [ethPrice, setEthPrice] = useState(0);
+
   const actions = [
     {
       title: 'Add asset',
+      action: () => {
+        setOpenAddAssetModal(true);
+      },
+    },
+    {
+      title: 'View more details',
       action: () => {
         setOpenAddAssetModal(true);
       },
@@ -27,10 +36,27 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
     },
   ];
 
+  // const getPrice = async () => {
+  //   let temp = await getCryptoData();
+  //   return temp;
+  // };
+  useEffect(() => {
+    const fetchExactPrices = async () => {
+      const price = await getCryptoData();
+
+      setEthPrice(price);
+    };
+    fetchExactPrices();
+  }, []);
+  // test().then(EthPrice => console.log(EthPrice));
+  // console.log('ethprice', EthPrice);
+  // console.log('ethprice', getPrice());
   const menuItems = [
     {
       name: 'Ethereum',
       imageSource: require('../components/assets/Ethereum.jpeg'),
+      price: ethPrice,
+      quantity: 0,
       key: uuid.v4(),
     },
     {
@@ -95,30 +121,37 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
     },
   ];
 
-  const setAsset = asset => {
+  const setAsset = (price, quantity) => {
     //deleting item then recreating it to make it easier to modify one of its parameters
 
-    setInvestments(prevItems => {
-      return prevItems.filter(item => item.key != investment.key);
-    });
+    // setInvestments(prevItems => {
+    //   return prevItems.filter(item => item.key != investment.key);
+    // });
 
-    assets = investment.assets.push(asset);
+    let assets = investment.assets;
+    assets = assets.push(quantity);
 
-    setInvestments(prevItems => {
-      return [
-        {
-          name: investment.name,
-          key: investment.key,
-          originalInvestment: investment.originalInvestment,
-          currentAmount: investment.currentAmount,
-          assets,
-        },
-        ...prevItems,
-      ];
-    });
+    let currentamount = investment.currentAmount + price * quantity;
+
+    console.log('quantity', currentamount);
+
+    setCurrentAmount(currentamount);
+
+    // setInvestments(prevItems => {
+    //   return [
+    //     {
+    //       name: investment.name,
+    //       key: investment.key,
+    //       originalInvestment: investment.originalInvestment,
+    //       currentAmount: investment.currentAmount,
+    //       assets,
+    //     },
+    //     ...prevItems,
+    //   ];
+    // });
   };
 
-  const setOriginalInvestment = formattedValue => {
+  const setOriginalInvestment = amount => {
     //deleting item then recreating it to make it easier to modify one of its parameters
 
     setInvestments(prevItems => {
@@ -130,7 +163,7 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
         {
           name: investment.name,
           key: investment.key,
-          originalInvestment: formattedValue,
+          originalInvestment: amount,
           currentAmount: investment.currentAmount,
           assets: investment.assets,
         },
@@ -139,7 +172,7 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
     });
   };
 
-  const setCurrentAmount = formattedValue => {
+  const setCurrentAmount = amount => {
     //deleting item then recreating it to make it easier to modify one of its parameters
 
     setInvestments(prevItems => {
@@ -151,7 +184,7 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
         {
           name: investment.name,
           key: investment.key,
-          currentAmount: formattedValue,
+          currentAmount: amount,
           originalInvestment: investment.originalInvestment,
           assets: investment.assets,
         },
@@ -162,6 +195,12 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
 
   const calculatePercentage = () => {
     return (investment.currentAmount / investment.originalInvestment - 1) * 100;
+  };
+
+  const alignWhere = () => {
+    if (investment.assets.length == 0) {
+      return 'center';
+    }
   };
 
   return (
@@ -179,7 +218,8 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
         }}
         containerStyle={{backgroundColor: myBlue}}
         bottomDivider>
-        <ListItem.Content style={styles.investmentContainer}>
+        <ListItem.Content
+          style={[styles.investmentContainer, {alignItems: alignWhere()}]}>
           <ListItem.Title style={styles.investmentTitle}>
             {investment.name}
           </ListItem.Title>
@@ -203,20 +243,9 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
             </View>
             <View style={styles.investmentTextContainer}>
               <Text style={styles.investmentText}>Current amount: </Text>
-              <CurrencyInput
-                style={styles.currencyInputContainer}
-                value={investment.currentAmount}
-                onChangeValue={setCurrentAmount}
-                prefix="£"
-                delimiter=","
-                separator="."
-                precision={0}
-                maxLength={10}
-                minValue={0}
-                // onChangeText={formattedValue => {
-                // console.log(formattedValue); // $2,310.46
-                // }}
-              />
+              <Text style={styles.currencyInputContainer}>
+                £{investment.currentAmount}
+              </Text>
             </View>
             <View style={styles.investmentTextContainer}>
               <Text style={styles.investmentText}>Gain/loss:</Text>
@@ -225,8 +254,6 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
                   styles.currencyInputContainer,
                   {
                     color: calculatePercentage() >= 0 ? 'green' : 'red',
-                    marginHorizontal: 7,
-                    marginTop: 5,
                   },
                 ]}>
                 {calculatePercentage().toFixed(2)}%
@@ -238,8 +265,8 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
       {openAddAssetModal && (
         <AddIconModal
           menuItems={menuItems}
-          addMainItem={setAsset}
           setModalVisible={setOpenAddAssetModal}
+          addMainItem={setAsset}
         />
       )}
     </View>
@@ -250,8 +277,6 @@ const styles = StyleSheet.create({
   investmentContainer: {
     height: EStyleSheet.value('80rem'),
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   investmentTitle: {
     width: '31%',
@@ -260,6 +285,7 @@ const styles = StyleSheet.create({
   },
   textAndCurrencyContainer: {
     flex: 1,
+    alignSelf: 'center',
   },
   investmentTextContainer: {
     //for some reason 46% takes the entire space
@@ -278,6 +304,7 @@ const styles = StyleSheet.create({
     flex: 4,
     fontSize: EStyleSheet.value('15rem'),
     textAlign: 'center',
+    alignSelf: 'center',
   },
 });
 
