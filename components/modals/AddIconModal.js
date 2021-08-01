@@ -48,7 +48,9 @@ const styles = StyleSheet.create({
 });
 
 AddIconModal.propTypes = {
+  menuItems: PropTypes.object.isRequired,
   addMainItem: PropTypes.func.isRequired,
+  setModalVisible: PropTypes.func.isRequired,
 };
 
 export default AddIconModal;

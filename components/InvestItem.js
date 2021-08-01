@@ -10,7 +10,7 @@ import AddIconModal from '../components/modals/AddIconModal';
 import {getCryptoData} from '../services/CryptoData';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
-const InvestItem = ({investment, deletion, setInvestments}) => {
+const InvestItem = ({investment, deletion, setInvestments, refresh}) => {
   const [actionSheetVisible, setActionSheetVisible] = useState(false);
   const [openAddAssetModal, setOpenAddAssetModal] = useState(false);
 
@@ -154,6 +154,12 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
 
     let assets = investment.assets;
 
+    for (var i = 0; i < assets.length; i++) {
+      if (assets[i].name === item.name) {
+        assets.splice(i, 1);
+        refresh();
+      }
+    }
     assets.push(item);
 
     let currentamount = investment.currentAmount + price * quantity;
@@ -324,6 +330,7 @@ InvestItem.propTypes = {
   investment: PropTypes.object.isRequired,
   deletion: PropTypes.func.isRequired,
   setInvestments: PropTypes.func.isRequired,
+  refresh: PropTypes.func.isRequired,
 };
 
 export default InvestItem;

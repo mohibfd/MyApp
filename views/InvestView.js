@@ -72,6 +72,7 @@ const InvestView = () => {
 
           setInvestments(prevItems => {
             return [
+              ...prevItems,
               {
                 name: investment.name,
                 key: investment.key,
@@ -79,12 +80,12 @@ const InvestView = () => {
                 currentAmount,
                 assets: investment.assets,
               },
-              ...prevItems,
             ];
           });
         });
       });
     }
+
     return () => {
       // This code runs when component is unmounted
       componentMounted = false; // (4) set it to false if we leave the page
@@ -172,6 +173,7 @@ const InvestView = () => {
                 investment={investment}
                 deletion={openDeleteOrCancel}
                 setInvestments={setInvestments}
+                refresh={() => setRefresh(uuid.v4())}
               />
             ) : null,
           )}
