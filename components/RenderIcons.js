@@ -9,7 +9,7 @@ import {
   StyleSheet,
   Pressable,
   Image,
-  TextInput,
+  Alert,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -29,10 +29,17 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
   const createMainItem = () => {
     if (item.icon) {
       addMainItem(item);
+      toggleMainModal();
     } else {
-      addMainItem(item.price, numberInput);
+      if (numberInput == 0) {
+        Alert.alert('You entered 0', 'Please enter a number', [
+          {text: 'OK', onPress: () => console.log('OK Pressed')},
+        ]);
+      } else {
+        addMainItem(item.price, numberInput);
+        toggleMainModal();
+      }
     }
-    toggleMainModal();
   };
 
   return (

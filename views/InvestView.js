@@ -37,7 +37,7 @@ const InvestView = () => {
     //giving it a random id so it always calls on a new state
     useRefresh(uuid.v4());
     setRefreshing(true);
-    wait(2000).then(() => setRefreshing(false));
+    wait(500).then(() => setRefreshing(false));
   }, []);
 
   useEffect(() => {
@@ -108,7 +108,12 @@ const InvestView = () => {
       <ScrollView
         contentContainerStyle={styles.scrollView}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            colors={[myWhite]}
+            progressBackgroundColor={myBlack}
+          />
         }>
         {investments &&
           investments.map(investment =>

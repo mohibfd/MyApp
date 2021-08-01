@@ -133,7 +133,10 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
 
     let currentamount = investment.currentAmount + price * quantity;
 
-    console.log('quantity', currentamount);
+    console.log(price);
+    console.log(quantity);
+
+    console.log('total', currentamount);
 
     setCurrentAmount(currentamount);
 
@@ -244,7 +247,7 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
             <View style={styles.investmentTextContainer}>
               <Text style={styles.investmentText}>Current amount: </Text>
               <Text style={styles.currencyInputContainer}>
-                £{investment.currentAmount}
+                £{investment.currentAmount.toFixed(2)}
               </Text>
             </View>
             <View style={styles.investmentTextContainer}>
