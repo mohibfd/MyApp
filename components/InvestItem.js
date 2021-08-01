@@ -121,39 +121,6 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
     },
   ];
 
-  const setAsset = (price, quantity) => {
-    //deleting item then recreating it to make it easier to modify one of its parameters
-
-    // setInvestments(prevItems => {
-    //   return prevItems.filter(item => item.key != investment.key);
-    // });
-
-    let assets = investment.assets;
-    assets = assets.push(quantity);
-
-    let currentamount = investment.currentAmount + price * quantity;
-
-    console.log(price);
-    console.log(quantity);
-
-    console.log('total', currentamount);
-
-    setCurrentAmount(currentamount);
-
-    // setInvestments(prevItems => {
-    //   return [
-    //     {
-    //       name: investment.name,
-    //       key: investment.key,
-    //       originalInvestment: investment.originalInvestment,
-    //       currentAmount: investment.currentAmount,
-    //       assets,
-    //     },
-    //     ...prevItems,
-    //   ];
-    // });
-  };
-
   const setOriginalInvestment = amount => {
     //deleting item then recreating it to make it easier to modify one of its parameters
 
@@ -175,7 +142,21 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
     });
   };
 
-  const setCurrentAmount = amount => {
+  const setAsset = item => {
+    const price = item.price;
+    const quantity = item.quantity;
+    //deleting item then recreating it to make it easier to modify one of its parameters
+
+    let assets = investment.assets;
+
+    assets.push(item);
+
+    let currentamount = investment.currentAmount + price * quantity;
+
+    setCurrentAmount(currentamount, assets);
+  };
+
+  const setCurrentAmount = (currentAmount, assets) => {
     //deleting item then recreating it to make it easier to modify one of its parameters
 
     setInvestments(prevItems => {
@@ -187,9 +168,9 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
         {
           name: investment.name,
           key: investment.key,
-          currentAmount: amount,
           originalInvestment: investment.originalInvestment,
-          assets: investment.assets,
+          currentAmount,
+          assets,
         },
         ...prevItems,
       ];

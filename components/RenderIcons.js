@@ -36,7 +36,8 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
           {text: 'OK', onPress: () => console.log('OK Pressed')},
         ]);
       } else {
-        addMainItem(item.price, numberInput);
+        item.quantity = numberInput;
+        addMainItem(item);
         toggleMainModal();
       }
     }

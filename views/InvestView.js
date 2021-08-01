@@ -12,6 +12,7 @@ import uuid from 'react-native-uuid';
 import Header from '../components/Header';
 import InvestItem from '../components/InvestItem';
 import DeleteOrCancel from '../components/DeleteOrCancel';
+import {getCryptoData, test} from '../services/CryptoData';
 
 const wait = timeout => {
   return new Promise(resolve => setTimeout(resolve, timeout));
@@ -31,17 +32,58 @@ const InvestView = () => {
   const [refreshing, setRefreshing] = useState(false);
 
   //this state will allow us to refresh once
-  const [refresh, useRefresh] = useState('');
+  const [refresh, setRefresh] = useState('');
+
+  const [ethPrice, setEthPrice] = useState(0);
 
   const onRefresh = useCallback(() => {
     //giving it a random id so it always calls on a new state
-    useRefresh(uuid.v4());
+    setRefresh(uuid.v4());
     setRefreshing(true);
     wait(500).then(() => setRefreshing(false));
   }, []);
 
   useEffect(() => {
+    const fetchExactPrices = async () => {
+      const price = await getCryptoData();
+      // setEthPrice(price);
+      return price;
+    };
+    fetchExactPrices().then(price => {
+      investments.map(investment => {
+        let currentAmount = 0;
+        investment.assets.map(asset => {
+          switch (asset.name) {
+            case 'Ethereum':
+              currentAmount += asset.quantity * price;
+              break;
+          }
+
+          // console.log(asset.price);
+        });
+        console.log('currentAmount', currentAmount);
+
+        setInvestments(prevItems => {
+          return prevItems.filter(item => item.key != investment.key);
+        });
+
+        setInvestments(prevItems => {
+          return [
+            {
+              name: investment.name,
+              key: investment.key,
+              originalInvestment: investment.originalInvestment,
+              currentAmount,
+              assets: investment.assets,
+            },
+            ...prevItems,
+          ];
+        });
+      });
+    });
     console.log('refreshed');
+
+    // console.log(investments);
   }, [refresh]);
 
   let overallOriginalInvestment = 0;
