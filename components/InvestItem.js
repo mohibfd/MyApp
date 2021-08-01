@@ -7,13 +7,14 @@ import uuid from 'react-native-uuid';
 
 import {ActionSheet} from './online_components/ActionSheet';
 import AddIconModal from '../components/modals/AddIconModal';
-import {getCryptoData, test} from '../services/CryptoData';
+import {getCryptoData} from '../services/CryptoData';
 
 const InvestItem = ({investment, deletion, setInvestments}) => {
   const [actionSheetVisible, setActionSheetVisible] = useState(false);
   const [openAddAssetModal, setOpenAddAssetModal] = useState(false);
 
-  const [ethPrice, setEthPrice] = useState(0);
+  const [ETHPrice, setETHPrice] = useState(0);
+  const [BTCPrice, setBTCPrice] = useState(0);
 
   const actions = [
     {
@@ -42,9 +43,10 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
   // };
   useEffect(() => {
     const fetchExactPrices = async () => {
-      const price = await getCryptoData();
+      const [ETHPrice, BTCPrice] = await getCryptoData();
 
-      setEthPrice(price);
+      setETHPrice(ETHPrice);
+      setBTCPrice(BTCPrice);
     };
     fetchExactPrices();
   }, []);
@@ -55,7 +57,7 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
     {
       name: 'Ethereum',
       imageSource: require('../components/assets/Ethereum.jpeg'),
-      price: ethPrice,
+      price: ETHPrice,
       quantity: 0,
       key: uuid.v4(),
     },
@@ -67,6 +69,8 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
     {
       name: 'Bitcoin',
       imageSource: require('../components/assets/Bitcoin.jpeg'),
+      price: BTCPrice,
+      quantity: 0,
       key: uuid.v4(),
     },
     {
@@ -204,9 +208,28 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
         bottomDivider>
         <ListItem.Content
           style={[styles.investmentContainer, {alignItems: alignWhere()}]}>
-          <ListItem.Title style={styles.investmentTitle}>
-            {investment.name}
-          </ListItem.Title>
+          <View
+            style={{
+              flexDirection: 'column',
+              flex: 0.55,
+            }}>
+            <ListItem.Title style={styles.investmentTitle}>
+              {investment.name}
+            </ListItem.Title>
+            {investment.assets.length != 0 && (
+              <View style={{flex: 1, width: '100%', flexDirection: 'row'}}>
+                {investment.assets.map(asset => {
+                  return (
+                    <Image
+                      style={{width: '33%', height: '100%'}}
+                      source={asset.imageSource}
+                      key={asset.imageSource}
+                    />
+                  );
+                })}
+              </View>
+            )}
+          </View>
           <View style={styles.textAndCurrencyContainer}>
             <View style={styles.investmentTextContainer}>
               <Text style={styles.investmentText}>Original investment: </Text>
@@ -217,12 +240,9 @@ const InvestItem = ({investment, deletion, setInvestments}) => {
                 prefix="£"
                 delimiter=","
                 separator="."
-                precision={0}
+                precision={2}
                 maxLength={10}
                 minValue={0}
-                // onChangeText={formattedValue => {
-                //   console.log(formattedValue); // $2,310.46
-                // }}
               />
             </View>
             <View style={styles.investmentTextContainer}>
@@ -263,7 +283,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   investmentTitle: {
-    width: '31%',
+    width: '100%',
     fontSize: EStyleSheet.value('27rem'),
     color: myWhite,
   },

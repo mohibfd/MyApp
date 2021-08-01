@@ -12,7 +12,7 @@ import uuid from 'react-native-uuid';
 import Header from '../components/Header';
 import InvestItem from '../components/InvestItem';
 import DeleteOrCancel from '../components/DeleteOrCancel';
-import {getCryptoData, test} from '../services/CryptoData';
+import {getCryptoData} from '../services/CryptoData';
 
 const wait = timeout => {
   return new Promise(resolve => setTimeout(resolve, timeout));
@@ -34,7 +34,7 @@ const InvestView = () => {
   //this state will allow us to refresh once
   const [refresh, setRefresh] = useState('');
 
-  const [ethPrice, setEthPrice] = useState(0);
+  let componentMounted = true;
 
   const onRefresh = useCallback(() => {
     //giving it a random id so it always calls on a new state
@@ -44,44 +44,51 @@ const InvestView = () => {
   }, []);
 
   useEffect(() => {
-    const fetchExactPrices = async () => {
-      const price = await getCryptoData();
-      // setEthPrice(price);
-      return price;
-    };
-    fetchExactPrices().then(price => {
-      investments.map(investment => {
-        let currentAmount = 0;
-        investment.assets.map(asset => {
-          switch (asset.name) {
-            case 'Ethereum':
-              currentAmount += asset.quantity * price;
-              break;
-          }
+    if (componentMounted) {
+      const fetchExactPrices = async () => {
+        const prices = await getCryptoData();
+        return prices;
+      };
+      fetchExactPrices().then(prices => {
+        investments.map(investment => {
+          let currentAmount = 0;
+          investment.assets.map(asset => {
+            console.log('<>>>>>>>>>>', asset);
 
-          // console.log(asset.price);
-        });
-        console.log('currentAmount', currentAmount);
+            switch (asset.name) {
+              case 'Ethereum':
+                currentAmount += asset.quantity * prices[0];
+                break;
+              case 'Bitcoin':
+                currentAmount += asset.quantity * prices[1];
+                break;
+            }
+          });
 
-        setInvestments(prevItems => {
-          return prevItems.filter(item => item.key != investment.key);
-        });
+          //updating our object
+          setInvestments(prevItems => {
+            return prevItems.filter(item => item.key != investment.key);
+          });
 
-        setInvestments(prevItems => {
-          return [
-            {
-              name: investment.name,
-              key: investment.key,
-              originalInvestment: investment.originalInvestment,
-              currentAmount,
-              assets: investment.assets,
-            },
-            ...prevItems,
-          ];
+          setInvestments(prevItems => {
+            return [
+              {
+                name: investment.name,
+                key: investment.key,
+                originalInvestment: investment.originalInvestment,
+                currentAmount,
+                assets: investment.assets,
+              },
+              ...prevItems,
+            ];
+          });
         });
       });
-    });
-    console.log('refreshed');
+    }
+    return () => {
+      // This code runs when component is unmounted
+      componentMounted = false; // (4) set it to false if we leave the page
+    };
 
     // console.log(investments);
   }, [refresh]);
