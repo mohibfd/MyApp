@@ -103,7 +103,9 @@ const InvestView = () => {
   }
 
   useEffect(() => {
-    setInvestmentsStorage(investments);
+    if (componentMounted) {
+      setInvestmentsStorage(investments);
+    }
   }, [investments]);
 
   const toggleDeleteOrCancel = () => {
