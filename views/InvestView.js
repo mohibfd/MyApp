@@ -31,7 +31,7 @@ const InvestView = () => {
 
   const [refreshing, setRefreshing] = useState(false);
 
-  //this state will allow us to refresh once
+  //this state will allow us to refresh only once
   const [refresh, setRefresh] = useState('');
 
   let componentMounted = true;
@@ -44,54 +44,86 @@ const InvestView = () => {
   }, []);
 
   useEffect(() => {
-    if (componentMounted) {
-      const fetchExactPrices = async () => {
-        const prices = await getCryptoData();
-        return prices;
-      };
-      fetchExactPrices().then(prices => {
-        investments.map(investment => {
-          let currentAmount = 0;
-          investment.assets.map(asset => {
-            // console.log('<>>>>>>>>>>', asset);
+    const ac = new AbortController();
+    // if (componentMounted) {
+    const fetchExactPrices = async () => {
+      const prices = await getCryptoData();
+      return prices;
+    };
+    fetchExactPrices().then(prices => {
+      investments.map(investment => {
+        let currentAmount = 0;
+        investment.assets.map(asset => {
+          switch (asset.name) {
+            case 'Ethereum':
+              currentAmount += asset.quantity * prices[0];
+              break;
+            case 'WorldIndex':
+              currentAmount += asset.quantity * prices[1];
+              break;
+            case 'Bitcoin':
+              currentAmount += asset.quantity * prices[2];
+              break;
+            case 'Ripple':
+              currentAmount += asset.quantity * prices[3];
+              break;
+            case 'BinanceCoin':
+              currentAmount += asset.quantity * prices[4];
+              break;
+            case 'Cardano':
+              currentAmount += asset.quantity * prices[5];
+              break;
+            case 'MaticNetwork':
+              currentAmount += asset.quantity * prices[6];
+              break;
 
-            switch (asset.name) {
-              case 'Ethereum':
-                currentAmount += asset.quantity * prices[0];
-                break;
-              case 'Bitcoin':
-                currentAmount += asset.quantity * prices[1];
-                break;
-            }
-          });
+            case 'Stellar':
+              currentAmount += asset.quantity * prices[7];
+              break;
+            case 'Nano':
+              currentAmount += asset.quantity * prices[8];
+              break;
+            case 'Monero':
+              currentAmount += asset.quantity * prices[10];
+              break;
+            case 'Chainlink':
+              currentAmount += asset.quantity * prices[9];
+              break;
+            case 'Algorand':
+              currentAmount += asset.quantity * prices[11];
+              break;
+            case 'Tron':
+              currentAmount += asset.quantity * prices[12];
+              break;
+          }
+        });
 
-          //updating our object
-          setInvestments(prevItems => {
-            return prevItems.filter(item => item.key != investment.key);
-          });
+        //updating our object
+        setInvestments(prevItems => {
+          return prevItems.filter(item => item.key != investment.key);
+        });
 
-          setInvestments(prevItems => {
-            return [
-              ...prevItems,
-              {
-                name: investment.name,
-                key: investment.key,
-                originalInvestment: investment.originalInvestment,
-                currentAmount,
-                assets: investment.assets,
-              },
-            ];
-          });
+        setInvestments(prevItems => {
+          return [
+            ...prevItems,
+            {
+              name: investment.name,
+              key: investment.key,
+              originalInvestment: investment.originalInvestment,
+              currentAmount,
+              assets: investment.assets,
+            },
+          ];
         });
       });
-    }
+    });
+    // }
 
     return () => {
+      ac.abort();
       // This code runs when component is unmounted
-      componentMounted = false; // (4) set it to false if we leave the page
+      // componentMounted = false; // (4) set it to false if we leave the page
     };
-
-    // console.log(investments);
   }, [refresh]);
 
   let overallOriginalInvestment = 0;
@@ -103,9 +135,9 @@ const InvestView = () => {
   }
 
   useEffect(() => {
-    if (componentMounted) {
-      setInvestmentsStorage(investments);
-    }
+    // if (componentMounted) {
+    setInvestmentsStorage(investments);
+    // }
   }, [investments]);
 
   const toggleDeleteOrCancel = () => {

@@ -78,27 +78,36 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
           }}>
           <View style={generalStyles.centeredView}>
             {item.imageSource && (
-              <View
-                style={{
-                  width: '100%',
-                  height: EStyleSheet.value('60rem'),
-                  // height: '12%',
-                  // marginBottom: EStyleSheet.value('30rem'),
-                }}>
-                <Text
-                  style={{
-                    color: myWhite,
-                    textAlign: 'center',
-                    fontSize: EStyleSheet.value('14rem'),
-                  }}>
-                  How much of {item.name} do you hold
-                </Text>
-                <CurrencyInput
-                  style={styles.currencyInputContainer}
-                  value={numberInput}
-                  onChangeValue={setNumberInput}
-                  maxLength={10}
-                />
+              <View>
+                <View style={styles.currencyInputOutsideContainer}>
+                  <Text style={styles.textContainer}>
+                    How much of {item.name} do you hold:
+                  </Text>
+                  <CurrencyInput
+                    style={styles.currencyInputContainer}
+                    value={numberInput}
+                    onChangeValue={setNumberInput}
+                    delimiter=","
+                    separator="."
+                    maxLength={10}
+                    precision={6}
+                  />
+                </View>
+                <View style={styles.currencyInputOutsideContainer}>
+                  <Text style={styles.textContainer}>
+                    How much of interest do you have:
+                  </Text>
+                  <CurrencyInput
+                    style={styles.currencyInputContainer}
+                    value={numberInput}
+                    onChangeValue={setNumberInput}
+                    prefix="%"
+                    delimiter=","
+                    separator="."
+                    maxLength={10}
+                    precision={2}
+                  />
+                </View>
               </View>
             )}
             <View style={styles.buttonsContainer}>
@@ -160,16 +169,26 @@ const styles = StyleSheet.create({
     width: imageSize,
     height: imageSize,
   },
-  currencyInputContainer: {
-    color: myWhite,
-    flex: 1,
-    width: '50%',
-    fontSize: EStyleSheet.value('18rem'),
-    textAlign: 'center',
-    alignSelf: 'center',
+  currencyInputOutsideContainer: {
+    width: '100%',
+    height: EStyleSheet.value('60rem'),
+    flexDirection: 'row',
     backgroundColor: myBlack,
     borderWidth: EStyleSheet.value('2rem'),
     borderColor: myWhite,
+    alignItems: 'center',
+  },
+  textContainer: {
+    color: myWhite,
+    textAlign: 'center',
+    fontSize: EStyleSheet.value('15rem'),
+    marginLeft: EStyleSheet.value('10rem'),
+  },
+  currencyInputContainer: {
+    color: myWhite,
+    flex: 1,
+    fontSize: EStyleSheet.value('17rem'),
+    textAlign: 'center',
   },
 });
 

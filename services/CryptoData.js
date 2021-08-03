@@ -65,9 +65,9 @@ export const getCryptoData = async () => {
 
     const NANOPrice = nano.data.nano.gbp;
 
-    const LINKPirce = chainlink.data.chainlink.gbp;
-
     const XMRPrice = monero.data.monero.gbp;
+
+    const LINKPirce = chainlink.data.chainlink.gbp;
 
     const ALGOPrice = algorand.data.algorand.gbp;
 
@@ -83,8 +83,8 @@ export const getCryptoData = async () => {
       MATICPrice,
       XLMPrice,
       NANOPrice,
-      LINKPirce,
       XMRPrice,
+      LINKPirce,
       ALGOPrice,
       TRXPrice,
     ];

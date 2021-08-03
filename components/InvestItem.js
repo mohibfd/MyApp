@@ -16,6 +16,17 @@ const InvestItem = ({investment, deletion, setInvestments, refresh}) => {
 
   const [ETHPrice, setETHPrice] = useState(0);
   const [BTCPrice, setBTCPrice] = useState(0);
+  const [MSCIPrice, setMSCIPrice] = useState(0);
+  const [XRPrice, setXRPrice] = useState(0);
+  const [BNBPrice, setBNBPrice] = useState(0);
+  const [ADAPrice, setADAPrice] = useState(0);
+  const [MATICPrice, setMATICPrice] = useState(0);
+  const [XLMPrice, setXLMPrice] = useState(0);
+  const [NANOPrice, setNANOPrice] = useState(0);
+  const [XMRPrice, setXMRPrice] = useState(0);
+  const [LINKPirce, setLINKPirce] = useState(0);
+  const [ALGOPrice, setALGOPrice] = useState(0);
+  const [TRXPrice, setTRXPrice] = useState(0);
 
   const actions = [
     {
@@ -38,22 +49,41 @@ const InvestItem = ({investment, deletion, setInvestments, refresh}) => {
     },
   ];
 
-  // const getPrice = async () => {
-  //   let temp = await getCryptoData();
-  //   return temp;
-  // };
   useEffect(() => {
     const fetchExactPrices = async () => {
-      const [ETHPrice, BTCPrice] = await getCryptoData();
+      const [
+        ETHPrice,
+        BTCPrice,
+        MSCIPrice,
+        XRPrice,
+        BNBPrice,
+        ADAPrice,
+        MATICPrice,
+        XLMPrice,
+        NANOPrice,
+        XMRPrice,
+        LINKPirce,
+        ALGOPrice,
+        TRXPrice,
+      ] = await getCryptoData();
 
       setETHPrice(ETHPrice);
       setBTCPrice(BTCPrice);
+      setMSCIPrice(MSCIPrice);
+      setXRPrice(XRPrice);
+      setBNBPrice(BNBPrice);
+      setADAPrice(ADAPrice);
+      setMATICPrice(MATICPrice);
+      setXLMPrice(XLMPrice);
+      setNANOPrice(NANOPrice);
+      setXMRPrice(XMRPrice);
+      setLINKPirce(LINKPirce);
+      setALGOPrice(ALGOPrice);
+      setTRXPrice(TRXPrice);
     };
     fetchExactPrices();
   }, []);
-  // test().then(EthPrice => console.log(EthPrice));
-  // console.log('ethprice', EthPrice);
-  // console.log('ethprice', getPrice());
+
   const menuItems = [
     {
       name: 'Ethereum',
@@ -63,7 +93,7 @@ const InvestItem = ({investment, deletion, setInvestments, refresh}) => {
       key: uuid.v4(),
     },
     {
-      name: 'MSCI World',
+      name: 'WorldIndex',
       imageSource: require('../components/assets/MSCIWorldIndex.png'),
       key: uuid.v4(),
     },
@@ -75,12 +105,12 @@ const InvestItem = ({investment, deletion, setInvestments, refresh}) => {
       key: uuid.v4(),
     },
     {
-      name: 'XRP',
+      name: 'Ripple',
       imageSource: require('../components/assets/XRP.jpeg'),
       key: uuid.v4(),
     },
     {
-      name: 'BNB',
+      name: 'BinanceCoin',
       imageSource: require('../components/assets/BNB.jpeg'),
       key: uuid.v4(),
     },
@@ -90,12 +120,12 @@ const InvestItem = ({investment, deletion, setInvestments, refresh}) => {
       key: uuid.v4(),
     },
     {
-      name: 'Polygon',
+      name: 'MaticNetwork',
       imageSource: require('../components/assets/Polygon.jpeg'),
       key: uuid.v4(),
     },
     {
-      name: 'XLM',
+      name: 'Stellar',
       imageSource: require('../components/assets/XLM.jpeg'),
       key: uuid.v4(),
     },
@@ -105,17 +135,17 @@ const InvestItem = ({investment, deletion, setInvestments, refresh}) => {
       key: uuid.v4(),
     },
     {
-      name: 'XMR',
+      name: 'Monero',
       imageSource: require('../components/assets/XMR.jpeg'),
       key: uuid.v4(),
     },
     {
-      name: 'Link',
+      name: 'Chainlink',
       imageSource: require('../components/assets/LINK.jpeg'),
       key: uuid.v4(),
     },
     {
-      name: 'Algo',
+      name: 'Algorand',
       imageSource: require('../components/assets/Algo.jpeg'),
       key: uuid.v4(),
     },
@@ -206,8 +236,9 @@ const InvestItem = ({investment, deletion, setInvestments, refresh}) => {
 
     let numberAsList = [];
     for (let i = 0; i < numbersWithDecimal.length; i++) {
-      if (i == 3) {
-        numberAsList.splice(numbersWithDecimal.length - (3 + i), 0, ',');
+      if (i == 6 || i == 9) {
+        numberAsList.splice(numbersWithDecimal.length - i, 0, ',');
+        console.log(numberAsList);
       }
       numberAsList.push(numbersWithDecimal[i]);
     }
