@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {ListItem} from 'react-native-elements';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import CurrencyInput from 'react-native-currency-input';
@@ -28,6 +28,8 @@ const InvestItem = ({investment, deletion, setInvestments, refresh}) => {
   const [ALGOPrice, setALGOPrice] = useState(0);
   const [TRXPrice, setTRXPrice] = useState(0);
 
+  const isMountedRef = useRef(null);
+
   const actions = [
     {
       title: 'Add asset',
@@ -49,39 +51,45 @@ const InvestItem = ({investment, deletion, setInvestments, refresh}) => {
     },
   ];
 
-  useEffect(() => {
-    const fetchExactPrices = async () => {
-      const [
-        ETHPrice,
-        BTCPrice,
-        MSCIPrice,
-        XRPrice,
-        BNBPrice,
-        ADAPrice,
-        MATICPrice,
-        XLMPrice,
-        NANOPrice,
-        XMRPrice,
-        LINKPirce,
-        ALGOPrice,
-        TRXPrice,
-      ] = await getCryptoData();
+  const fetchExactPrices = async () => {
+    const [
+      ETHPrice,
+      BTCPrice,
+      MSCIPrice,
+      XRPrice,
+      BNBPrice,
+      ADAPrice,
+      MATICPrice,
+      XLMPrice,
+      NANOPrice,
+      XMRPrice,
+      LINKPirce,
+      ALGOPrice,
+      TRXPrice,
+    ] = await getCryptoData();
 
-      setETHPrice(ETHPrice);
-      setBTCPrice(BTCPrice);
-      setMSCIPrice(MSCIPrice);
-      setXRPrice(XRPrice);
-      setBNBPrice(BNBPrice);
-      setADAPrice(ADAPrice);
-      setMATICPrice(MATICPrice);
-      setXLMPrice(XLMPrice);
-      setNANOPrice(NANOPrice);
-      setXMRPrice(XMRPrice);
-      setLINKPirce(LINKPirce);
-      setALGOPrice(ALGOPrice);
-      setTRXPrice(TRXPrice);
-    };
-    fetchExactPrices();
+    setETHPrice(ETHPrice);
+    setBTCPrice(BTCPrice);
+    setMSCIPrice(MSCIPrice);
+    setXRPrice(XRPrice);
+    setBNBPrice(BNBPrice);
+    setADAPrice(ADAPrice);
+    setMATICPrice(MATICPrice);
+    setXLMPrice(XLMPrice);
+    setNANOPrice(NANOPrice);
+    setXMRPrice(XMRPrice);
+    setLINKPirce(LINKPirce);
+    setALGOPrice(ALGOPrice);
+    setTRXPrice(TRXPrice);
+  };
+
+  useEffect(() => {
+    isMountedRef.current = true;
+
+    if (isMountedRef) {
+      fetchExactPrices();
+    }
+    return (isMountedRef.current = false);
   }, []);
 
   const menuItems = [
@@ -182,19 +190,29 @@ const InvestItem = ({investment, deletion, setInvestments, refresh}) => {
     const quantity = item.quantity;
     //deleting item then recreating it to make it easier to modify one of its parameters
 
-    let assets = investment.assets;
+    let myAssets;
+    if (investment.assets.length == 0) {
+      myAssets = [];
+    } else {
+      myAssets = investment.assets;
+    }
 
-    for (var i = 0; i < assets.length; i++) {
-      if (assets[i].name === item.name) {
-        assets.splice(i, 1);
+    for (var i = 0; i < myAssets.length; i++) {
+      if (myAssets[i].name === item.name) {
+        console.log('???');
+        myAssets.splice(i, 1);
         refresh();
       }
     }
-    assets.push(item);
+
+    // console.log(typeof myAssets);
+    // let temp = [];
+    myAssets.push(item);
+    // temp.push('tomato');
 
     let currentamount = investment.currentAmount + price * quantity;
 
-    setCurrentAmount(currentamount, assets);
+    setCurrentAmount(currentamount, myAssets);
   };
 
   const setCurrentAmount = (currentAmount, assets) => {
@@ -238,22 +256,53 @@ const InvestItem = ({investment, deletion, setInvestments, refresh}) => {
     for (let i = 0; i < numbersWithDecimal.length; i++) {
       if (i == 6 || i == 9) {
         numberAsList.splice(numbersWithDecimal.length - i, 0, ',');
-        console.log(numberAsList);
       }
       numberAsList.push(numbersWithDecimal[i]);
     }
 
-    return numberAsList.join('');
+    return '£' + numberAsList.join('');
   };
 
   const showCurrentAmount = () => {
-    let currentAmount = investment.currentAmount.toFixed(2);
-
-    return renderNumber(currentAmount);
+    if (investment.currentAmount) {
+      let currentAmount = investment.currentAmount.toFixed(2);
+      return renderNumber(currentAmount);
+    } else if (investment.currentAmount == 0) {
+      return 'Add asset';
+    } else {
+      return 'Updating price';
+    }
   };
 
+  const containerHeight = () => {
+    let size = 80;
+    for (let i = 0; i < investment.assets.length; i++) {
+      if (i % 4 == 0 && i != 0) {
+        size += 40;
+      }
+    }
+    const remValue = size + 'rem';
+    return EStyleSheet.value(remValue);
+  };
+
+  let fourPhotosList = [];
+  let fourPhotos = [];
+  console.log('start');
+  investment.assets.map((photo, index) => {
+    if (index % 4 == 0 && index != 0) {
+      console.log('?');
+      fourPhotosList.push(fourPhotos);
+      fourPhotos = [];
+    }
+    if (investment.assets.length == index + 1) {
+      // fourPhotos.push(photo);
+      fourPhotosList.push(fourPhotos);
+    }
+    fourPhotos.push(photo.imageSource);
+  });
+
   return (
-    <View style={{backgroundColor: 'red'}}>
+    <View>
       <ActionSheet
         visible={actionSheetVisible}
         closeOverlay={() => {
@@ -271,32 +320,67 @@ const InvestItem = ({investment, deletion, setInvestments, refresh}) => {
           borderWidth: 1.5,
         }}>
         <ListItem.Content
-          style={[styles.investmentContainer, {alignItems: alignWhere()}]}>
-          <View
-            style={{
-              flexDirection: 'column',
-              flex: 0.55,
-            }}>
+          style={[
+            styles.investmentContainer,
+            {alignItems: alignWhere(), height: containerHeight()},
+          ]}>
+          <View style={styles.titleAndImageContainer}>
             <ListItem.Title style={styles.investmentTitle}>
               {investment.name}
             </ListItem.Title>
-            {investment.assets.length != 0 && (
-              <View style={{flex: 1, width: '100%', flexDirection: 'row'}}>
-                {investment.assets.map(asset => {
+
+            {fourPhotosList.length != 0 && (
+              <View style={{flex: 1}}>
+                {fourPhotosList.map(photosList => {
                   return (
-                    <Image
-                      style={{
-                        width: '33%',
-                        height: '100%',
-                        marginVertical: EStyleSheet.value('5rem'),
-                      }}
-                      source={asset.imageSource}
-                      key={asset.imageSource}
-                    />
+                    <View style={styles.imageContainer}>
+                      {photosList.map(photo => {
+                        return (
+                          <Image
+                            style={styles.image}
+                            source={photo}
+                            // source={require('../components/assets/Plants.jpeg')}
+                            key={photo}
+                          />
+                        );
+                      })}
+                    </View>
                   );
                 })}
               </View>
             )}
+
+            {/* {investment.assets.length != 0 && (
+              <View style={styles.imageContainer}>
+                {investment.assets.map((asset, index) => {
+                  if (index < 4) {
+                    return (
+                      <Image
+                        style={styles.image}
+                        source={asset.imageSource}
+                        key={asset.imageSource}
+                      />
+                    );
+                  }
+                })}
+              </View>
+            )}
+
+            {investment.assets.length > 2 && (
+              <View style={styles.imageContainer}>
+                {investment.assets.map((asset, index) => {
+                  if (index > 3) {
+                    return (
+                      <Image
+                        style={styles.image}
+                        source={asset.imageSource}
+                        key={asset.imageSource}
+                      />
+                    );
+                  }
+                })}
+              </View>
+            )} */}
           </View>
           <View style={styles.textAndCurrencyContainer}>
             <View style={styles.investmentTextContainer}>
@@ -316,7 +400,7 @@ const InvestItem = ({investment, deletion, setInvestments, refresh}) => {
             <View style={styles.investmentTextContainer}>
               <Text style={styles.investmentText}>Current amount: </Text>
               <Text style={styles.currencyInputContainer}>
-                £{showCurrentAmount()}
+                {showCurrentAmount()}
               </Text>
             </View>
             <View style={styles.investmentTextContainer}>
@@ -347,13 +431,17 @@ const InvestItem = ({investment, deletion, setInvestments, refresh}) => {
 
 const styles = StyleSheet.create({
   investmentContainer: {
-    height: EStyleSheet.value('80rem'),
     flexDirection: 'row',
   },
+  titleAndImageContainer: {
+    flexDirection: 'column',
+    // align: 'center',
+    flex: 0.55,
+  },
   investmentTitle: {
-    width: '100%',
     fontSize: EStyleSheet.value('27rem'),
     color: myWhite,
+    marginLeft: EStyleSheet.value('5rem'),
   },
   textAndCurrencyContainer: {
     flex: 1,
@@ -377,6 +465,18 @@ const styles = StyleSheet.create({
     fontSize: EStyleSheet.value('15rem'),
     textAlign: 'center',
     alignSelf: 'center',
+  },
+  imageContainer: {
+    marginLeft: EStyleSheet.value('8rem'),
+    flex: 1,
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  image: {
+    width: '33%',
+    height: '100%',
+    marginVertical: EStyleSheet.value('5rem'),
   },
 });
 
