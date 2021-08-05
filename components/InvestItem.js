@@ -115,51 +115,71 @@ const InvestItem = ({investment, deletion, setInvestments, refresh}) => {
     {
       name: 'Ripple',
       imageSource: require('../components/assets/XRP.jpeg'),
+      price: XRPrice,
+      quantity: 0,
       key: uuid.v4(),
     },
     {
       name: 'BinanceCoin',
       imageSource: require('../components/assets/BNB.jpeg'),
+      price: BNBPrice,
+      quantity: 0,
       key: uuid.v4(),
     },
     {
       name: 'Cardano',
       imageSource: require('../components/assets/Cardano.png'),
+      price: ADAPrice,
+      quantity: 0,
       key: uuid.v4(),
     },
     {
       name: 'MaticNetwork',
       imageSource: require('../components/assets/Polygon.jpeg'),
+      price: MATICPrice,
+      quantity: 0,
       key: uuid.v4(),
     },
     {
       name: 'Stellar',
       imageSource: require('../components/assets/XLM.jpeg'),
+      price: XLMPrice,
+      quantity: 0,
       key: uuid.v4(),
     },
     {
       name: 'Nano',
       imageSource: require('../components/assets/Nano.png'),
+      price: NANOPrice,
+      quantity: 0,
       key: uuid.v4(),
     },
     {
       name: 'Monero',
       imageSource: require('../components/assets/XMR.jpeg'),
+      price: XMRPrice,
+      quantity: 0,
       key: uuid.v4(),
     },
     {
       name: 'Chainlink',
       imageSource: require('../components/assets/LINK.jpeg'),
+      price: LINKPirce,
+      quantity: 0,
       key: uuid.v4(),
     },
     {
       name: 'Algorand',
       imageSource: require('../components/assets/Algo.jpeg'),
+      price: ALGOPrice,
+      quantity: 0,
       key: uuid.v4(),
     },
     {
       name: 'Tron',
       imageSource: require('../components/assets/Tron.jpeg'),
+      price: TRXPrice,
+      quantity: 0,
       key: uuid.v4(),
     },
   ];
@@ -339,7 +359,6 @@ const InvestItem = ({investment, deletion, setInvestments, refresh}) => {
                           <Image
                             style={styles.image}
                             source={photo}
-                            // source={require('../components/assets/Plants.jpeg')}
                             key={photo}
                           />
                         );
@@ -349,38 +368,6 @@ const InvestItem = ({investment, deletion, setInvestments, refresh}) => {
                 })}
               </View>
             )}
-
-            {/* {investment.assets.length != 0 && (
-              <View style={styles.imageContainer}>
-                {investment.assets.map((asset, index) => {
-                  if (index < 4) {
-                    return (
-                      <Image
-                        style={styles.image}
-                        source={asset.imageSource}
-                        key={asset.imageSource}
-                      />
-                    );
-                  }
-                })}
-              </View>
-            )}
-
-            {investment.assets.length > 2 && (
-              <View style={styles.imageContainer}>
-                {investment.assets.map((asset, index) => {
-                  if (index > 3) {
-                    return (
-                      <Image
-                        style={styles.image}
-                        source={asset.imageSource}
-                        key={asset.imageSource}
-                      />
-                    );
-                  }
-                })}
-              </View>
-            )} */}
           </View>
           <View style={styles.textAndCurrencyContainer}>
             <View style={styles.investmentTextContainer}>

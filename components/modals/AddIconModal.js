@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import React from 'react';
 import {
   Modal,
   FlatList,
@@ -17,7 +17,7 @@ const AddIconModal = ({menuItems, addMainItem, setModalVisible}) => {
   return (
     <Modal visible={true} animationType="slide">
       <SafeAreaView style={styles.container}>
-        <Pressable>
+        <Pressable style={{flex: 1}}>
           <Icon
             style={generalStyles.modalClose}
             name="remove"
@@ -35,6 +35,7 @@ const AddIconModal = ({menuItems, addMainItem, setModalVisible}) => {
                 addMainItem={addMainItem}
               />
             )}
+            removeClippedSubviews={false}
             numColumns={3}
           />
         </Pressable>
