@@ -51,44 +51,45 @@ const InvestItem = ({investment, deletion, setInvestments, refresh}) => {
     },
   ];
 
-  const fetchExactPrices = async () => {
-    const [
-      ETHPrice,
-      BTCPrice,
-      MSCIPrice,
-      XRPrice,
-      BNBPrice,
-      ADAPrice,
-      MATICPrice,
-      XLMPrice,
-      NANOPrice,
-      XMRPrice,
-      LINKPirce,
-      ALGOPrice,
-      TRXPrice,
-    ] = await getCryptoData();
-
-    setETHPrice(ETHPrice);
-    setBTCPrice(BTCPrice);
-    setMSCIPrice(MSCIPrice);
-    setXRPrice(XRPrice);
-    setBNBPrice(BNBPrice);
-    setADAPrice(ADAPrice);
-    setMATICPrice(MATICPrice);
-    setXLMPrice(XLMPrice);
-    setNANOPrice(NANOPrice);
-    setXMRPrice(XMRPrice);
-    setLINKPirce(LINKPirce);
-    setALGOPrice(ALGOPrice);
-    setTRXPrice(TRXPrice);
-  };
-
   useEffect(() => {
     isMountedRef.current = true;
 
+    const fetchExactPrices = async () => {
+      if (isMountedRef) {
+        const [
+          ETHPrice,
+          BTCPrice,
+          MSCIPrice,
+          XRPrice,
+          BNBPrice,
+          ADAPrice,
+          MATICPrice,
+          XLMPrice,
+          NANOPrice,
+          XMRPrice,
+          LINKPirce,
+          ALGOPrice,
+          TRXPrice,
+        ] = await getCryptoData();
+        setETHPrice(ETHPrice);
+        setBTCPrice(BTCPrice);
+        setMSCIPrice(MSCIPrice);
+        setXRPrice(XRPrice);
+        setBNBPrice(BNBPrice);
+        setADAPrice(ADAPrice);
+        setMATICPrice(MATICPrice);
+        setXLMPrice(XLMPrice);
+        setNANOPrice(NANOPrice);
+        setXMRPrice(XMRPrice);
+        setLINKPirce(LINKPirce);
+        setALGOPrice(ALGOPrice);
+        setTRXPrice(TRXPrice);
+      }
+    };
     if (isMountedRef) {
       fetchExactPrices();
     }
+
     return (isMountedRef.current = false);
   }, []);
 
@@ -103,6 +104,8 @@ const InvestItem = ({investment, deletion, setInvestments, refresh}) => {
     {
       name: 'WorldIndex',
       imageSource: require('../components/assets/MSCIWorldIndex.png'),
+      price: MSCIPrice,
+      quantity: 0,
       key: uuid.v4(),
     },
     {
@@ -353,13 +356,13 @@ const InvestItem = ({investment, deletion, setInvestments, refresh}) => {
               <View style={{flex: 1}}>
                 {fourPhotosList.map(photosList => {
                   return (
-                    <View style={styles.imageContainer}>
+                    <View style={styles.imageContainer} key={uuid.v4()}>
                       {photosList.map(photo => {
                         return (
                           <Image
                             style={styles.image}
                             source={photo}
-                            key={photo}
+                            key={uuid.v4()}
                           />
                         );
                       })}
