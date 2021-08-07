@@ -26,6 +26,8 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
 
   const [numberInput, setNumberInput] = useState(0);
 
+  const [interestInput, setInterestInput] = useState(0);
+
   const createMainItem = () => {
     if (item.icon) {
       addMainItem(item);
@@ -37,6 +39,7 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
         ]);
       } else {
         item.quantity = numberInput;
+        item.interest = interestInput;
         addMainItem(item);
         toggleMainModal();
       }
@@ -89,18 +92,18 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
                     onChangeValue={setNumberInput}
                     delimiter=","
                     separator="."
-                    maxLength={10}
-                    precision={6}
+                    maxLength={12}
+                    precision={8}
                   />
                 </View>
                 <View style={styles.currencyInputOutsideContainer}>
                   <Text style={styles.textContainer}>
-                    How much of interest do you have:
+                    How much interest do you have:
                   </Text>
                   <CurrencyInput
                     style={styles.currencyInputContainer}
-                    value={numberInput}
-                    onChangeValue={setNumberInput}
+                    value={interestInput}
+                    onChangeValue={setInterestInput}
                     prefix="%"
                     delimiter=","
                     separator="."
@@ -181,13 +184,13 @@ const styles = StyleSheet.create({
   textContainer: {
     color: myWhite,
     textAlign: 'center',
-    fontSize: EStyleSheet.value('15rem'),
+    fontSize: EStyleSheet.value('14rem'),
     marginLeft: EStyleSheet.value('10rem'),
   },
   currencyInputContainer: {
     color: myWhite,
     flex: 1,
-    fontSize: EStyleSheet.value('17rem'),
+    fontSize: EStyleSheet.value('16rem'),
     textAlign: 'center',
   },
 });

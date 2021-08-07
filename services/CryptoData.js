@@ -8,50 +8,48 @@ export const getCryptoData = async () => {
     const bitcoin = await axios.get(
       'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=gbp',
     );
-
     const ripple = await axios.get(
       'https://api.coingecko.com/api/v3/simple/price?ids=ripple&vs_currencies=gbp',
     );
-
     const binanceCoin = await axios.get(
       'https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=gbp',
     );
-
     const cardano = await axios.get(
       'https://api.coingecko.com/api/v3/simple/price?ids=cardano&vs_currencies=gbp',
     );
-
     const maticNetwork = await axios.get(
       'https://api.coingecko.com/api/v3/simple/price?ids=matic-network&vs_currencies=gbp',
     );
-
     const stellar = await axios.get(
       'https://api.coingecko.com/api/v3/simple/price?ids=stellar&vs_currencies=gbp',
     );
-
     const nano = await axios.get(
       'https://api.coingecko.com/api/v3/simple/price?ids=nano&vs_currencies=gbp',
-    );
-
-    const chainlink = await axios.get(
-      'https://api.coingecko.com/api/v3/simple/price?ids=chainlink&vs_currencies=gbp',
     );
     const monero = await axios.get(
       'https://api.coingecko.com/api/v3/simple/price?ids=monero&vs_currencies=gbp',
     );
+    const chainlink = await axios.get(
+      'https://api.coingecko.com/api/v3/simple/price?ids=chainlink&vs_currencies=gbp',
+    );
     const algorand = await axios.get(
       'https://api.coingecko.com/api/v3/simple/price?ids=algorand&vs_currencies=gbp',
     );
-
     const tron = await axios.get(
       'https://api.coingecko.com/api/v3/simple/price?ids=tron&vs_currencies=gbp',
+    );
+    const usdCoin = await axios.get(
+      'https://api.coingecko.com/api/v3/simple/price?ids=usd-coin&vs_currencies=gbp',
+    );
+    const celsiusDegreeToken = await axios.get(
+      'https://api.coingecko.com/api/v3/simple/price?ids=celsius-degree-token&vs_currencies=gbp',
     );
 
     const ETHPrice = ethereum.data.ethereum.gbp;
 
-    const BTCPrice = bitcoin.data.bitcoin.gbp;
+    const MSCIPrice = 3048.41;
 
-    const MSCIPrice = 77.55;
+    const BTCPrice = bitcoin.data.bitcoin.gbp;
 
     const XRPrice = ripple.data.ripple.gbp;
 
@@ -73,10 +71,14 @@ export const getCryptoData = async () => {
 
     const TRXPrice = tron.data.tron.gbp;
 
+    const USDCPrice = usdCoin.data['usd-coin'].gbp;
+
+    const CELPrice = celsiusDegreeToken.data['celsius-degree-token'].gbp;
+
     return [
       ETHPrice,
-      BTCPrice,
       MSCIPrice,
+      BTCPrice,
       XRPrice,
       BNBPrice,
       ADAPrice,
@@ -87,6 +89,8 @@ export const getCryptoData = async () => {
       LINKPirce,
       ALGOPrice,
       TRXPrice,
+      USDCPrice,
+      CELPrice,
     ];
   } catch (error) {
     console.error(error.message);
