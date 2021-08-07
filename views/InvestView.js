@@ -18,7 +18,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 const wait = timeout => {
   return new Promise(resolve => setTimeout(resolve, timeout));
 };
-const InvestView = () => {
+const InvestView = ({navigation}) => {
   const [investmentsStorage, setInvestmentsStorage] =
     useStorage('investmentss');
 
@@ -232,6 +232,7 @@ const InvestView = () => {
                 deletion={openDeleteOrCancel}
                 setInvestments={setInvestments}
                 refresh={() => setRefresh(uuid.v4())}
+                navigation={navigation}
               />
             ) : null,
           )}

@@ -9,7 +9,13 @@ import {ActionSheet} from './online_components/ActionSheet';
 import AddIconModal from '../components/modals/AddIconModal';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
-const InvestItem = ({investment, deletion, setInvestments, refresh}) => {
+const InvestItem = ({
+  investment,
+  deletion,
+  setInvestments,
+  refresh,
+  navigation,
+}) => {
   const [actionSheetVisible, setActionSheetVisible] = useState(false);
   const [openAddAssetModal, setOpenAddAssetModal] = useState(false);
 
@@ -23,7 +29,7 @@ const InvestItem = ({investment, deletion, setInvestments, refresh}) => {
     {
       title: 'View more details',
       action: () => {
-        setOpenAddAssetModal(true);
+        navigation.navigate('Invest Details View');
       },
     },
     {
@@ -268,7 +274,6 @@ const InvestItem = ({investment, deletion, setInvestments, refresh}) => {
           backgroundColor: myBlack,
           borderColor: 'gold',
           borderWidth: 1.5,
-          // flex: 0.7,
         }}>
         <ListItem.Content
           style={[
