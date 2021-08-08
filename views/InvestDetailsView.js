@@ -12,19 +12,38 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {useState} from 'react';
 
+import DeleteOrCancel from '../components/DeleteOrCancel';
+import Header from '../components/Header';
+
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
 ]);
-import Header from '../components/Header';
 
 const DeveloperDetailsView = ({route}) => {
   const investment = route.params.investment;
 
   const setInvestments = route.params.setInvestments;
 
+  const refreshMainPage = route.params.refresh;
+
   const [refresh, setRefresh] = useState();
 
-  const deleteAsset = assetToDelete => {
+  const [isDeleteOrCancelOpen, setIsDeleteOrCancelOpen] = useState(false);
+
+  const [assetToDelete, setAssetToDelete] = useState();
+
+  const toggleDeleteOrCancel = () => {
+    setIsDeleteOrCancelOpen(!isDeleteOrCancelOpen);
+  };
+
+  const openDeleteOrCancel = asset => {
+    toggleDeleteOrCancel();
+    setAssetToDelete(asset);
+  };
+
+  const deleteAsset = () => {
+    toggleDeleteOrCancel();
+
     investment.assets = investment.assets.filter(
       asset => asset.key != assetToDelete.key,
     );
@@ -47,6 +66,7 @@ const DeveloperDetailsView = ({route}) => {
       ];
     });
     setRefresh(!refresh);
+    refreshMainPage();
   };
 
   const Asset = ({name, photo, quantity, totalValue, asset}) => (
@@ -60,11 +80,10 @@ const DeveloperDetailsView = ({route}) => {
       </Text>
       <Text style={styles.text}>£{totalValue}</Text>
       <Icon
-        // style={styles.redCross}
         name="remove"
         size={EStyleSheet.value('30rem')}
         color="firebrick"
-        onPress={() => deleteAsset(asset)}
+        onPress={() => openDeleteOrCancel(asset)}
       />
     </View>
   );
@@ -106,6 +125,13 @@ const DeveloperDetailsView = ({route}) => {
         renderItem={renderItem}
         numColumns={1}
       />
+      {isDeleteOrCancelOpen && (
+        <DeleteOrCancel
+          name={assetToDelete.name}
+          deletion={deleteAsset}
+          closeOverlay={toggleDeleteOrCancel}
+        />
+      )}
     </SafeAreaView>
   );
 };

@@ -34,6 +34,7 @@ const InvestItem = ({
         navigation.navigate('Invest Details View', {
           investment,
           setInvestments,
+          refresh,
         });
       },
     },
@@ -182,14 +183,12 @@ const InvestItem = ({
     for (var i = 0; i < myAssets.length; i++) {
       if (myAssets[i].name === item.name) {
         myAssets.splice(i, 1);
-        refresh();
       }
     }
 
     myAssets.push(item);
 
     //deleting item then recreating it to make it easier to modify one of its parameters
-
     setInvestments(prevItems => {
       return prevItems.filter(item => item.key != investment.key);
     });
@@ -206,6 +205,7 @@ const InvestItem = ({
         ...prevItems,
       ];
     });
+    refresh();
   };
 
   const calculateGainOrLoss = () => {

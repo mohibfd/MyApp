@@ -6,6 +6,7 @@ import {
   StyleSheet,
   RefreshControl,
   ScrollView,
+  Alert,
 } from 'react-native';
 import uuid from 'react-native-uuid';
 
@@ -52,6 +53,9 @@ const InvestView = ({navigation}) => {
   // };
 
   useEffect(() => {
+    console.log('loading');
+    setRefreshing(true);
+
     isMountedRef.current = true;
     if (isMountedRef.current) {
       const fetchExactPrices = async () => {
@@ -61,14 +65,16 @@ const InvestView = ({navigation}) => {
         fetchExactPrices().then(prices => {
           if (!prices) {
             // console.log('called api too many times');
-            setTimeout(function () {
-              console.log('called api too many times');
-            }, 3000);
+            Alert.alert(
+              'Too many refreshes',
+              'Please wait before refreshing again',
+              [{text: 'OK'}],
+            );
+            setRefreshing(false);
             return;
           }
           investments.map(investment => {
             let currentAmount = 0;
-            let newAssets = [];
             investment.assets.map(asset => {
               let oldCurrentAmount = currentAmount;
               // calculateInterest(asset.interest);
@@ -144,6 +150,7 @@ const InvestView = ({navigation}) => {
               ];
             });
           });
+          setRefreshing(false);
         });
       }
     }
