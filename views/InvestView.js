@@ -68,7 +68,9 @@ const InvestView = ({navigation}) => {
           }
           investments.map(investment => {
             let currentAmount = 0;
+            let newAssets = [];
             investment.assets.map(asset => {
+              let oldCurrentAmount = currentAmount;
               // calculateInterest(asset.interest);
               // console.log(asset);
               switch (asset.name) {
@@ -118,6 +120,10 @@ const InvestView = ({navigation}) => {
                   currentAmount += asset.quantity * prices[14];
                   break;
               }
+
+              let newAmount = currentAmount - oldCurrentAmount;
+
+              asset.totalValue = newAmount.toFixed(2);
             });
 
             //updating our object
@@ -222,7 +228,6 @@ const InvestView = ({navigation}) => {
             tintColor={myWhite}
           />
         }>
-        {/* <View style={{borderWidth: 5, borderColor: 'tomato', flex: 2}}> */}
         {investments &&
           investments.map(investment =>
             investment ? (
@@ -236,7 +241,6 @@ const InvestView = ({navigation}) => {
               />
             ) : null,
           )}
-        {/* </View> */}
 
         {isDeleteOrCancel && (
           <DeleteOrCancel

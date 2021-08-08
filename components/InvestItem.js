@@ -28,8 +28,12 @@ const InvestItem = ({
     },
     {
       title: 'View more details',
+
       action: () => {
         navigation.navigate('Invest Details View');
+        navigation.navigate('Invest Details View', {
+          investment,
+        });
       },
     },
     {
@@ -46,90 +50,105 @@ const InvestItem = ({
       imageSource: require('../components/assets/Ethereum.jpeg'),
       quantity: 0,
       key: uuid.v4(),
+      totalValue: 0,
     },
     {
       name: 'WorldIndex',
       imageSource: require('../components/assets/MSCIWorldIndex.png'),
       quantity: 0,
       key: uuid.v4(),
+      totalValue: 0,
     },
     {
       name: 'Bitcoin',
       imageSource: require('../components/assets/Bitcoin.jpeg'),
       quantity: 0,
       key: uuid.v4(),
+      totalValue: 0,
     },
     {
       name: 'Ripple',
       imageSource: require('../components/assets/XRP.jpeg'),
       quantity: 0,
       key: uuid.v4(),
+      totalValue: 0,
     },
     {
       name: 'BinanceCoin',
       imageSource: require('../components/assets/BNB.jpeg'),
       quantity: 0,
       key: uuid.v4(),
+      totalValue: 0,
     },
     {
       name: 'Cardano',
       imageSource: require('../components/assets/Cardano.png'),
       quantity: 0,
       key: uuid.v4(),
+      totalValue: 0,
     },
     {
       name: 'MaticNetwork',
       imageSource: require('../components/assets/Polygon.jpeg'),
       quantity: 0,
       key: uuid.v4(),
+      totalValue: 0,
     },
     {
       name: 'Stellar',
       imageSource: require('../components/assets/XLM.jpeg'),
       quantity: 0,
       key: uuid.v4(),
+      totalValue: 0,
     },
     {
       name: 'Nano',
       imageSource: require('../components/assets/Nano.png'),
       quantity: 0,
       key: uuid.v4(),
+      totalValue: 0,
     },
     {
       name: 'Monero',
       imageSource: require('../components/assets/XMR.jpeg'),
       quantity: 0,
       key: uuid.v4(),
+      totalValue: 0,
     },
     {
       name: 'Chainlink',
       imageSource: require('../components/assets/LINK.jpeg'),
       quantity: 0,
       key: uuid.v4(),
+      totalValue: 0,
     },
     {
       name: 'Algorand',
       imageSource: require('../components/assets/Algo.jpeg'),
       quantity: 0,
       key: uuid.v4(),
+      totalValue: 0,
     },
     {
       name: 'Tron',
       imageSource: require('../components/assets/Tron.jpeg'),
       quantity: 0,
       key: uuid.v4(),
+      totalValue: 0,
     },
     {
       name: 'USDCoin',
       imageSource: require('../components/assets/USDC.png'),
       quantity: 0,
       key: uuid.v4(),
+      totalValue: 0,
     },
     {
       name: 'CelsiusCoin',
       imageSource: require('../components/assets/CEL.jpeg'),
       quantity: 0,
       key: uuid.v4(),
+      totalValue: 0,
     },
   ];
 
