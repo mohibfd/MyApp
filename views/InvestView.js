@@ -53,7 +53,6 @@ const InvestView = ({navigation}) => {
   // };
 
   useEffect(() => {
-    console.log('loading');
     setRefreshing(true);
 
     isMountedRef.current = true;

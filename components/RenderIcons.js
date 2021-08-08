@@ -14,6 +14,7 @@ import {
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CurrencyInput from 'react-native-currency-input';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 import generalStyles from '../stylesheets/generalStylesheet';
 
@@ -28,18 +29,42 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
 
   const [interestInput, setInterestInput] = useState(0);
 
+  // const [interestInterval, setInterestInterval] = useState(0);
+
+  const [showDropDownPicker, setShowDropDownPicker] = useState(false);
+  const [dropDownPickerValue, setDropDownPickerValue] = useState(null);
+
+  const [interestInterval, setInterestInterval] = useState([
+    {label: 'Daily', value: 'daily'},
+    {label: 'Weekly', value: 'weekly'},
+    {label: 'Monthly', value: 'monthly'},
+    {label: 'Yearly', value: 'yearly'},
+  ]);
+
+  const [showSplashText, setShowSplashText] = useState(false);
+
   const createMainItem = () => {
     if (item.icon) {
       addMainItem(item);
       toggleMainModal();
     } else {
       if (numberInput == 0) {
-        Alert.alert('You entered 0', 'Please enter a number', [
-          {text: 'OK', onPress: () => console.log('OK Pressed')},
-        ]);
+        Alert.alert('You entered 0', 'Please enter a number', [{text: 'OK'}]);
       } else {
+        if (!dropDownPickerValue && interestInput != 0) {
+          setShowSplashText(true);
+
+          setTimeout(() => {
+            setShowSplashText(false);
+          }, 2000);
+
+          return;
+        }
+
         item.quantity = numberInput;
         item.interest = interestInput;
+        item.interestInterval = dropDownPickerValue;
+
         addMainItem(item);
         toggleMainModal();
       }
@@ -63,10 +88,7 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
             onPress={() => {
               setModalVisible(true);
             }}>
-            <Image
-              style={{width: '100%', height: '100%'}}
-              source={item.imageSource}
-            />
+            <Image style={styles.image} source={item.imageSource} />
           </Pressable>
         </View>
       )}
@@ -76,6 +98,7 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
           animationType="slide"
           transparent={true}
           visible={modalVisible}
+          overFlow={'visible'}
           onRequestClose={() => {
             setModalVisible(false);
           }}>
@@ -111,6 +134,35 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
                     precision={2}
                   />
                 </View>
+                {interestInput != 0 && (
+                  <View
+                    style={[
+                      styles.currencyInputOutsideContainer,
+                      styles.dropDownOutsideContainer,
+                    ]}>
+                    <Text style={styles.textContainer}>
+                      How often does your interest occur:
+                    </Text>
+                    <DropDownPicker
+                      open={showDropDownPicker}
+                      value={dropDownPickerValue}
+                      setOpen={setShowDropDownPicker}
+                      setValue={setDropDownPickerValue}
+                      items={interestInterval}
+                      setItems={setInterestInterval}
+                      arrowIconStyle={{tintColor: myWhite}}
+                      tickIconStyle={{tintColor: myWhite}}
+                      style={styles.dropDownStyle}
+                      textStyle={{color: myWhite}}
+                      dropDownContainerStyle={styles.dropDownContainerStyle}
+                    />
+                    <Text style={generalStyles.splashText}>
+                      {showSplashText
+                        ? 'please select one of the available options'
+                        : null}
+                    </Text>
+                  </View>
+                )}
               </View>
             )}
             <View style={styles.buttonsContainer}>
@@ -172,6 +224,10 @@ const styles = StyleSheet.create({
     width: imageSize,
     height: imageSize,
   },
+  image: {
+    width: '100%',
+    height: '100%',
+  },
   currencyInputOutsideContainer: {
     width: '100%',
     height: EStyleSheet.value('60rem'),
@@ -186,12 +242,25 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: EStyleSheet.value('14rem'),
     marginLeft: EStyleSheet.value('10rem'),
+    padding: '2%',
   },
   currencyInputContainer: {
     color: myWhite,
     flex: 1,
     fontSize: EStyleSheet.value('16rem'),
     textAlign: 'center',
+  },
+  dropDownOutsideContainer: {
+    flexDirection: 'column',
+    height: EStyleSheet.value('230rem'),
+  },
+  dropDownContainerStyle: {
+    backgroundColor: myBlack,
+    borderColor: 'gold',
+  },
+  dropDownStyle: {
+    backgroundColor: myBlack,
+    borderColor: 'gold',
   },
 });
 

@@ -46,6 +46,9 @@ export const getAssetsData = async () => {
     const celsiusDegreeToken = await axios.get(
       'https://api.coingecko.com/api/v3/simple/price?ids=celsius-degree-token&vs_currencies=gbp',
     );
+    const MSCIData = await axios.get(
+      `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSCI&interval=5min&apikey=${API_KEY}`,
+    );
 
     const ETHPrice = ethereum.data.ethereum.gbp;
 
@@ -74,10 +77,6 @@ export const getAssetsData = async () => {
     const USDCPrice = usdCoin.data['usd-coin'].gbp;
 
     const CELPrice = celsiusDegreeToken.data['celsius-degree-token'].gbp;
-
-    const MSCIData = await axios.get(
-      `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSCI&interval=5min&apikey=${API_KEY}`,
-    );
 
     const MSCIPrices = MSCIData.data['Time Series (5min)'];
 
