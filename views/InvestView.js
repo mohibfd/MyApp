@@ -12,7 +12,7 @@ import uuid from 'react-native-uuid';
 import Header from '../components/Header';
 import InvestItem from '../components/InvestItem';
 import DeleteOrCancel from '../components/DeleteOrCancel';
-import {getCryptoData} from '../services/CryptoData';
+import {getAssetsData} from '../services/AssetsData';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 const wait = timeout => {
@@ -55,7 +55,7 @@ const InvestView = ({navigation}) => {
     isMountedRef.current = true;
     if (isMountedRef.current) {
       const fetchExactPrices = async () => {
-        return await getCryptoData();
+        return await getAssetsData();
       };
       if (isMountedRef.current) {
         fetchExactPrices().then(prices => {

@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-export const getCryptoData = async () => {
+const API_KEY = 'SX7FAU35M75HT2XI';
+
+export const getAssetsData = async () => {
   try {
     const ethereum = await axios.get(
       'https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=gbp',
@@ -47,8 +49,6 @@ export const getCryptoData = async () => {
 
     const ETHPrice = ethereum.data.ethereum.gbp;
 
-    const MSCIPrice = 3048.41;
-
     const BTCPrice = bitcoin.data.bitcoin.gbp;
 
     const XRPrice = ripple.data.ripple.gbp;
@@ -75,9 +75,25 @@ export const getCryptoData = async () => {
 
     const CELPrice = celsiusDegreeToken.data['celsius-degree-token'].gbp;
 
+    const MSCIData = await axios.get(
+      `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSCI&interval=5min&apikey=${API_KEY}`,
+    );
+
+    const MSCIPrices = MSCIData.data['Time Series (5min)'];
+
+    const mostRecentPriceList = MSCIPrices[Object.keys(MSCIPrices)[0]];
+
+    const mostRecentPrice = mostRecentPriceList['1. open'];
+
+    //we divide by 8 to make the price equal to fidelity's MSCI value
+
+    const MSCIFidelityPrice = mostRecentPrice / 8.03309805825;
+
+    console.log(MSCIFidelityPrice);
+
     return [
       ETHPrice,
-      MSCIPrice,
+      MSCIFidelityPrice,
       BTCPrice,
       XRPrice,
       BNBPrice,

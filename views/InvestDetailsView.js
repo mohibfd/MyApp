@@ -6,24 +6,66 @@ import {
   View,
   StyleSheet,
   Image,
+  LogBox,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {useState} from 'react';
 
+LogBox.ignoreLogs([
+  'Non-serializable values were found in the navigation state',
+]);
 import Header from '../components/Header';
 
 const DeveloperDetailsView = ({route}) => {
   const investment = route.params.investment;
 
-  const Asset = ({name, photo, quantity, totalValue}) => (
-    <View style={styles.container}>
+  const setInvestments = route.params.setInvestments;
+
+  const [refresh, setRefresh] = useState();
+
+  const deleteAsset = assetToDelete => {
+    investment.assets = investment.assets.filter(
+      asset => asset.key != assetToDelete.key,
+    );
+
+    //updating our object
+    setInvestments(prevItems => {
+      return prevItems.filter(item => item.key != investment.key);
+    });
+
+    setInvestments(prevItems => {
+      return [
+        ...prevItems,
+        {
+          name: investment.name,
+          key: investment.key,
+          originalInvestment: investment.originalInvestment,
+          currentAmount: investment.currentAmount,
+          assets: investment.assets,
+        },
+      ];
+    });
+    setRefresh(!refresh);
+  };
+
+  const Asset = ({name, photo, quantity, totalValue, asset}) => (
+    <View style={styles.listContainer}>
       <View style={styles.imageContainer}>
         <Image style={styles.image} source={photo} />
       </View>
       <Text style={styles.text}>{name}</Text>
-      <Text style={[styles.text, {textAlign: 'center', marginRight: '5%'}]}>
-        {quantity}
+      <Text style={[styles.text, styles.quantityText]}>
+        {quantity.toFixed(4)}
       </Text>
       <Text style={styles.text}>£{totalValue}</Text>
+      <Icon
+        // style={styles.redCross}
+        name="remove"
+        size={EStyleSheet.value('30rem')}
+        color="firebrick"
+        onPress={() => deleteAsset(asset)}
+      />
     </View>
   );
 
@@ -33,11 +75,12 @@ const DeveloperDetailsView = ({route}) => {
       photo={item.imageSource}
       quantity={item.quantity}
       totalValue={item.totalValue}
+      asset={item}
     />
   );
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: myBlack}}>
+    <SafeAreaView style={styles.container}>
       <Header title={investment.name} />
 
       <View style={styles.headerContainer}>
@@ -69,6 +112,10 @@ const DeveloperDetailsView = ({route}) => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    backgroundColor: myBlack,
+  },
+  listContainer: {
     borderWidth: 1,
     borderColor: myWhite,
     flexDirection: 'row',
@@ -108,9 +155,13 @@ const styles = StyleSheet.create({
   },
   text: {
     color: myWhite,
-    marginLeft: EStyleSheet.value('10rem'),
-    fontSize: EStyleSheet.value('18rem'),
+    marginLeft: EStyleSheet.value('7rem'),
+    fontSize: EStyleSheet.value('16rem'),
     flex: 1,
+  },
+  quantityText: {
+    textAlign: 'center',
+    marginRight: '5%',
   },
 });
 

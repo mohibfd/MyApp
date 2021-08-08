@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {View, Text, Pressable, StyleSheet, Alert} from 'react-native';
+import EStyleSheet from 'react-native-extended-stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const ListItem = ({item, deleteItemFromStorage, navigation}) => {

@@ -33,6 +33,7 @@ const InvestItem = ({
         navigation.navigate('Invest Details View');
         navigation.navigate('Invest Details View', {
           investment,
+          setInvestments,
         });
       },
     },
