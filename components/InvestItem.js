@@ -169,6 +169,7 @@ const InvestItem = ({
           originalInvestment: amount,
           currentAmount: investment.currentAmount,
           assets: investment.assets,
+          order: investment.order,
         },
         ...prevItems,
       ];
@@ -200,7 +201,8 @@ const InvestItem = ({
           key: investment.key,
           originalInvestment: investment.originalInvestment,
           currentAmount: 0,
-          assets: myAssets,
+          assets: investment.assets,
+          order: investment.order,
         },
         ...prevItems,
       ];

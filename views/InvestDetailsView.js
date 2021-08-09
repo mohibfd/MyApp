@@ -62,6 +62,7 @@ const DeveloperDetailsView = ({route}) => {
           originalInvestment: investment.originalInvestment,
           currentAmount: investment.currentAmount,
           assets: investment.assets,
+          order: investment.order,
         },
       ];
     });

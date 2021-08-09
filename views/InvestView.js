@@ -145,6 +145,7 @@ const InvestView = ({navigation}) => {
                   originalInvestment: investment.originalInvestment,
                   currentAmount,
                   assets: investment.assets,
+                  order: investment.order,
                 },
               ];
             });
@@ -155,7 +156,7 @@ const InvestView = ({navigation}) => {
     }
 
     return () => {
-      isMountedRef.current = false; // (4) set it to false if we leave the page
+      isMountedRef.current = false;
     };
   }, [refresh]);
 
@@ -167,9 +168,14 @@ const InvestView = ({navigation}) => {
     overallCurrentAmount += i.currentAmount;
   }
 
+  const sortList = list => {
+    return list.sort((a, b) => (a.order > b.order ? 1 : -1));
+  };
+
   useEffect(() => {
     isMountedRef.current = true;
     if (isMountedRef) {
+      sortList(investments);
       setInvestmentsStorage(investments);
     }
     return (isMountedRef.current = false);
@@ -180,16 +186,25 @@ const InvestView = ({navigation}) => {
   };
 
   const createInvestment = newInvestmentName => {
+    let maxOrder = -1;
+    investments.map(investment => {
+      if (investment.order > maxOrder) {
+        maxOrder = investment.order;
+      }
+    });
+    maxOrder += 1;
+
     setInvestments(prevItems => {
       return [
+        ...prevItems,
         {
           name: newInvestmentName,
           key: uuid.v4(),
           originalInvestment: 0,
           currentAmount: 0,
           assets: [],
+          order: maxOrder,
         },
-        ...prevItems,
       ];
     });
   };
