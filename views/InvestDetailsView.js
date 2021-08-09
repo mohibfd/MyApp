@@ -76,12 +76,13 @@ const DeveloperDetailsView = ({route}) => {
       <View style={styles.imageContainer}>
         <Image style={styles.image} source={photo} />
       </View>
-      <Text style={styles.text}>{name}</Text>
+      <Text style={[styles.text, styles.nameText]}>{name}</Text>
       <Text style={[styles.text, styles.quantityText]}>
         {quantity.toFixed(4)}
       </Text>
-      <Text style={styles.text}>£{totalValue}</Text>
+      <Text style={[styles.text, styles.valueText]}>£{totalValue}</Text>
       <Icon
+        style={{marginRight: '1%'}}
         name="remove"
         size={EStyleSheet.value('30rem')}
         color="firebrick"
@@ -107,17 +108,17 @@ const DeveloperDetailsView = ({route}) => {
       <View style={styles.headerContainer}>
         <View style={styles.textContainer}>
           <View style={styles.nameContainer}>
-            <Text style={[styles.textHeader, styles.textHeader1]}>Name</Text>
+            <Text style={styles.textHeader}>Name</Text>
           </View>
         </View>
         <View style={styles.textContainer}>
           <View style={styles.nameContainer}>
-            <Text style={[styles.textHeader, styles.textHeader1]}>Amount</Text>
+            <Text style={styles.textHeader}>Amount</Text>
           </View>
         </View>
-        <View style={[styles.textContainer, styles.alignCenter]}>
+        <View style={[styles.textContainer, styles.valueContainer]}>
           <View style={styles.nameContainer}>
-            <Text style={[styles.textHeader, styles.textHeader1]}>Value</Text>
+            <Text style={styles.textHeader}>Value</Text>
           </View>
         </View>
       </View>
@@ -167,7 +168,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'flex-end',
   },
-  alignCenter: {
+  valueContainer: {
+    paddingRight: EStyleSheet.value('15rem'),
     alignItems: 'center',
   },
   nameContainer: {
@@ -175,7 +177,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderLeftWidth: 2,
     borderColor: myWhite,
-    paddingHorizontal: EStyleSheet.value('9rem'),
+    paddingHorizontal: EStyleSheet.value('5rem'),
   },
   textHeader: {
     color: myWhite,
@@ -187,9 +189,15 @@ const styles = StyleSheet.create({
     fontSize: EStyleSheet.value('16rem'),
     flex: 1,
   },
+  nameText: {
+    flex: 1.3,
+  },
   quantityText: {
     textAlign: 'center',
     marginRight: '5%',
+  },
+  valueText: {
+    textAlign: 'center',
   },
 });
 
