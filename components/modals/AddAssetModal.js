@@ -8,10 +8,8 @@ import {
   StyleSheet,
   Text,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
-import generalStyles from '../../stylesheets/generalStylesheet';
 import RenderIcons from '../RenderIcons.js';
 
 const AddAssetModal = ({menuItems, addMainItem, setModalVisible}) => {
