@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   SafeAreaView,
   FlatList,
@@ -191,5 +192,9 @@ const styles = StyleSheet.create({
     marginRight: '5%',
   },
 });
+
+DeveloperDetailsView.propTypes = {
+  route: PropTypes.object.isRequired,
+};
 
 export default DeveloperDetailsView;
