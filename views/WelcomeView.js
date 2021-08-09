@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {
   View,
   SafeAreaView,
-  Button,
   FlatList,
   Alert,
   StyleSheet,
@@ -201,20 +200,22 @@ const WelcomeView = ({navigation}) => {
         onPress={() => setOpenModal(true)}
       />
 
-      <Pressable
-        style={styles.button}
-        onPress={() => navigation.navigate('Developer View')}>
-        <Text style={[generalStyles.textStylesDark, {color: '#5a9156'}]}>
-          Go to developer menu
-        </Text>
-      </Pressable>
-      <Pressable
-        style={styles.button}
-        onPress={() => navigation.navigate('Online View')}>
-        <Text style={[generalStyles.textStylesDark, {color: '#bd444c'}]}>
-          Go to online section
-        </Text>
-      </Pressable>
+      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+        <Pressable
+          style={styles.button}
+          onPress={() => navigation.navigate('Developer View')}>
+          <Text style={[styles.textStylesDark, styles.developerButtonColour]}>
+            Go to developer menu
+          </Text>
+        </Pressable>
+        <Pressable
+          style={styles.button}
+          onPress={() => navigation.navigate('Online View')}>
+          <Text style={[styles.textStylesDark, styles.onlineButtonColour]}>
+            Go to online section
+          </Text>
+        </Pressable>
+      </View>
 
       {isDeleteOrCancel && (
         <DeleteOrCancel
@@ -236,12 +237,24 @@ const styles = StyleSheet.create({
     marginVertical: EStyleSheet.value('20rem'),
     padding: EStyleSheet.value('10rem'),
     alignSelf: 'center',
-    width: '70%',
+    width: '48%',
     backgroundColor: myWhite + 10,
   },
+  textStylesDark: {
+    fontSize: EStyleSheet.value('16rem'),
+    textAlign: 'center',
+  },
+  developerButtonColour: {
+    color: '#5a9156',
+  },
+  onlineButtonColour: {
+    color: '#bd444c',
+  },
   modalToggle: {
-    paddingRight: EStyleSheet.value('25rem'),
     alignSelf: 'flex-end',
+    position: 'absolute',
+    bottom: '12%',
+    right: '5%',
   },
 });
 

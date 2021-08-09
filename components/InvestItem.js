@@ -6,7 +6,7 @@ import CurrencyInput from 'react-native-currency-input';
 import uuid from 'react-native-uuid';
 
 import {ActionSheet} from './online_components/ActionSheet';
-import AddIconModal from '../components/modals/AddIconModal';
+import AddAssetModal from '../components/modals/AddAssetModal';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 const InvestItem = ({
@@ -368,7 +368,7 @@ const InvestItem = ({
         </ListItem.Content>
       </ListItem>
       {openAddAssetModal && (
-        <AddIconModal
+        <AddAssetModal
           menuItems={menuItems}
           setModalVisible={setOpenAddAssetModal}
           addMainItem={setAsset}

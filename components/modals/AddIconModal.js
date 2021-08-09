@@ -15,13 +15,18 @@ import RenderIcons from '../RenderIcons.js';
 
 const AddIconModal = ({menuItems, addMainItem, setModalVisible}) => {
   return (
-    <Modal visible={true} animationType="slide">
+    <Modal
+      visible={true}
+      animationType="slide"
+      onRequestClose={() => {
+        setModalVisible(false);
+      }}>
       <SafeAreaView style={styles.container}>
         <Pressable style={{flex: 1}}>
           <Icon
-            style={generalStyles.modalClose}
+            style={styles.modalClose}
             name="remove"
-            size={EStyleSheet.value(50)}
+            size={EStyleSheet.value(75)}
             color="red"
             onPress={() => setModalVisible(false)}
           />
@@ -45,7 +50,17 @@ const AddIconModal = ({menuItems, addMainItem, setModalVisible}) => {
 };
 
 const styles = StyleSheet.create({
-  container: {flex: 1, backgroundColor: myBlack},
+  container: {
+    flex: 1,
+    backgroundColor: myBlack,
+  },
+  modalClose: {
+    alignSelf: 'flex-end',
+    position: 'absolute',
+    bottom: '12%',
+    right: '5%',
+    zIndex: 1,
+  },
 });
 
 AddIconModal.propTypes = {
