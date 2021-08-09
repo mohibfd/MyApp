@@ -139,7 +139,7 @@ const WelcomeView = ({navigation}) => {
 
     //returning the new list with all the previous ones to show on our app
     setItems(prevItems => {
-      return [{name: mainItem.name, id: uuid.v4()}, ...prevItems];
+      return [...prevItems, {name: mainItem.name, id: uuid.v4()}];
     });
   };
 
