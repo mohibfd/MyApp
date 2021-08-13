@@ -128,7 +128,7 @@ const InvestView = ({navigation}) => {
 
               let newAmount = currentAmount - oldCurrentAmount;
 
-              asset.totalValue = newAmount.toFixed(2);
+              asset.totalValue = newAmount;
             });
 
             //updating our object

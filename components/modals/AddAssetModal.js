@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 2,
     borderBottomWidth: 2,
     borderColor: 'gold',
+    justifyContent: 'center',
   },
   buttonText: {
     color: myWhite,

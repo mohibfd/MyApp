@@ -23,6 +23,9 @@ LogBox.ignoreLogs([
 const DeveloperDetailsView = ({route}) => {
   const investment = route.params.investment;
 
+  //sorting by value
+  investment.assets.sort((a, b) => (a.totalValue < b.totalValue ? 1 : -1));
+
   const setInvestments = route.params.setInvestments;
 
   const refreshMainPage = route.params.refresh;
@@ -80,7 +83,9 @@ const DeveloperDetailsView = ({route}) => {
       <Text style={[styles.text, styles.quantityText]}>
         {quantity.toFixed(4)}
       </Text>
-      <Text style={[styles.text, styles.valueText]}>£{totalValue}</Text>
+      <Text style={[styles.text, styles.valueText]}>
+        £{totalValue.toFixed(2)}
+      </Text>
       <Icon
         style={{marginRight: '1%'}}
         name="remove"
