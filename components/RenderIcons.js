@@ -29,8 +29,6 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
 
   const [interestInput, setInterestInput] = useState(0);
 
-  // const [interestInterval, setInterestInterval] = useState(0);
-
   const [showDropDownPicker, setShowDropDownPicker] = useState(false);
   const [dropDownPickerValue, setDropDownPickerValue] = useState(null);
 

@@ -137,6 +137,9 @@ const InvestView = ({navigation}) => {
             });
 
             investment.currentAmount = currentAmount;
+
+            //updating our object
+            setInvestments(investments);
           });
           setRefreshing(false);
         });
