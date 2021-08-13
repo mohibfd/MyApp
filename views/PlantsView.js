@@ -42,12 +42,12 @@ const PlantsView = () => {
 
     setPlants(prevItems => {
       return [
+        ...prevItems,
         {
           name: newPlantName,
           key: uuid.v4(),
           notificationId: null,
         },
-        ...prevItems,
       ];
     });
   };
@@ -91,6 +91,7 @@ const PlantsView = () => {
                 plant={plant}
                 deletion={openDeleteOrCancel}
                 setPlants={setPlants}
+                plants={plants}
               />
             ) : null,
           )}

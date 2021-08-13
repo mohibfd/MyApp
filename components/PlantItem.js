@@ -9,7 +9,7 @@ import {ActionSheet} from './online_components/ActionSheet';
 import TimeInterval from './TimeInterval';
 import PushNotification from 'react-native-push-notification';
 
-const PlantItem = ({plant, deletion, setPlants}) => {
+const PlantItem = ({plant, deletion, plants}) => {
   const [actionSheetVisible, setActionSheetVisible] = useState(false);
 
   const [timeIntervalAction, setTimeIntervalAction] = useState(false);
@@ -47,17 +47,14 @@ const PlantItem = ({plant, deletion, setPlants}) => {
   }
 
   const createTimeInterval = notificationId => {
-    //deleting item then recreating it to make it easier to modify one of its parameters
-    setPlants(prevItems => {
-      return prevItems.filter(item => item.key != plant.key);
-    });
-
-    setPlants(prevItems => {
-      return [{name: plant.name, key: uuid.v4(), notificationId}, ...prevItems];
-    });
+    for (let i of plants) {
+      if (i.key == plant.key) {
+        i.notificationId = notificationId;
+      }
+    }
   };
 
-  const deleteTimeInterval = () => {
+  const deleteTimeInterval = closeOverlay => {
     [...Array(globalRepeatNotifications)].map((e, i) => {
       const id = plant.notificationId + i;
       PushNotification.cancelLocalNotifications({id});
@@ -66,21 +63,13 @@ const PlantItem = ({plant, deletion, setPlants}) => {
     //delete all notifications
     // PushNotification.cancelAllLocalNotifications();
 
-    //deleting item then recreating it to make it easier to modify one of its parameters
-    setPlants(prevItems => {
-      return prevItems.filter(item => item.key != plant.key);
-    });
+    for (let i of plants) {
+      if (i.key == plant.key) {
+        i.notificationId = null;
+      }
+    }
 
-    setPlants(prevItems => {
-      return [
-        {
-          name: plant.name,
-          key: uuid.v4(),
-          notificationId: null,
-        },
-        ...prevItems,
-      ];
-    });
+    closeOverlay();
   };
 
   return (
@@ -132,13 +121,12 @@ const styles = StyleSheet.create({
 
 TimeInterval.defaultProps = {
   delete: null,
-  setPlants: null,
 };
 
 TimeInterval.propTypes = {
   plant: PropTypes.object.isRequired,
   deletion: PropTypes.func,
-  setPlants: PropTypes.func,
+  plants: PropTypes.array.isRequired,
 };
 
 export default PlantItem;

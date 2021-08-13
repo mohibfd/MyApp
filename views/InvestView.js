@@ -136,24 +136,7 @@ const InvestView = ({navigation}) => {
               asset.totalValue = newAmount;
             });
 
-            //updating our object
-            setInvestments(prevItems => {
-              return prevItems.filter(item => item.key != investment.key);
-            });
-
-            setInvestments(prevItems => {
-              return [
-                ...prevItems,
-                {
-                  name: investment.name,
-                  key: investment.key,
-                  originalInvestment: investment.originalInvestment,
-                  currentAmount,
-                  assets: investment.assets,
-                  order: investment.order,
-                },
-              ];
-            });
+            investment.currentAmount = currentAmount;
           });
           setRefreshing(false);
         });
