@@ -19,6 +19,11 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 const wait = timeout => {
   return new Promise(resolve => setTimeout(resolve, timeout));
 };
+
+// const sortListByOrder = list => {
+//   return list.sort((a, b) => (a.order > b.order ? 1 : -1));
+// };
+
 const InvestView = ({navigation}) => {
   const [investmentsStorage, setInvestmentsStorage] =
     useStorage('investmentss');
@@ -168,14 +173,10 @@ const InvestView = ({navigation}) => {
     overallCurrentAmount += i.currentAmount;
   }
 
-  const sortList = list => {
-    return list.sort((a, b) => (a.order > b.order ? 1 : -1));
-  };
-
   useEffect(() => {
     isMountedRef.current = true;
     if (isMountedRef) {
-      sortList(investments);
+      // sortListByOrder(investments);
       setInvestmentsStorage(investments);
     }
     return (isMountedRef.current = false);
@@ -259,6 +260,7 @@ const InvestView = ({navigation}) => {
                 setInvestments={setInvestments}
                 refresh={() => setRefresh(uuid.v4())}
                 navigation={navigation}
+                investments={investments}
               />
             ) : null,
           )}

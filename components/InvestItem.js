@@ -12,10 +12,14 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 const InvestItem = ({
   investment,
   deletion,
-  setInvestments,
   refresh,
   navigation,
+  investments,
 }) => {
+  const [originalInvestmentState, setOriginalInvestmentState] = useState(
+    investment.originalInvestment,
+  );
+
   const [actionSheetVisible, setActionSheetVisible] = useState(false);
   const [openAddAssetModal, setOpenAddAssetModal] = useState(false);
 
@@ -33,8 +37,8 @@ const InvestItem = ({
         navigation.navigate('Invest Details View');
         navigation.navigate('Invest Details View', {
           investment,
-          setInvestments,
           refresh,
+          investments,
         });
       },
     },
@@ -155,25 +159,14 @@ const InvestItem = ({
   ];
 
   const setOriginalInvestment = amount => {
-    //deleting item then recreating it to make it easier to modify one of its parameters
+    //first one will change the value that appears instantly
+    setOriginalInvestmentState(amount);
 
-    setInvestments(prevItems => {
-      return prevItems.filter(item => item.key != investment.key);
-    });
-
-    setInvestments(prevItems => {
-      return [
-        {
-          name: investment.name,
-          key: investment.key,
-          originalInvestment: amount,
-          currentAmount: investment.currentAmount,
-          assets: investment.assets,
-          order: investment.order,
-        },
-        ...prevItems,
-      ];
-    });
+    for (let i of investments) {
+      if (i.key == investment.key) {
+        i.originalInvestment = amount;
+      }
+    }
   };
 
   const setAsset = item => {
@@ -189,24 +182,11 @@ const InvestItem = ({
 
     myAssets.push(item);
 
-    //deleting item then recreating it to make it easier to modify one of its parameters
-    setInvestments(prevItems => {
-      return prevItems.filter(item => item.key != investment.key);
-    });
-
-    setInvestments(prevItems => {
-      return [
-        {
-          name: investment.name,
-          key: investment.key,
-          originalInvestment: investment.originalInvestment,
-          currentAmount: 0,
-          assets: investment.assets,
-          order: investment.order,
-        },
-        ...prevItems,
-      ];
-    });
+    for (let i of investments) {
+      if (i.key == investment.key) {
+        i.assets = myAssets;
+      }
+    }
     refresh();
   };
 
@@ -332,7 +312,7 @@ const InvestItem = ({
               <Text style={styles.investmentText}>Original investment: </Text>
               <CurrencyInput
                 style={styles.currencyInputContainer}
-                value={investment.originalInvestment}
+                value={originalInvestmentState}
                 onChangeValue={setOriginalInvestment}
                 prefix="£"
                 delimiter=","
@@ -431,8 +411,8 @@ const styles = StyleSheet.create({
 InvestItem.propTypes = {
   investment: PropTypes.object.isRequired,
   deletion: PropTypes.func.isRequired,
-  setInvestments: PropTypes.func.isRequired,
   refresh: PropTypes.func.isRequired,
+  investments: PropTypes.array.isRequired,
 };
 
 export default InvestItem;

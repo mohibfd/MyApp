@@ -23,10 +23,10 @@ LogBox.ignoreLogs([
 const DeveloperDetailsView = ({route}) => {
   const investment = route.params.investment;
 
+  const investments = route.params.investments;
+
   //sorting by value
   investment.assets.sort((a, b) => (a.totalValue < b.totalValue ? 1 : -1));
-
-  const setInvestments = route.params.setInvestments;
 
   const refreshMainPage = route.params.refresh;
 
@@ -52,24 +52,13 @@ const DeveloperDetailsView = ({route}) => {
       asset => asset.key != assetToDelete.key,
     );
 
-    //updating our object
-    setInvestments(prevItems => {
-      return prevItems.filter(item => item.key != investment.key);
-    });
+    for (let i of investments) {
+      if (i.key == investment.key) {
+        //second one will update the state
+        i.assets = investment.assets;
+      }
+    }
 
-    setInvestments(prevItems => {
-      return [
-        ...prevItems,
-        {
-          name: investment.name,
-          key: investment.key,
-          originalInvestment: investment.originalInvestment,
-          currentAmount: investment.currentAmount,
-          assets: investment.assets,
-          order: investment.order,
-        },
-      ];
-    });
     setRefresh(!refresh);
     refreshMainPage();
   };

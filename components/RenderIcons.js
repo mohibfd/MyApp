@@ -62,8 +62,11 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
         }
 
         item.quantity = numberInput;
-        item.interest = interestInput;
-        item.interestInterval = dropDownPickerValue;
+        item.interest = {
+          percentage: interestInput,
+          interval: dropDownPickerValue,
+          startDate: Date.now(),
+        };
 
         addMainItem(item);
         toggleMainModal();
