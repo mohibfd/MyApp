@@ -60,11 +60,14 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
         }
 
         item.quantity = numberInput;
-        item.interest = {
-          percentage: interestInput,
-          interval: dropDownPickerValue,
-          startDate: Date.now(),
-        };
+        if (interestInput) {
+          item.interest = {
+            earnedInterest: 0,
+            percentage: interestInput,
+            interval: dropDownPickerValue,
+            startDate: Date.now(),
+          };
+        }
 
         addMainItem(item);
         toggleMainModal();

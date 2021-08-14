@@ -78,3 +78,5 @@ global.useStateWithPromise = useStateWithPromise;
 global.globalRepeatNotifications = repeatNotifications;
 
 global.EStyleSheet = EStyleSheet;
+
+global.globalOneDayInMilliSeconds = 86400000;

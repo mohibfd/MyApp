@@ -75,10 +75,8 @@ const TimeInterval = props => {
 
     const addNotification = () => {
       [...Array(globalRepeatNotifications)].map((e, i) => {
-        const oneDayInSeconds = 86400;
-        //86400 is one day's time
         const specificDate = new Date(
-          Date.now() + oneDayInSeconds * i * 1000 * repeatTime,
+          Date.now() + globalOneDayInMilliSeconds * i * repeatTime,
         );
 
         const newId = notificationId + i;
