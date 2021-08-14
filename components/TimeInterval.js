@@ -118,11 +118,16 @@ const TimeInterval = props => {
     closeModal();
   };
 
+  const deletion = () => {
+    closeOverlays();
+    deleteTimeInterval();
+  };
+
   if (timeIntervalAction == 'delete') {
     return (
       <DeleteOrCancel
         name={'this notification'}
-        deletion={() => deleteTimeInterval(closeOverlays)}
+        deletion={() => deletion()}
         closeOverlay={() => closeOverlays()}
       />
     );

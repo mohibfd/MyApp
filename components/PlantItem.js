@@ -8,8 +8,9 @@ import {StyleSheet} from 'react-native';
 import {ActionSheet} from './online_components/ActionSheet';
 import TimeInterval from './TimeInterval';
 import PushNotification from 'react-native-push-notification';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
-const PlantItem = ({plant, deletion, plants}) => {
+const PlantItem = ({plant, deletion, plants, setPlantsStorage}) => {
   const [actionSheetVisible, setActionSheetVisible] = useState(false);
 
   const [timeIntervalAction, setTimeIntervalAction] = useState(false);
@@ -52,9 +53,10 @@ const PlantItem = ({plant, deletion, plants}) => {
         i.notificationId = notificationId;
       }
     }
+    setPlantsStorage(plants);
   };
 
-  const deleteTimeInterval = closeOverlay => {
+  const deleteTimeInterval = () => {
     [...Array(globalRepeatNotifications)].map((e, i) => {
       const id = plant.notificationId + i;
       PushNotification.cancelLocalNotifications({id});
@@ -69,7 +71,7 @@ const PlantItem = ({plant, deletion, plants}) => {
       }
     }
 
-    closeOverlay();
+    setPlantsStorage(plants);
   };
 
   return (
@@ -121,12 +123,15 @@ const styles = StyleSheet.create({
 
 TimeInterval.defaultProps = {
   delete: null,
+  plants: null,
+  setPlantsStorage: null,
 };
 
 TimeInterval.propTypes = {
   plant: PropTypes.object.isRequired,
   deletion: PropTypes.func,
-  plants: PropTypes.array.isRequired,
+  plants: PropTypes.array,
+  setPlantsStorage: PropTypes.func,
 };
 
 export default PlantItem;

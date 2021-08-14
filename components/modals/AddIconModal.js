@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: myBlack,
+    paddingTop: '5%',
   },
   modalClose: {
     alignSelf: 'flex-end',
