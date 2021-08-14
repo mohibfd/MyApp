@@ -179,18 +179,21 @@ const InvestItem = ({
       if (investmentAssets[i].name === item.name) {
         duplicateFound = true;
         const index = i;
-        console.log('index???/', index);
         Alert.alert(
           'Caution',
-          `You already own ${item.name}, are you sure you would want to override it?`,
+          `You already own ${item.name}, Would you like to add this amount on top of the pre existing amount or would you like to overwrite it?`,
           [
             {
               text: 'Cancel',
               style: 'cancel',
             },
             {
-              text: 'Continue',
+              text: 'OverWrite',
               onPress: () => continueSettingAsset(item, index),
+            },
+            {
+              text: 'Add',
+              onPress: () => continueSettingAsset(item, index, true),
             },
           ],
         );
@@ -200,19 +203,30 @@ const InvestItem = ({
       continueSettingAsset(item);
     }
   };
-  const continueSettingAsset = (item, index) => {
+  const continueSettingAsset = (item, index, add) => {
     let myAssets = investment.assets;
 
-    if (index != undefined) {
-      myAssets.splice(index, 1);
-    }
+    const setNewAsset = () => {
+      myAssets.push(item);
 
-    myAssets.push(item);
-
-    for (let i of investments) {
-      if (i.key == investment.key) {
-        i.assets = myAssets;
+      for (let i of investments) {
+        if (i.key == investment.key) {
+          i.assets = myAssets;
+        }
       }
+    };
+
+    if (add) {
+      if (myAssets[index].interest || item.interest) {
+        setNewAsset();
+      } else {
+        myAssets[index].quantity += item.quantity;
+      }
+    } else {
+      if (index != undefined) {
+        myAssets.splice(index, 1);
+      }
+      setNewAsset();
     }
     refresh();
   };
