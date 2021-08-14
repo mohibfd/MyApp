@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Dimensions} from 'react-native';
 import {
   TouchableHighlight,
@@ -10,6 +10,7 @@ import {
   Pressable,
   Image,
   Alert,
+  Keyboard,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -23,6 +24,21 @@ const defaultSize = EStyleSheet.value('80rem');
 const imageSize = Dimensions.get('window').width * 0.28;
 
 const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
+  useEffect(() => {
+    Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
+    Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
+
+    // cleanup function
+    return () => {
+      Keyboard.removeListener('keyboardDidShow', _keyboardDidShow);
+      Keyboard.removeListener('keyboardDidHide', _keyboardDidHide);
+    };
+  }, []);
+
+  const [keyboardStatus, setKeyboardStatus] = useState(undefined);
+  const _keyboardDidShow = () => setKeyboardStatus('Keyboard Shown');
+  const _keyboardDidHide = () => setKeyboardStatus('Keyboard Hidden');
+
   const [modalVisible, setModalVisible] = useState(false);
 
   const [numberInput, setNumberInput] = useState(0);
@@ -75,6 +91,22 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
     }
   };
 
+  const bottomSize = () => {
+    if (keyboardStatus == 'Keyboard Shown') {
+      if (interestInput) {
+        return '0%';
+      } else {
+        return '10%';
+      }
+    } else {
+      if (interestInput) {
+        return '0%';
+      } else {
+        return '40%';
+      }
+    }
+  };
+
   return (
     <View style={styles.container}>
       {item.icon ? (
@@ -106,26 +138,32 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
           onRequestClose={() => {
             setModalVisible(false);
           }}>
-          <View style={generalStyles.centeredView}>
+          <View
+            style={[
+              generalStyles.centeredView,
+              {
+                flex: 1,
+                position: interestInput ? 'relative' : 'absolute',
+                bottom: bottomSize(),
+              },
+            ]}>
             {item.imageSource && (
               <View>
                 <View style={styles.currencyInputOutsideContainer}>
-                  <Text style={styles.textContainer}>
-                    How much of {item.name} do you hold:
-                  </Text>
+                  <Text style={styles.textContainer}>{item.name} amount: </Text>
                   <CurrencyInput
                     style={styles.currencyInputContainer}
                     value={numberInput}
                     onChangeValue={setNumberInput}
                     delimiter=","
                     separator="."
-                    maxLength={12}
+                    maxLength={15}
                     precision={8}
                   />
                 </View>
                 <View style={styles.currencyInputOutsideContainer}>
                   <Text style={styles.textContainer}>
-                    How much interest do you have:
+                    Interest Percentage (APY):{' '}
                   </Text>
                   <CurrencyInput
                     style={styles.currencyInputContainer}
@@ -138,7 +176,7 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
                     precision={2}
                   />
                 </View>
-                {interestInput != 0 && (
+                {interestInput != undefined && interestInput != 0 && (
                   <View
                     style={[
                       styles.currencyInputOutsideContainer,
@@ -243,16 +281,16 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     color: myWhite,
-    textAlign: 'center',
-    fontSize: EStyleSheet.value('14rem'),
+    fontSize: EStyleSheet.value('16rem'),
     marginLeft: EStyleSheet.value('10rem'),
     padding: '2%',
   },
   currencyInputContainer: {
     color: myWhite,
     flex: 1,
-    fontSize: EStyleSheet.value('16rem'),
-    textAlign: 'center',
+    fontSize: EStyleSheet.value('17rem'),
+    textAlign: 'right',
+    marginRight: '5%',
   },
   dropDownOutsideContainer: {
     flexDirection: 'column',

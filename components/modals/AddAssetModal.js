@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   StyleSheet,
   Text,
+  KeyboardAvoidingView,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
@@ -21,23 +22,25 @@ const AddAssetModal = ({menuItems, addMainItem, setModalVisible}) => {
         setModalVisible(false);
       }}>
       <SafeAreaView style={styles.container}>
-        <FlatList
-          data={menuItems}
-          renderItem={({item}) => (
-            <RenderIcons
-              item={item}
-              toggleMainModal={() => setModalVisible(false)}
-              addMainItem={addMainItem}
-            />
-          )}
-          removeClippedSubviews={false}
-          numColumns={3}
-        />
-        <Pressable
-          style={styles.buttonContainer}
-          onPress={() => setModalVisible(false)}>
-          <Text style={styles.buttonText}>Go Back</Text>
-        </Pressable>
+        <KeyboardAvoidingView behavior={'height'}>
+          <FlatList
+            data={menuItems}
+            renderItem={({item}) => (
+              <RenderIcons
+                item={item}
+                toggleMainModal={() => setModalVisible(false)}
+                addMainItem={addMainItem}
+              />
+            )}
+            removeClippedSubviews={false}
+            numColumns={3}
+          />
+          <Pressable
+            style={styles.buttonContainer}
+            onPress={() => setModalVisible(false)}>
+            <Text style={styles.buttonText}>Go Back</Text>
+          </Pressable>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </Modal>
   );
