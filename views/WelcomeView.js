@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
     backgroundColor: myWhite + 10,
   },
   textStylesDark: {
-    fontSize: EStyleSheet.value('16rem'),
+    fontSize: EStyleSheet.value('14rem'),
     textAlign: 'center',
   },
   developerButtonColour: {

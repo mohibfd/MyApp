@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
-import {Pressable, View, Text, StyleSheet} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {Pressable, View, Text, StyleSheet, Keyboard} from 'react-native';
 import {Overlay, Input} from 'react-native-elements';
 import generalStyles from '../stylesheets/generalStylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -9,11 +9,33 @@ const AddItemHeader = ({createItem}) => {
   const [overlayVisible, setOverlayVisible] = useState(false);
   const [newItemName, setNewItemName] = useState('');
 
+  useEffect(() => {
+    Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
+    Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
+
+    // cleanup function
+    return () => {
+      Keyboard.removeListener('keyboardDidShow', _keyboardDidShow);
+      Keyboard.removeListener('keyboardDidHide', _keyboardDidHide);
+    };
+  }, []);
+
+  const [keyboardStatus, setKeyboardStatus] = useState(undefined);
+  const _keyboardDidShow = () => setKeyboardStatus('Keyboard Shown');
+  const _keyboardDidHide = () => setKeyboardStatus('Keyboard Hidden');
+
   return (
     <>
       <Overlay
         isVisible={overlayVisible}
-        overlayStyle={generalStyles.borderContainer}
+        overlayStyle={[
+          generalStyles.borderContainer,
+          {
+            flex: 1,
+            position: 'absolute',
+            bottom: keyboardStatus == 'Keyboard Shown' ? '10%' : null,
+          },
+        ]}
         onBackdropPress={() => setOverlayVisible(false)}>
         <>
           <Input

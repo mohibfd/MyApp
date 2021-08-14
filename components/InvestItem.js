@@ -350,7 +350,7 @@ const InvestItem = ({
           </View>
           <View style={styles.textAndCurrencyContainer}>
             <View style={styles.investmentTextContainer}>
-              <Text style={styles.investmentText}>Original investment: </Text>
+              <Text style={styles.investmentText}>Initial investment: </Text>
               <CurrencyInput
                 style={styles.currencyInputContainer}
                 value={originalInvestmentState}
