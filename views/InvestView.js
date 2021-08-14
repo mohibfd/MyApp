@@ -139,7 +139,7 @@ const InvestView = ({navigation}) => {
             investment.currentAmount = currentAmount;
 
             //updating our object
-            setInvestments(investments);
+            setInvestmentsStorage(investments);
           });
           setRefreshing(false);
         });
@@ -162,7 +162,6 @@ const InvestView = ({navigation}) => {
   useEffect(() => {
     isMountedRef.current = true;
     if (isMountedRef) {
-      // sortListByOrder(investments);
       setInvestmentsStorage(investments);
     }
     return (isMountedRef.current = false);
@@ -243,10 +242,10 @@ const InvestView = ({navigation}) => {
                 key={investment.key}
                 investment={investment}
                 deletion={openDeleteOrCancel}
-                setInvestments={setInvestments}
                 refresh={() => setRefresh(uuid.v4())}
                 navigation={navigation}
                 investments={investments}
+                setInvestmentsStorage={setInvestmentsStorage}
               />
             ) : null,
           )}

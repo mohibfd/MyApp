@@ -15,6 +15,7 @@ const InvestItem = ({
   refresh,
   navigation,
   investments,
+  setInvestmentsStorage,
 }) => {
   const [originalInvestmentState, setOriginalInvestmentState] = useState(
     investment.originalInvestment,
@@ -167,6 +168,7 @@ const InvestItem = ({
         i.originalInvestment = amount;
       }
     }
+    setInvestmentsStorage(investments);
   };
 
   const setAsset = item => {
@@ -413,6 +415,7 @@ InvestItem.propTypes = {
   deletion: PropTypes.func.isRequired,
   refresh: PropTypes.func.isRequired,
   investments: PropTypes.array.isRequired,
+  setInvestmentsStorage: PropTypes.func.isRequired,
 };
 
 export default InvestItem;
