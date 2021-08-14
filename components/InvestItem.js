@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
+import {View, Text, StyleSheet, Image, Alert} from 'react-native';
 import {ListItem} from 'react-native-elements';
-import {View, Text, StyleSheet, Image} from 'react-native';
 import CurrencyInput from 'react-native-currency-input';
 import uuid from 'react-native-uuid';
 
@@ -172,14 +172,39 @@ const InvestItem = ({
   };
 
   const setAsset = item => {
+    let investmentAssets = investment.assets;
+
+    let duplicateFound = false;
+    for (var i = 0; i < investmentAssets.length; i++) {
+      if (investmentAssets[i].name === item.name) {
+        duplicateFound = true;
+        const index = i;
+        console.log('index???/', index);
+        Alert.alert(
+          'Caution',
+          `You already own ${item.name}, are you sure you would want to override it?`,
+          [
+            {
+              text: 'Cancel',
+              style: 'cancel',
+            },
+            {
+              text: 'Continue',
+              onPress: () => continueSettingAsset(item, index),
+            },
+          ],
+        );
+      }
+    }
+    if (!duplicateFound) {
+      continueSettingAsset(item);
+    }
+  };
+  const continueSettingAsset = (item, index) => {
     let myAssets = investment.assets;
 
-    //if we have 2 identical assets we will
-    //overtake the old one with the new one
-    for (var i = 0; i < myAssets.length; i++) {
-      if (myAssets[i].name === item.name) {
-        myAssets.splice(i, 1);
-      }
+    if (index != undefined) {
+      myAssets.splice(index, 1);
     }
 
     myAssets.push(item);
