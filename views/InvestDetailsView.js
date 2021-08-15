@@ -158,7 +158,7 @@ const DeveloperDetailsView = ({route}) => {
             style={{marginRight: '1%'}}
             name="remove"
             size={EStyleSheet.value('30rem')}
-            color="firebrick"
+            color="#800000"
             onPress={() => openDeleteOrCancel(asset, false)}
           />
         </View>
@@ -172,17 +172,19 @@ const DeveloperDetailsView = ({route}) => {
                 borderTopWidth: EStyleSheet.hairlineWidth,
               },
             ]}>
-            <Text style={styles.text}>Interest: </Text>
-            <Text style={[styles.text, styles.nameText]}>
+            <Text style={styles.interestText}>Interest: </Text>
+            <Text style={[styles.interestText, styles.nameText]}>
+              {interval}
+            </Text>
+            <Text style={[styles.text, styles.quantityText]}>
               {earnedInterest.toFixed(2)}
             </Text>
-            <Text style={[styles.text, styles.quantityText]}>{interval}</Text>
             <Text style={[styles.text, styles.valueText]}>%{percentage}</Text>
             <Icon
               style={{marginRight: '1%'}}
               name="remove"
               size={EStyleSheet.value('25rem')}
-              color="firebrick"
+              color="#800000"
               onPress={() => openDeleteOrCancel(asset, true)}
             />
           </View>
@@ -277,8 +279,16 @@ const styles = StyleSheet.create({
     fontSize: EStyleSheet.value('16rem'),
     flex: 1,
   },
+  interestText: {
+    color: myWhite,
+    marginLeft: EStyleSheet.value('5rem'),
+    fontSize: EStyleSheet.value('15rem'),
+  },
   nameText: {
     flex: 1.3,
+  },
+  intervalText: {
+    marginLeft: EStyleSheet.value('0rem'),
   },
   quantityText: {
     textAlign: 'center',
