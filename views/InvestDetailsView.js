@@ -21,12 +21,12 @@ LogBox.ignoreLogs([
 ]);
 
 const DeveloperDetailsView = ({route}) => {
-  const investment = route.params.investment;
+  const {investment, investments} = route.params;
 
-  const investments = route.params.investments;
+  const {assets} = investment;
 
   //sorting by value
-  investment.assets.sort((a, b) => (a.totalValue < b.totalValue ? 1 : -1));
+  assets.sort((a, b) => (a.totalValue < b.totalValue ? 1 : -1));
 
   const refreshMainPage = route.params.refresh;
 
@@ -36,64 +36,160 @@ const DeveloperDetailsView = ({route}) => {
 
   const [assetToDelete, setAssetToDelete] = useState();
 
+  const [isDeletingInterest, setIsDeletingInterest] = useState(false);
+
   const toggleDeleteOrCancel = () => {
     setIsDeleteOrCancelOpen(!isDeleteOrCancelOpen);
   };
 
-  const openDeleteOrCancel = asset => {
+  const openDeleteOrCancel = (asset, isInterest) => {
     toggleDeleteOrCancel();
+    if (isInterest) {
+      setIsDeletingInterest(true);
+    } else {
+      setIsDeletingInterest(false);
+    }
     setAssetToDelete(asset);
   };
 
   const deleteAsset = () => {
     toggleDeleteOrCancel();
 
-    investment.assets = investment.assets.filter(
+    const filteredAssets = assets.filter(
       asset => asset.key != assetToDelete.key,
     );
 
-    for (let i of investments) {
+    investments.forEach(i => {
       if (i.key == investment.key) {
-        //second one will update the state
-        i.assets = investment.assets;
+        if (isDeletingInterest) {
+          let asset = assets.filter(asset => asset.key == assetToDelete.key)[0];
+          i.assets.forEach(j => {
+            if (j.key == asset.key) {
+              delete j.interest;
+            }
+          });
+        } else {
+          i.assets = filteredAssets;
+        }
       }
-    }
+    });
 
     setRefresh(!refresh);
     refreshMainPage();
   };
 
-  const Asset = ({name, photo, quantity, totalValue, asset}) => (
-    <View style={styles.listContainer}>
-      <View style={styles.imageContainer}>
-        <Image style={styles.image} source={photo} />
-      </View>
-      <Text style={[styles.text, styles.nameText]}>{name}</Text>
-      <Text style={[styles.text, styles.quantityText]}>
-        {quantity.toFixed(4)}
-      </Text>
-      <Text style={[styles.text, styles.valueText]}>
-        £{totalValue.toFixed(2)}
-      </Text>
-      <Icon
-        style={{marginRight: '1%'}}
-        name="remove"
-        size={EStyleSheet.value('30rem')}
-        color="firebrick"
-        onPress={() => openDeleteOrCancel(asset)}
-      />
-    </View>
-  );
+  const renderItem = ({item, index}) => {
+    const asset = item;
+    let firstTopBorder = false;
+    let lastBottomBorder = false;
+    if (index == 0) {
+      firstTopBorder = true;
+    }
 
-  const renderItem = ({item}) => (
-    <Asset
-      name={item.name}
-      photo={item.imageSource}
-      quantity={item.quantity}
-      totalValue={item.totalValue}
-      asset={item}
-    />
-  );
+    if (index == assets.length - 1) {
+      lastBottomBorder = true;
+    }
+
+    const {name, imageSource, quantity, totalValue, interest} = asset;
+    let earnedInterest, interval, percentage;
+    if (interest) {
+      earnedInterest = interest.earnedInterest;
+      interval = interest.interval;
+      percentage = interest.percentage;
+    }
+
+    const bordercolour = () => {
+      if (lastBottomBorder) {
+        return myWhite;
+      } else {
+        return 'gold';
+      }
+    };
+
+    const topBorder = () => {
+      if (firstTopBorder) {
+        return myWhite;
+      } else {
+        return 'gold';
+      }
+    };
+
+    const bottomBorder = () => {
+      if (interest) {
+        return 0;
+      } else {
+        if (lastBottomBorder) {
+          return 2;
+        } else {
+          return 1;
+        }
+      }
+    };
+    const interestBottomBorder = () => {
+      if (lastBottomBorder) {
+        return 2;
+      } else {
+        return 1;
+      }
+    };
+
+    return (
+      <>
+        <View
+          style={[
+            styles.listContainer,
+            {
+              borderBottomWidth: bottomBorder(),
+              borderBottomColor: bordercolour(),
+              borderTopColor: topBorder(),
+            },
+          ]}>
+          <View style={styles.imageContainer}>
+            <Image style={styles.image} source={imageSource} />
+          </View>
+          <Text style={[styles.text, styles.nameText]}>{name}</Text>
+          <Text style={[styles.text, styles.quantityText]}>
+            {quantity.toFixed(4)}
+          </Text>
+          <Text style={[styles.text, styles.valueText]}>
+            £{totalValue.toFixed(2)}
+          </Text>
+          <Icon
+            style={{marginRight: '1%'}}
+            name="remove"
+            size={EStyleSheet.value('30rem')}
+            color="firebrick"
+            onPress={() => openDeleteOrCancel(asset, false)}
+          />
+        </View>
+        {interest != undefined && (
+          <View
+            style={[
+              styles.listContainer,
+              {
+                borderBottomWidth: interestBottomBorder(),
+                borderBottomColor: bordercolour(),
+                borderTopWidth: EStyleSheet.hairlineWidth,
+              },
+            ]}>
+            <Text style={styles.text}>Interest: </Text>
+            <Text style={[styles.text, styles.nameText]}>
+              {earnedInterest.toFixed(2)}
+            </Text>
+            <Text style={[styles.text, styles.quantityText]}>{interval}</Text>
+            <Text style={[styles.text, styles.valueText]}>%{percentage}</Text>
+            <Icon
+              style={{marginRight: '1%'}}
+              name="remove"
+              size={EStyleSheet.value('25rem')}
+              color="firebrick"
+              onPress={() => openDeleteOrCancel(asset, true)}
+            />
+          </View>
+        )}
+      </>
+    );
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -117,14 +213,11 @@ const DeveloperDetailsView = ({route}) => {
         </View>
       </View>
 
-      <FlatList
-        data={investment.assets}
-        renderItem={renderItem}
-        numColumns={1}
-      />
+      <FlatList data={assets} renderItem={renderItem} numColumns={1} />
       {isDeleteOrCancelOpen && (
         <DeleteOrCancel
           name={assetToDelete.name}
+          extraName={isDeletingInterest ? `'s interest` : ''}
           deletion={deleteAsset}
           closeOverlay={toggleDeleteOrCancel}
         />
@@ -139,7 +232,8 @@ const styles = StyleSheet.create({
     backgroundColor: myBlack,
   },
   listContainer: {
-    borderWidth: 1,
+    borderWidth: 2,
+    borderBottomColor: 'gold',
     borderColor: myWhite,
     flexDirection: 'row',
     alignItems: 'center',

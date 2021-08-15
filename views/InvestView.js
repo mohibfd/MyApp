@@ -176,7 +176,7 @@ const InvestView = ({navigation}) => {
           }
 
           //this is for testing different dates//
-          // let dateNow = Date.now() + globalOneDayInMilliSeconds * 500;
+          // let dateNow = Date.now() + globalOneDayInMilliSeconds * 100;
 
           let dateNow = Date.now();
 

@@ -5,7 +5,7 @@ import {Overlay} from 'react-native-elements';
 
 import generalStyles from '../stylesheets/generalStylesheet';
 
-const DeleteOrCancel = ({name, deletion, closeOverlay}) => {
+const DeleteOrCancel = ({name, extraName, deletion, closeOverlay}) => {
   return (
     <Overlay
       isVisible={true}
@@ -14,7 +14,8 @@ const DeleteOrCancel = ({name, deletion, closeOverlay}) => {
       {deletion && (
         <>
           <Text style={styles.deleteOverlayText}>
-            Are you sure you want to delete {name} ?
+            Are you sure you want to delete {name}
+            {extraName} ?
           </Text>
           <View style={styles.buttonsContainer}>
             <Pressable
@@ -48,8 +49,13 @@ const styles = StyleSheet.create({
   buttonsContainer: {flexDirection: 'row', justifyContent: 'space-evenly'},
 });
 
+DeleteOrCancel.defaultProps = {
+  extraName: '',
+};
+
 DeleteOrCancel.propTypes = {
   name: PropTypes.string.isRequired,
+  extraName: PropTypes.string,
   deletion: PropTypes.func.isRequired,
   closeOverlay: PropTypes.func.isRequired,
 };
