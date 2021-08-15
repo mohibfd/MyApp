@@ -32,6 +32,12 @@ const InvestView = ({navigation}) => {
     investmentsStorage ? investmentsStorage : [],
   );
 
+  const [overallOriginalInvestment, setOverallOriginalInvestment] = useState(0);
+
+  const [overallCurrentAmount, setOverallCurrentAmount] = useState(0);
+
+  const [overallInvestmentChanged, setOverallInvestmentChanged] = useState();
+
   const [isDeleteOrCancel, setIsDeleteOrCancel] = useState(false);
 
   const [deleteInvestment, setDeleteInvestment] = useState(null);
@@ -42,6 +48,10 @@ const InvestView = ({navigation}) => {
   const [refresh, setRefresh] = useState('');
 
   const isMountedRef = useRef(null);
+
+  const toggleOverallInvestmentChanged = () => {
+    setOverallInvestmentChanged(!overallInvestmentChanged);
+  };
 
   const onRefresh = useCallback(() => {
     //giving it a random id so it always calls on a new state
@@ -235,13 +245,24 @@ const InvestView = ({navigation}) => {
     return (isMountedRef.current = false);
   }, []);
 
-  let overallOriginalInvestment = 0;
-  let overallCurrentAmount = 0;
+  useEffect(() => {
+    isMountedRef.current = true;
+    if (isMountedRef.current) {
+      let overallOriginalInvestmentTemp = overallOriginalInvestment;
+      let overallCurrentAmountTemp = overallCurrentAmount;
+      for (let i of investments) {
+        overallOriginalInvestmentTemp += i.originalInvestment;
+        overallCurrentAmountTemp += i.currentAmount;
+      }
 
-  for (let i of investments) {
-    overallOriginalInvestment += i.originalInvestment;
-    overallCurrentAmount += i.currentAmount;
-  }
+      setOverallOriginalInvestment(overallOriginalInvestmentTemp);
+      setOverallCurrentAmount(overallCurrentAmountTemp);
+    }
+
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, [overallInvestmentChanged]);
 
   const toggleDeleteOrCancel = () => {
     setIsDeleteOrCancel(!isDeleteOrCancel);
@@ -322,6 +343,7 @@ const InvestView = ({navigation}) => {
                 navigation={navigation}
                 investments={investments}
                 setInvestmentsStorage={setInvestmentsStorage}
+                toggleOverallInvestmentChanged={toggleOverallInvestmentChanged}
               />
             ) : null,
           )}
