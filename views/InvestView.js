@@ -70,8 +70,12 @@ const InvestView = ({navigation}) => {
             return;
           }
           investments.map(investment => {
+            // console.log(investment);
+
             let currentAmount = 0;
             investment.assets.map(asset => {
+              // console.log(asset);
+
               let oldCurrentAmount = currentAmount;
 
               switch (asset.name) {
@@ -152,80 +156,83 @@ const InvestView = ({navigation}) => {
 
   //this will calculate interest on any asset
   useEffect(() => {
-    investments.forEach(investment => {
-      investment.assets.forEach(asset => {
-        if (asset.interest) {
-          const interest = asset.interest;
-          const {earnedInterest, interval, percentage, startDate} = interest;
-          const {name} = asset;
-          let intervalInNumbers;
+    if (isMountedRef) {
+      investments.forEach(investment => {
+        investment.assets.forEach(asset => {
+          if (asset.interest) {
+            const interest = asset.interest;
+            const {earnedInterest, interval, percentage, startDate} = interest;
+            const {name} = asset;
+            let intervalInNumbers;
 
-          switch (interval) {
-            case 'daily':
-              intervalInNumbers = 1;
-              break;
-            case 'weekly':
-              intervalInNumbers = 7;
-              break;
-            case 'monthly':
-              intervalInNumbers = 30.44;
-              break;
-            case 'yearly':
-              intervalInNumbers = 365.25;
-              break;
+            switch (interval) {
+              case 'daily':
+                intervalInNumbers = 1;
+                break;
+              case 'weekly':
+                intervalInNumbers = 7;
+                break;
+              case 'monthly':
+                intervalInNumbers = 30.44;
+                break;
+              case 'yearly':
+                intervalInNumbers = 365.25;
+                break;
+            }
+
+            //this is for testing different dates//
+            // let dateNow = Date.now() + globalOneDayInMilliSeconds * 100;
+
+            let dateNow = Date.now();
+
+            let timePassed = dateNow - startDate;
+
+            const timeUntilInterest =
+              intervalInNumbers * globalOneDayInMilliSeconds;
+
+            let showPopup = false;
+            while (timePassed >= timeUntilInterest) {
+              interest.startDate += timeUntilInterest;
+
+              const percentageValue = percentage / 100;
+
+              const division = 365 / intervalInNumbers;
+
+              const earnedInterestInPrice =
+                (asset.totalValue * percentageValue) / division;
+
+              const pricePerOneAsset = asset.totalValue / asset.quantity;
+
+              const earnedInterestInAsset =
+                earnedInterestInPrice / pricePerOneAsset;
+
+              asset.quantity = asset.quantity + earnedInterestInAsset;
+
+              asset.totalValue += earnedInterestInPrice;
+
+              interest.earnedInterest += earnedInterestInPrice;
+
+              timePassed = dateNow - interest.startDate;
+
+              showPopup = true;
+            }
+            const newEarnedInterest = interest.earnedInterest - earnedInterest;
+            if (showPopup) {
+              Alert.alert(
+                'Congratulations!!',
+                `You have earned £${newEarnedInterest.toFixed(
+                  2,
+                )} worth of ${name} from ${
+                  investment.name
+                } through your ${interval} interest`,
+                [{text: 'OK'}],
+              );
+            }
           }
-
-          //this is for testing different dates//
-          // let dateNow = Date.now() + globalOneDayInMilliSeconds * 100;
-
-          let dateNow = Date.now();
-
-          let timePassed = dateNow - startDate;
-
-          const timeUntilInterest =
-            intervalInNumbers * globalOneDayInMilliSeconds;
-
-          let showPopup = false;
-          while (timePassed >= timeUntilInterest) {
-            interest.startDate += timeUntilInterest;
-
-            const percentageValue = percentage / 100;
-
-            const division = 365 / intervalInNumbers;
-
-            const earnedInterestInPrice =
-              (asset.totalValue * percentageValue) / division;
-
-            const pricePerOneAsset = asset.totalValue / asset.quantity;
-
-            const earnedInterestInAsset =
-              earnedInterestInPrice / pricePerOneAsset;
-
-            asset.quantity = asset.quantity + earnedInterestInAsset;
-
-            asset.totalValue += earnedInterestInPrice;
-
-            interest.earnedInterest += earnedInterestInPrice;
-
-            timePassed = dateNow - interest.startDate;
-
-            showPopup = true;
-          }
-          const newEarnedInterest = interest.earnedInterest - earnedInterest;
-          if (showPopup) {
-            Alert.alert(
-              'Congratulations!!',
-              `You have earned £${newEarnedInterest.toFixed(
-                2,
-              )} worth of ${name} from ${
-                investment.name
-              } through your ${interval} interest`,
-              [{text: 'OK'}],
-            );
-          }
-        }
+        });
       });
-    });
+    }
+    return (isMountedRef.current = false);
   }, []);
 
   let overallOriginalInvestment = 0;
