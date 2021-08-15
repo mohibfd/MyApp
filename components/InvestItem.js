@@ -301,7 +301,7 @@ const InvestItem = ({
   });
 
   return (
-    <View>
+    <>
       <ActionSheet
         visible={actionSheetVisible}
         closeOverlay={() => {
@@ -370,9 +370,7 @@ const InvestItem = ({
               </Text>
             </View>
             <View style={styles.investmentTextContainer}>
-              <Text style={[styles.investmentText, {flex: 3.1}]}>
-                Gain/loss:
-              </Text>
+              <Text style={[styles.investmentText]}>Gain/Loss:</Text>
               <Text
                 style={[
                   styles.currencyInputContainer,
@@ -381,7 +379,7 @@ const InvestItem = ({
                   },
                 ]}>
                 £{calculateGainOrLoss().toFixed(2)}
-                {'   '}
+                {'  '}
                 {calculatePercentage().toFixed(2)}%
               </Text>
             </View>
@@ -395,7 +393,7 @@ const InvestItem = ({
           addMainItem={setAsset}
         />
       )}
-    </View>
+    </>
   );
 };
 
@@ -422,16 +420,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   investmentText: {
-    flex: 7,
-    fontSize: EStyleSheet.value('15rem'),
+    marginLeft: '10%',
+    fontSize: EStyleSheet.value('14rem'),
     alignSelf: 'center',
-    textAlign: 'right',
     color: myWhite,
   },
   currencyInputContainer: {
     color: myWhite,
     flex: 4,
-    fontSize: EStyleSheet.value('15rem'),
+    fontSize: EStyleSheet.value('14rem'),
     textAlign: 'center',
     alignSelf: 'center',
   },
@@ -443,7 +440,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   image: {
-    width: '33.5%',
+    width: '33%',
     height: '88%',
     marginVertical: EStyleSheet.value('5rem'),
   },

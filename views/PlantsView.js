@@ -5,6 +5,7 @@ import {
   Text,
   StyleSheet,
   ImageBackground,
+  ScrollView,
 } from 'react-native';
 import uuid from 'react-native-uuid';
 import PushNotification from 'react-native-push-notification';
@@ -84,18 +85,20 @@ const PlantsView = () => {
         <Text style={styles.warning}>
           Each plant's notifications will trigger 70 times before stopping
         </Text>
-        {plants &&
-          plants.map(plant =>
-            plant ? (
-              <PlantItem
-                key={plant.key}
-                plant={plant}
-                deletion={openDeleteOrCancel}
-                plants={plants}
-                setPlantsStorage={setPlantsStorage}
-              />
-            ) : null,
-          )}
+        <ScrollView>
+          {plants &&
+            plants.map(plant =>
+              plant ? (
+                <PlantItem
+                  key={plant.key}
+                  plant={plant}
+                  deletion={openDeleteOrCancel}
+                  plants={plants}
+                  setPlantsStorage={setPlantsStorage}
+                />
+              ) : null,
+            )}
+        </ScrollView>
 
         {isDeleteOrCancel && (
           <DeleteOrCancel
@@ -110,7 +113,7 @@ const PlantsView = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {flex: 1, backgroundColor: myBlack},
+  container: {backgroundColor: myBlack, flex: 1},
   warning: {
     fontSize: EStyleSheet.value('12rem'),
     textAlign: 'center',
