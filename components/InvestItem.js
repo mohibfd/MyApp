@@ -276,15 +276,6 @@ const InvestItem = ({
     }
   };
 
-  const containerHeight = () => {
-    let size = 80;
-    if (investment.assets.length < 5 && investment.assets.length > 0) {
-      size += 40;
-    }
-    const remValue = size + 'rem';
-    return EStyleSheet.value(remValue);
-  };
-
   const tenListHeight = () => {
     let size = 0;
 
@@ -349,10 +340,7 @@ const InvestItem = ({
         containerStyle={styles.listContainer}>
         <View style={{flexDirection: 'column', flex: 1}}>
           <ListItem.Content
-            style={[
-              styles.investmentContainer,
-              {alignItems: alignWhere(), height: containerHeight()},
-            ]}>
+            style={[styles.investmentContainer, {alignItems: alignWhere()}]}>
             <View style={styles.titleAndImageContainer}>
               <ListItem.Title style={styles.investmentTitle}>
                 {investment.name}
@@ -466,6 +454,7 @@ const InvestItem = ({
 const styles = StyleSheet.create({
   investmentContainer: {
     flexDirection: 'row',
+    height: EStyleSheet.value('80rem'),
   },
   listContainer: {
     backgroundColor: myBlack,
@@ -512,7 +501,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '29%',
-    height: '78%',
+    height: '85%',
     marginTop: EStyleSheet.value('17rem'),
   },
   imageContainer2: {

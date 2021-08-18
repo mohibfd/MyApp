@@ -176,10 +176,10 @@ const DeveloperDetailsView = ({route}) => {
             <Text style={[styles.interestText, styles.nameText]}>
               {interval}
             </Text>
+            <Text style={[styles.text, styles.valueText]}>%{percentage}</Text>
             <Text style={[styles.text, styles.quantityText]}>
               {earnedInterest.toFixed(2)}
             </Text>
-            <Text style={[styles.text, styles.valueText]}>%{percentage}</Text>
             <Icon
               style={{marginRight: '1%'}}
               name="remove"
@@ -259,7 +259,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   valueContainer: {
-    paddingRight: EStyleSheet.value('15rem'),
+    paddingRight: EStyleSheet.value('14rem'),
     alignItems: 'center',
   },
   nameContainer: {
@@ -271,24 +271,21 @@ const styles = StyleSheet.create({
   },
   textHeader: {
     color: myWhite,
-    fontSize: EStyleSheet.value('18rem'),
+    fontSize: EStyleSheet.value('15rem'),
   },
   text: {
     color: myWhite,
     marginLeft: EStyleSheet.value('7rem'),
-    fontSize: EStyleSheet.value('16rem'),
+    fontSize: EStyleSheet.value('13rem'),
     flex: 1,
   },
   interestText: {
     color: myWhite,
     marginLeft: EStyleSheet.value('5rem'),
-    fontSize: EStyleSheet.value('15rem'),
+    fontSize: EStyleSheet.value('12rem'),
   },
   nameText: {
     flex: 1.3,
-  },
-  intervalText: {
-    marginLeft: EStyleSheet.value('0rem'),
   },
   quantityText: {
     textAlign: 'center',
