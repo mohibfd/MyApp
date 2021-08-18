@@ -24,21 +24,6 @@ const defaultSize = EStyleSheet.value('80rem');
 const imageSize = Dimensions.get('window').width * 0.28;
 
 const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
-  useEffect(() => {
-    Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
-    Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
-
-    // cleanup function
-    return () => {
-      Keyboard.removeListener('keyboardDidShow', _keyboardDidShow);
-      Keyboard.removeListener('keyboardDidHide', _keyboardDidHide);
-    };
-  }, []);
-
-  const [keyboardStatus, setKeyboardStatus] = useState(undefined);
-  const _keyboardDidShow = () => setKeyboardStatus('Keyboard Shown');
-  const _keyboardDidHide = () => setKeyboardStatus('Keyboard Hidden');
-
   const [modalVisible, setModalVisible] = useState(false);
 
   const [numberInput, setNumberInput] = useState(0);
@@ -92,18 +77,10 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
   };
 
   const bottomSize = () => {
-    if (keyboardStatus == 'Keyboard Shown') {
-      if (interestInput) {
-        return '0%';
-      } else {
-        return '10%';
-      }
+    if (interestInput) {
+      return '0%';
     } else {
-      if (interestInput) {
-        return '0%';
-      } else {
-        return '40%';
-      }
+      return '40%';
     }
   };
 
