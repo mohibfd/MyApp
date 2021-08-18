@@ -289,12 +289,12 @@ const InvestItem = ({
     let size = 0;
 
     if (investment.assets.length > 4) {
-      size += 40;
+      size += 38;
     }
     for (let i = 0; i < investment.assets.length; i++) {
       let index = i - 4;
       if (index % 10 == 0 && index != 0) {
-        size += 40;
+        size += 38;
       }
     }
 
@@ -492,39 +492,37 @@ const styles = StyleSheet.create({
   },
   investmentText: {
     marginLeft: '10%',
-    fontSize: EStyleSheet.value('14rem'),
+    fontSize: EStyleSheet.value('13rem'),
     alignSelf: 'center',
     color: myWhite,
   },
   currencyInputContainer: {
     color: myWhite,
     flex: 4,
-    fontSize: EStyleSheet.value('14rem'),
+    fontSize: EStyleSheet.value('13rem'),
     textAlign: 'center',
     alignSelf: 'center',
   },
   imageContainer: {
-    marginLeft: EStyleSheet.value('8rem'),
+    marginLeft: EStyleSheet.value('7rem'),
     flex: 1,
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'center',
   },
   image: {
-    width: '30%',
-    height: '88%',
-    marginVertical: EStyleSheet.value('5rem'),
+    width: '29%',
+    height: '78%',
+    marginTop: EStyleSheet.value('17rem'),
   },
   imageContainer2: {
-    // marginLeft: EStyleSheet.value('8rem'),
     flex: 1,
     flexDirection: 'row',
-    // justifyContent: 'center',
   },
   image2: {
     width: '10%',
     height: '100%',
-    marginVertical: EStyleSheet.value('5rem'),
+    marginVertical: EStyleSheet.value('12rem'),
   },
 });
 

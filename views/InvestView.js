@@ -145,6 +145,7 @@ const InvestView = ({navigation}) => {
 
             //updating our object
             setInvestmentsStorage(investments);
+            toggleOverallInvestmentChanged();
           });
           setRefreshing(false);
         });
@@ -248,8 +249,8 @@ const InvestView = ({navigation}) => {
   useEffect(() => {
     isMountedRef.current = true;
     if (isMountedRef.current) {
-      let overallOriginalInvestmentTemp = overallOriginalInvestment;
-      let overallCurrentAmountTemp = overallCurrentAmount;
+      let overallOriginalInvestmentTemp = 0;
+      let overallCurrentAmountTemp = 0;
       for (let i of investments) {
         overallOriginalInvestmentTemp += i.originalInvestment;
         overallCurrentAmountTemp += i.currentAmount;
@@ -357,8 +358,8 @@ const InvestView = ({navigation}) => {
         )}
       </ScrollView>
       <View style={styles.overallGainLossContainer}>
+        <Text style={styles.fontSizeStyle}>Overall Gain/Loss</Text>
         <View style={{flexDirection: 'row'}}>
-          <Text style={styles.fontSizeStyle}>Overall Gain/Loss: </Text>
           <Text
             style={[
               styles.fontSizeStyle,
@@ -386,8 +387,9 @@ const InvestView = ({navigation}) => {
 
 const styles = StyleSheet.create({
   fontSizeStyle: {
-    fontSize: EStyleSheet.value('20rem'),
+    fontSize: EStyleSheet.value('25rem'),
     color: myWhite,
+    alignSelf: 'center',
   },
   overallGainLossContainer: {
     marginBottom: EStyleSheet.value('22rem'),
