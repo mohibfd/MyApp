@@ -278,30 +278,60 @@ const InvestItem = ({
 
   const containerHeight = () => {
     let size = 80;
-    for (let i = 0; i < investment.assets.length; i++) {
-      if (i % 4 == 0 && i != 0) {
-        size += 40;
-      }
+    if (investment.assets.length < 5 && investment.assets.length > 0) {
+      size += 40;
     }
     const remValue = size + 'rem';
     return EStyleSheet.value(remValue);
   };
 
-  //this will return photos in a nested list where every list
-  //contains 4 photos inside of it
-  let fourPhotosList = [];
-  let fourPhotos = [];
+  const tenListHeight = () => {
+    let size = 0;
 
-  investment.assets.map((photo, index) => {
-    if (index % 4 == 0 && index != 0) {
-      fourPhotosList.push(fourPhotos);
-      fourPhotos = [];
+    if (investment.assets.length > 4) {
+      size += 40;
     }
-    if (investment.assets.length == index + 1) {
-      fourPhotosList.push(fourPhotos);
+    for (let i = 0; i < investment.assets.length; i++) {
+      let index = i - 4;
+      if (index % 10 == 0 && index != 0) {
+        size += 40;
+      }
     }
-    fourPhotos.push(photo.imageSource);
-  });
+
+    const remValue = size + 'rem';
+    return EStyleSheet.value(remValue);
+  };
+
+  //this will return photos in a nested list where every list
+  //contains 10 photos inside of it
+  let firstFourPhotos = [];
+  let tenPhotosList = [];
+  let tenPhotos = [];
+
+  for (let i = 0; i < investment.assets.length; i++) {
+    let photo = investment.assets[i];
+    if (i % 4 == 0 && i != 0) {
+      break;
+    }
+    firstFourPhotos.push(photo.imageSource);
+  }
+
+  for (let i = 4; i < investment.assets.length; i++) {
+    let index = i - 4;
+    let photo = investment.assets[i];
+    if (index % 10 == 0 && index != 0) {
+      tenPhotosList.push(tenPhotos);
+      tenPhotos = [];
+    }
+    if (investment.assets.length == i + 1) {
+      tenPhotosList.push(tenPhotos);
+    }
+    tenPhotos.push(photo.imageSource);
+  }
+
+  // investment.assets.map((photo, index) => {});
+
+  // const firstFourPhotos = fourPhotosList[0];
 
   return (
     <>
@@ -316,24 +346,32 @@ const InvestItem = ({
         onPress={() => {
           setActionSheetVisible(true);
         }}
-        containerStyle={{
-          backgroundColor: myBlack,
-          borderColor: 'gold',
-          borderWidth: 1.5,
-        }}>
-        <ListItem.Content
-          style={[
-            styles.investmentContainer,
-            {alignItems: alignWhere(), height: containerHeight()},
-          ]}>
-          <View style={styles.titleAndImageContainer}>
-            <ListItem.Title style={styles.investmentTitle}>
-              {investment.name}
-            </ListItem.Title>
+        containerStyle={styles.listContainer}>
+        <View style={{flexDirection: 'column', flex: 1}}>
+          <ListItem.Content
+            style={[
+              styles.investmentContainer,
+              {alignItems: alignWhere(), height: containerHeight()},
+            ]}>
+            <View style={styles.titleAndImageContainer}>
+              <ListItem.Title style={styles.investmentTitle}>
+                {investment.name}
+              </ListItem.Title>
 
-            {fourPhotosList.length != 0 && (
-              <View style={{flex: 1}}>
-                {fourPhotosList.map(photosList => {
+              {firstFourPhotos.length != 0 && (
+                <View style={{flex: 1}}>
+                  <View style={styles.imageContainer} key={uuid.v4()}>
+                    {firstFourPhotos.map(photo => {
+                      return (
+                        <Image
+                          style={styles.image}
+                          source={photo}
+                          key={uuid.v4()}
+                        />
+                      );
+                    })}
+                  </View>
+                  {/* {fourPhotosList.map(photosList => {
                   return (
                     <View style={styles.imageContainer} key={uuid.v4()}>
                       {photosList.map(photo => {
@@ -347,48 +385,73 @@ const InvestItem = ({
                       })}
                     </View>
                   );
-                })}
+                })} */}
+                </View>
+              )}
+            </View>
+            <View style={styles.textAndCurrencyContainer}>
+              <View style={styles.investmentTextContainer}>
+                <Text style={styles.investmentText}>Initial investment: </Text>
+                <CurrencyInput
+                  style={styles.currencyInputContainer}
+                  value={originalInvestmentState}
+                  onChangeValue={setOriginalInvestment}
+                  prefix="£"
+                  delimiter=","
+                  separator="."
+                  precision={2}
+                  maxLength={10}
+                  minValue={0}
+                />
               </View>
-            )}
+              <View style={styles.investmentTextContainer}>
+                <Text style={styles.investmentText}>Current amount: </Text>
+                <Text style={styles.currencyInputContainer}>
+                  {showCurrentAmount()}
+                </Text>
+              </View>
+              <View style={styles.investmentTextContainer}>
+                <Text style={[styles.investmentText]}>Gain/Loss:</Text>
+                <Text
+                  style={[
+                    styles.currencyInputContainer,
+                    {
+                      color: calculatePercentage() >= 0 ? 'green' : 'red',
+                    },
+                  ]}>
+                  £{calculateGainOrLoss().toFixed(2)}
+                  {'  '}
+                  {calculatePercentage().toFixed(2)}%
+                </Text>
+              </View>
+            </View>
+          </ListItem.Content>
+
+          <View
+            style={{
+              height: tenListHeight(),
+              flex: 1,
+              // backgroundColor: 'gold',
+            }}>
+            {tenPhotosList.map(photosList => {
+              return (
+                <View style={styles.imageContainer2} key={uuid.v4()}>
+                  {photosList.map(photo => {
+                    return (
+                      <Image
+                        style={styles.image2}
+                        source={photo}
+                        key={uuid.v4()}
+                      />
+                    );
+                  })}
+                </View>
+              );
+            })}
           </View>
-          <View style={styles.textAndCurrencyContainer}>
-            <View style={styles.investmentTextContainer}>
-              <Text style={styles.investmentText}>Initial investment: </Text>
-              <CurrencyInput
-                style={styles.currencyInputContainer}
-                value={originalInvestmentState}
-                onChangeValue={setOriginalInvestment}
-                prefix="£"
-                delimiter=","
-                separator="."
-                precision={2}
-                maxLength={10}
-                minValue={0}
-              />
-            </View>
-            <View style={styles.investmentTextContainer}>
-              <Text style={styles.investmentText}>Current amount: </Text>
-              <Text style={styles.currencyInputContainer}>
-                {showCurrentAmount()}
-              </Text>
-            </View>
-            <View style={styles.investmentTextContainer}>
-              <Text style={[styles.investmentText]}>Gain/Loss:</Text>
-              <Text
-                style={[
-                  styles.currencyInputContainer,
-                  {
-                    color: calculatePercentage() >= 0 ? 'green' : 'red',
-                  },
-                ]}>
-                £{calculateGainOrLoss().toFixed(2)}
-                {'  '}
-                {calculatePercentage().toFixed(2)}%
-              </Text>
-            </View>
-          </View>
-        </ListItem.Content>
+        </View>
       </ListItem>
+
       {openAddAssetModal && (
         <AddAssetModal
           menuItems={menuItems}
@@ -403,6 +466,11 @@ const InvestItem = ({
 const styles = StyleSheet.create({
   investmentContainer: {
     flexDirection: 'row',
+  },
+  listContainer: {
+    backgroundColor: myBlack,
+    borderColor: 'gold',
+    borderWidth: 1.5,
   },
   titleAndImageContainer: {
     flexDirection: 'column',
@@ -443,8 +511,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   image: {
-    width: '33%',
+    width: '30%',
     height: '88%',
+    marginVertical: EStyleSheet.value('5rem'),
+  },
+  imageContainer2: {
+    // marginLeft: EStyleSheet.value('8rem'),
+    flex: 1,
+    flexDirection: 'row',
+    // justifyContent: 'center',
+  },
+  image2: {
+    width: '10%',
+    height: '100%',
     marginVertical: EStyleSheet.value('5rem'),
   },
 });
