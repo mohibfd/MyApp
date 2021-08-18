@@ -129,101 +129,99 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
         </View>
       )}
 
-      <View style={styles.centeredView}>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          overFlow={'visible'}
-          onRequestClose={() => {
-            setModalVisible(false);
-          }}>
-          <View
-            style={[
-              generalStyles.centeredView,
-              {
-                flex: 1,
-                position: interestInput ? 'relative' : 'absolute',
-                bottom: bottomSize(),
-              },
-            ]}>
-            {item.imageSource && (
-              <View>
-                <View style={styles.currencyInputOutsideContainer}>
-                  <Text style={styles.textContainer}>{item.name} amount: </Text>
-                  <CurrencyInput
-                    style={styles.currencyInputContainer}
-                    value={numberInput}
-                    onChangeValue={setNumberInput}
-                    delimiter=","
-                    separator="."
-                    maxLength={15}
-                    precision={8}
-                  />
-                </View>
-                <View style={styles.currencyInputOutsideContainer}>
-                  <Text style={styles.textContainer}>
-                    Interest Percentage (APY):{' '}
-                  </Text>
-                  <CurrencyInput
-                    style={styles.currencyInputContainer}
-                    value={interestInput}
-                    onChangeValue={setInterestInput}
-                    prefix="%"
-                    delimiter=","
-                    separator="."
-                    maxLength={10}
-                    precision={2}
-                  />
-                </View>
-                {interestInput != undefined && interestInput != 0 && (
-                  <View
-                    style={[
-                      styles.currencyInputOutsideContainer,
-                      styles.dropDownOutsideContainer,
-                    ]}>
-                    <Text style={styles.textContainer}>
-                      How often does your interest occur:
-                    </Text>
-                    <DropDownPicker
-                      open={showDropDownPicker}
-                      value={dropDownPickerValue}
-                      setOpen={setShowDropDownPicker}
-                      setValue={setDropDownPickerValue}
-                      items={interestInterval}
-                      setItems={setInterestInterval}
-                      arrowIconStyle={{tintColor: myWhite}}
-                      tickIconStyle={{tintColor: myWhite}}
-                      style={styles.dropDownStyle}
-                      textStyle={{color: myWhite}}
-                      dropDownContainerStyle={styles.dropDownContainerStyle}
-                    />
-                    <Text style={generalStyles.splashText}>
-                      {showSplashText
-                        ? 'please select one of the available options'
-                        : null}
-                    </Text>
-                  </View>
-                )}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        overFlow={'visible'}
+        onRequestClose={() => {
+          setModalVisible(false);
+        }}>
+        <View
+          style={[
+            generalStyles.centeredView,
+            {
+              flex: 1,
+              position: interestInput ? 'relative' : 'absolute',
+              bottom: bottomSize(),
+            },
+          ]}>
+          {item.imageSource && (
+            <View>
+              <View style={styles.currencyInputOutsideContainer}>
+                <Text style={styles.textContainer}>{item.name} amount: </Text>
+                <CurrencyInput
+                  style={styles.currencyInputContainer}
+                  value={numberInput}
+                  onChangeValue={setNumberInput}
+                  delimiter=","
+                  separator="."
+                  maxLength={15}
+                  precision={8}
+                />
               </View>
-            )}
-            <View style={styles.buttonsContainer}>
-              <TouchableHighlight
-                style={[styles.button, styles.buttonClose]}
-                onPress={() => setModalVisible(false)}>
-                <Text style={styles.textStyle}>Close</Text>
-              </TouchableHighlight>
-              <TouchableHighlight
-                style={[styles.button, styles.buttonOpen]}
-                onPress={() => createMainItem()}>
-                <Text style={styles.textStyle}>
-                  {item.icon ? 'Create' : 'Add'} {item.name}
+              <View style={styles.currencyInputOutsideContainer}>
+                <Text style={styles.textContainer}>
+                  Interest Percentage (APY):{' '}
                 </Text>
-              </TouchableHighlight>
+                <CurrencyInput
+                  style={styles.currencyInputContainer}
+                  value={interestInput}
+                  onChangeValue={setInterestInput}
+                  prefix="%"
+                  delimiter=","
+                  separator="."
+                  maxLength={10}
+                  precision={2}
+                />
+              </View>
+              {interestInput != undefined && interestInput != 0 && (
+                <View
+                  style={[
+                    styles.currencyInputOutsideContainer,
+                    styles.dropDownOutsideContainer,
+                  ]}>
+                  <Text style={styles.textContainer}>
+                    How often does your interest occur:
+                  </Text>
+                  <DropDownPicker
+                    open={showDropDownPicker}
+                    value={dropDownPickerValue}
+                    setOpen={setShowDropDownPicker}
+                    setValue={setDropDownPickerValue}
+                    items={interestInterval}
+                    setItems={setInterestInterval}
+                    arrowIconStyle={{tintColor: myWhite}}
+                    tickIconStyle={{tintColor: myWhite}}
+                    style={styles.dropDownStyle}
+                    textStyle={{color: myWhite}}
+                    dropDownContainerStyle={styles.dropDownContainerStyle}
+                  />
+                  <Text style={generalStyles.splashText}>
+                    {showSplashText
+                      ? 'please select one of the available options'
+                      : null}
+                  </Text>
+                </View>
+              )}
             </View>
+          )}
+          <View style={styles.buttonsContainer}>
+            <TouchableHighlight
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible(false)}>
+              <Text style={styles.textStyle}>Close</Text>
+            </TouchableHighlight>
+            <TouchableHighlight
+              style={[styles.button, styles.buttonOpen]}
+              onPress={() => createMainItem()}>
+              <Text style={styles.textStyle}>
+                {item.icon ? 'Create' : 'Add'} {item.name}
+              </Text>
+            </TouchableHighlight>
           </View>
-        </Modal>
-      </View>
+        </View>
+      </Modal>
     </View>
   );
 };
