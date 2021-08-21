@@ -6,7 +6,12 @@ import generalStyles from '../stylesheets/generalStylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
-const AddItemHeader = ({createItem, instantAdd, cameraAdd}) => {
+const AddItemHeader = ({
+  createItem,
+  instantAdd,
+  cameraAdd,
+  openNotifications,
+}) => {
   const [overlayVisible, setOverlayVisible] = useState(false);
   const [newItemName, setNewItemName] = useState('');
 
@@ -28,9 +33,34 @@ const AddItemHeader = ({createItem, instantAdd, cameraAdd}) => {
   const overlayFunction = () => {
     if (instantAdd) {
       instantAdd();
+    } else if (openNotifications) {
+      openNotifications();
     } else {
       setOverlayVisible(true);
     }
+  };
+
+  const renderIcon = () => {
+    let icon = 'plus';
+    let color = 'green';
+    if (cameraAdd) {
+      icon = 'camera';
+      color = 'yellow';
+    } else if (openNotifications) {
+      icon = 'bell';
+      color = 'white';
+    }
+    return (
+      <Icon
+        style={generalStyles.plusButton}
+        name={icon}
+        size={EStyleSheet.value('75rem')}
+        color={color}
+        onPress={() => {
+          overlayFunction();
+        }}
+      />
+    );
   };
 
   return (
@@ -72,27 +102,7 @@ const AddItemHeader = ({createItem, instantAdd, cameraAdd}) => {
           </View>
         </>
       </Overlay>
-      {cameraAdd ? (
-        <Icon
-          style={generalStyles.plusButton}
-          name="camera"
-          size={EStyleSheet.value('60rem')}
-          color="yellow"
-          onPress={() => {
-            overlayFunction();
-          }}
-        />
-      ) : (
-        <Icon
-          style={generalStyles.plusButton}
-          name="plus"
-          size={EStyleSheet.value('75rem')}
-          color="green"
-          onPress={() => {
-            overlayFunction();
-          }}
-        />
-      )}
+      {renderIcon()}
     </>
   );
 };
@@ -104,11 +114,13 @@ const styles = StyleSheet.create({
 AddItemHeader.defaultProps = {
   createItem: null,
   instantAdd: null,
+  openNotifications: null,
 };
 
 AddItemHeader.propTypes = {
   createItem: PropTypes.func,
   instantAdd: PropTypes.func,
+  openNotifications: PropTypes.func,
 };
 
 export default AddItemHeader;

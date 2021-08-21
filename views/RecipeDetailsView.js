@@ -11,7 +11,7 @@ import uuid from 'react-native-uuid';
 import RecipeItem from '../components/RecipeItem';
 
 import Header from '../components/Header';
-import DeleteOrCancel from '../components/DeleteOrCancel';
+import DeleteOrCancel from '../components/modals/DeleteOrCancel';
 import {launchImageLibrary} from 'react-native-image-picker';
 
 const RecipeDetailsView = ({route}) => {

@@ -5,24 +5,39 @@ import {View, Text, StyleSheet} from 'react-native';
 import AddItemHeader from './AddItemHeader';
 
 //simple function that styles headers
-const Header = ({title, add, developerAdd, instantAdd, cameraAdd}) => {
+const Header = ({
+  title,
+  add,
+  developerAdd,
+  instantAdd,
+  cameraAdd,
+  openNotifications,
+}) => {
+  const leftHeaderIcon = () => {
+    if (developerAdd) {
+      return <AddItemHeader createItem={developerAdd} />;
+    } else if (cameraAdd) {
+      return <AddItemHeader cameraAdd={true} instantAdd={cameraAdd} />;
+    }
+  };
+
+  const rightHeaderIcon = () => {
+    if (add || instantAdd) {
+      return <AddItemHeader createItem={add} instantAdd={instantAdd} />;
+    } else if (openNotifications) {
+      return <AddItemHeader openNotifications={openNotifications} />;
+    }
+  };
+
   return (
     <View style={styles.header}>
       <View style={styles.developerPlusButtonContainer}>
-        {developerAdd ? (
-          <AddItemHeader createItem={developerAdd} />
-        ) : cameraAdd ? (
-          <AddItemHeader cameraAdd={true} instantAdd={cameraAdd} />
-        ) : null}
+        {leftHeaderIcon()}
       </View>
       <View style={styles.textContainer}>
         <Text style={styles.text}>{title}</Text>
       </View>
-      <View style={styles.plusButtonContainer}>
-        {(add || instantAdd) && (
-          <AddItemHeader createItem={add} instantAdd={instantAdd} />
-        )}
-      </View>
+      <View style={styles.plusButtonContainer}>{rightHeaderIcon()}</View>
     </View>
   );
 };
@@ -57,6 +72,7 @@ Header.defaultProps = {
   developerAdd: null,
   instantAdd: null,
   cameraAdd: null,
+  openNotifications: null,
 };
 
 Header.propTypes = {
@@ -65,6 +81,7 @@ Header.propTypes = {
   developerAdd: PropTypes.func,
   instantAdd: PropTypes.func,
   cameraAdd: PropTypes.func,
+  openNotifications: PropTypes.func,
 };
 
 export default Header;

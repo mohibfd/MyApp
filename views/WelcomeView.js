@@ -15,7 +15,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import ListItem from '../components/ListItem';
 import Header from '../components/Header';
 import AddIconModal from '../components/modals/AddIconModal';
-import DeleteOrCancel from '../components/DeleteOrCancel';
+import DeleteOrCancel from '../components/modals/DeleteOrCancel';
+import NotificationsModal from '../components/modals/NotificationsModal';
+
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 const WelcomeView = ({navigation}) => {
@@ -36,6 +38,9 @@ const WelcomeView = ({navigation}) => {
   const [deleteItem, setDeleteItem] = useState(null);
 
   const [openModal, setOpenModal] = useState(false);
+
+  const [isNotificationsModalOpen, setIsNotificationsModalOpen] =
+    useState(false);
 
   const menuItems = [
     {name: 'Plants', icon: 'envira', color: myGreen, key: uuid.v4()},
@@ -170,7 +175,10 @@ const WelcomeView = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="My Items" />
+      <Header
+        title="My Items"
+        openNotifications={() => setIsNotificationsModalOpen(true)}
+      />
 
       <FlatList
         data={items}
@@ -221,6 +229,13 @@ const WelcomeView = ({navigation}) => {
           name={deleteItem.name}
           deletion={completeDeletion}
           closeOverlay={toggleDeleteOrCancel}
+        />
+      )}
+
+      {isNotificationsModalOpen && (
+        <NotificationsModal
+          modalVisible={NotificationsModal}
+          closeModal={() => setIsNotificationsModalOpen(false)}
         />
       )}
     </SafeAreaView>

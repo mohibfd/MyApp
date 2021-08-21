@@ -12,7 +12,7 @@ import uuid from 'react-native-uuid';
 
 import Header from '../components/Header';
 import InvestItem from '../components/InvestItem';
-import DeleteOrCancel from '../components/DeleteOrCancel';
+import DeleteOrCancel from '../components/modals/DeleteOrCancel';
 import {getAssetsData} from '../services/AssetsData';
 import EStyleSheet from 'react-native-extended-stylesheet';
 

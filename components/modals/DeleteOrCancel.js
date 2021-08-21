@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Pressable, View, Text, StyleSheet} from 'react-native';
 import {Overlay} from 'react-native-elements';
 
-import generalStyles from '../stylesheets/generalStylesheet';
+import generalStyles from '../../stylesheets/generalStylesheet';
 
 const DeleteOrCancel = ({name, extraName, deletion, closeOverlay}) => {
   return (

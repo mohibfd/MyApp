@@ -12,7 +12,7 @@ import PushNotification from 'react-native-push-notification';
 
 import Header from '../components/Header';
 import PlantItem from '../components/PlantItem';
-import DeleteOrCancel from '../components/DeleteOrCancel.js';
+import DeleteOrCancel from '../components/modals/DeleteOrCancel.js';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 const PlantsView = () => {

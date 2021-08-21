@@ -13,7 +13,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {useState} from 'react';
 
-import DeleteOrCancel from '../components/DeleteOrCancel';
+import DeleteOrCancel from '../components/modals/DeleteOrCancel';
 import Header from '../components/Header';
 
 LogBox.ignoreLogs([

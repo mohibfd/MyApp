@@ -5,7 +5,7 @@ import {Overlay} from 'react-native-elements';
 import DropDownPicker from 'react-native-dropdown-picker';
 import PushNotification from 'react-native-push-notification';
 
-import DeleteOrCancel from '../components/DeleteOrCancel.js';
+import DeleteOrCancel from '../components/modals/DeleteOrCancel.js';
 import generalStyles from '../stylesheets/generalStylesheet';
 
 const TimeInterval = props => {
