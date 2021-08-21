@@ -11,14 +11,14 @@ const RecipeItem = ({
   refresh,
   instruction,
 }) => {
-  const [investmentName, setInvestmentName] = useState(
+  const [recipeName, setRecipeName] = useState(
     instruction ? instruction.name : '',
   );
 
   const changeName = newName => {
     if (instruction) {
       instruction.name = newName;
-      setInvestmentName(newName);
+      setRecipeName(newName);
     } else {
       recipe.name = newName;
     }
@@ -41,7 +41,7 @@ const RecipeItem = ({
       <View style={styles.ListItemView}>
         <TextInput
           style={styles.listItemText}
-          value={instruction ? investmentName : recipe.name}
+          value={instruction ? recipeName : recipe.name}
           onChangeText={changeName}
           placeholder="add name"
         />
@@ -71,13 +71,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  iconContainer: {
-    flex: 1,
-  },
   listItemText: {
     fontSize: EStyleSheet.value('25rem'),
     marginLeft: EStyleSheet.value('10rem'),
     color: myWhite,
+  },
+  iconContainer: {
+    flex: 1,
   },
   redCross: {
     alignSelf: 'flex-end',

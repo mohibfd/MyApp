@@ -6,21 +6,25 @@ import {
   FlatList,
   ImageBackground,
   StyleSheet,
+  View,
   Text,
 } from 'react-native';
 import uuid from 'react-native-uuid';
-import RecipeItem from '../components/flatListRendering/RecipeItem';
+import WorkoutItem from '../components/flatListRendering/WorkoutItem';
 
 import Header from '../components/Header';
 import DeleteOrCancel from '../components/modals/DeleteOrCancel';
 import {launchImageLibrary} from 'react-native-image-picker';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 const WorkoutDetailsView = ({route}) => {
   const {muscle} = route.params;
 
-  const [recipesStorage, setRecipesStorage] = useStorage('workoutss');
+  const [workoutsStorage, setWorkoutsStorage] = useStorage(`${muscle}`);
 
-  const [recipes, setRecipes] = useState(recipesStorage ? recipesStorage : []);
+  const [workouts, setWorkouts] = useState(
+    workoutsStorage ? workoutsStorage : [],
+  );
 
   const isMountedRef = useRef(null);
 
@@ -33,15 +37,15 @@ const WorkoutDetailsView = ({route}) => {
   useEffect(() => {
     isMountedRef.current = true;
     if (isMountedRef) {
-      setRecipesStorage(recipes);
+      setWorkoutsStorage(workouts);
     }
     return (isMountedRef.current = false);
-  }, [recipes, refresh]);
+  }, [workouts, refresh]);
 
   useEffect(() => {
     isMountedRef.current = true;
     if (isMountedRef) {
-      setRecipes(recipes);
+      setWorkouts(workouts);
     }
     return (isMountedRef.current = false);
   }, [refresh]);
@@ -50,15 +54,15 @@ const WorkoutDetailsView = ({route}) => {
     setRefresh(uuid.v4());
   };
 
-  const createRecipe = newRecipeName => {
-    setRecipes(prevItems => {
+  const createWorkout = () => {
+    setWorkouts(prevItems => {
       return [
         ...prevItems,
         {
-          name: newRecipeName,
+          name: '',
           key: uuid.v4(),
-          instructions: [],
-          photo: null,
+          minimumWeight: 0,
+          maximumWeight: 0,
         },
       ];
     });
@@ -78,38 +82,64 @@ const WorkoutDetailsView = ({route}) => {
 
     MMKV.removeItem(deleteItem.name + 'Id');
 
-    setRecipes(prevItems => {
+    setWorkouts(prevItems => {
       return prevItems.filter(item => item != deleteItem);
     });
   };
+
+  const renderItem = item => {
+    return (
+      <WorkoutItem
+        deleteItemFromStorage={openDeleteOrCancel}
+        workout={item.item}
+        refresh={toggleRefresh}
+      />
+    );
+  };
+
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: myBlack}}>
-      <Header
-        title={muscle}
-        // instantAdd={addInstruction}
-      />
+      <Header title={muscle} instantAdd={createWorkout} />
       <ImageBackground
         source={require('../components/assets/Workout.jpeg')}
         style={styles.image}>
-        {/* <FlatList
-          data={recipe.instructions}
-          renderItem={renderItem}
-          extraData={refreshFlastList}
-        /> */}
+        <View style={{flexDirection: 'row'}}>
+          <Text style={[styles.text, styles.marginLeft]}>Excercise</Text>
+          <Text style={styles.text}>Min Weight/</Text>
+          <Text style={[styles.text, styles.paddingRight]}>Max Weight</Text>
+        </View>
+        <View style={styles.lineDivider}></View>
+
+        <FlatList data={workouts} renderItem={renderItem} />
       </ImageBackground>
 
-      {/* {isDeleteOrCancel && (
+      {isDeleteOrCancel && (
         <DeleteOrCancel
           name={deleteItem.name}
           deletion={completeDeletion}
           closeOverlay={toggleDeleteOrCancel}
         />
-      )} */}
+      )}
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  lineDivider: {
+    borderBottomWidth: EStyleSheet.value('2rem'),
+    borderColor: myRed,
+  },
+  text: {
+    fontSize: EStyleSheet.value('20rem'),
+    color: 'white',
+  },
+  marginLeft: {
+    flex: 1,
+    marginLeft: EStyleSheet.value('10rem'),
+  },
+  paddingRight: {
+    paddingRight: EStyleSheet.value('15rem'),
+  },
   image: {
     width: '100%',
     height: '100%',

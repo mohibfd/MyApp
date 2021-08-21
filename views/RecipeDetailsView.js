@@ -45,8 +45,6 @@ const RecipeDetailsView = ({route}) => {
     toggleDeleteOrCancel();
     recipe.instructions = instructions.filter(i => i.key != deleteItem.key);
 
-    console.log(instructions.filter(i => i.key != deleteItem.key));
-
     refresh();
   };
 
