@@ -71,8 +71,6 @@ const RecipesView = ({navigation}) => {
     });
   };
 
-  // console.log(recipes[1].name);
-
   const renderItem = item => {
     return (
       <RecipeItem
@@ -80,12 +78,13 @@ const RecipesView = ({navigation}) => {
         deleteItemFromStorage={openDeleteOrCancel}
         navigation={navigation}
         refresh={toggleRefresh}
+        recipes={recipes}
       />
     );
   };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: myBlack}}>
-      <Header title="My Recipes" add={createRecipe} />
+      <Header title="My Recipes" instantAdd={createRecipe} />
       <ImageBackground
         source={require('../components/assets/Recipes.jpeg')}
         style={{width: '100%', height: '100%'}}>

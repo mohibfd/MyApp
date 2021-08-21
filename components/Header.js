@@ -48,13 +48,14 @@ const styles = StyleSheet.create({
 });
 
 Header.defaultProps = {
+  title: '',
   add: null,
   developerAdd: null,
   instantAdd: null,
 };
 
 Header.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   add: PropTypes.func,
   developerAdd: PropTypes.func,
   instantAdd: PropTypes.func,

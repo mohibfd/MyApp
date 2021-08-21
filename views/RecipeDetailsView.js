@@ -1,23 +1,15 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
-import {
-  SafeAreaView,
-  Text,
-  View,
-  ScrollView,
-  FlatList,
-  ImageBackground,
-} from 'react-native';
+import {SafeAreaView, FlatList, ImageBackground} from 'react-native';
 import uuid from 'react-native-uuid';
 import RecipeItem from '../components/RecipeItem';
 
 import Header from '../components/Header';
 import DeleteOrCancel from '../components/DeleteOrCancel';
-import RecipesView from './RecipesView';
 
 const RecipeDetailsView = ({route}) => {
-  const {recipe, refresh} = route.params;
+  const {recipe, refresh, recipes} = route.params;
 
   const {instructions} = recipe;
 
@@ -28,7 +20,7 @@ const RecipeDetailsView = ({route}) => {
   const [refreshFlastList, setRefreshFlatList] = useState('');
 
   const addInstruction = () => {
-    recipe.instructions.push({name: 'test', key: uuid.v4()});
+    recipe.instructions.push({name: '', key: uuid.v4()});
 
     refresh();
     setRefreshFlatList(uuid.v4());
@@ -45,21 +37,21 @@ const RecipeDetailsView = ({route}) => {
 
   const completeDeletion = () => {
     toggleDeleteOrCancel();
+    recipe.instructions = instructions.filter(i => i.key != deleteItem.key);
 
-    // recipe.instructions.filter(item => item != deleteItem);
-
-    recipe.instructions = instructions.filter(j => j.key != deleteItem.key);
+    console.log(instructions.filter(i => i.key != deleteItem.key));
 
     refresh();
   };
 
-  // console.log(RecipeDetails[1].name);
-
   const renderItem = item => {
     return (
       <RecipeItem
-        recipe={item.item}
+        recipe={recipe}
         deleteItemFromStorage={openDeleteOrCancel}
+        recipes={recipes}
+        refresh={refresh}
+        instruction={item.item}
       />
     );
   };

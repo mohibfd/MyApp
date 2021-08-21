@@ -50,11 +50,12 @@ const styles = StyleSheet.create({
 });
 
 DeleteOrCancel.defaultProps = {
+  name: '',
   extraName: '',
 };
 
 DeleteOrCancel.propTypes = {
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   extraName: PropTypes.string,
   deletion: PropTypes.func.isRequired,
   closeOverlay: PropTypes.func.isRequired,
