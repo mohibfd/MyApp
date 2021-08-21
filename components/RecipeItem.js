@@ -1,24 +1,31 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import {View, Text, Pressable, StyleSheet, Alert} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const RecipeItem = ({item, deleteItemFromStorage}) => {
+const RecipeItem = ({recipe, deleteItemFromStorage, navigation, refresh}) => {
   //tells you which page to go to
-  const navigateTo = () => {};
+  const navigateTo = () => {
+    if (navigation) {
+      navigation.navigate('Recipe Details View', {
+        recipe,
+        refresh,
+      });
+    }
+  };
 
   //return our items alongside a delete icon that calls on deleteList function taking the element's id
   return (
     <Pressable style={styles.ListItem} onPress={() => navigateTo()}>
       <View style={styles.ListItemView}>
-        <Text style={styles.listItemText}>{item.name}</Text>
+        <Text style={styles.listItemText}>{recipe.name}</Text>
         <Icon
           style={styles.redCross}
           name="remove"
           size={EStyleSheet.value('40rem')}
           color="firebrick"
-          onPress={() => deleteItemFromStorage(item)}
+          onPress={() => deleteItemFromStorage(recipe)}
         />
       </View>
     </Pressable>
@@ -28,9 +35,8 @@ const RecipeItem = ({item, deleteItemFromStorage}) => {
 const styles = StyleSheet.create({
   ListItem: {
     flex: 1,
-    width: '50%',
-    backgroundColor: myBlue,
-    paddingVertical: EStyleSheet.value('30rem'),
+    backgroundColor: '#CD7F32' + 99,
+    paddingVertical: EStyleSheet.value('20rem'),
     borderWidth: EStyleSheet.value('2rem'),
   },
   ListItemView: {
@@ -49,9 +55,16 @@ const styles = StyleSheet.create({
   },
 });
 
+RecipeItem.defaultProps = {
+  refresh: null,
+  navigation: null,
+};
+
 RecipeItem.propTypes = {
-  item: PropTypes.object.isRequired,
+  recipe: PropTypes.object.isRequired,
   deleteItemFromStorage: PropTypes.func.isRequired,
+  refresh: PropTypes.func,
+  navigation: PropTypes.object,
 };
 
 export default RecipeItem;

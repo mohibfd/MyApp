@@ -5,7 +5,7 @@ import {Overlay, Input} from 'react-native-elements';
 import generalStyles from '../stylesheets/generalStylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const AddItemHeader = ({createItem}) => {
+const AddItemHeader = ({createItem, instantAdd}) => {
   const [overlayVisible, setOverlayVisible] = useState(false);
   const [newItemName, setNewItemName] = useState('');
 
@@ -23,6 +23,14 @@ const AddItemHeader = ({createItem}) => {
   const [keyboardStatus, setKeyboardStatus] = useState(undefined);
   const _keyboardDidShow = () => setKeyboardStatus('Keyboard Shown');
   const _keyboardDidHide = () => setKeyboardStatus('Keyboard Hidden');
+
+  const overlayFunction = () => {
+    if (instantAdd) {
+      instantAdd();
+    } else {
+      setOverlayVisible(true);
+    }
+  };
 
   return (
     <>
@@ -69,7 +77,7 @@ const AddItemHeader = ({createItem}) => {
         size={75}
         color="green"
         onPress={() => {
-          setOverlayVisible(true);
+          overlayFunction();
         }}
       />
     </>
@@ -79,8 +87,15 @@ const AddItemHeader = ({createItem}) => {
 const styles = StyleSheet.create({
   buttonContainer: {flexDirection: 'row', justifyContent: 'space-evenly'},
 });
+
+AddItemHeader.defaultProps = {
+  createItem: null,
+  instantAdd: null,
+};
+
 AddItemHeader.propTypes = {
-  createItem: PropTypes.func.isRequired,
+  createItem: PropTypes.func,
+  instantAdd: PropTypes.func,
 };
 
 export default AddItemHeader;

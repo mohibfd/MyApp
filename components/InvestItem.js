@@ -36,7 +36,6 @@ const InvestItem = ({
       title: 'View more details',
 
       action: () => {
-        navigation.navigate('Invest Details View');
         navigation.navigate('Invest Details View', {
           investment,
           refresh,
@@ -359,21 +358,6 @@ const InvestItem = ({
                       );
                     })}
                   </View>
-                  {/* {fourPhotosList.map(photosList => {
-                  return (
-                    <View style={styles.imageContainer} key={uuid.v4()}>
-                      {photosList.map(photo => {
-                        return (
-                          <Image
-                            style={styles.image}
-                            source={photo}
-                            key={uuid.v4()}
-                          />
-                        );
-                      })}
-                    </View>
-                  );
-                })} */}
                 </View>
               )}
             </View>

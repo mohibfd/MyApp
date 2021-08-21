@@ -5,7 +5,7 @@ import {View, Text, StyleSheet} from 'react-native';
 import AddItemHeader from './AddItemHeader';
 
 //simple function that styles headers
-const Header = ({title, add, developerAdd}) => {
+const Header = ({title, add, developerAdd, instantAdd}) => {
   return (
     <View style={styles.header}>
       <View style={styles.developerPlusButtonContainer}>
@@ -15,7 +15,9 @@ const Header = ({title, add, developerAdd}) => {
         <Text style={styles.text}>{title}</Text>
       </View>
       <View style={styles.plusButtonContainer}>
-        {add && <AddItemHeader createItem={add} />}
+        {(add || instantAdd) && (
+          <AddItemHeader createItem={add} instantAdd={instantAdd} />
+        )}
       </View>
     </View>
   );
@@ -48,12 +50,14 @@ const styles = StyleSheet.create({
 Header.defaultProps = {
   add: null,
   developerAdd: null,
+  instantAdd: null,
 };
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
   add: PropTypes.func,
   developerAdd: PropTypes.func,
+  instantAdd: PropTypes.func,
 };
 
 export default Header;

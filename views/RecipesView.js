@@ -1,19 +1,12 @@
 import React, {useEffect, useState, useRef} from 'react';
-import {
-  SafeAreaView,
-  Text,
-  View,
-  ScrollView,
-  FlatList,
-  ImageBackground,
-} from 'react-native';
+import {SafeAreaView, FlatList, ImageBackground} from 'react-native';
 import uuid from 'react-native-uuid';
 import RecipeItem from '../components/RecipeItem';
 
 import Header from '../components/Header';
 import DeleteOrCancel from '../components/DeleteOrCancel';
 
-const RecipesView = () => {
+const RecipesView = ({navigation}) => {
   const [recipesStorage, setRecipesStorage] = useStorage('recipes');
 
   const [recipes, setRecipes] = useState(recipesStorage ? recipesStorage : []);
@@ -24,13 +17,27 @@ const RecipesView = () => {
 
   const [deleteItem, setDeleteItem] = useState(null);
 
+  const [refresh, setRefresh] = useState('');
+
   useEffect(() => {
     isMountedRef.current = true;
     if (isMountedRef) {
       setRecipesStorage(recipes);
     }
     return (isMountedRef.current = false);
-  }, [recipes]);
+  }, [recipes, refresh]);
+
+  useEffect(() => {
+    isMountedRef.current = true;
+    if (isMountedRef) {
+      setRecipes(recipes);
+    }
+    return (isMountedRef.current = false);
+  }, [refresh]);
+
+  const toggleRefresh = () => {
+    setRefresh(uuid.v4());
+  };
 
   const createRecipe = newRecipeName => {
     setRecipes(prevItems => {
@@ -39,6 +46,7 @@ const RecipesView = () => {
         {
           name: newRecipeName,
           key: uuid.v4(),
+          instructions: [],
         },
       ];
     });
@@ -67,14 +75,19 @@ const RecipesView = () => {
 
   const renderItem = item => {
     return (
-      <RecipeItem item={item.item} deleteItemFromStorage={openDeleteOrCancel} />
+      <RecipeItem
+        recipe={item.item}
+        deleteItemFromStorage={openDeleteOrCancel}
+        navigation={navigation}
+        refresh={toggleRefresh}
+      />
     );
   };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: myBlack}}>
       <Header title="My Recipes" add={createRecipe} />
       <ImageBackground
-        source={require('../components/assets/Plants.jpeg')}
+        source={require('../components/assets/Recipes.jpeg')}
         style={{width: '100%', height: '100%'}}>
         <FlatList data={recipes} renderItem={renderItem} />
       </ImageBackground>
