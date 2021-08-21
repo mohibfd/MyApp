@@ -44,7 +44,6 @@ const RecipeItem = ({
           value={instruction ? investmentName : recipe.name}
           onChangeText={changeName}
           placeholder="add name"
-          keyboardType="numeric"
         />
         <View style={styles.iconContainer}>
           <Icon
