@@ -10,7 +10,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
-import RenderIcons from '../RenderIcons.js';
+import RenderIcons from '../flatListRendering/RenderIcons.js';
 
 const AddIconModal = ({menuItems, addMainItem, setModalVisible}) => {
   return (

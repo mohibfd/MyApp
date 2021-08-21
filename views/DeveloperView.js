@@ -3,7 +3,7 @@ import {SafeAreaView, Text, View} from 'react-native';
 import uuid from 'react-native-uuid';
 
 import Header from '../components/Header';
-import ListDeveloperItems from '../components/ListDeveloperItems';
+import ListDeveloperItems from '../components/flatListRendering/ListDeveloperItems';
 
 const DeveloperView = () => {
   const [cardsStorage, setCardsStorage] = useStorage('cardss');

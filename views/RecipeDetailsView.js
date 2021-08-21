@@ -8,7 +8,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import uuid from 'react-native-uuid';
-import RecipeItem from '../components/RecipeItem';
+import RecipeItem from '../components/flatListRendering/RecipeItem';
 
 import Header from '../components/Header';
 import DeleteOrCancel from '../components/modals/DeleteOrCancel';

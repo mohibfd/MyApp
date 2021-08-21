@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
-import RenderIcons from '../RenderIcons.js';
+import RenderIcons from '../flatListRendering/RenderIcons.js';
 
 const AddAssetModal = ({menuItems, addMainItem, setModalVisible}) => {
   return (

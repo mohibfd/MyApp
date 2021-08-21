@@ -36,6 +36,15 @@ const WorkoutView = () => {
 
   const [refresh, setRefresh] = useState('');
 
+  const differentMuscles = [
+    'Arms',
+    'Shoulders',
+    'Chest',
+    'Back',
+    'Abs',
+    'Legs',
+  ];
+
   useEffect(() => {
     isMountedRef.current = true;
     if (isMountedRef) {
@@ -111,7 +120,7 @@ const WorkoutView = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="My Workouts" />
+      <Header title="My Workouts" instantAdd={createRecipe} />
 
       <Button
         onPress={() => setModalVisible(true)}
@@ -121,8 +130,8 @@ const WorkoutView = () => {
 
       <ImageBackground
         source={require('../components/assets/Workout.jpeg')}
-        style={{width: '100%', height: '100%'}}>
-        <FlatList data={recipes} renderItem={renderItem} />
+        style={styles.image}>
+        <FlatList data={differentMuscles} renderItem={renderItem} />
       </ImageBackground>
 
       {isDeleteOrCancel && (
@@ -140,44 +149,13 @@ const WorkoutView = () => {
           imagePickedStorage={imagePickedStorage}
         />
       )}
-
-      {/* <Modal
-        animationType="slide"
-        // transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(false);
-        }}>
-        <SafeAreaView style={{flex: 1}}>
-          <View style={[generalStyles.centeredView, styles.imageContainer]}>
-            <Image
-              style={styles.qrCodeImage}
-              source={{
-                uri: imagePickedStorage,
-              }}
-            />
-          </View>
-          <Icon
-            style={[generalStyles.modalClose, {zIndex: 1}]}
-            name="remove"
-            size={EStyleSheet.value('50rem')}
-            color="red"
-            onPress={() => setModalVisible(false)}
-          />
-          <View style={styles.cameraIconContainer}>
-            <Icon
-              name="camera-retro"
-              size={Dimensions.get('window').width * 0.9}
-              color={imagePickedStorage ? 'transparent' : 'gold'}
-              onPress={() => openImageLibrary()}
-            />
-          </View>
-        </SafeAreaView>
-      </Modal> */}
     </SafeAreaView>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {flex: 1},
+  image: {width: '100%', height: '100%'},
+});
 
 export default WorkoutView;

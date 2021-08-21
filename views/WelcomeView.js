@@ -12,7 +12,7 @@ import uuid from 'react-native-uuid';
 import PushNotification from 'react-native-push-notification';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import ListItem from '../components/ListItem';
+import ListItem from '../components/flatListRendering/ListItem';
 import Header from '../components/Header';
 import AddIconModal from '../components/modals/AddIconModal';
 import DeleteOrCancel from '../components/modals/DeleteOrCancel';

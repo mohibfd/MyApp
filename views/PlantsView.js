@@ -11,7 +11,7 @@ import uuid from 'react-native-uuid';
 import PushNotification from 'react-native-push-notification';
 
 import Header from '../components/Header';
-import PlantItem from '../components/PlantItem';
+import PlantItem from '../components/flatListRendering/PlantItem';
 import DeleteOrCancel from '../components/modals/DeleteOrCancel.js';
 import EStyleSheet from 'react-native-extended-stylesheet';
 

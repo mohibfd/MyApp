@@ -5,8 +5,8 @@ import {ListItem} from 'react-native-elements';
 import CurrencyInput from 'react-native-currency-input';
 import uuid from 'react-native-uuid';
 
-import {ActionSheet} from './online_components/ActionSheet';
-import AddAssetModal from '../components/modals/AddAssetModal';
+import {ActionSheet} from '../online_components/ActionSheet';
+import AddAssetModal from '../modals/AddAssetModal';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 const InvestItem = ({
@@ -54,105 +54,105 @@ const InvestItem = ({
   const menuItems = [
     {
       name: 'Ethereum',
-      imageSource: require('../components/assets/investments/Ethereum.jpeg'),
+      imageSource: require('../assets/investments/Ethereum.jpeg'),
       quantity: 0,
       key: uuid.v4(),
       totalValue: 0,
     },
     {
       name: 'WorldIndex',
-      imageSource: require('../components/assets/investments/WorldIndex.png'),
+      imageSource: require('../assets/investments/WorldIndex.png'),
       quantity: 0,
       key: uuid.v4(),
       totalValue: 0,
     },
     {
       name: 'Bitcoin',
-      imageSource: require('../components/assets/investments/Bitcoin.jpeg'),
+      imageSource: require('../assets/investments/Bitcoin.jpeg'),
       quantity: 0,
       key: uuid.v4(),
       totalValue: 0,
     },
     {
       name: 'Ripple',
-      imageSource: require('../components/assets/investments/Ripple.jpeg'),
+      imageSource: require('../assets/investments/Ripple.jpeg'),
       quantity: 0,
       key: uuid.v4(),
       totalValue: 0,
     },
     {
       name: 'BinanceCoin',
-      imageSource: require('../components/assets/investments/BinanceCoin.jpeg'),
+      imageSource: require('../assets/investments/BinanceCoin.jpeg'),
       quantity: 0,
       key: uuid.v4(),
       totalValue: 0,
     },
     {
       name: 'Cardano',
-      imageSource: require('../components/assets/investments/Cardano.png'),
+      imageSource: require('../assets/investments/Cardano.png'),
       quantity: 0,
       key: uuid.v4(),
       totalValue: 0,
     },
     {
       name: 'MaticNetwork',
-      imageSource: require('../components/assets/investments/MaticNetwork.jpeg'),
+      imageSource: require('../assets/investments/MaticNetwork.jpeg'),
       quantity: 0,
       key: uuid.v4(),
       totalValue: 0,
     },
     {
       name: 'Stellar',
-      imageSource: require('../components/assets/investments/Stellar.jpeg'),
+      imageSource: require('../assets/investments/Stellar.jpeg'),
       quantity: 0,
       key: uuid.v4(),
       totalValue: 0,
     },
     {
       name: 'Nano',
-      imageSource: require('../components/assets/investments/Nano.png'),
+      imageSource: require('../assets/investments/Nano.png'),
       quantity: 0,
       key: uuid.v4(),
       totalValue: 0,
     },
     {
       name: 'Monero',
-      imageSource: require('../components/assets/investments/Monero.jpeg'),
+      imageSource: require('../assets/investments/Monero.jpeg'),
       quantity: 0,
       key: uuid.v4(),
       totalValue: 0,
     },
     {
       name: 'Chainlink',
-      imageSource: require('../components/assets/investments/ChainLink.jpeg'),
+      imageSource: require('../assets/investments/ChainLink.jpeg'),
       quantity: 0,
       key: uuid.v4(),
       totalValue: 0,
     },
     {
       name: 'Algorand',
-      imageSource: require('../components/assets/investments/Algorand.jpeg'),
+      imageSource: require('../assets/investments/Algorand.jpeg'),
       quantity: 0,
       key: uuid.v4(),
       totalValue: 0,
     },
     {
       name: 'Tron',
-      imageSource: require('../components/assets/investments/Tron.jpeg'),
+      imageSource: require('../assets/investments/Tron.jpeg'),
       quantity: 0,
       key: uuid.v4(),
       totalValue: 0,
     },
     {
       name: 'USDCoin',
-      imageSource: require('../components/assets/investments/USDcoin.png'),
+      imageSource: require('../assets/investments/USDcoin.png'),
       quantity: 0,
       key: uuid.v4(),
       totalValue: 0,
     },
     {
       name: 'CelsiusCoin',
-      imageSource: require('../components/assets/investments/CelsiusCoin.jpeg'),
+      imageSource: require('../assets/investments/CelsiusCoin.jpeg'),
       quantity: 0,
       key: uuid.v4(),
       totalValue: 0,

@@ -10,14 +10,13 @@ import {
   Pressable,
   Image,
   Alert,
-  Keyboard,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CurrencyInput from 'react-native-currency-input';
 import DropDownPicker from 'react-native-dropdown-picker';
 
-import generalStyles from '../stylesheets/generalStylesheet';
+import generalStyles from '../../stylesheets/generalStylesheet';
 
 const defaultSize = EStyleSheet.value('80rem');
 
