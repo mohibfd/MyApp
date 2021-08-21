@@ -47,6 +47,7 @@ const RecipesView = ({navigation}) => {
           name: newRecipeName,
           key: uuid.v4(),
           instructions: [],
+          photo: null,
         },
       ];
     });
@@ -78,7 +79,6 @@ const RecipesView = ({navigation}) => {
         deleteItemFromStorage={openDeleteOrCancel}
         navigation={navigation}
         refresh={toggleRefresh}
-        recipes={recipes}
       />
     );
   };

@@ -1,15 +1,21 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
-import {SafeAreaView, FlatList, ImageBackground} from 'react-native';
+import {
+  SafeAreaView,
+  FlatList,
+  ImageBackground,
+  StyleSheet,
+} from 'react-native';
 import uuid from 'react-native-uuid';
 import RecipeItem from '../components/RecipeItem';
 
 import Header from '../components/Header';
 import DeleteOrCancel from '../components/DeleteOrCancel';
+import {launchImageLibrary} from 'react-native-image-picker';
 
 const RecipeDetailsView = ({route}) => {
-  const {recipe, refresh, recipes} = route.params;
+  const {recipe, refresh} = route.params;
 
   const {instructions} = recipe;
 
@@ -44,23 +50,43 @@ const RecipeDetailsView = ({route}) => {
     refresh();
   };
 
+  const openImageLibrary = () => {
+    let options = {};
+    launchImageLibrary(options, response => {
+      if (response.assets) {
+        recipe.photo = response.assets[0].uri;
+        refresh();
+        setRefreshFlatList(uuid.v4());
+      }
+    });
+  };
+
   const renderItem = item => {
     return (
       <RecipeItem
         recipe={recipe}
         deleteItemFromStorage={openDeleteOrCancel}
-        recipes={recipes}
         refresh={refresh}
         instruction={item.item}
       />
     );
   };
+
+  const imageSource = () => {
+    if (recipe.photo) {
+      return {uri: recipe.photo};
+    } else {
+      return require('../components/assets/Recipes.jpeg');
+    }
+  };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: myBlack}}>
-      <Header title={recipe.name} instantAdd={addInstruction} />
-      <ImageBackground
-        source={require('../components/assets/Recipes.jpeg')}
-        style={{width: '100%', height: '100%'}}>
+      <Header
+        title={recipe.name}
+        instantAdd={addInstruction}
+        cameraAdd={openImageLibrary}
+      />
+      <ImageBackground source={imageSource()} style={styles.image}>
         <FlatList
           data={recipe.instructions}
           renderItem={renderItem}
@@ -78,6 +104,12 @@ const RecipeDetailsView = ({route}) => {
     </SafeAreaView>
   );
 };
+const styles = StyleSheet.create({
+  image: {
+    width: '100%',
+    height: '100%',
+  },
+});
 
 RecipeDetailsView.propTypes = {
   route: PropTypes.object.isRequired,

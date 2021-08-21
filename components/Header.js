@@ -5,11 +5,15 @@ import {View, Text, StyleSheet} from 'react-native';
 import AddItemHeader from './AddItemHeader';
 
 //simple function that styles headers
-const Header = ({title, add, developerAdd, instantAdd}) => {
+const Header = ({title, add, developerAdd, instantAdd, cameraAdd}) => {
   return (
     <View style={styles.header}>
       <View style={styles.developerPlusButtonContainer}>
-        {developerAdd ? <AddItemHeader createItem={developerAdd} /> : null}
+        {developerAdd ? (
+          <AddItemHeader createItem={developerAdd} />
+        ) : cameraAdd ? (
+          <AddItemHeader cameraAdd={true} instantAdd={cameraAdd} />
+        ) : null}
       </View>
       <View style={styles.textContainer}>
         <Text style={styles.text}>{title}</Text>
@@ -52,6 +56,7 @@ Header.defaultProps = {
   add: null,
   developerAdd: null,
   instantAdd: null,
+  cameraAdd: null,
 };
 
 Header.propTypes = {
@@ -59,6 +64,7 @@ Header.propTypes = {
   add: PropTypes.func,
   developerAdd: PropTypes.func,
   instantAdd: PropTypes.func,
+  cameraAdd: PropTypes.func,
 };
 
 export default Header;

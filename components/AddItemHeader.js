@@ -4,8 +4,9 @@ import {Pressable, View, Text, StyleSheet, Keyboard} from 'react-native';
 import {Overlay, Input} from 'react-native-elements';
 import generalStyles from '../stylesheets/generalStylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
-const AddItemHeader = ({createItem, instantAdd}) => {
+const AddItemHeader = ({createItem, instantAdd, cameraAdd}) => {
   const [overlayVisible, setOverlayVisible] = useState(false);
   const [newItemName, setNewItemName] = useState('');
 
@@ -71,15 +72,27 @@ const AddItemHeader = ({createItem, instantAdd}) => {
           </View>
         </>
       </Overlay>
-      <Icon
-        style={generalStyles.plusButton}
-        name="plus"
-        size={75}
-        color="green"
-        onPress={() => {
-          overlayFunction();
-        }}
-      />
+      {cameraAdd ? (
+        <Icon
+          style={generalStyles.plusButton}
+          name="camera"
+          size={EStyleSheet.value('60rem')}
+          color="yellow"
+          onPress={() => {
+            overlayFunction();
+          }}
+        />
+      ) : (
+        <Icon
+          style={generalStyles.plusButton}
+          name="plus"
+          size={EStyleSheet.value('75rem')}
+          color="green"
+          onPress={() => {
+            overlayFunction();
+          }}
+        />
+      )}
     </>
   );
 };

@@ -9,7 +9,6 @@ const RecipeItem = ({
   deleteItemFromStorage,
   navigation,
   refresh,
-  recipes,
   instruction,
 }) => {
   const [investmentName, setInvestmentName] = useState(
@@ -18,18 +17,10 @@ const RecipeItem = ({
 
   const changeName = newName => {
     if (instruction) {
-      for (let i of recipe.instructions) {
-        if (i.key == instruction.key) {
-          i.name = newName;
-          setInvestmentName(newName);
-        }
-      }
+      instruction.name = newName;
+      setInvestmentName(newName);
     } else {
-      for (let i of recipes) {
-        if (i.key == recipe.key) {
-          i.name = newName;
-        }
-      }
+      recipe.name = newName;
     }
     refresh();
   };
@@ -40,7 +31,6 @@ const RecipeItem = ({
       navigation.navigate('Recipe Details View', {
         recipe,
         refresh,
-        recipes,
       });
     }
   };
@@ -106,7 +96,6 @@ RecipeItem.propTypes = {
   deleteItemFromStorage: PropTypes.func.isRequired,
   refresh: PropTypes.func.isRequired,
   navigation: PropTypes.object,
-  recipes: PropTypes.array.isRequired,
   instruction: PropTypes.object,
 };
 
