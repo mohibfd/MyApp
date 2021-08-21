@@ -234,7 +234,7 @@ const WelcomeView = ({navigation}) => {
 
       {isNotificationsModalOpen && (
         <NotificationsModal
-          modalVisible={NotificationsModal}
+          modalVisible={isNotificationsModalOpen}
           closeModal={() => setIsNotificationsModalOpen(false)}
         />
       )}
