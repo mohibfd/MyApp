@@ -54,105 +54,105 @@ const InvestItem = ({
   const menuItems = [
     {
       name: 'Ethereum',
-      imageSource: require('../components/assets/Ethereum.jpeg'),
+      imageSource: require('../components/assets/investments/Ethereum.jpeg'),
       quantity: 0,
       key: uuid.v4(),
       totalValue: 0,
     },
     {
       name: 'WorldIndex',
-      imageSource: require('../components/assets/MSCIWorldIndex.png'),
+      imageSource: require('../components/assets/investments/WorldIndex.png'),
       quantity: 0,
       key: uuid.v4(),
       totalValue: 0,
     },
     {
       name: 'Bitcoin',
-      imageSource: require('../components/assets/Bitcoin.jpeg'),
+      imageSource: require('../components/assets/investments/Bitcoin.jpeg'),
       quantity: 0,
       key: uuid.v4(),
       totalValue: 0,
     },
     {
       name: 'Ripple',
-      imageSource: require('../components/assets/XRP.jpeg'),
+      imageSource: require('../components/assets/investments/Ripple.jpeg'),
       quantity: 0,
       key: uuid.v4(),
       totalValue: 0,
     },
     {
       name: 'BinanceCoin',
-      imageSource: require('../components/assets/BNB.jpeg'),
+      imageSource: require('../components/assets/investments/BinanceCoin.jpeg'),
       quantity: 0,
       key: uuid.v4(),
       totalValue: 0,
     },
     {
       name: 'Cardano',
-      imageSource: require('../components/assets/Cardano.png'),
+      imageSource: require('../components/assets/investments/Cardano.png'),
       quantity: 0,
       key: uuid.v4(),
       totalValue: 0,
     },
     {
       name: 'MaticNetwork',
-      imageSource: require('../components/assets/Polygon.jpeg'),
+      imageSource: require('../components/assets/investments/MaticNetwork.jpeg'),
       quantity: 0,
       key: uuid.v4(),
       totalValue: 0,
     },
     {
       name: 'Stellar',
-      imageSource: require('../components/assets/XLM.jpeg'),
+      imageSource: require('../components/assets/investments/Stellar.jpeg'),
       quantity: 0,
       key: uuid.v4(),
       totalValue: 0,
     },
     {
       name: 'Nano',
-      imageSource: require('../components/assets/Nano.png'),
+      imageSource: require('../components/assets/investments/Nano.png'),
       quantity: 0,
       key: uuid.v4(),
       totalValue: 0,
     },
     {
       name: 'Monero',
-      imageSource: require('../components/assets/XMR.jpeg'),
+      imageSource: require('../components/assets/investments/Monero.jpeg'),
       quantity: 0,
       key: uuid.v4(),
       totalValue: 0,
     },
     {
       name: 'Chainlink',
-      imageSource: require('../components/assets/LINK.jpeg'),
+      imageSource: require('../components/assets/investments/ChainLink.jpeg'),
       quantity: 0,
       key: uuid.v4(),
       totalValue: 0,
     },
     {
       name: 'Algorand',
-      imageSource: require('../components/assets/Algo.jpeg'),
+      imageSource: require('../components/assets/investments/Algorand.jpeg'),
       quantity: 0,
       key: uuid.v4(),
       totalValue: 0,
     },
     {
       name: 'Tron',
-      imageSource: require('../components/assets/Tron.jpeg'),
+      imageSource: require('../components/assets/investments/Tron.jpeg'),
       quantity: 0,
       key: uuid.v4(),
       totalValue: 0,
     },
     {
       name: 'USDCoin',
-      imageSource: require('../components/assets/USDC.png'),
+      imageSource: require('../components/assets/investments/USDcoin.png'),
       quantity: 0,
       key: uuid.v4(),
       totalValue: 0,
     },
     {
       name: 'CelsiusCoin',
-      imageSource: require('../components/assets/CEL.jpeg'),
+      imageSource: require('../components/assets/investments/CelsiusCoin.jpeg'),
       quantity: 0,
       key: uuid.v4(),
       totalValue: 0,
@@ -319,10 +319,6 @@ const InvestItem = ({
     tenPhotos.push(photo.imageSource);
   }
 
-  // investment.assets.map((photo, index) => {});
-
-  // const firstFourPhotos = fourPhotosList[0];
-
   return (
     <>
       <ActionSheet
@@ -403,7 +399,6 @@ const InvestItem = ({
             style={{
               height: tenListHeight(),
               flex: 1,
-              // backgroundColor: 'gold',
             }}>
             {tenPhotosList.map(photosList => {
               return (

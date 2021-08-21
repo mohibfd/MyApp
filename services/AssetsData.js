@@ -85,7 +85,7 @@ export const getAssetsData = async () => {
     const mostRecentPrice = mostRecentPriceList['1. open'];
 
     //we divide by 8 to make the price equal to fidelity's MSCI value
-    const MSCIFidelityPrice = mostRecentPrice / 7.725;
+    const MSCIFidelityPrice = mostRecentPrice / 7.91;
 
     return [
       ETHPrice,

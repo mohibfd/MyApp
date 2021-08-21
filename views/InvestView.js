@@ -61,93 +61,94 @@ const InvestView = ({navigation}) => {
   }, []);
 
   useEffect(() => {
-    setRefreshing(true);
-
     isMountedRef.current = true;
     if (isMountedRef.current) {
       const fetchExactPrices = async () => {
         return await getAssetsData();
       };
       if (isMountedRef.current) {
-        fetchExactPrices().then(prices => {
-          if (!prices) {
-            Alert.alert(
-              'Too many refreshes',
-              'Please wait before refreshing again',
-              [{text: 'OK'}],
-            );
-            setRefreshing(false);
-            return;
-          }
-          investments.map(investment => {
-            // console.log(investment);
+        if (investments.length != 0) {
+          setRefreshing(true);
+          fetchExactPrices().then(prices => {
+            if (!prices) {
+              Alert.alert(
+                'Too many refreshes',
+                'Please wait before refreshing again',
+                [{text: 'OK'}],
+              );
+              setRefreshing(false);
+              return;
+            }
+            investments.map(investment => {
+              // console.log(investment);
 
-            let currentAmount = 0;
-            investment.assets.map(asset => {
-              // console.log(asset);
+              let currentAmount = 0;
+              investment.assets.map(asset => {
+                // console.log(asset);
 
-              let oldCurrentAmount = currentAmount;
+                let oldCurrentAmount = currentAmount;
 
-              switch (asset.name) {
-                case 'Ethereum':
-                  currentAmount += asset.quantity * prices[0];
-                  break;
-                case 'WorldIndex':
-                  currentAmount += asset.quantity * prices[1];
-                  break;
-                case 'Bitcoin':
-                  currentAmount += asset.quantity * prices[2];
-                  break;
-                case 'Ripple':
-                  currentAmount += asset.quantity * prices[3];
-                  break;
-                case 'BinanceCoin':
-                  currentAmount += asset.quantity * prices[4];
-                  break;
-                case 'Cardano':
-                  currentAmount += asset.quantity * prices[5];
-                  break;
-                case 'MaticNetwork':
-                  currentAmount += asset.quantity * prices[6];
-                  break;
-                case 'Stellar':
-                  currentAmount += asset.quantity * prices[7];
-                  break;
-                case 'Nano':
-                  currentAmount += asset.quantity * prices[8];
-                  break;
-                case 'Monero':
-                  currentAmount += asset.quantity * prices[9];
-                  break;
-                case 'Chainlink':
-                  currentAmount += asset.quantity * prices[10];
-                  break;
-                case 'Algorand':
-                  currentAmount += asset.quantity * prices[11];
-                  break;
-                case 'Tron':
-                  currentAmount += asset.quantity * prices[12];
-                  break;
-                case 'USDCoin':
-                  currentAmount += asset.quantity * prices[13];
-                  break;
-                case 'CelsiusCoin':
-                  currentAmount += asset.quantity * prices[14];
-                  break;
-              }
+                switch (asset.name) {
+                  case 'Ethereum':
+                    currentAmount += asset.quantity * prices[0];
+                    break;
+                  case 'WorldIndex':
+                    currentAmount += asset.quantity * prices[1];
+                    break;
+                  case 'Bitcoin':
+                    currentAmount += asset.quantity * prices[2];
+                    break;
+                  case 'Ripple':
+                    currentAmount += asset.quantity * prices[3];
+                    break;
+                  case 'BinanceCoin':
+                    currentAmount += asset.quantity * prices[4];
+                    break;
+                  case 'Cardano':
+                    currentAmount += asset.quantity * prices[5];
+                    break;
+                  case 'MaticNetwork':
+                    currentAmount += asset.quantity * prices[6];
+                    break;
+                  case 'Stellar':
+                    currentAmount += asset.quantity * prices[7];
+                    break;
+                  case 'Nano':
+                    currentAmount += asset.quantity * prices[8];
+                    break;
+                  case 'Monero':
+                    currentAmount += asset.quantity * prices[9];
+                    break;
+                  case 'Chainlink':
+                    currentAmount += asset.quantity * prices[10];
+                    break;
+                  case 'Algorand':
+                    currentAmount += asset.quantity * prices[11];
+                    break;
+                  case 'Tron':
+                    currentAmount += asset.quantity * prices[12];
+                    break;
+                  case 'USDCoin':
+                    currentAmount += asset.quantity * prices[13];
+                    break;
+                  case 'CelsiusCoin':
+                    currentAmount += asset.quantity * prices[14];
+                    break;
+                }
 
-              let newAmount = currentAmount - oldCurrentAmount;
+                let newAmount = currentAmount - oldCurrentAmount;
 
-              asset.totalValue = newAmount;
+                asset.totalValue = newAmount;
+              });
+
+              investment.currentAmount = currentAmount;
+
+              //updating our object
+              setInvestmentsStorage(investments);
+              toggleOverallInvestmentChanged();
             });
-
-            investment.currentAmount = currentAmount;
-
-            //updating our object
-            setInvestmentsStorage(investments);
-            toggleOverallInvestmentChanged();
           });
-        });
+        }
       }
     }
 
