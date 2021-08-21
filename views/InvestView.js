@@ -147,7 +147,6 @@ const InvestView = ({navigation}) => {
             setInvestmentsStorage(investments);
             toggleOverallInvestmentChanged();
           });
-          setRefreshing(false);
         });
       }
     }
@@ -258,6 +257,10 @@ const InvestView = ({navigation}) => {
 
       setOverallOriginalInvestment(overallOriginalInvestmentTemp);
       setOverallCurrentAmount(overallCurrentAmountTemp);
+
+      if (refreshing) {
+        setRefreshing(false);
+      }
     }
 
     return () => {

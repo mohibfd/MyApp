@@ -13,7 +13,7 @@ import InvestDetailsView from './views/InvestDetailsView';
 import WorkoutView from './views/WorkoutView';
 import MeditateView from './views/MeditateView';
 import BooksView from './views/BooksView';
-import CookingView from './views/CookingView';
+import RecipesView from './views/RecipesView';
 import ProductivityView from './views/ProductivityView';
 import RemindersView from './views/RemindersView';
 import WakeboardingView from './views/WakeboardingView';
@@ -71,8 +71,8 @@ const App = () => {
             options={{headerShown: false}}
           />
           <Stack.Screen
-            name="Cooking View"
-            component={CookingView}
+            name="Recipes View"
+            component={RecipesView}
             options={{headerShown: false}}
           />
           <Stack.Screen

@@ -17,7 +17,6 @@ import Header from '../components/Header';
 import AddIconModal from '../components/modals/AddIconModal';
 import DeleteOrCancel from '../components/DeleteOrCancel';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import generalStyles from '../stylesheets/generalStylesheet';
 
 const WelcomeView = ({navigation}) => {
   const [item1, setItem1] = useStorage('PlantsId');
@@ -25,7 +24,7 @@ const WelcomeView = ({navigation}) => {
   const [item3, setItem3] = useStorage('WorkoutId');
   const [item4, setItem4] = useStorage('MeditateId');
   const [item5, setItem5] = useStorage('BooksId');
-  const [item6, setItem6] = useStorage('CookingId');
+  const [item6, setItem6] = useStorage('RecipesId');
   const [item7, setItem7] = useStorage('ProductivityId');
   const [item8, setItem8] = useStorage('RemindersId');
   const [item9, setItem9] = useStorage('WakeboardingId');
@@ -44,7 +43,7 @@ const WelcomeView = ({navigation}) => {
     {name: 'Workout', icon: 'heartbeat', color: myRed, key: uuid.v4()},
     {name: 'Meditate', icon: 'pause', color: myWhite, key: uuid.v4()},
     {name: 'Books', icon: 'book', color: myBrown, key: uuid.v4()},
-    {name: 'Cooking', icon: 'lemon-o', color: myYellow, key: uuid.v4()},
+    {name: 'Recipes', icon: 'lemon-o', color: myYellow, key: uuid.v4()},
     {name: 'Productivity', icon: 'themeisle', color: 'pink', key: uuid.v4()},
     {name: 'Reminders', icon: 'calendar', color: 'orange', key: uuid.v4()},
     {name: 'Wakeboarding', icon: 'tint', color: myBlue, key: uuid.v4()},
@@ -120,7 +119,7 @@ const WelcomeView = ({navigation}) => {
       case 'Books':
         setItem5(mainItem);
         break;
-      case 'Cooking':
+      case 'Recipes':
         setItem6(mainItem);
         break;
       case 'Productivity':

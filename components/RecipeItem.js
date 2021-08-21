@@ -4,44 +4,9 @@ import {View, Text, Pressable, StyleSheet, Alert} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const ListItem = ({item, deleteItemFromStorage, navigation}) => {
+const RecipeItem = ({item, deleteItemFromStorage}) => {
   //tells you which page to go to
-  const navigateTo = () => {
-    if (navigation) {
-      switch (item.name) {
-        case 'Plants':
-          navigation.navigate('Plants View');
-          break;
-        case 'Invest':
-          navigation.navigate('Invest View');
-          break;
-        case 'Workout':
-          navigation.navigate('Workout View');
-          break;
-        case 'Meditate':
-          navigation.navigate('Meditate View');
-          break;
-        case 'Books':
-          navigation.navigate('Books View');
-          break;
-        case 'Recipes':
-          navigation.navigate('Recipes View');
-          break;
-        case 'Productivity':
-          navigation.navigate('Productivity View');
-          break;
-        case 'Reminders':
-          navigation.navigate('Reminders View');
-          break;
-        case 'Wakeboarding':
-          navigation.navigate('Wakeboarding View');
-          break;
-
-        default:
-          Alert.alert('NOT FOUND');
-      }
-    }
-  };
+  const navigateTo = () => {};
 
   //return our items alongside a delete icon that calls on deleteList function taking the element's id
   return (
@@ -84,14 +49,9 @@ const styles = StyleSheet.create({
   },
 });
 
-ListItem.defaultProps = {
-  navigation: null,
-};
-
-ListItem.propTypes = {
+RecipeItem.propTypes = {
   item: PropTypes.object.isRequired,
   deleteItemFromStorage: PropTypes.func.isRequired,
-  navigation: PropTypes.object,
 };
 
-export default ListItem;
+export default RecipeItem;

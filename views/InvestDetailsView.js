@@ -215,7 +215,7 @@ const DeveloperDetailsView = ({route}) => {
         </View>
       </View>
 
-      <FlatList data={assets} renderItem={renderItem} numColumns={1} />
+      <FlatList data={assets} renderItem={renderItem} />
       {isDeleteOrCancelOpen && (
         <DeleteOrCancel
           name={assetToDelete.name}
