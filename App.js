@@ -11,6 +11,7 @@ import PlantsView from './views/PlantsView';
 import InvestView from './views/InvestView';
 import InvestDetailsView from './views/InvestDetailsView';
 import WorkoutView from './views/WorkoutView';
+import WorkoutDetailsView from './views/WorkoutDetailsView';
 import MeditateView from './views/MeditateView';
 import BooksView from './views/BooksView';
 import RecipesView from './views/RecipesView';
@@ -64,6 +65,11 @@ const App = () => {
           <Stack.Screen
             name="Workout View"
             component={WorkoutView}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Workout Details View"
+            component={WorkoutDetailsView}
             options={{headerShown: false}}
           />
           <Stack.Screen
