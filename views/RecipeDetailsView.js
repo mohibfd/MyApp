@@ -8,9 +8,9 @@ import {
   StyleSheet,
   Text,
   View,
+  TextInput,
 } from 'react-native';
 import uuid from 'react-native-uuid';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 import RecipeItem from '../components/flatListRendering/RecipeItem';
 import Header from '../components/Header';
@@ -28,6 +28,8 @@ const RecipeDetailsView = ({route}) => {
   const [deleteItem, setDeleteItem] = useState(null);
 
   const [refreshFlastList, setRefreshFlatList] = useState('');
+
+  const [multiplier, setMultiplier] = useState(`${recipe.multiplier}`);
 
   const addInstruction = () => {
     recipe.instructions.push({name: '', key: uuid.v4()});
@@ -63,6 +65,71 @@ const RecipeDetailsView = ({route}) => {
     });
   };
 
+  const imageSource = () => {
+    if (recipe.photo) {
+      return {uri: recipe.photo};
+    } else {
+      return require('../components/assets/Recipes.jpeg');
+    }
+  };
+
+  const multiplierFunc = value => {
+    const numberInputed = new Number(value) * 1;
+
+    if (numberInputed == 0) {
+      setMultiplier(value);
+    }
+    //only enter and allow changes if the user inputs a valid number
+    else if (!isNaN(numberInputed)) {
+      let quantities = instructions
+        .map(instruction => {
+          return {quantity: instruction.quantity, key: instruction.key};
+        })
+        .filter(instruction => instruction.quantity !== undefined);
+
+      quantities.forEach(originalQuantity => {
+        let quantity = originalQuantity.quantity.split('');
+        let numberArr = [];
+        let stringArr = [];
+        let divideByTen = 1;
+        quantity.forEach(character => {
+          //search for number values
+          if (!isNaN(new Number(character)) && character != ' ') {
+            numberArr.push(character);
+          } else if (character == '.') {
+            divideByTen = 10;
+          } else {
+            stringArr.push(character);
+          }
+        });
+
+        const numberToBeChanged =
+          (new Number(numberArr.join('')) * 1) / divideByTen;
+
+        // console.log('number to change', numberToBeChanged);
+        // console.log('number inputed', numberInputed);
+        // console.log('number multiplier', recipe.multiplier);
+
+        const newNumber = (
+          (numberToBeChanged * numberInputed) /
+          recipe.multiplier
+        ).toFixed(1);
+
+        const remainingString = stringArr.join('');
+
+        recipe.instructions.forEach(i => {
+          if (i.key == originalQuantity.key) {
+            i.quantity = newNumber + remainingString;
+          }
+        });
+      });
+      recipe.multiplier = numberInputed;
+      setMultiplier(value);
+      refresh();
+      setRefreshFlatList(uuid.v4());
+    }
+  };
+
   const renderItem = item => {
     return (
       <RecipeItem
@@ -74,15 +141,8 @@ const RecipeDetailsView = ({route}) => {
     );
   };
 
-  const imageSource = () => {
-    if (recipe.photo) {
-      return {uri: recipe.photo};
-    } else {
-      return require('../components/assets/Recipes.jpeg');
-    }
-  };
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: myBlack}}>
+    <SafeAreaView style={styles.container}>
       <Header
         title={recipe.name}
         instantAdd={addInstruction}
@@ -90,9 +150,16 @@ const RecipeDetailsView = ({route}) => {
       />
       <ImageBackground source={imageSource()} style={styles.image}>
         <View style={styles.textContainer}>
-          <Text style={styles.text}> Ingredients</Text>
-          <Text style={[styles.text, styles.text2]}> Quantity</Text>
-          {/* adding transparent icon will ensure we have perfect alignment */}
+          <Text style={[styles.text, styles.text1]}>Ingredients</Text>
+          <Text style={[styles.text, styles.text2]}>Quantity</Text>
+          <Text style={[styles.text]}>X</Text>
+          <TextInput
+            style={[styles.text, styles.text3]}
+            value={multiplier}
+            onChangeText={multiplierFunc}
+            maxLength={1}
+            keyboardType="numeric"
+          />
         </View>
 
         <FlatList
@@ -113,6 +180,7 @@ const RecipeDetailsView = ({route}) => {
   );
 };
 const styles = StyleSheet.create({
+  container: {flex: 1, backgroundColor: myBlack},
   image: {
     width: '100%',
     height: '100%',
@@ -120,16 +188,23 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     flexDirection: 'row',
-    paddingVertical: '.5%',
+    // paddingVertical: '.5%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   text: {
-    width: '50%',
     fontSize: EStyleSheet.value('22rem'),
     marginLeft: EStyleSheet.value('10rem'),
     color: myWhite,
   },
+  text1: {
+    width: '50%',
+  },
   text2: {
     width: '30%',
+  },
+  text3: {
+    marginLeft: 0,
   },
   iconContainer: {
     flexDirection: 'row',

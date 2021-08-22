@@ -53,6 +53,7 @@ const RecipesView = ({navigation}) => {
           key: uuid.v4(),
           instructions: [],
           photo: null,
+          multiplier: 1,
         },
       ];
     });

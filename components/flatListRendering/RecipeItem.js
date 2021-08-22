@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
-import {View, Pressable, StyleSheet, TextInput} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, StyleSheet, TextInput} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -18,6 +18,12 @@ const RecipeItem = ({
   const [instructionQuantity, setInstructionQuantity] = useState(
     instruction ? instruction.quantity : '',
   );
+
+  if (instruction) {
+    useEffect(() => {
+      setInstructionQuantity(instruction.quantity);
+    }, [instruction.quantity]);
+  }
 
   const changeName = newName => {
     if (instruction) {
@@ -46,38 +52,49 @@ const RecipeItem = ({
     }
   };
 
-  //return our items alongside a delete icon that calls on deleteList function taking the element's id
-  return (
-    <View style={styles.ListItem}>
-      <View style={styles.ListItemView}>
-        <TextInput
-          style={[
-            styles.listItemText,
-            {
-              width: navigation ? '65%' : '50%',
-            },
-          ]}
-          value={instruction ? instructionName : recipe.name}
-          onChangeText={changeName}
-          placeholder="add name"
-          multiline={true}
-        />
-        {instruction && (
+  if (instruction) {
+    return (
+      <View style={styles.ListItem}>
+        <View style={styles.ListItemView}>
           <TextInput
-            style={[
-              styles.listItemText,
-              {
-                width: '30%',
-              },
-            ]}
+            style={[styles.listItemText, styles.widthOne]}
+            value={instructionName}
+            onChangeText={changeName}
+            placeholder="add name"
+            multiline={true}
+          />
+          <TextInput
+            style={[styles.listItemText, styles.widthTwo]}
             value={instructionQuantity}
             onChangeText={changeQuantity}
             placeholder="amount"
             multiline={true}
           />
-        )}
-        <View style={styles.iconContainer}>
-          {navigation && (
+          <View style={styles.iconContainer}>
+            <Icon
+              style={styles.redCross}
+              name="remove"
+              size={EStyleSheet.value('40rem')}
+              color="firebrick"
+              onPress={() => deleteItemFromStorage(instruction)}
+            />
+          </View>
+        </View>
+      </View>
+    );
+  } else {
+    return (
+      <View style={styles.ListItem}>
+        <View style={styles.ListItemView}>
+          <TextInput
+            style={[styles.listItemText, styles.widthThree]}
+            value={recipe.name}
+            onChangeText={changeName}
+            placeholder="add name"
+            multiline={true}
+          />
+
+          <View style={styles.iconContainer}>
             <Icon
               style={styles.redCross}
               name="arrow-right"
@@ -85,25 +102,18 @@ const RecipeItem = ({
               color="gold"
               onPress={() => navigateTo()}
             />
-          )}
-          <Icon
-            style={[
-              styles.redCross,
-              {
-                marginLeft: navigation ? EStyleSheet.value('15rem') : 0,
-              },
-            ]}
-            name="remove"
-            size={EStyleSheet.value('40rem')}
-            color="firebrick"
-            onPress={() =>
-              deleteItemFromStorage(instruction ? instruction : recipe)
-            }
-          />
+            <Icon
+              style={[styles.redCross, styles.marginLeft]}
+              name="remove"
+              size={EStyleSheet.value('40rem')}
+              color="firebrick"
+              onPress={() => deleteItemFromStorage(recipe)}
+            />
+          </View>
         </View>
       </View>
-    </View>
-  );
+    );
+  }
 };
 
 const styles = StyleSheet.create({
@@ -122,6 +132,15 @@ const styles = StyleSheet.create({
     marginLeft: EStyleSheet.value('10rem'),
     color: myWhite,
   },
+  widthOne: {
+    width: '50%',
+  },
+  widthTwo: {
+    width: '30%',
+  },
+  widthThree: {
+    width: '65%',
+  },
   iconContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
@@ -130,6 +149,9 @@ const styles = StyleSheet.create({
   redCross: {
     alignSelf: 'flex-end',
     paddingHorizontal: EStyleSheet.value('5rem'),
+  },
+  marginLeft: {
+    marginLeft: EStyleSheet.value('15rem'),
   },
 });
 
