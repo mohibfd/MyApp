@@ -1,5 +1,10 @@
 import React, {useEffect, useState, useRef} from 'react';
-import {SafeAreaView, FlatList, ImageBackground} from 'react-native';
+import {
+  SafeAreaView,
+  FlatList,
+  ImageBackground,
+  StyleSheet,
+} from 'react-native';
 import uuid from 'react-native-uuid';
 
 import RecipeItem from '../components/flatListRendering/RecipeItem';
@@ -83,11 +88,11 @@ const RecipesView = ({navigation}) => {
     );
   };
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: myBlack}}>
+    <SafeAreaView style={styles.container}>
       <Header title="My Recipes" instantAdd={createRecipe} />
       <ImageBackground
         source={require('../components/assets/Recipes.jpeg')}
-        style={{width: '100%', height: '100%'}}>
+        style={styles.image}>
         <FlatList data={recipes} renderItem={renderItem} />
       </ImageBackground>
 
@@ -101,5 +106,10 @@ const RecipesView = ({navigation}) => {
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {flex: 1, backgroundColor: myBlack},
+  image: {width: '100%', height: '100%', flex: 1},
+});
 
 export default RecipesView;

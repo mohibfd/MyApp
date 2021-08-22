@@ -18,8 +18,8 @@
         android:label="@string/app_name"
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
         android:launchMode="singleTask"
-        android:windowSoftInputMode="adjustResize">
-        <!-- android:windowSoftInputMode="adjustPan"> -->
+        android:windowSoftInputMode="adjustPan">
+        <!-- android:windowSoftInputMode="adjustResize"> -->
         <!-- choose one of the two window options -->
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
