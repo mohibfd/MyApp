@@ -11,17 +11,28 @@ const RecipeItem = ({
   refresh,
   instruction,
 }) => {
-  const [recipeName, setRecipeName] = useState(
+  const [instructionName, setInstructionName] = useState(
     instruction ? instruction.name : '',
+  );
+
+  const [instructionQuantity, setInstructionQuantity] = useState(
+    instruction ? instruction.quantity : '',
   );
 
   const changeName = newName => {
     if (instruction) {
       instruction.name = newName;
-      setRecipeName(newName);
+      setInstructionName(newName);
     } else {
       recipe.name = newName;
     }
+    refresh();
+  };
+
+  const changeQuantity = newQuantity => {
+    instruction.quantity = newQuantity;
+    setInstructionQuantity(newQuantity);
+
     refresh();
   };
 
@@ -43,14 +54,28 @@ const RecipeItem = ({
           style={[
             styles.listItemText,
             {
-              width: navigation ? '65%' : '80%',
+              width: navigation ? '65%' : '50%',
             },
           ]}
-          value={instruction ? recipeName : recipe.name}
+          value={instruction ? instructionName : recipe.name}
           onChangeText={changeName}
           placeholder="add name"
           multiline={true}
         />
+        {instruction && (
+          <TextInput
+            style={[
+              styles.listItemText,
+              {
+                width: '30%',
+              },
+            ]}
+            value={instructionQuantity}
+            onChangeText={changeQuantity}
+            placeholder="amount"
+            multiline={true}
+          />
+        )}
         <View style={styles.iconContainer}>
           {navigation && (
             <Icon
@@ -93,7 +118,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   listItemText: {
-    fontSize: EStyleSheet.value('25rem'),
+    fontSize: EStyleSheet.value('22rem'),
     marginLeft: EStyleSheet.value('10rem'),
     color: myWhite,
   },

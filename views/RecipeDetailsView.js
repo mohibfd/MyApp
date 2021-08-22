@@ -6,13 +6,17 @@ import {
   FlatList,
   ImageBackground,
   StyleSheet,
+  Text,
+  View,
 } from 'react-native';
 import uuid from 'react-native-uuid';
-import RecipeItem from '../components/flatListRendering/RecipeItem';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
+import RecipeItem from '../components/flatListRendering/RecipeItem';
 import Header from '../components/Header';
 import DeleteOrCancel from '../components/modals/DeleteOrCancel';
 import {launchImageLibrary} from 'react-native-image-picker';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 const RecipeDetailsView = ({route}) => {
   const {recipe, refresh} = route.params;
@@ -85,6 +89,12 @@ const RecipeDetailsView = ({route}) => {
         cameraAdd={openImageLibrary}
       />
       <ImageBackground source={imageSource()} style={styles.image}>
+        <View style={styles.textContainer}>
+          <Text style={styles.text}> Ingredients</Text>
+          <Text style={[styles.text, styles.text2]}> Quantity</Text>
+          {/* adding transparent icon will ensure we have perfect alignment */}
+        </View>
+
         <FlatList
           data={recipe.instructions}
           renderItem={renderItem}
@@ -107,6 +117,27 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     flex: 1,
+  },
+  textContainer: {
+    flexDirection: 'row',
+  },
+  text: {
+    width: '50%',
+    fontSize: EStyleSheet.value('22rem'),
+    marginLeft: EStyleSheet.value('10rem'),
+    color: myWhite,
+  },
+  text2: {
+    width: '30%',
+  },
+  iconContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    flex: 1,
+  },
+  transparentIcon: {
+    alignSelf: 'flex-end',
+    paddingHorizontal: EStyleSheet.value('5rem'),
   },
 });
 
