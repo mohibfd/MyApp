@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Pressable, StyleSheet, Text, TextInput} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CurrencyInput from 'react-native-currency-input';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 const WorkoutItem = ({
   muscle,
@@ -12,6 +13,39 @@ const WorkoutItem = ({
   workout,
   refresh,
 }) => {
+  const [showDropDownPicker, setShowDropDownPicker] = useState(false);
+  const [dropDownPickerValue, setDropDownPickerValue] = useState(
+    workout ? workout.measurement : null,
+  );
+
+  const [interestInterval, setInterestInterval] = useState(
+    workout
+      ? workout.measurement == 'kg'
+        ? [{label: 'lb', value: 'lb'}]
+        : [{label: 'kg', value: 'kg'}]
+      : null,
+  );
+
+  useEffect(() => {
+    if (dropDownPickerValue) {
+      if (dropDownPickerValue != workout.measurement) {
+        console.log(dropDownPickerValue, workout.measurement);
+        if (dropDownPickerValue == 'kg') {
+          workout.measurement = 'kg';
+          workout.maximumWeight = workout.maximumWeight / 2.205;
+          workout.minimumWeight = workout.minimumWeight / 2.205;
+          setInterestInterval([{label: 'lb', value: 'lb'}]);
+        } else {
+          workout.measurement = 'lb';
+          workout.maximumWeight = workout.maximumWeight * 2.205;
+          workout.minimumWeight = workout.minimumWeight * 2.205;
+          setInterestInterval([{label: 'kg', value: 'kg'}]);
+        }
+        refresh();
+      }
+    }
+  }, [dropDownPickerValue]);
+
   const changeName = newName => {
     workout.name = newName;
     refresh();
@@ -24,7 +58,7 @@ const WorkoutItem = ({
     workout.maximumWeight = newNumber;
     refresh();
   };
-  //tells you which page to go to
+
   const navigateTo = () => {
     if (navigation) {
       navigation.navigate('Workout Details View', {
@@ -32,8 +66,6 @@ const WorkoutItem = ({
       });
     }
   };
-
-  //return our items alongside a delete icon that calls on deleteList function taking the element's id
 
   if (deleteItemFromStorage) {
     return (
@@ -64,9 +96,25 @@ const WorkoutItem = ({
           maxLength={4}
           minValue={0}
         />
-
-        <Text style={styles.kg}>Kg</Text>
-
+        <View style={styles.dropDownContainer}>
+          <DropDownPicker
+            open={showDropDownPicker}
+            value={dropDownPickerValue}
+            setOpen={setShowDropDownPicker}
+            setValue={setDropDownPickerValue}
+            items={interestInterval}
+            setItems={setInterestInterval}
+            arrowIconStyle={{
+              tintColor: myWhite,
+              width: EStyleSheet.value('5rem'),
+            }}
+            tickIconStyle={{tintColor: myWhite, width: 0}}
+            textStyle={{color: myWhite}}
+            style={styles.dropDownStyle}
+            dropDownContainerStyle={styles.dropDownStyle}
+            placeholder={workout.measurement}
+          />
+        </View>
         <View style={styles.iconContainer}>
           <Icon
             style={styles.redCross}
@@ -98,7 +146,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   paddingVertical: {
-    paddingVertical: '5%',
+    paddingVertical: '0%',
+    height: EStyleSheet.value('100rem'),
   },
   listItemText: {
     fontSize: EStyleSheet.value('40rem'),
@@ -107,21 +156,26 @@ const styles = StyleSheet.create({
   },
   text: {
     flex: 1,
-    // backgroundColor: 'gold',
     fontSize: EStyleSheet.value('23rem'),
     marginLeft: EStyleSheet.value('10rem'),
     color: 'white',
   },
   numbers: {
-    // flex: 0.6,
     fontSize: EStyleSheet.value('30rem'),
     textAlign: 'center',
     color: 'white',
   },
-  rowDirection: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  dropDownContainer: {
+    justifyContent: 'center',
+    height: '100%',
+    width: EStyleSheet.value('50rem'),
   },
+  dropDownStyle: {
+    backgroundColor: myBlack,
+    borderColor: 'gold',
+    height: EStyleSheet.value('31rem'),
+  },
+
   kg: {
     color: myWhite,
     fontSize: EStyleSheet.value('25rem'),

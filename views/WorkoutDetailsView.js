@@ -14,7 +14,6 @@ import WorkoutItem from '../components/flatListRendering/WorkoutItem';
 
 import Header from '../components/Header';
 import DeleteOrCancel from '../components/modals/DeleteOrCancel';
-import {launchImageLibrary} from 'react-native-image-picker';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 const WorkoutDetailsView = ({route}) => {
@@ -63,6 +62,7 @@ const WorkoutDetailsView = ({route}) => {
           key: uuid.v4(),
           minimumWeight: 0,
           maximumWeight: 0,
+          measurement: 'kg',
         },
       ];
     });
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     marginLeft: EStyleSheet.value('10rem'),
   },
   paddingRight: {
-    paddingRight: EStyleSheet.value('15rem'),
+    paddingRight: EStyleSheet.value('35rem'),
   },
   image: {
     width: '100%',
