@@ -130,14 +130,15 @@ const styles = StyleSheet.create({
     borderColor: myRed,
   },
   text: {
-    fontSize: EStyleSheet.value('20rem'),
+    fontSize: EStyleSheet.value('18rem'),
     color: 'white',
   },
   marginLeft: {
-    flex: 1,
+    flex: 1.3,
     marginLeft: EStyleSheet.value('10rem'),
   },
   paddingRight: {
+    flex: 1,
     paddingRight: EStyleSheet.value('35rem'),
   },
   image: {

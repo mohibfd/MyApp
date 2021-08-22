@@ -198,15 +198,8 @@ const RecipeDetailsView = ({route}) => {
           data={[...recipe.ingredients, ...recipe.cookingSteps].sort((a, b) =>
             a.order > b.order ? 1 : -1,
           )}
-          // data={instructionsList}
           renderItem={renderItem}
           extraData={refreshFlastList}
-          // contentContainerStyle={{flex: 1}}
-          // ListFooterComponent={
-          //   <Pressable style={styles.footerContainer} onPress={addCookingStep}>
-          //     <Text style={styles.text4}>Add cooking step</Text>
-          //   </Pressable>
-          // }
         />
         <Pressable style={styles.footerContainer} onPress={addCookingStep}>
           <Text style={styles.text4}>Add cooking step</Text>
@@ -232,7 +225,6 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     flexDirection: 'row',
-    // paddingVertical: '.5%',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -257,7 +249,6 @@ const styles = StyleSheet.create({
   },
   footerContainer: {
     backgroundColor: '#CD7F32' + 'CC',
-
     height: EStyleSheet.value('50rem'),
     borderColor: myRed,
     borderWidth: 5,

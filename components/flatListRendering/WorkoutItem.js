@@ -57,13 +57,19 @@ const WorkoutItem = ({
     workout.name = newName;
     refresh();
   };
-  const changeMinWeight = newNumber => {
-    workout.minimumWeight = newNumber;
-    refresh();
+  const changeMinWeight = value => {
+    let number = new Number(value) * 1;
+    if (!isNaN(number)) {
+      workout.minimumWeight = number;
+      refresh();
+    }
   };
-  const changeMaxWeight = newNumber => {
-    workout.maximumWeight = newNumber;
-    refresh();
+  const changeMaxWeight = value => {
+    let number = new Number(value) * 1;
+    if (!isNaN(number)) {
+      workout.maximumWeight = number;
+      refresh();
+    }
   };
 
   const navigateTo = () => {
@@ -85,24 +91,24 @@ const WorkoutItem = ({
           placeholderTextColor={'grey'}
           multiline={true}
         />
-        <CurrencyInput
+        <TextInput
           style={styles.numbers}
-          value={workout.minimumWeight}
-          onChangeValue={changeMinWeight}
-          separator=""
-          maxLength={4}
-          minValue={0}
+          value={`${Math.round(workout.minimumWeight)}`}
+          onChangeText={changeMinWeight}
+          maxLength={3}
+          keyboardType="numeric"
         />
-        <Text style={styles.kg}>/</Text>
 
-        <CurrencyInput
+        <Text style={styles.separator}>/</Text>
+
+        <TextInput
           style={styles.numbers}
-          value={workout.maximumWeight}
-          onChangeValue={changeMaxWeight}
-          separator=""
-          maxLength={4}
-          minValue={0}
+          value={`${Math.round(workout.maximumWeight)}`}
+          onChangeText={changeMaxWeight}
+          maxLength={3}
+          keyboardType="numeric"
         />
+
         <View style={styles.dropDownContainer}>
           <DropDownPicker
             open={showDropDownPicker}
@@ -111,11 +117,8 @@ const WorkoutItem = ({
             setValue={setDropDownPickerValue}
             items={interestInterval}
             setItems={setInterestInterval}
-            arrowIconStyle={{
-              tintColor: myWhite,
-              width: EStyleSheet.value('5rem'),
-            }}
-            tickIconStyle={{tintColor: myWhite, width: 0}}
+            arrowIconStyle={styles.arrowIconStyle}
+            tickIconStyle={styles.tickIconStyle}
             textStyle={{color: myWhite}}
             style={styles.dropDownStyle}
             dropDownContainerStyle={styles.dropDownStyle}
@@ -144,6 +147,7 @@ const WorkoutItem = ({
 
 const styles = StyleSheet.create({
   musclesContainer: {
+    //this will ensure we take the entire screen with our 6 muscles
     height: Dimensions.get('window').height * 0.1545,
     borderBottomWidth: EStyleSheet.value('2rem'),
     borderColor: myRed,
@@ -161,12 +165,12 @@ const styles = StyleSheet.create({
   },
   text: {
     flex: 1,
-    fontSize: EStyleSheet.value('23rem'),
+    fontSize: EStyleSheet.value('20rem'),
     marginLeft: EStyleSheet.value('10rem'),
     color: 'white',
   },
   numbers: {
-    fontSize: EStyleSheet.value('30rem'),
+    fontSize: EStyleSheet.value('25rem'),
     textAlign: 'center',
     color: 'white',
   },
@@ -180,8 +184,12 @@ const styles = StyleSheet.create({
     borderColor: 'gold',
     height: EStyleSheet.value('31rem'),
   },
-
-  kg: {
+  arrowIconStyle: {
+    tintColor: myWhite,
+    width: EStyleSheet.value('5rem'),
+  },
+  tickIconStyle: {tintColor: myWhite, width: 0},
+  separator: {
     color: myWhite,
     fontSize: EStyleSheet.value('25rem'),
   },
