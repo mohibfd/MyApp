@@ -37,17 +37,37 @@ const RecipeItem = ({
 
   //return our items alongside a delete icon that calls on deleteList function taking the element's id
   return (
-    <Pressable style={styles.ListItem} onPress={() => navigateTo()}>
+    <View style={styles.ListItem}>
       <View style={styles.ListItemView}>
         <TextInput
-          style={styles.listItemText}
+          style={[
+            styles.listItemText,
+            {
+              width: navigation ? '65%' : '80%',
+            },
+          ]}
           value={instruction ? recipeName : recipe.name}
           onChangeText={changeName}
           placeholder="add name"
+          multiline={true}
         />
         <View style={styles.iconContainer}>
+          {navigation && (
+            <Icon
+              style={styles.redCross}
+              name="arrow-right"
+              size={EStyleSheet.value('40rem')}
+              color="gold"
+              onPress={() => navigateTo()}
+            />
+          )}
           <Icon
-            style={styles.redCross}
+            style={[
+              styles.redCross,
+              {
+                marginLeft: navigation ? EStyleSheet.value('15rem') : 0,
+              },
+            ]}
             name="remove"
             size={EStyleSheet.value('40rem')}
             color="firebrick"
@@ -57,7 +77,7 @@ const RecipeItem = ({
           />
         </View>
       </View>
-    </Pressable>
+    </View>
   );
 };
 
@@ -70,6 +90,7 @@ const styles = StyleSheet.create({
   ListItemView: {
     flexDirection: 'row',
     alignItems: 'center',
+    flex: 1,
   },
   listItemText: {
     fontSize: EStyleSheet.value('25rem'),
@@ -77,6 +98,8 @@ const styles = StyleSheet.create({
     color: myWhite,
   },
   iconContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
     flex: 1,
   },
   redCross: {
