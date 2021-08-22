@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
   },
   paddingRight: {
     flex: 1,
-    paddingRight: EStyleSheet.value('35rem'),
+    paddingRight: EStyleSheet.value('15rem'),
   },
   image: {
     width: '100%',

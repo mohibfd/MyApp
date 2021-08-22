@@ -5,7 +5,6 @@ import uuid from 'react-native-uuid';
 import Header from '../components/Header';
 import ListDeveloperItems from '../components/flatListRendering/ListDeveloperItems';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import styles from '../stylesheets/generalStylesheet';
 
 const DeveloperView = () => {
   const [cardsStorage, setCardsStorage] = useStorage('cardss');
