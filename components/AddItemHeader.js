@@ -43,18 +43,20 @@ const AddItemHeader = ({
   const renderIcon = () => {
     let icon = 'plus';
     let color = 'green';
+    let size = EStyleSheet.value('40rem');
     if (cameraAdd) {
       icon = 'camera';
       color = 'yellow';
     } else if (openNotifications) {
       icon = 'bell';
       color = 'white';
+      size = EStyleSheet.value('30rem');
     }
     return (
       <Icon
         style={generalStyles.plusButton}
         name={icon}
-        size={EStyleSheet.value('75rem')}
+        size={size}
         color={color}
         onPress={() => {
           overlayFunction();

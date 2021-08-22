@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Pressable,
   Text,
+  ImageBackground,
 } from 'react-native';
 import uuid from 'react-native-uuid';
 import PushNotification from 'react-native-push-notification';
@@ -179,50 +180,53 @@ const WelcomeView = ({navigation}) => {
         title="My Items"
         openNotifications={() => setIsNotificationsModalOpen(true)}
       />
-
-      <FlatList
-        data={items}
-        renderItem={({item}) => (
-          <ListItem
-            item={item}
-            deleteItemFromStorage={openDeleteOrCancel}
-            navigation={navigation}
+      <ImageBackground
+        source={require('../components/assets/WelcomeView.jpeg')}
+        style={styles.image}>
+        <FlatList
+          data={items}
+          renderItem={({item}) => (
+            <ListItem
+              item={item}
+              deleteItemFromStorage={openDeleteOrCancel}
+              navigation={navigation}
+            />
+          )}
+          numColumns={2}
+        />
+        {openModal && (
+          <AddIconModal
+            menuItems={menuItems}
+            addMainItem={addMainItem}
+            setModalVisible={setOpenModal}
           />
         )}
-        numColumns={2}
-      />
-      {openModal && (
-        <AddIconModal
-          menuItems={menuItems}
-          addMainItem={addMainItem}
-          setModalVisible={setOpenModal}
+
+        <Icon
+          style={styles.modalToggle}
+          name="plus"
+          size={EStyleSheet.value('75rem')}
+          color="green"
+          onPress={() => setOpenModal(true)}
         />
-      )}
 
-      <Icon
-        style={styles.modalToggle}
-        name="plus"
-        size={EStyleSheet.value('75rem')}
-        color="green"
-        onPress={() => setOpenModal(true)}
-      />
-
-      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-        <Pressable
-          style={styles.button}
-          onPress={() => navigation.navigate('Developer View')}>
-          <Text style={[styles.textStylesDark, styles.developerButtonColour]}>
-            Go to developer menu
-          </Text>
-        </Pressable>
-        <Pressable
-          style={styles.button}
-          onPress={() => navigation.navigate('Online View')}>
-          <Text style={[styles.textStylesDark, styles.onlineButtonColour]}>
-            Go to online section
-          </Text>
-        </Pressable>
-      </View>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <Pressable
+            style={styles.button}
+            onPress={() => navigation.navigate('Developer View')}>
+            <Text style={[styles.textStylesDark, styles.developerButtonColour]}>
+              Go to developer menu
+            </Text>
+          </Pressable>
+          <Pressable
+            style={styles.button}
+            onPress={() => navigation.navigate('Online View')}>
+            <Text style={[styles.textStylesDark, styles.onlineButtonColour]}>
+              Go to online section
+            </Text>
+          </Pressable>
+        </View>
+      </ImageBackground>
 
       {isDeleteOrCancel && (
         <DeleteOrCancel
@@ -244,6 +248,9 @@ const WelcomeView = ({navigation}) => {
 
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: myBlack},
+
+  image: {flex: 1, width: '100%', height: '100%'},
+
   button: {
     borderWidth: 1,
     borderColor: myWhite,
@@ -259,10 +266,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   developerButtonColour: {
-    color: '#5a9156',
+    color: '#bd444c',
   },
   onlineButtonColour: {
-    color: '#bd444c',
+    color: '#5a9156',
   },
   modalToggle: {
     alignSelf: 'flex-end',

@@ -52,7 +52,7 @@ const ListItem = ({item, deleteItemFromStorage, navigation}) => {
           style={styles.redCross}
           name="remove"
           size={EStyleSheet.value('40rem')}
-          color="firebrick"
+          color="#90271F"
           onPress={() => deleteItemFromStorage(item)}
         />
       </View>
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   ListItem: {
     flex: 1,
     width: '50%',
-    backgroundColor: myBlue,
+    backgroundColor: myBlue + 50,
     paddingVertical: EStyleSheet.value('30rem'),
     borderWidth: EStyleSheet.value('2rem'),
   },
