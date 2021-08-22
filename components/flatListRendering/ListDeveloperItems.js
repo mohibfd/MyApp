@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {Text, Pressable, StyleSheet} from 'react-native';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 const ListDeveloperItems = ({item, deleteItemFromStorage}) => {
   //this will delete the item when the user clicks twice
@@ -24,7 +25,7 @@ const ListDeveloperItems = ({item, deleteItemFromStorage}) => {
 const styles = StyleSheet.create({
   developerText: {
     textAlign: 'center',
-    fontSize: EStyleSheet.value('30rem'),
+    fontSize: EStyleSheet.value('15rem'),
     color: myWhite,
   },
 });

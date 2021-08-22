@@ -12,7 +12,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 const NotificationsModal = ({modalVisible, closeModal}) => {
-  console.log(modalVisible);
   return (
     <Modal
       animationType="slide"

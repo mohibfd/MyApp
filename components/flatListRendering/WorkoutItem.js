@@ -36,7 +36,6 @@ const WorkoutItem = ({
   useEffect(() => {
     if (dropDownPickerValue) {
       if (dropDownPickerValue != workout.measurement) {
-        console.log(dropDownPickerValue, workout.measurement);
         if (dropDownPickerValue == 'kg') {
           workout.measurement = 'kg';
           workout.maximumWeight = workout.maximumWeight / 2.205;

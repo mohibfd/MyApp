@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, Text, View} from 'react-native';
+import {SafeAreaView, Text, View, StyleSheet} from 'react-native';
 import uuid from 'react-native-uuid';
 
 import Header from '../components/Header';
 import ListDeveloperItems from '../components/flatListRendering/ListDeveloperItems';
+import EStyleSheet from 'react-native-extended-stylesheet';
+import styles from '../stylesheets/generalStylesheet';
 
 const DeveloperView = () => {
   const [cardsStorage, setCardsStorage] = useStorage('cardss');
@@ -17,7 +19,6 @@ const DeveloperView = () => {
   useEffect(() => {
     setCardsStorage(cards);
     setBugsStorage(bugs);
-    // console.log(cards);
   }, [cards, bugs]);
 
   const createCard = newCardName => {
@@ -63,15 +64,7 @@ const DeveloperView = () => {
 
       <View style={{flexDirection: 'row', flex: 1}}>
         <View style={{flexDirection: 'column', flex: 1}}>
-          <Text
-            style={{
-              fontSize: 30,
-              textAlign: 'center',
-              color: myWhite,
-            }}>
-            {' '}
-            New Ideas
-          </Text>
+          <Text style={styles.text}>New Ideas</Text>
 
           {cards &&
             cards.map(card =>
@@ -85,14 +78,7 @@ const DeveloperView = () => {
             )}
         </View>
         <View style={{flexDirection: 'column', flex: 1}}>
-          <Text
-            style={{
-              fontSize: 30,
-              textAlign: 'center',
-              color: myWhite,
-            }}>
-            Bugs
-          </Text>
+          <Text style={styles.text}>Bugs</Text>
           {bugs &&
             bugs.map(bug =>
               bug ? (
@@ -108,5 +94,13 @@ const DeveloperView = () => {
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: EStyleSheet.value('30rem'),
+    textAlign: 'center',
+    color: myWhite,
+  },
+});
 
 export default DeveloperView;

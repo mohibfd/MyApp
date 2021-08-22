@@ -34,26 +34,6 @@ const RecipeDetailsView = ({route}) => {
 
   const order = ingredients.length;
 
-  // console.log()
-
-  // const [instructionsList, setInstructionsList] = useState([
-  //   ...ingredients,
-  //   ...cookingSteps,
-  // ]);
-
-  // useEffect(() => {
-  //   console.log('?');
-  //   setInstructionsList([...recipe.ingredients, ...recipe.cookingSteps]);
-  // }, [recipe.ingredients, recipe.cookingSteps]);
-
-  // // console.log(instructionsList);
-
-  // // console.log(recipe.cookingSteps);
-
-  // // useEffect(() => {
-  // //   recipe.ingredients.sort((a, b) => (a.order > b.order ? 1 : -1));
-  // // }, recipe.ingredients)
-
   const addInstruction = () => {
     recipe.ingredients.push({name: '', quantity: '', key: uuid.v4(), order});
 
