@@ -202,12 +202,15 @@ const RecipeDetailsView = ({route}) => {
           renderItem={renderItem}
           extraData={refreshFlastList}
           // contentContainerStyle={{flex: 1}}
-          ListFooterComponent={
-            <Pressable style={styles.footerContainer} onPress={addCookingStep}>
-              <Text style={styles.text4}>Add cooking step</Text>
-            </Pressable>
-          }
+          // ListFooterComponent={
+          //   <Pressable style={styles.footerContainer} onPress={addCookingStep}>
+          //     <Text style={styles.text4}>Add cooking step</Text>
+          //   </Pressable>
+          // }
         />
+        <Pressable style={styles.footerContainer} onPress={addCookingStep}>
+          <Text style={styles.text4}>Add cooking step</Text>
+        </Pressable>
       </ImageBackground>
 
       {isDeleteOrCancel && (

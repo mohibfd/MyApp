@@ -144,11 +144,7 @@ const WorkoutItem = ({
 
 const styles = StyleSheet.create({
   musclesContainer: {
-    // flex: 1,
-    height: Dimensions.get('window').height * 0.154,
-    backgroundColor: '#000000' + 99,
-    // height: '100%',
-    // paddingVertical: '6.44%',
+    height: Dimensions.get('window').height * 0.1545,
     borderBottomWidth: EStyleSheet.value('2rem'),
     borderColor: myRed,
     flexDirection: 'row',
