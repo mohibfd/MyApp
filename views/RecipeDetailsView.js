@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     flexDirection: 'row',
+    paddingVertical: '.5%',
   },
   text: {
     width: '50%',
