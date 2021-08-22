@@ -35,11 +35,11 @@ const DeveloperView = () => {
   const createBug = newBugName => {
     setBugs(prevItems => {
       return [
+        ...prevItems,
         {
           name: newBugName,
           key: uuid.v4(),
         },
-        ...prevItems,
       ];
     });
   };
