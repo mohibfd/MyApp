@@ -1,6 +1,13 @@
 import PropTypes from 'prop-types';
 import React, {useState, useEffect} from 'react';
-import {View, Pressable, StyleSheet, Text, TextInput} from 'react-native';
+import {
+  View,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  Dimensions,
+} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CurrencyInput from 'react-native-currency-input';
@@ -137,8 +144,11 @@ const WorkoutItem = ({
 
 const styles = StyleSheet.create({
   musclesContainer: {
+    // flex: 1,
+    height: Dimensions.get('window').height * 0.154,
     backgroundColor: '#000000' + 99,
-    paddingVertical: '6.44%',
+    // height: '100%',
+    // paddingVertical: '6.44%',
     borderBottomWidth: EStyleSheet.value('2rem'),
     borderColor: myRed,
     flexDirection: 'row',
@@ -151,7 +161,6 @@ const styles = StyleSheet.create({
   },
   listItemText: {
     fontSize: EStyleSheet.value('40rem'),
-    marginLeft: EStyleSheet.value('10rem'),
     color: 'white',
   },
   text: {

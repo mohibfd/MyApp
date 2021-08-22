@@ -1,15 +1,11 @@
 import React from 'react';
-
 import {
   SafeAreaView,
-  Button,
   Image,
   Modal,
   View,
   StyleSheet,
   Dimensions,
-  ImageBackground,
-  FlatList,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import EStyleSheet from 'react-native-extended-stylesheet';

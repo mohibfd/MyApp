@@ -45,13 +45,7 @@ const WorkoutView = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="My Workouts" />
-
-      <Button
-        onPress={() => setModalVisible(true)}
-        title="QR Code"
-        color={myGreen}
-      />
+      <Header title="My Workouts" cameraAdd={() => setModalVisible(true)} />
 
       <View style={styles.lineDivider}></View>
 
