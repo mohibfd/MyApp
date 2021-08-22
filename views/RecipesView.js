@@ -51,7 +51,8 @@ const RecipesView = ({navigation}) => {
         {
           name: newRecipeName,
           key: uuid.v4(),
-          instructions: [],
+          ingredients: [],
+          cookingSteps: [],
           photo: null,
           multiplier: 1,
         },

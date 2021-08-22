@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 
 import {
@@ -9,6 +9,7 @@ import {
   Text,
   View,
   TextInput,
+  Pressable,
 } from 'react-native';
 import uuid from 'react-native-uuid';
 
@@ -21,7 +22,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 const RecipeDetailsView = ({route}) => {
   const {recipe, refresh} = route.params;
 
-  const {instructions} = recipe;
+  const {ingredients, cookingSteps} = recipe;
 
   const [isDeleteOrCancel, setIsDeleteOrCancel] = useState(false);
 
@@ -31,8 +32,37 @@ const RecipeDetailsView = ({route}) => {
 
   const [multiplier, setMultiplier] = useState(`${recipe.multiplier}`);
 
+  const order = ingredients.length;
+
+  // console.log()
+
+  // const [instructionsList, setInstructionsList] = useState([
+  //   ...ingredients,
+  //   ...cookingSteps,
+  // ]);
+
+  // useEffect(() => {
+  //   console.log('?');
+  //   setInstructionsList([...recipe.ingredients, ...recipe.cookingSteps]);
+  // }, [recipe.ingredients, recipe.cookingSteps]);
+
+  // // console.log(instructionsList);
+
+  // // console.log(recipe.cookingSteps);
+
+  // // useEffect(() => {
+  // //   recipe.ingredients.sort((a, b) => (a.order > b.order ? 1 : -1));
+  // // }, recipe.ingredients)
+
   const addInstruction = () => {
-    recipe.instructions.push({name: '', key: uuid.v4()});
+    recipe.ingredients.push({name: '', quantity: '', key: uuid.v4(), order});
+
+    refresh();
+    setRefreshFlatList(uuid.v4());
+  };
+
+  const addCookingStep = () => {
+    recipe.cookingSteps.push({name: '', key: uuid.v4(), order});
 
     refresh();
     setRefreshFlatList(uuid.v4());
@@ -49,7 +79,9 @@ const RecipeDetailsView = ({route}) => {
 
   const completeDeletion = () => {
     toggleDeleteOrCancel();
-    recipe.instructions = instructions.filter(i => i.key != deleteItem.key);
+    recipe.ingredients = ingredients.filter(i => i.key != deleteItem.key);
+
+    recipe.cookingSteps = cookingSteps.filter(i => i.key != deleteItem.key);
 
     refresh();
   };
@@ -81,11 +113,11 @@ const RecipeDetailsView = ({route}) => {
     }
     //only enter and allow changes if the user inputs a valid number
     else if (!isNaN(numberInputed)) {
-      let quantities = instructions
-        .map(instruction => {
-          return {quantity: instruction.quantity, key: instruction.key};
+      let quantities = ingredients
+        .map(ingredient => {
+          return {quantity: ingredient.quantity, key: ingredient.key};
         })
-        .filter(instruction => instruction.quantity !== undefined);
+        .filter(ingredient => ingredient.quantity !== undefined);
 
       quantities.forEach(originalQuantity => {
         let quantity = originalQuantity.quantity.split('');
@@ -117,7 +149,7 @@ const RecipeDetailsView = ({route}) => {
 
         const remainingString = stringArr.join('');
 
-        recipe.instructions.forEach(i => {
+        recipe.ingredients.forEach(i => {
           if (i.key == originalQuantity.key) {
             i.quantity = newNumber + remainingString;
           }
@@ -136,7 +168,7 @@ const RecipeDetailsView = ({route}) => {
         recipe={recipe}
         deleteItemFromStorage={openDeleteOrCancel}
         refresh={refresh}
-        instruction={item.item}
+        ingredient={item.item}
       />
     );
   };
@@ -150,7 +182,7 @@ const RecipeDetailsView = ({route}) => {
       />
       <ImageBackground source={imageSource()} style={styles.image}>
         <View style={styles.textContainer}>
-          <Text style={[styles.text, styles.text1]}>Ingredients</Text>
+          <Text style={[styles.text, styles.text1]}>ingredients</Text>
           <Text style={[styles.text, styles.text2]}>Quantity</Text>
           <Text style={[styles.text]}>X</Text>
           <TextInput
@@ -163,9 +195,18 @@ const RecipeDetailsView = ({route}) => {
         </View>
 
         <FlatList
-          data={recipe.instructions}
+          data={[...recipe.ingredients, ...recipe.cookingSteps].sort((a, b) =>
+            a.order > b.order ? 1 : -1,
+          )}
+          // data={instructionsList}
           renderItem={renderItem}
           extraData={refreshFlastList}
+          // contentContainerStyle={{flex: 1}}
+          ListFooterComponent={
+            <Pressable style={styles.footerContainer} onPress={addCookingStep}>
+              <Text style={styles.text4}>Add cooking step</Text>
+            </Pressable>
+          }
         />
       </ImageBackground>
 
@@ -205,6 +246,20 @@ const styles = StyleSheet.create({
   },
   text3: {
     marginLeft: 0,
+  },
+  text4: {
+    color: myBlack,
+    fontSize: EStyleSheet.value('20rem'),
+    fontWeight: 'bold',
+  },
+  footerContainer: {
+    backgroundColor: '#CD7F32' + 'CC',
+
+    height: EStyleSheet.value('50rem'),
+    borderColor: myRed,
+    borderWidth: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   iconContainer: {
     flexDirection: 'row',

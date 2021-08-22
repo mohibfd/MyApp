@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {View, StyleSheet, TextInput} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -9,25 +9,33 @@ const RecipeItem = ({
   deleteItemFromStorage,
   navigation,
   refresh,
-  instruction,
+  ingredient,
 }) => {
+  const isCookingStep = useRef(false);
+
   const [instructionName, setInstructionName] = useState(
-    instruction ? instruction.name : '',
+    ingredient ? ingredient.name : '',
   );
 
   const [instructionQuantity, setInstructionQuantity] = useState(
-    instruction ? instruction.quantity : '',
+    ingredient ? ingredient.quantity : '',
   );
 
-  if (instruction) {
+  if (ingredient) {
+    if (ingredient.quantity == undefined) {
+      isCookingStep.current = true;
+    }
+  }
+
+  if (ingredient) {
     useEffect(() => {
-      setInstructionQuantity(instruction.quantity);
-    }, [instruction.quantity]);
+      setInstructionQuantity(ingredient.quantity);
+    }, [ingredient.quantity]);
   }
 
   const changeName = newName => {
-    if (instruction) {
-      instruction.name = newName;
+    if (ingredient) {
+      ingredient.name = newName;
       setInstructionName(newName);
     } else {
       recipe.name = newName;
@@ -36,9 +44,8 @@ const RecipeItem = ({
   };
 
   const changeQuantity = newQuantity => {
-    instruction.quantity = newQuantity;
+    ingredient.quantity = newQuantity;
     setInstructionQuantity(newQuantity);
-
     refresh();
   };
 
@@ -52,31 +59,42 @@ const RecipeItem = ({
     }
   };
 
-  if (instruction) {
+  if (ingredient) {
     return (
-      <View style={styles.ListItem}>
+      <View
+        style={[
+          styles.ListItem,
+          {
+            borderColor: isCookingStep.current ? 'green' : 'black',
+          },
+        ]}>
         <View style={styles.ListItemView}>
           <TextInput
-            style={[styles.listItemText, styles.widthOne]}
+            style={[
+              styles.listItemText,
+              {width: isCookingStep.current ? '80%' : '50%'},
+            ]}
             value={instructionName}
             onChangeText={changeName}
             placeholder="add name"
             multiline={true}
           />
-          <TextInput
-            style={[styles.listItemText, styles.widthTwo]}
-            value={instructionQuantity}
-            onChangeText={changeQuantity}
-            placeholder="amount"
-            multiline={true}
-          />
+          {!isCookingStep.current && (
+            <TextInput
+              style={[styles.listItemText, styles.widthTwo]}
+              value={instructionQuantity}
+              onChangeText={changeQuantity}
+              placeholder="amount"
+              multiline={true}
+            />
+          )}
           <View style={styles.iconContainer}>
             <Icon
               style={styles.redCross}
               name="remove"
               size={EStyleSheet.value('40rem')}
               color="firebrick"
-              onPress={() => deleteItemFromStorage(instruction)}
+              onPress={() => deleteItemFromStorage(ingredient)}
             />
           </View>
         </View>
@@ -119,7 +137,7 @@ const RecipeItem = ({
 const styles = StyleSheet.create({
   ListItem: {
     backgroundColor: '#CD7F32' + 99,
-    paddingVertical: EStyleSheet.value('20rem'),
+    paddingVertical: EStyleSheet.value('10rem'),
     borderWidth: EStyleSheet.value('2rem'),
   },
   ListItemView: {
@@ -131,9 +149,6 @@ const styles = StyleSheet.create({
     fontSize: EStyleSheet.value('22rem'),
     marginLeft: EStyleSheet.value('10rem'),
     color: myWhite,
-  },
-  widthOne: {
-    width: '50%',
   },
   widthTwo: {
     width: '30%',
@@ -157,7 +172,7 @@ const styles = StyleSheet.create({
 
 RecipeItem.defaultProps = {
   navigation: null,
-  instruction: null,
+  ingredient: null,
 };
 
 RecipeItem.propTypes = {
@@ -165,7 +180,7 @@ RecipeItem.propTypes = {
   deleteItemFromStorage: PropTypes.func.isRequired,
   refresh: PropTypes.func.isRequired,
   navigation: PropTypes.object,
-  instruction: PropTypes.object,
+  ingredient: PropTypes.object,
 };
 
 export default RecipeItem;
