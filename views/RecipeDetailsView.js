@@ -160,20 +160,19 @@ const RecipeDetailsView = ({route}) => {
         instantAdd={addInstruction}
         cameraAdd={openImageLibrary}
       />
+      <View style={styles.textContainer}>
+        <Text style={[styles.text, styles.text1]}>ingredients</Text>
+        <Text style={[styles.text, styles.text2]}>Quantity</Text>
+        <Text style={[styles.text]}>X</Text>
+        <TextInput
+          style={[styles.text, styles.text3]}
+          value={multiplier}
+          onChangeText={multiplierFunc}
+          maxLength={1}
+          keyboardType="numeric"
+        />
+      </View>
       <ImageBackground source={imageSource()} style={styles.image}>
-        <View style={styles.textContainer}>
-          <Text style={[styles.text, styles.text1]}>ingredients</Text>
-          <Text style={[styles.text, styles.text2]}>Quantity</Text>
-          <Text style={[styles.text]}>X</Text>
-          <TextInput
-            style={[styles.text, styles.text3]}
-            value={multiplier}
-            onChangeText={multiplierFunc}
-            maxLength={1}
-            keyboardType="numeric"
-          />
-        </View>
-
         <FlatList
           data={[...recipe.ingredients, ...recipe.cookingSteps].sort((a, b) =>
             a.order > b.order ? 1 : -1,
@@ -207,6 +206,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: myBlue,
   },
   text: {
     fontSize: EStyleSheet.value('22rem'),
