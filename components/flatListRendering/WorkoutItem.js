@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import CurrencyInput from 'react-native-currency-input';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 const WorkoutItem = ({
@@ -28,8 +27,14 @@ const WorkoutItem = ({
   const [interestInterval, setInterestInterval] = useState(
     workout
       ? workout.measurement == 'kg'
-        ? [{label: 'lb', value: 'lb'}]
-        : [{label: 'kg', value: 'kg'}]
+        ? [
+            {label: 'lb', value: 'lb'},
+            {label: 's', value: 's'},
+          ]
+        : [
+            {label: 'kg', value: 'kg'},
+            {label: 's', value: 's'},
+          ]
       : null,
   );
 
@@ -37,15 +42,31 @@ const WorkoutItem = ({
     if (dropDownPickerValue) {
       if (dropDownPickerValue != workout.measurement) {
         if (dropDownPickerValue == 'kg') {
+          if (workout.measurement == 'lb') {
+            workout.maximumWeight = workout.maximumWeight / 2.205;
+            workout.minimumWeight = workout.minimumWeight / 2.205;
+          }
           workout.measurement = 'kg';
-          workout.maximumWeight = workout.maximumWeight / 2.205;
-          workout.minimumWeight = workout.minimumWeight / 2.205;
-          setInterestInterval([{label: 'lb', value: 'lb'}]);
-        } else {
+          setInterestInterval([
+            {label: 'lb', value: 'lb'},
+            {label: 's', value: 's'},
+          ]);
+        } else if (dropDownPickerValue == 'lb') {
+          if (workout.measurement == 'kg') {
+            workout.maximumWeight = workout.maximumWeight * 2.205;
+            workout.minimumWeight = workout.minimumWeight * 2.205;
+          }
           workout.measurement = 'lb';
-          workout.maximumWeight = workout.maximumWeight * 2.205;
-          workout.minimumWeight = workout.minimumWeight * 2.205;
-          setInterestInterval([{label: 'kg', value: 'kg'}]);
+          setInterestInterval([
+            {label: 'kg', value: 'kg'},
+            {label: 's', value: 's'},
+          ]);
+        } else if (dropDownPickerValue == 's') {
+          workout.measurement = 's';
+          setInterestInterval([
+            {label: 'kg', value: 'kg'},
+            {label: 'lb', value: 'lb'},
+          ]);
         }
         refresh();
       }
@@ -70,6 +91,26 @@ const WorkoutItem = ({
       refresh();
     }
   };
+  const changeSets = value => {
+    let number = new Number(value) * 1;
+    if (value == '') {
+      workout.sets = '';
+      refresh();
+    } else if (!isNaN(number)) {
+      workout.sets = number;
+      refresh();
+    }
+  };
+  const changeReps = value => {
+    let number = new Number(value) * 1;
+    if (value == '') {
+      workout.reps = '';
+      refresh();
+    } else if (!isNaN(number)) {
+      workout.reps = number;
+      refresh();
+    }
+  };
 
   const navigateTo = () => {
     if (navigation) {
@@ -81,7 +122,7 @@ const WorkoutItem = ({
 
   if (deleteItemFromStorage) {
     return (
-      <View style={[styles.musclesContainer, styles.paddingVertical]}>
+      <View style={[styles.musclesContainer, styles.detailsContainer]}>
         <TextInput
           style={styles.text}
           value={workout.name}
@@ -90,40 +131,63 @@ const WorkoutItem = ({
           placeholderTextColor={'grey'}
           multiline={true}
         />
-        <TextInput
-          style={styles.numbers}
-          value={`${Math.round(workout.minimumWeight)}`}
-          onChangeText={changeMinWeight}
-          maxLength={3}
-          keyboardType="numeric"
-        />
+        <View>
+          <View style={styles.minMaxContainer}>
+            <TextInput
+              style={[styles.numbers, styles.rightAlign]}
+              value={`${Math.round(workout.minimumWeight)}`}
+              onChangeText={changeMinWeight}
+              maxLength={3}
+              keyboardType="numeric"
+            />
 
-        <Text style={styles.separator}>/</Text>
+            <Text style={styles.divider}>/</Text>
 
-        <TextInput
-          style={styles.numbers}
-          value={`${Math.round(workout.maximumWeight)}`}
-          onChangeText={changeMaxWeight}
-          maxLength={3}
-          keyboardType="numeric"
-        />
-
-        <View style={styles.dropDownContainer}>
-          <DropDownPicker
-            open={showDropDownPicker}
-            value={dropDownPickerValue}
-            setOpen={setShowDropDownPicker}
-            setValue={setDropDownPickerValue}
-            items={interestInterval}
-            setItems={setInterestInterval}
-            arrowIconStyle={styles.arrowIconStyle}
-            tickIconStyle={styles.tickIconStyle}
-            textStyle={{color: myWhite}}
-            style={styles.dropDownStyle}
-            dropDownContainerStyle={styles.dropDownStyle}
-            placeholder={workout.measurement}
-          />
+            <TextInput
+              style={styles.numbers}
+              value={`${Math.round(workout.maximumWeight)}`}
+              onChangeText={changeMaxWeight}
+              maxLength={3}
+              keyboardType="numeric"
+            />
+            <View style={styles.dropDownContainer}>
+              <DropDownPicker
+                open={showDropDownPicker}
+                value={dropDownPickerValue}
+                setOpen={setShowDropDownPicker}
+                setValue={setDropDownPickerValue}
+                items={interestInterval}
+                setItems={setInterestInterval}
+                arrowIconStyle={styles.arrowIconStyle}
+                tickIconStyle={styles.tickIconStyle}
+                textStyle={{color: myWhite}}
+                style={styles.dropDownStyle}
+                dropDownContainerStyle={[styles.insideDropDownStyle]}
+                listItemContainerStyle={styles.listItemContainerStyle}
+                placeholder={workout.measurement}
+              />
+            </View>
+          </View>
+          <View style={styles.minMaxContainer}>
+            <Text style={styles.smallFont}>Sets:</Text>
+            <TextInput
+              style={[styles.smallFont, styles.goldBorder]}
+              value={`${workout.sets}`}
+              onChangeText={changeSets}
+              maxLength={1}
+              keyboardType="numeric"
+            />
+            <Text style={styles.smallFont}>Reps:</Text>
+            <TextInput
+              style={[styles.smallFont, styles.goldBorder]}
+              value={`${workout.reps}`}
+              onChangeText={changeReps}
+              maxLength={2}
+              keyboardType="numeric"
+            />
+          </View>
         </View>
+
         <View style={styles.iconContainer}>
           <Icon
             style={styles.redCross}
@@ -154,28 +218,42 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  paddingVertical: {
-    paddingVertical: '0%',
+  detailsContainer: {
     height: EStyleSheet.value('100rem'),
   },
   listItemText: {
     fontSize: EStyleSheet.value('40rem'),
     color: 'white',
   },
+  minMaxContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   text: {
     flex: 1,
+    height: '100%',
     fontSize: EStyleSheet.value('20rem'),
     marginLeft: EStyleSheet.value('10rem'),
     color: 'white',
   },
   numbers: {
-    fontSize: EStyleSheet.value('25rem'),
-    textAlign: 'center',
+    flex: 1,
+    fontSize: EStyleSheet.value('21rem'),
+    color: 'white',
+  },
+  rightAlign: {
+    textAlign: 'right',
+  },
+  divider: {
+    fontSize: EStyleSheet.value('21rem'),
+    color: 'white',
+  },
+  smallFont: {
+    fontSize: EStyleSheet.value('20rem'),
     color: 'white',
   },
   dropDownContainer: {
-    justifyContent: 'center',
-    height: '100%',
     width: EStyleSheet.value('50rem'),
   },
   dropDownStyle: {
@@ -183,15 +261,19 @@ const styles = StyleSheet.create({
     borderColor: 'gold',
     height: EStyleSheet.value('31rem'),
   },
+  insideDropDownStyle: {
+    backgroundColor: myBlack,
+    borderColor: 'gold',
+  },
+  listItemContainerStyle: {
+    height: EStyleSheet.value('25rem'),
+  },
   arrowIconStyle: {
     tintColor: myWhite,
     width: EStyleSheet.value('5rem'),
   },
   tickIconStyle: {tintColor: myWhite, width: 0},
-  separator: {
-    color: myWhite,
-    fontSize: EStyleSheet.value('25rem'),
-  },
+  goldBorder: {borderBottomWidth: 2, borderBottomColor: 'gold'},
   redCross: {
     alignSelf: 'flex-end',
     paddingHorizontal: EStyleSheet.value('5rem'),

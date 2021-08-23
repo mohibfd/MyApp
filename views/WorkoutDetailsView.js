@@ -63,6 +63,8 @@ const WorkoutDetailsView = ({route}) => {
           minimumWeight: 0,
           maximumWeight: 0,
           measurement: 'kg',
+          sets: '',
+          reps: '',
         },
       ];
     });
@@ -105,8 +107,8 @@ const WorkoutDetailsView = ({route}) => {
         style={styles.image}>
         <View style={{flexDirection: 'row'}}>
           <Text style={[styles.text, styles.marginLeft]}>Excercise</Text>
-          <Text style={styles.text}>Min Weight/</Text>
-          <Text style={[styles.text, styles.paddingRight]}>Max Weight</Text>
+          <Text style={styles.text}>Min /</Text>
+          <Text style={[styles.text, styles.paddingRight]}> Max</Text>
         </View>
         <View style={styles.lineDivider}></View>
 
@@ -130,11 +132,11 @@ const styles = StyleSheet.create({
     borderColor: myRed,
   },
   text: {
-    fontSize: EStyleSheet.value('18rem'),
+    fontSize: EStyleSheet.value('20rem'),
     color: 'white',
   },
   marginLeft: {
-    flex: 1.3,
+    flex: 1.2,
     marginLeft: EStyleSheet.value('10rem'),
   },
   paddingRight: {
