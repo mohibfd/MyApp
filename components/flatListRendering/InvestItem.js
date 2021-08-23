@@ -479,8 +479,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   image: {
-    width: '29%',
-    height: '85%',
+    width: EStyleSheet.value('35rem'),
+    height: EStyleSheet.value('35rem'),
     marginTop: EStyleSheet.value('17rem'),
   },
   imageContainer2: {
