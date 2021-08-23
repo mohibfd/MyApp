@@ -32,7 +32,7 @@ const RecipeDetailsView = ({route}) => {
 
   const [multiplier, setMultiplier] = useState(`${recipe.multiplier}`);
 
-  const order = ingredients.length;
+  const order = [...recipe.ingredients, ...recipe.cookingSteps].length;
 
   const addInstruction = () => {
     recipe.ingredients.push({name: '', quantity: '', key: uuid.v4(), order});
@@ -57,8 +57,36 @@ const RecipeDetailsView = ({route}) => {
     setDeleteItem(mainItem);
   };
 
+  const sortList = () => {
+    let sortedList = [...recipe.ingredients, ...recipe.cookingSteps].sort(
+      (a, b) => (a.order > b.order ? 1 : -1),
+    );
+
+    let whereToChangeOrder = 0;
+    for (let i = 0; i < sortedList.length; i++) {
+      if (sortedList[i].key == deleteItem.key) {
+        whereToChangeOrder = i;
+      }
+    }
+
+    recipe.ingredients.forEach(ingredient => {
+      if (ingredient.order >= whereToChangeOrder) {
+        ingredient.order -= 1;
+      }
+    });
+
+    recipe.cookingSteps.forEach(cookingSteps => {
+      if (cookingSteps.order >= whereToChangeOrder) {
+        cookingSteps.order -= 1;
+      }
+    });
+  };
+
   const completeDeletion = () => {
     toggleDeleteOrCancel();
+
+    sortList();
+
     recipe.ingredients = ingredients.filter(i => i.key != deleteItem.key);
 
     recipe.cookingSteps = cookingSteps.filter(i => i.key != deleteItem.key);
