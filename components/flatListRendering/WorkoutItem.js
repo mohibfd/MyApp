@@ -179,7 +179,7 @@ const WorkoutItem = ({
             />
             <Text style={styles.smallFont}>Reps:</Text>
             <TextInput
-              style={[styles.smallFont, styles.goldBorder]}
+              style={[styles.smallFont, styles.goldBorder, styles.reps]}
               value={`${workout.reps}`}
               onChangeText={changeReps}
               maxLength={2}
@@ -233,26 +233,30 @@ const styles = StyleSheet.create({
   text: {
     flex: 1,
     height: '100%',
-    fontSize: EStyleSheet.value('20rem'),
+    fontSize: EStyleSheet.value('17rem'),
     marginLeft: EStyleSheet.value('10rem'),
     color: 'white',
   },
   numbers: {
     flex: 1,
-    fontSize: EStyleSheet.value('21rem'),
+    fontSize: EStyleSheet.value('19rem'),
     color: 'white',
   },
   rightAlign: {
     textAlign: 'right',
   },
   divider: {
-    fontSize: EStyleSheet.value('21rem'),
+    fontSize: EStyleSheet.value('19rem'),
     color: 'white',
   },
   smallFont: {
-    fontSize: EStyleSheet.value('20rem'),
+    // flex: 1,
+    fontSize: EStyleSheet.value('18rem'),
+    // width: 50,
     color: 'white',
   },
+  goldBorder: {borderBottomWidth: 2, borderBottomColor: 'gold'},
+  reps: {width: EStyleSheet.value('36rem')},
   dropDownContainer: {
     width: EStyleSheet.value('50rem'),
   },
@@ -273,7 +277,6 @@ const styles = StyleSheet.create({
     width: EStyleSheet.value('5rem'),
   },
   tickIconStyle: {tintColor: myWhite, width: 0},
-  goldBorder: {borderBottomWidth: 2, borderBottomColor: 'gold'},
   redCross: {
     alignSelf: 'flex-end',
     paddingHorizontal: EStyleSheet.value('5rem'),
