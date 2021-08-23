@@ -14,18 +14,17 @@ const ListDeveloperItems = ({item, deleteItemFromStorage}) => {
   };
 
   return (
-    <Pressable
-      style={{borderWidth: EStyleSheet.hairlineWidth, backgroundColor: myBlue}}
-      onPress={() => deletion()}>
+    <Pressable style={styles.container} onPress={() => deletion()}>
       <Text style={styles.developerText}>{item.name}</Text>
     </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {borderBottomWidth: 2, backgroundColor: myBlue},
   developerText: {
     textAlign: 'center',
-    fontSize: EStyleSheet.value('15rem'),
+    fontSize: EStyleSheet.value('17rem'),
     color: myWhite,
   },
 });
