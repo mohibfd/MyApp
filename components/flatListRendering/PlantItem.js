@@ -9,12 +9,20 @@ import TimeInterval from '../TimeInterval';
 import PushNotification from 'react-native-push-notification';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
-const PlantItem = ({plant, deletion, plants, setPlantsStorage}) => {
+const PlantItem = ({
+  plant,
+  deletion,
+  plants,
+  setPlantsStorage,
+  openTimeInterval,
+}) => {
   const [actionSheetVisible, setActionSheetVisible] = useState(false);
 
-  const [timeIntervalAction, setTimeIntervalAction] = useState(false);
+  const [timeIntervalAction, setTimeIntervalAction] = useState(
+    openTimeInterval ? 'add' : '',
+  );
 
-  const [showTimeInterval, setShowTimeInterval] = useState(false);
+  const [showTimeInterval, setShowTimeInterval] = useState(openTimeInterval);
 
   const toggleShowTimeInterval = () => {
     setShowTimeInterval(!showTimeInterval);
@@ -29,10 +37,15 @@ const PlantItem = ({plant, deletion, plants, setPlantsStorage}) => {
     },
   ];
 
+  const changeReminder = action => {
+    toggleShowTimeInterval();
+    setTimeIntervalAction(action);
+  };
+
   if (!plant.notificationId) {
     actions.push({
       title: 'Set reminder',
-      action: () => (toggleShowTimeInterval(), setTimeIntervalAction('add')),
+      action: () => changeReminder('add'),
     });
   } else {
     // actions.push({
@@ -41,14 +54,14 @@ const PlantItem = ({plant, deletion, plants, setPlantsStorage}) => {
     // });
 
     actions.push({
-      title: 'Delete reminder',
-      action: () => (toggleShowTimeInterval(), setTimeIntervalAction('delete')),
+      title: 'Change reminder',
+      action: () => changeReminder('edit'),
     });
   }
 
   const createTimeInterval = notificationId => {
     for (let i of plants) {
-      if (i.key == plant.key) {
+      if (i.key === plant.key) {
         i.notificationId = notificationId;
       }
     }
@@ -65,7 +78,7 @@ const PlantItem = ({plant, deletion, plants, setPlantsStorage}) => {
     // PushNotification.cancelAllLocalNotifications();
 
     for (let i of plants) {
-      if (i.key == plant.key) {
+      if (i.key === plant.key) {
         i.notificationId = null;
       }
     }
@@ -124,6 +137,7 @@ TimeInterval.defaultProps = {
   delete: null,
   plants: null,
   setPlantsStorage: null,
+  openTimeInterval: null,
 };
 
 TimeInterval.propTypes = {
@@ -131,6 +145,7 @@ TimeInterval.propTypes = {
   deletion: PropTypes.func,
   plants: PropTypes.array,
   setPlantsStorage: PropTypes.func,
+  openTimeInterval: PropTypes.bool,
 };
 
 export default PlantItem;

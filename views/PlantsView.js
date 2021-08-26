@@ -24,16 +24,18 @@ const PlantsView = () => {
 
   const [deletePlant, setDeletePlant] = useState(null);
 
+  const [openTimeInterval, setOpenTimeInterval] = useState(false);
+
   useEffect(() => {
     setPlantsStorage(plants);
-  }, [plants]);
+  }, [plants, setPlantsStorage]);
 
   const toggleDeleteOrCancel = () => {
     setIsDeleteOrCancel(!isDeleteOrCancel);
   };
 
   const createPlant = newPlantName => {
-    if (plants.length == 7) {
+    if (plants.length === 7) {
       Alert.alert(
         'Too many plants',
         'Sorry you cannot have more than 7 plants at a time',
@@ -52,6 +54,8 @@ const PlantsView = () => {
         },
       ];
     });
+
+    setOpenTimeInterval(true);
   };
 
   //also returns plant to be deleted
@@ -71,7 +75,7 @@ const PlantsView = () => {
     }
 
     setPlants(prevItems => {
-      return prevItems.filter(item => item.key != deletePlant.key);
+      return prevItems.filter(item => item.key !== deletePlant.key);
     });
   };
 
@@ -79,7 +83,7 @@ const PlantsView = () => {
     <SafeAreaView style={styles.container}>
       <ImageBackground
         source={require('../components/assets/Plants.jpeg')}
-        style={{width: '100%', height: '100%'}}>
+        style={styles.image}>
         <Header title="My Plants" add={createPlant} />
 
         <Text style={styles.warning}>
@@ -95,6 +99,7 @@ const PlantsView = () => {
                   deletion={openDeleteOrCancel}
                   plants={plants}
                   setPlantsStorage={setPlantsStorage}
+                  openTimeInterval={openTimeInterval}
                 />
               ) : null,
             )}
@@ -113,6 +118,7 @@ const PlantsView = () => {
 };
 
 const styles = StyleSheet.create({
+  image: {width: '100%', height: '100%'},
   container: {backgroundColor: myBlack, flex: 1},
   warning: {
     fontSize: EStyleSheet.value('12rem'),

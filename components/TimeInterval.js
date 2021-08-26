@@ -5,7 +5,7 @@ import {Overlay} from 'react-native-elements';
 import DropDownPicker from 'react-native-dropdown-picker';
 import PushNotification from 'react-native-push-notification';
 
-import DeleteOrCancel from '../components/modals/DeleteOrCancel.js';
+// import DeleteOrCancel from '../components/modals/DeleteOrCancel.js';
 import generalStyles from '../stylesheets/generalStylesheet';
 
 const TimeInterval = props => {
@@ -35,7 +35,7 @@ const TimeInterval = props => {
 
   const [showSplashText, setShowSplashText] = useState(false);
 
-  const handleNotification = async (interval, plantName) => {
+  const handleNotification = async (interval, title) => {
     if (!interval) {
       setShowSplashText(true);
 
@@ -85,31 +85,27 @@ const TimeInterval = props => {
           channelId: 'test-channel1',
           id: newId,
           date: specificDate,
-          title: plantName,
-          message: `Reminder to water ${plantName} now`,
+          title,
+          message: `Reminder to water ${title} now`,
           allowWhileIdle: true,
         });
       });
     };
 
-    if (timeIntervalAction == 'add') {
-      addNotification();
-
-      closeOverlays();
-
-      createTimeInterval(notificationId);
+    if (timeIntervalAction === 'edit') {
+      deletion();
     }
-    // else if (timeIntervalAction == 'edit') {
-    //    deleteTimeInterval();
-    //   addNotification();
-    //   closeOverlays();
-    //   createTimeInterval(value, dateId);
-    // }
+
+    addNotification();
+
+    closeOverlays();
+
+    createTimeInterval(notificationId);
   };
 
-  const onPressFunction = async () => {
-    handleNotification(dropDownPickerValue, plantName);
-  };
+  // const onPressFunction = async () => {
+  //   handleNotification(dropDownPickerValue, plantName);
+  // };
 
   const closeOverlays = () => {
     setOverlayVisible(false);
@@ -121,54 +117,52 @@ const TimeInterval = props => {
     deleteTimeInterval();
   };
 
-  if (timeIntervalAction == 'delete') {
-    return (
-      <DeleteOrCancel
-        name={'this notification'}
-        deletion={() => deletion()}
-        closeOverlay={() => closeOverlays()}
-      />
-    );
-  } else {
-    return (
-      <Overlay
-        isVisible={overlayVisible}
-        overlayStyle={[styles.overlay, generalStyles.borderContainer]}
-        onBackdropPress={() => closeOverlays()}>
-        <>
-          <DropDownPicker
-            open={showDropDownPicker}
-            value={dropDownPickerValue}
-            items={timeInterval}
-            setOpen={setShowDropDownPicker}
-            setValue={setDropDownPickerValue}
-            setItems={setTimeInterval}
-            arrowIconStyle={{tintColor: myWhite}}
-            tickIconStyle={{tintColor: myWhite}}
-            style={{backgroundColor: myGreen}}
-            dropDownContainerStyle={{backgroundColor: myGreen}}
-            textStyle={{color: myWhite}}
-          />
-          <Text style={generalStyles.splashText}>
-            {showSplashText
-              ? 'please select one of the available options'
-              : null}
-          </Text>
-          <Pressable
-            style={[
-              {
-                ...generalStyles.darkButtonContainer,
-                ...styles.addButton,
-              },
-            ]}
-            onPress={() => onPressFunction()}>
-            <Text style={generalStyles.textStylesDark}>Add</Text>
-          </Pressable>
-        </>
-      </Overlay>
-    );
-  }
+  // if (timeIntervalAction === 'delete') {
+  //   return (
+  //     <DeleteOrCancel
+  //       name={'this notification'}
+  //       deletion={() => deletion()}
+  //       closeOverlay={() => closeOverlays()}
+  //     />
+  //   );
+  // } else {
+  return (
+    <Overlay
+      isVisible={overlayVisible}
+      overlayStyle={[styles.overlay, generalStyles.borderContainer]}
+      onBackdropPress={() => closeOverlays()}>
+      <>
+        <DropDownPicker
+          open={showDropDownPicker}
+          value={dropDownPickerValue}
+          items={timeInterval}
+          setOpen={setShowDropDownPicker}
+          setValue={setDropDownPickerValue}
+          setItems={setTimeInterval}
+          arrowIconStyle={{tintColor: myWhite}}
+          tickIconStyle={{tintColor: myWhite}}
+          style={{backgroundColor: myGreen}}
+          dropDownContainerStyle={{backgroundColor: myGreen}}
+          textStyle={{color: myWhite}}
+        />
+        <Text style={generalStyles.splashText}>
+          {showSplashText ? 'please select one of the available options' : null}
+        </Text>
+        <Pressable
+          style={[
+            {
+              ...generalStyles.darkButtonContainer,
+              ...styles.addButton,
+            },
+          ]}
+          onPress={() => handleNotification(dropDownPickerValue, plantName)}>
+          <Text style={generalStyles.textStylesDark}>Add</Text>
+        </Pressable>
+      </>
+    </Overlay>
+  );
 };
+// }
 
 const styles = StyleSheet.create({
   overlay: {
