@@ -39,7 +39,7 @@ const WorkoutDetailsView = ({route}) => {
       setWorkoutsStorage(workouts);
     }
     return (isMountedRef.current = false);
-  }, [workouts, refresh]);
+  }, [workouts, refresh, setWorkoutsStorage]);
 
   useEffect(() => {
     isMountedRef.current = true;
@@ -47,11 +47,7 @@ const WorkoutDetailsView = ({route}) => {
       setWorkouts(workouts);
     }
     return (isMountedRef.current = false);
-  }, [refresh]);
-
-  const toggleRefresh = () => {
-    setRefresh(uuid.v4());
-  };
+  }, [refresh, workouts]);
 
   const createWorkout = () => {
     setWorkouts(prevItems => {
@@ -94,7 +90,7 @@ const WorkoutDetailsView = ({route}) => {
       <WorkoutItem
         deleteItemFromStorage={openDeleteOrCancel}
         workout={item.item}
-        refresh={toggleRefresh}
+        refresh={setRefresh}
       />
     );
   };
@@ -110,7 +106,7 @@ const WorkoutDetailsView = ({route}) => {
           <Text style={styles.text}>Min /</Text>
           <Text style={[styles.text, styles.paddingRight]}> Max</Text>
         </View>
-        <View style={styles.lineDivider}></View>
+        <View style={styles.lineDivider} />
 
         <FlatList data={workouts} renderItem={renderItem} />
       </ImageBackground>

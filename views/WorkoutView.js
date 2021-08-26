@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   View,
@@ -46,7 +46,7 @@ const WorkoutView = ({navigation}) => {
     <SafeAreaView style={styles.container}>
       <Header title="My Workouts" cameraAdd={() => setModalVisible(true)} />
 
-      <View style={styles.lineDivider}></View>
+      <View style={styles.lineDivider} />
 
       <ImageBackground
         source={require('../components/assets/Workout.jpeg')}

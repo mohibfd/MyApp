@@ -24,91 +24,101 @@ const WorkoutItem = ({
     workout ? workout.measurement : null,
   );
 
-  const [interestInterval, setInterestInterval] = useState(
-    workout
-      ? workout.measurement == 'kg'
-        ? [
-            {label: 'lb', value: 'lb'},
-            {label: 's', value: 's'},
-          ]
-        : [
-            {label: 'kg', value: 'kg'},
-            {label: 's', value: 's'},
-          ]
-      : null,
-  );
+  const initialValue = () => {
+    if (workout) {
+      if (workout.measurement === 'lb') {
+        return [
+          {label: 'kg', value: 'kg'},
+          {label: 's', value: 's'},
+        ];
+      } else if (workout.measurement === 'kg') {
+        return [
+          {label: 'lb', value: 'lb'},
+          {label: 's', value: 's'},
+        ];
+      } else if (workout.measurement === 's') {
+        workout.measurement = 's';
+        return [
+          {label: 'kg', value: 'kg'},
+          {label: 'lb', value: 'lb'},
+        ];
+      }
+    }
+  };
+
+  const [unitInterval, setunitInterval] = useState(initialValue());
 
   useEffect(() => {
     if (dropDownPickerValue) {
-      if (dropDownPickerValue != workout.measurement) {
-        if (dropDownPickerValue == 'kg') {
-          if (workout.measurement == 'lb') {
+      if (dropDownPickerValue !== workout.measurement) {
+        if (dropDownPickerValue === 'kg') {
+          if (workout.measurement === 'lb') {
             workout.maximumWeight = workout.maximumWeight / 2.205;
             workout.minimumWeight = workout.minimumWeight / 2.205;
           }
           workout.measurement = 'kg';
-          setInterestInterval([
+          setunitInterval([
             {label: 'lb', value: 'lb'},
             {label: 's', value: 's'},
           ]);
-        } else if (dropDownPickerValue == 'lb') {
-          if (workout.measurement == 'kg') {
+        } else if (dropDownPickerValue === 'lb') {
+          if (workout.measurement === 'kg') {
             workout.maximumWeight = workout.maximumWeight * 2.205;
             workout.minimumWeight = workout.minimumWeight * 2.205;
           }
           workout.measurement = 'lb';
-          setInterestInterval([
+          setunitInterval([
             {label: 'kg', value: 'kg'},
             {label: 's', value: 's'},
           ]);
-        } else if (dropDownPickerValue == 's') {
+        } else if (dropDownPickerValue === 's') {
           workout.measurement = 's';
-          setInterestInterval([
+          setunitInterval([
             {label: 'kg', value: 'kg'},
             {label: 'lb', value: 'lb'},
           ]);
         }
-        refresh();
+        refresh(dropDownPickerValue);
       }
     }
-  }, [dropDownPickerValue]);
+  }, [dropDownPickerValue, refresh, workout]);
 
   const changeName = newName => {
     workout.name = newName;
-    refresh();
+    refresh(workout.name);
   };
   const changeMinWeight = value => {
-    let number = new Number(value) * 1;
+    let number = Number(value);
     if (!isNaN(number)) {
       workout.minimumWeight = number;
-      refresh();
+      refresh(workout.minimumWeight);
     }
   };
   const changeMaxWeight = value => {
-    let number = new Number(value) * 1;
+    let number = Number(value);
     if (!isNaN(number)) {
       workout.maximumWeight = number;
-      refresh();
+      refresh(workout.maximumWeight);
     }
   };
   const changeSets = value => {
-    let number = new Number(value) * 1;
-    if (value == '') {
+    let number = Number(value);
+    if (value === '') {
       workout.sets = '';
-      refresh();
+      refresh(workout.sets);
     } else if (!isNaN(number)) {
       workout.sets = number;
-      refresh();
+      refresh(workout.sets);
     }
   };
   const changeReps = value => {
-    let number = new Number(value) * 1;
-    if (value == '') {
+    let number = Number(value);
+    if (value === '') {
       workout.reps = '';
-      refresh();
+      refresh(workout.reps);
     } else if (!isNaN(number)) {
       workout.reps = number;
-      refresh();
+      refresh(workout.reps);
     }
   };
 
@@ -156,8 +166,8 @@ const WorkoutItem = ({
                 value={dropDownPickerValue}
                 setOpen={setShowDropDownPicker}
                 setValue={setDropDownPickerValue}
-                items={interestInterval}
-                setItems={setInterestInterval}
+                items={unitInterval}
+                setItems={setunitInterval}
                 arrowIconStyle={styles.arrowIconStyle}
                 tickIconStyle={styles.tickIconStyle}
                 textStyle={{color: myWhite}}
