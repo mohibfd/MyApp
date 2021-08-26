@@ -100,7 +100,7 @@ const TimeInterval = props => {
 
     closeOverlays();
 
-    createTimeInterval(notificationId);
+    createTimeInterval(notificationId, interval);
   };
 
   // const onPressFunction = async () => {

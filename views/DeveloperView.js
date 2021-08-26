@@ -54,7 +54,6 @@ const DeveloperView = () => {
     setBugs(prevItems => {
       return prevItems.filter(item => item.key != bug.key);
     });
-    console.log(bugsStorage);
   };
 
   return (

@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 import {ListItem} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {StyleSheet} from 'react-native';
 
 import {ActionSheet} from './../online_components/ActionSheet';
 import TimeInterval from '../TimeInterval';
@@ -48,21 +48,17 @@ const PlantItem = ({
       action: () => changeReminder('add'),
     });
   } else {
-    // actions.push({
-    //   title: 'Edit time interval',
-    //   action: () => (toggleShowTimeInterval(), setTimeIntervalAction('edit')),
-    // });
-
     actions.push({
       title: 'Change reminder',
       action: () => changeReminder('edit'),
     });
   }
 
-  const createTimeInterval = notificationId => {
+  const createTimeInterval = (notificationId, interval) => {
     for (let i of plants) {
       if (i.key === plant.key) {
         i.notificationId = notificationId;
+        i.interval = interval;
       }
     }
     setPlantsStorage(plants);
@@ -86,6 +82,8 @@ const PlantItem = ({
     setPlantsStorage(plants);
   };
 
+  //the margin left is the size of the icon
+  const marginLeft = plant.notificationId ? EStyleSheet.value('40rem') : 0;
   return (
     <>
       <ActionSheet
@@ -100,13 +98,22 @@ const PlantItem = ({
         onPress={() => {
           setActionSheetVisible(true);
         }}
-        containerStyle={{backgroundColor: myGreen + '99'}}
+        containerStyle={styles.container}
         bottomDivider>
         <ListItem.Content style={styles.listItemContainer}>
-          <ListItem.Title style={styles.plantName}>{plant.name}</ListItem.Title>
-          {plant.notificationId && (
-            <Icon name="check" size={40} color={'#00FF004D'} />
-          )}
+          <View style={styles.insideContainer}>
+            <ListItem.Title style={[styles.plantName, {marginLeft}]}>
+              {plant.name}
+            </ListItem.Title>
+            {plant.notificationId && (
+              <Icon
+                name="check"
+                size={EStyleSheet.value('40rem')}
+                color={'#00FF004D'}
+              />
+            )}
+          </View>
+          <Text style={styles.text}>{plant.interval}</Text>
         </ListItem.Content>
       </ListItem>
       {showTimeInterval && (
@@ -123,13 +130,21 @@ const PlantItem = ({
 };
 
 const styles = StyleSheet.create({
+  container: {backgroundColor: myGreen + '99'},
+  text: {
+    color: myRed,
+  },
   listItemContainer: {
-    flexDirection: 'row',
     alignItems: 'center',
   },
+  insideContainer: {
+    flexDirection: 'row',
+  },
   plantName: {
+    flex: 1,
     fontSize: EStyleSheet.value('40rem'),
     color: myWhite,
+    textAlign: 'center',
   },
 });
 

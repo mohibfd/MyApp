@@ -39,7 +39,7 @@ const PlantsView = () => {
       Alert.alert(
         'Too many plants',
         'Sorry you cannot have more than 7 plants at a time',
-        [{text: 'OK', onPress: () => console.log('OK Pressed')}],
+        [{text: 'OK'}],
       );
       return;
     }
@@ -51,6 +51,7 @@ const PlantsView = () => {
           name: newPlantName,
           key: uuid.v4(),
           notificationId: null,
+          interval: '',
         },
       ];
     });
