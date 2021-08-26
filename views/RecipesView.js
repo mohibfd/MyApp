@@ -24,13 +24,15 @@ const RecipesView = ({navigation}) => {
 
   const [refresh, setRefresh] = useState('');
 
+  const [focus, setFocus] = useState(false);
+
   useEffect(() => {
     isMountedRef.current = true;
     if (isMountedRef) {
       setRecipesStorage(recipes);
     }
     return (isMountedRef.current = false);
-  }, [recipes, refresh]);
+  }, [recipes, refresh, setRecipesStorage]);
 
   useEffect(() => {
     isMountedRef.current = true;
@@ -38,11 +40,7 @@ const RecipesView = ({navigation}) => {
       setRecipes(recipes);
     }
     return (isMountedRef.current = false);
-  }, [refresh]);
-
-  const toggleRefresh = () => {
-    setRefresh(uuid.v4());
-  };
+  }, [recipes, refresh]);
 
   const createRecipe = newRecipeName => {
     setRecipes(prevItems => {
@@ -58,6 +56,7 @@ const RecipesView = ({navigation}) => {
         },
       ];
     });
+    setFocus(true);
   };
 
   const toggleDeleteOrCancel = () => {
@@ -75,7 +74,7 @@ const RecipesView = ({navigation}) => {
     MMKV.removeItem(deleteItem.name + 'Id');
 
     setRecipes(prevItems => {
-      return prevItems.filter(item => item != deleteItem);
+      return prevItems.filter(item => item !== deleteItem);
     });
   };
 
@@ -85,7 +84,8 @@ const RecipesView = ({navigation}) => {
         recipe={item.item}
         deleteItemFromStorage={openDeleteOrCancel}
         navigation={navigation}
-        refresh={toggleRefresh}
+        refresh={setRefresh}
+        focus={focus}
       />
     );
   };

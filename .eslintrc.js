@@ -8,5 +8,6 @@ module.exports = {
     myBlack: 'readonly',
     myWhite: 'readonly',
     myRed: 'readonly',
+    myBlue: 'readonly',
   },
 };

@@ -18,6 +18,7 @@ const WorkoutItem = ({
   deleteItemFromStorage,
   workout,
   refresh,
+  focus,
 }) => {
   const [showDropDownPicker, setShowDropDownPicker] = useState(false);
   const [dropDownPickerValue, setDropDownPickerValue] = useState(
@@ -140,6 +141,7 @@ const WorkoutItem = ({
           placeholder="add name"
           placeholderTextColor={'grey'}
           multiline={true}
+          autoFocus={focus}
         />
         <View>
           <View style={styles.minMaxContainer}>
@@ -300,6 +302,7 @@ WorkoutItem.defaultProps = {
   deleteItemFromStorage: null,
   workout: null,
   refresh: null,
+  focus: false,
 };
 
 WorkoutItem.propTypes = {
@@ -308,6 +311,7 @@ WorkoutItem.propTypes = {
   deleteItemFromStorage: PropTypes.func,
   workout: PropTypes.object,
   refresh: PropTypes.func,
+  focus: PropTypes.bool,
 };
 
 export default WorkoutItem;

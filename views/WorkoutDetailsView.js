@@ -33,6 +33,8 @@ const WorkoutDetailsView = ({route}) => {
 
   const [refresh, setRefresh] = useState('');
 
+  const [focus, setFocus] = useState(false);
+
   useEffect(() => {
     isMountedRef.current = true;
     if (isMountedRef) {
@@ -64,6 +66,7 @@ const WorkoutDetailsView = ({route}) => {
         },
       ];
     });
+    setFocus(true);
   };
 
   const toggleDeleteOrCancel = () => {
@@ -81,7 +84,7 @@ const WorkoutDetailsView = ({route}) => {
     MMKV.removeItem(deleteItem.name + 'Id');
 
     setWorkouts(prevItems => {
-      return prevItems.filter(item => item != deleteItem);
+      return prevItems.filter(item => item !== deleteItem);
     });
   };
 
@@ -91,17 +94,18 @@ const WorkoutDetailsView = ({route}) => {
         deleteItemFromStorage={openDeleteOrCancel}
         workout={item.item}
         refresh={setRefresh}
+        focus={focus}
       />
     );
   };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: myBlack}}>
+    <SafeAreaView style={styles.container}>
       <Header title={muscle} instantAdd={createWorkout} />
       <ImageBackground
         source={require('../components/assets/Workout.jpeg')}
         style={styles.image}>
-        <View style={{flexDirection: 'row'}}>
+        <View style={styles.headerContainer}>
           <Text style={[styles.text, styles.marginLeft]}>Excercise</Text>
           <Text style={styles.text}>Min /</Text>
           <Text style={[styles.text, styles.paddingRight]}> Max</Text>
@@ -123,6 +127,11 @@ const WorkoutDetailsView = ({route}) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: myBlack,
+  },
+  headerContainer: {flexDirection: 'row'},
   lineDivider: {
     borderBottomWidth: EStyleSheet.value('2rem'),
     borderColor: myRed,

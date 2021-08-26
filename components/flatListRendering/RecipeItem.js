@@ -10,6 +10,7 @@ const RecipeItem = ({
   navigation,
   refresh,
   ingredient,
+  focus,
 }) => {
   const isCookingStep = useRef(false);
 
@@ -22,12 +23,13 @@ const RecipeItem = ({
   );
 
   if (ingredient) {
-    if (ingredient.quantity == undefined) {
+    if (ingredient.quantity === undefined) {
       isCookingStep.current = true;
     }
   }
 
   if (ingredient) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
       setInstructionQuantity(ingredient.quantity);
     }, [ingredient.quantity]);
@@ -59,25 +61,27 @@ const RecipeItem = ({
     }
   };
 
+  const borderColor = isCookingStep.current ? 'green' : 'black';
+
+  const width = isCookingStep.current ? '80%' : '50%';
+
   if (ingredient) {
     return (
       <View
         style={[
           styles.ListItem,
           {
-            borderColor: isCookingStep.current ? 'green' : 'black',
+            borderColor,
           },
         ]}>
         <View style={styles.ListItemView}>
           <TextInput
-            style={[
-              styles.listItemText,
-              {width: isCookingStep.current ? '80%' : '50%'},
-            ]}
+            style={[styles.listItemText, {width}]}
             value={instructionName}
             onChangeText={changeName}
             placeholder="add name"
             multiline={true}
+            autoFocus={focus}
           />
           {!isCookingStep.current && (
             <TextInput
@@ -110,6 +114,7 @@ const RecipeItem = ({
             onChangeText={changeName}
             placeholder="add name"
             multiline={true}
+            autoFocus={focus}
           />
 
           <View style={styles.iconContainer}>
@@ -181,6 +186,7 @@ RecipeItem.propTypes = {
   refresh: PropTypes.func.isRequired,
   navigation: PropTypes.object,
   ingredient: PropTypes.object,
+  focus: PropTypes.bool.isRequired,
 };
 
 export default RecipeItem;

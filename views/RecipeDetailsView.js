@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
 import {
@@ -34,11 +34,15 @@ const RecipeDetailsView = ({route}) => {
 
   const order = [...recipe.ingredients, ...recipe.cookingSteps].length;
 
+  const [focus, setFocus] = useState(false);
+
   const addInstruction = () => {
     recipe.ingredients.push({name: '', quantity: '', key: uuid.v4(), order});
 
     refresh();
     setRefreshFlatList(uuid.v4());
+
+    setFocus(true);
   };
 
   const addCookingStep = () => {
@@ -64,7 +68,7 @@ const RecipeDetailsView = ({route}) => {
 
     let whereToChangeOrder = 0;
     for (let i = 0; i < sortedList.length; i++) {
-      if (sortedList[i].key == deleteItem.key) {
+      if (sortedList[i].key === deleteItem.key) {
         whereToChangeOrder = i;
       }
     }
@@ -75,9 +79,9 @@ const RecipeDetailsView = ({route}) => {
       }
     });
 
-    recipe.cookingSteps.forEach(cookingSteps => {
-      if (cookingSteps.order >= whereToChangeOrder) {
-        cookingSteps.order -= 1;
+    recipe.cookingSteps.forEach(i => {
+      if (i.order >= whereToChangeOrder) {
+        i.order -= 1;
       }
     });
   };
@@ -87,9 +91,9 @@ const RecipeDetailsView = ({route}) => {
 
     sortList();
 
-    recipe.ingredients = ingredients.filter(i => i.key != deleteItem.key);
+    recipe.ingredients = ingredients.filter(i => i.key !== deleteItem.key);
 
-    recipe.cookingSteps = cookingSteps.filter(i => i.key != deleteItem.key);
+    recipe.cookingSteps = cookingSteps.filter(i => i.key !== deleteItem.key);
 
     refresh();
   };
@@ -114,9 +118,9 @@ const RecipeDetailsView = ({route}) => {
   };
 
   const multiplierFunc = value => {
-    const numberInputed = new Number(value) * 1;
+    const numberInputed = Number(value);
 
-    if (numberInputed == 0) {
+    if (numberInputed === 0) {
       setMultiplier(value);
     }
     //only enter and allow changes if the user inputs a valid number
@@ -134,17 +138,16 @@ const RecipeDetailsView = ({route}) => {
         let divideByTen = 1;
         quantity.forEach(character => {
           //search for number values
-          if (!isNaN(new Number(character)) && character != ' ') {
+          if (!isNaN(Number(character)) && character !== ' ') {
             numberArr.push(character);
-          } else if (character == '.') {
+          } else if (character === '.') {
             divideByTen = 10;
           } else {
             stringArr.push(character);
           }
         });
 
-        const numberToBeChanged =
-          (new Number(numberArr.join('')) * 1) / divideByTen;
+        const numberToBeChanged = Number(numberArr.join('')) / divideByTen;
 
         // console.log('number to change', numberToBeChanged);
         // console.log('number inputed', numberInputed);
@@ -158,7 +161,7 @@ const RecipeDetailsView = ({route}) => {
         const remainingString = stringArr.join('');
 
         recipe.ingredients.forEach(i => {
-          if (i.key == originalQuantity.key) {
+          if (i.key === originalQuantity.key) {
             i.quantity = newNumber + remainingString;
           }
         });
@@ -177,6 +180,7 @@ const RecipeDetailsView = ({route}) => {
         deleteItemFromStorage={openDeleteOrCancel}
         refresh={refresh}
         ingredient={item.item}
+        focus={focus}
       />
     );
   };
