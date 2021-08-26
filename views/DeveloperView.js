@@ -18,7 +18,7 @@ const DeveloperView = () => {
   useEffect(() => {
     setCardsStorage(cards);
     setBugsStorage(bugs);
-  }, [cards, bugs]);
+  }, [cards, bugs, setCardsStorage, setBugsStorage]);
 
   const createCard = newCardName => {
     setCards(prevItems => {
@@ -46,22 +46,22 @@ const DeveloperView = () => {
 
   const completeDeletion = card => {
     setCards(prevItems => {
-      return prevItems.filter(item => item.key != card.key);
+      return prevItems.filter(item => item.key !== card.key);
     });
   };
 
   const completeBugDeletion = bug => {
     setBugs(prevItems => {
-      return prevItems.filter(item => item.key != bug.key);
+      return prevItems.filter(item => item.key !== bug.key);
     });
   };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: myBlack}}>
+    <SafeAreaView style={styles.container}>
       <Header title="My Cards" developerAdd={createCard} add={createBug} />
 
-      <View style={{flexDirection: 'row', flex: 1}}>
-        <View style={{flexDirection: 'column', flex: 1}}>
+      <View style={styles.insideContainer}>
+        <View style={styles.listContainer}>
           <Text style={styles.text}>New Ideas</Text>
 
           {cards &&
@@ -75,7 +75,7 @@ const DeveloperView = () => {
               ) : null,
             )}
         </View>
-        <View style={{flexDirection: 'column', flex: 1}}>
+        <View style={styles.listContainer}>
           <Text style={styles.text}>Bugs</Text>
           {bugs &&
             bugs.map(bug =>
@@ -94,6 +94,9 @@ const DeveloperView = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {flex: 1, backgroundColor: myBlack},
+  insideContainer: {flexDirection: 'row', flex: 1},
+  listContainer: {flexDirection: 'column', flex: 1},
   text: {
     fontSize: EStyleSheet.value('30rem'),
     textAlign: 'center',
