@@ -23,10 +23,10 @@ const WorkoutView = ({navigation}) => {
   const differentMuscles = [
     {name: 'Arms', key: uuid.v4()},
     {name: 'Shoulders', key: uuid.v4()},
+    {name: 'Legs', key: uuid.v4()},
     {name: 'Chest', key: uuid.v4()},
     {name: 'Back', key: uuid.v4()},
     {name: 'Abs', key: uuid.v4()},
-    {name: 'Legs', key: uuid.v4()},
   ];
 
   const renderItem = item => {
