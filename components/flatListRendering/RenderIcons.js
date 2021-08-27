@@ -10,6 +10,7 @@ import {
   Pressable,
   Image,
   Alert,
+  Keyboard,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -39,17 +40,42 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
     {label: 'Yearly', value: 'yearly'},
   ]);
 
+  const [showDropDownPickerTwo, setShowDropDownPickerTwo] = useState(false);
+  const [dropDownPickerValueTwo, setDropDownPickerValueTwo] = useState(null);
+
+  const [interestIntervalTwo, setInterestIntervalTwo] = useState([
+    {label: '15 days', value: 15},
+    {label: '30 days', value: 30},
+    {label: '60 days', value: 60},
+    {label: '90 days', value: 90},
+  ]);
+
   const [showSplashText, setShowSplashText] = useState(false);
+
+  useEffect(() => {
+    Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
+    Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
+
+    // cleanup function
+    return () => {
+      Keyboard.removeListener('keyboardDidShow', _keyboardDidShow);
+      Keyboard.removeListener('keyboardDidHide', _keyboardDidHide);
+    };
+  }, []);
+
+  const [keyboardStatus, setKeyboardStatus] = useState(undefined);
+  const _keyboardDidShow = () => setKeyboardStatus('Keyboard Shown');
+  const _keyboardDidHide = () => setKeyboardStatus('Keyboard Hidden');
 
   const createMainItem = () => {
     if (item.icon) {
       addMainItem(item);
       toggleMainModal();
     } else {
-      if (numberInput == 0) {
+      if (numberInput === 0) {
         Alert.alert('You entered 0', 'Please enter a number', [{text: 'OK'}]);
       } else {
-        if (!dropDownPickerValue && interestInput != 0) {
+        if (!dropDownPickerValue && interestInput !== 0) {
           setShowSplashText(true);
 
           setTimeout(() => {
@@ -65,6 +91,7 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
             earnedInterest: 0,
             percentage: interestInput,
             interval: dropDownPickerValue,
+            until: dropDownPickerValueTwo,
             startDate: Date.now(),
           };
         }
@@ -76,12 +103,22 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
   };
 
   const bottomSize = () => {
-    if (interestInput) {
-      return '0%';
+    if (keyboardStatus === 'Keyboard Shown') {
+      if (interestInput) {
+        return '0%';
+      } else {
+        return '10%';
+      }
     } else {
-      return '40%';
+      if (interestInput) {
+        return '0%';
+      } else {
+        return '40%';
+      }
     }
   };
+
+  const position = interestInput ? 'relative' : 'absolute';
 
   return (
     <View style={styles.container}>
@@ -117,8 +154,7 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
           style={[
             generalStyles.centeredView,
             {
-              flex: 1,
-              position: interestInput ? 'relative' : 'absolute',
+              position,
               bottom: bottomSize(),
             },
           ]}>
@@ -151,33 +187,55 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
                   precision={2}
                 />
               </View>
-              {interestInput != undefined && interestInput != 0 && (
+              {interestInput !== undefined && interestInput !== 0 && (
                 <View
                   style={[
                     styles.currencyInputOutsideContainer,
                     styles.dropDownOutsideContainer,
                   ]}>
+                  <View style={styles.interestInterval}>
+                    <Text style={styles.textContainer}>
+                      How often does your interest occur:
+                    </Text>
+                    <DropDownPicker
+                      open={showDropDownPicker}
+                      value={dropDownPickerValue}
+                      setOpen={setShowDropDownPicker}
+                      setValue={setDropDownPickerValue}
+                      items={interestInterval}
+                      setItems={setInterestInterval}
+                      arrowIconStyle={{tintColor: myWhite}}
+                      tickIconStyle={{tintColor: myWhite}}
+                      style={styles.dropDownStyle}
+                      textStyle={{color: myWhite}}
+                      dropDownContainerStyle={styles.dropDownContainerStyle}
+                    />
+                    <Text style={generalStyles.splashText}>
+                      {showSplashText
+                        ? 'please select one of the available options'
+                        : null}
+                    </Text>
+                  </View>
+
                   <Text style={styles.textContainer}>
-                    How often does your interest occur:
+                    How long will it remain:
                   </Text>
+
                   <DropDownPicker
-                    open={showDropDownPicker}
-                    value={dropDownPickerValue}
-                    setOpen={setShowDropDownPicker}
-                    setValue={setDropDownPickerValue}
-                    items={interestInterval}
-                    setItems={setInterestInterval}
+                    open={showDropDownPickerTwo}
+                    value={dropDownPickerValueTwo}
+                    setOpen={setShowDropDownPickerTwo}
+                    setValue={setDropDownPickerValueTwo}
+                    items={interestIntervalTwo}
+                    setItems={setInterestIntervalTwo}
                     arrowIconStyle={{tintColor: myWhite}}
                     tickIconStyle={{tintColor: myWhite}}
                     style={styles.dropDownStyle}
                     textStyle={{color: myWhite}}
                     dropDownContainerStyle={styles.dropDownContainerStyle}
+                    dropDownDirection="TOP"
+                    placeholder="No specific time"
                   />
-                  <Text style={generalStyles.splashText}>
-                    {showSplashText
-                      ? 'please select one of the available options'
-                      : null}
-                  </Text>
                 </View>
               )}
             </View>
@@ -253,6 +311,7 @@ const styles = StyleSheet.create({
     borderColor: myWhite,
     alignItems: 'center',
   },
+  interestInterval: {flex: 1, alignItems: 'center'},
   textContainer: {
     color: myWhite,
     fontSize: EStyleSheet.value('16rem'),
@@ -277,6 +336,8 @@ const styles = StyleSheet.create({
   dropDownStyle: {
     backgroundColor: myBlack,
     borderColor: 'gold',
+    zIndex: 1,
+    marginBottom: '1%',
   },
 });
 

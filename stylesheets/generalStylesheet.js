@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   },
   splashText: {
     color: 'red',
-    fontSize: EStyleSheet.value('25rem'),
+    fontSize: EStyleSheet.value('22rem'),
     textAlign: 'center',
   },
   textStylesDark: {

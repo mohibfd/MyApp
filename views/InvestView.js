@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState, useCallback, useRef} from 'react';
 import {
   SafeAreaView,
@@ -67,7 +68,7 @@ const InvestView = ({navigation}) => {
         return await getAssetsData();
       };
       if (isMountedRef.current) {
-        if (investments.length != 0) {
+        if (investments.length !== 0) {
           setRefreshing(true);
           fetchExactPrices().then(prices => {
             if (!prices) {
@@ -171,10 +172,50 @@ const InvestView = ({navigation}) => {
       investments.forEach(investment => {
         investment.assets.forEach(asset => {
           if (asset.interest) {
+            console.log('has interest');
             const interest = asset.interest;
             const {earnedInterest, interval, percentage, startDate} = interest;
             const {name} = asset;
             let intervalInNumbers;
+
+            //this is for testing different dates//
+            // let dateNow = Date.now() + globalOneDayInMilliSeconds * 31;
+            let dateNow = Date.now();
+
+            let timePassed = dateNow - startDate;
+            if (interest.until) {
+              const until = interest.until;
+              let period;
+              switch (until) {
+                case 15:
+                  period = '15 days';
+                  break;
+                case 30:
+                  period = '30 days';
+                  break;
+                case 60:
+                  period = '60 days';
+                  break;
+                case 90:
+                  period = '90 days';
+                  break;
+              }
+
+              console.log('time passed: ', timePassed);
+
+              console.log('maths: ', until * globalOneDayInMilliSeconds);
+
+              if (timePassed > until * globalOneDayInMilliSeconds) {
+                Alert.alert(
+                  'Interest ended',
+                  `your  ${name} from ${investment.name} has finished its ${period} period`,
+                  [{text: 'OK'}],
+                );
+                delete asset.interest;
+              }
+
+              // console.log(interest.until);
+            }
 
             switch (interval) {
               case 'daily':
@@ -190,13 +231,6 @@ const InvestView = ({navigation}) => {
                 intervalInNumbers = 365.25;
                 break;
             }
-
-            //this is for testing different dates//
-            // let dateNow = Date.now() + globalOneDayInMilliSeconds * 100;
-
-            let dateNow = Date.now();
-
-            let timePassed = dateNow - startDate;
 
             const timeUntilInterest =
               intervalInNumbers * globalOneDayInMilliSeconds;
@@ -307,7 +341,7 @@ const InvestView = ({navigation}) => {
     toggleDeleteOrCancel();
 
     setInvestments(prevItems => {
-      return prevItems.filter(item => item.key != deleteInvestment.key);
+      return prevItems.filter(item => item.key !== deleteInvestment.key);
     });
   };
 
@@ -323,8 +357,10 @@ const InvestView = ({navigation}) => {
     return percentageDiff.toFixed(2);
   };
 
+  const color = calculateOverall() >= 0 ? 'green' : 'red';
+
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: myBlack}}>
+    <SafeAreaView style={styles.container}>
       <Header title="My Investments" add={createInvestment} />
 
       <ScrollView
@@ -363,12 +399,12 @@ const InvestView = ({navigation}) => {
       </ScrollView>
       <View style={styles.overallGainLossContainer}>
         <Text style={styles.fontSizeStyle}>Overall Gain/Loss</Text>
-        <View style={{flexDirection: 'row'}}>
+        <View style={styles.footer}>
           <Text
             style={[
               styles.fontSizeStyle,
               {
-                color: calculateOverall() >= 0 ? 'green' : 'red',
+                color,
               },
             ]}>
             £{calculateOverall()}
@@ -377,7 +413,7 @@ const InvestView = ({navigation}) => {
             style={[
               styles.fontSizeStyle,
               {
-                color: calculateOverall() >= 0 ? 'green' : 'red',
+                color,
               },
             ]}>
             {'  '}
@@ -390,6 +426,7 @@ const InvestView = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
+  container: {flex: 1, backgroundColor: myBlack},
   fontSizeStyle: {
     fontSize: EStyleSheet.value('25rem'),
     color: myWhite,
@@ -400,6 +437,7 @@ const styles = StyleSheet.create({
     padding: EStyleSheet.value('10rem'),
     alignSelf: 'center',
   },
+  footer: {flexDirection: 'row'},
 });
 
 export default InvestView;
