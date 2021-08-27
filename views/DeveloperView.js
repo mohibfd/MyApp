@@ -23,11 +23,11 @@ const DeveloperView = () => {
   const createCard = newCardName => {
     setCards(prevItems => {
       return [
+        ...prevItems,
         {
           name: newCardName,
           key: uuid.v4(),
         },
-        ...prevItems,
       ];
     });
   };
