@@ -48,6 +48,8 @@ const InvestView = ({navigation}) => {
   //this state will allow us to refresh only once
   const [refresh, setRefresh] = useState('');
 
+  const [focus, setFocus] = useState(false);
+
   const isMountedRef = useRef(null);
 
   const toggleOverallInvestmentChanged = () => {
@@ -329,6 +331,7 @@ const InvestView = ({navigation}) => {
         },
       ];
     });
+    setFocus(true);
   };
 
   //also returns investment to be deleted
@@ -385,6 +388,7 @@ const InvestView = ({navigation}) => {
                 investments={investments}
                 setInvestmentsStorage={setInvestmentsStorage}
                 toggleOverallInvestmentChanged={toggleOverallInvestmentChanged}
+                focus={focus}
               />
             ) : null,
           )}

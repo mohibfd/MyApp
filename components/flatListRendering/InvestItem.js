@@ -17,6 +17,7 @@ const InvestItem = ({
   investments,
   setInvestmentsStorage,
   toggleOverallInvestmentChanged,
+  focus,
 }) => {
   const [originalInvestmentState, setOriginalInvestmentState] = useState(
     investment.originalInvestment,
@@ -164,7 +165,7 @@ const InvestItem = ({
     setOriginalInvestmentState(amount);
 
     for (let i of investments) {
-      if (i.key == investment.key) {
+      if (i.key === investment.key) {
         i.originalInvestment = amount;
       }
     }
@@ -212,7 +213,7 @@ const InvestItem = ({
       myAssets.push(item);
 
       for (let i of investments) {
-        if (i.key == investment.key) {
+        if (i.key === investment.key) {
           i.assets = myAssets;
         }
       }
@@ -225,7 +226,7 @@ const InvestItem = ({
         myAssets[index].quantity += item.quantity;
       }
     } else {
-      if (index != undefined) {
+      if (index !== undefined) {
         myAssets.splice(index, 1);
       }
       setNewAsset();
@@ -242,7 +243,7 @@ const InvestItem = ({
   };
 
   const alignWhere = () => {
-    if (investment.assets.length == 0) {
+    if (investment.assets.length === 0) {
       return 'center';
     }
   };
@@ -255,7 +256,7 @@ const InvestItem = ({
 
     let numberAsList = [];
     for (let i = 0; i < numbersWithDecimal.length; i++) {
-      if (i == 6 || i == 9) {
+      if (i === 6 || i === 9) {
         numberAsList.splice(numbersWithDecimal.length - i, 0, ',');
       }
       numberAsList.push(numbersWithDecimal[i]);
@@ -268,7 +269,7 @@ const InvestItem = ({
     if (investment.currentAmount) {
       let currentAmount = investment.currentAmount.toFixed(2);
       return renderNumber(currentAmount);
-    } else if (investment.currentAmount == 0) {
+    } else if (investment.currentAmount === 0) {
       return 'Add asset';
     } else {
       return 'Updating price';
@@ -283,7 +284,7 @@ const InvestItem = ({
     }
     for (let i = 0; i < investment.assets.length; i++) {
       let index = i - 4;
-      if (index % 10 == 0 && index != 0) {
+      if (index % 10 === 0 && index !== 0) {
         size += 38;
       }
     }
@@ -300,7 +301,7 @@ const InvestItem = ({
 
   for (let i = 0; i < investment.assets.length; i++) {
     let photo = investment.assets[i];
-    if (i % 4 == 0 && i != 0) {
+    if (i % 4 === 0 && i !== 0) {
       break;
     }
     firstFourPhotos.push(photo.imageSource);
@@ -309,15 +310,17 @@ const InvestItem = ({
   for (let i = 4; i < investment.assets.length; i++) {
     let index = i - 4;
     let photo = investment.assets[i];
-    if (index % 10 == 0 && index != 0) {
+    if (index % 10 === 0 && index !== 0) {
       tenPhotosList.push(tenPhotos);
       tenPhotos = [];
     }
-    if (investment.assets.length == i + 1) {
+    if (investment.assets.length === i + 1) {
       tenPhotosList.push(tenPhotos);
     }
     tenPhotos.push(photo.imageSource);
   }
+
+  const color = calculatePercentage() >= 0 ? 'green' : 'red';
 
   return (
     <>
@@ -333,7 +336,7 @@ const InvestItem = ({
           setActionSheetVisible(true);
         }}
         containerStyle={styles.listContainer}>
-        <View style={{flexDirection: 'column', flex: 1}}>
+        <View style={styles.viewContainer}>
           <ListItem.Content
             style={[styles.investmentContainer, {alignItems: alignWhere()}]}>
             <View style={styles.titleAndImageContainer}>
@@ -341,8 +344,8 @@ const InvestItem = ({
                 {investment.name}
               </ListItem.Title>
 
-              {firstFourPhotos.length != 0 && (
-                <View style={{flex: 1}}>
+              {firstFourPhotos.length !== 0 && (
+                <View style={styles.flexOne}>
                   <View style={styles.imageContainer} key={uuid.v4()}>
                     {firstFourPhotos.map(photo => {
                       return (
@@ -370,6 +373,7 @@ const InvestItem = ({
                   precision={2}
                   maxLength={10}
                   minValue={0}
+                  autoFocus={focus}
                 />
               </View>
               <View style={styles.investmentTextContainer}>
@@ -384,7 +388,7 @@ const InvestItem = ({
                   style={[
                     styles.currencyInputContainer,
                     {
-                      color: calculatePercentage() >= 0 ? 'green' : 'red',
+                      color,
                     },
                   ]}>
                   £{calculateGainOrLoss().toFixed(2)}
@@ -395,11 +399,7 @@ const InvestItem = ({
             </View>
           </ListItem.Content>
 
-          <View
-            style={{
-              height: tenListHeight(),
-              flex: 1,
-            }}>
+          <View style={[styles.flexOne, {height: tenListHeight()}]}>
             {tenPhotosList.map(photosList => {
               return (
                 <View style={styles.imageContainer2} key={uuid.v4()}>
@@ -431,6 +431,7 @@ const InvestItem = ({
 };
 
 const styles = StyleSheet.create({
+  flexOne: {flex: 1},
   investmentContainer: {
     flexDirection: 'row',
     height: EStyleSheet.value('80rem'),
@@ -440,6 +441,7 @@ const styles = StyleSheet.create({
     borderColor: 'gold',
     borderWidth: 1.5,
   },
+  viewContainer: {flexDirection: 'column', flex: 1},
   titleAndImageContainer: {
     flexDirection: 'column',
     flex: 0.55,
@@ -501,6 +503,7 @@ InvestItem.propTypes = {
   investments: PropTypes.array.isRequired,
   setInvestmentsStorage: PropTypes.func.isRequired,
   toggleOverallInvestmentChanged: PropTypes.func.isRequired,
+  focus: PropTypes.bool.isRequired,
 };
 
 export default InvestItem;
