@@ -38,17 +38,17 @@ const RecipeItem = ({
   const changeName = newName => {
     if (ingredient) {
       ingredient.name = newName;
-      setInstructionName(newName);
     } else {
       recipe.name = newName;
     }
-    refresh();
+    setInstructionName(newName);
+    refresh(recipe.name);
   };
 
   const changeQuantity = newQuantity => {
     ingredient.quantity = newQuantity;
     setInstructionQuantity(newQuantity);
-    refresh();
+    refresh(ingredient.quantity);
   };
 
   //tells you which page to go to
