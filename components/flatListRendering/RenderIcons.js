@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {Dimensions} from 'react-native';
 import {
   TouchableHighlight,
@@ -103,9 +103,7 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
   };
 
   const setInterestInputFunc = value => {
-    console.log(value);
     if (value) {
-      console.log('?');
       setInterestInput(value);
     } else {
       setInterestInput(0);
@@ -129,6 +127,8 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
   };
 
   const position = interestInput ? 'relative' : 'absolute';
+
+  let inputRef;
 
   return (
     <View style={styles.container}>
@@ -159,6 +159,10 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
         overFlow={'visible'}
         onRequestClose={() => {
           setModalVisible(false);
+        }}
+        onModalShow={() => {
+          inputRef.blur();
+          inputRef.focus();
         }}>
         <View
           style={[
@@ -173,6 +177,7 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
               <View style={styles.currencyInputOutsideContainer}>
                 <Text style={styles.textContainer}>{item.name} amount: </Text>
                 <CurrencyInput
+                  ref={ref => (inputRef = ref)}
                   style={styles.currencyInputContainer}
                   value={numberInput}
                   onChangeValue={setNumberInput}
@@ -180,6 +185,7 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
                   separator="."
                   maxLength={15}
                   precision={8}
+                  autoFocus={true}
                 />
               </View>
               <View style={styles.currencyInputOutsideContainer}>
