@@ -102,6 +102,16 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
     }
   };
 
+  const setInterestInputFunc = value => {
+    console.log(value);
+    if (value) {
+      console.log('?');
+      setInterestInput(value);
+    } else {
+      setInterestInput(0);
+    }
+  };
+
   const bottomSize = () => {
     if (keyboardStatus === 'Keyboard Shown') {
       if (interestInput) {
@@ -179,7 +189,7 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
                 <CurrencyInput
                   style={styles.currencyInputContainer}
                   value={interestInput}
-                  onChangeValue={setInterestInput}
+                  onChangeValue={setInterestInputFunc}
                   prefix="%"
                   delimiter=","
                   separator="."
