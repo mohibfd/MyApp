@@ -132,7 +132,7 @@ const RecipeItem = ({
             {inEditMode ? (
               <Icon
                 style={[styles.redCross, styles.marginLeft]}
-                name="bin"
+                name="trash"
                 size={EStyleSheet.value('40rem')}
                 color="firebrick"
                 onPress={() => deleteItemFromStorage(recipe)}

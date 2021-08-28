@@ -15,6 +15,7 @@ import uuid from 'react-native-uuid';
 import RecipeItem from '../components/flatListRendering/RecipeItem';
 import Header from '../components/Header';
 import DeleteOrCancel from '../components/modals/DeleteOrCancel';
+import ShakeAnimation from '../components/ShakeAnimation';
 
 const RecipesView = ({navigation}) => {
   const [recipesStorage, setRecipesStorage] = useStorage('recipes');
@@ -33,9 +34,9 @@ const RecipesView = ({navigation}) => {
 
   const [inEditMode, setInEditMode] = useState(false);
 
-  const animation = useMemo(() => new Animated.Value(0), []);
+  // const animation = useMemo(() => new Animated.Value(0), []);
 
-  const interval = useRef(null);
+  // const interval = useRef(null);
 
   useEffect(() => {
     isMountedRef.current = true;
@@ -52,26 +53,6 @@ const RecipesView = ({navigation}) => {
     }
     return (isMountedRef.current = false);
   }, [recipes, refresh]);
-
-  useEffect(() => {
-    const triggerAnimation = () => {
-      animation.setValue(0);
-      Animated.timing(animation, {
-        duration: 400,
-        toValue: 3,
-        useNativeDriver: true, // <-- Add this
-        ease: Easing.bounce,
-      }).start();
-    };
-
-    if (inEditMode) {
-      interval.current = setInterval(() => {
-        triggerAnimation();
-      }, 2000);
-    } else {
-      clearInterval(interval.current);
-    }
-  }, [animation, inEditMode]);
 
   const createRecipe = newRecipeName => {
     setRecipes(prevItems => {
@@ -123,13 +104,7 @@ const RecipesView = ({navigation}) => {
     );
   };
 
-  const interpolated = animation.interpolate({
-    inputRange: [0, 0.5, 1, 1.5, 2, 2.5, 3],
-    outputRange: [0, -15, 0, 15, 0, -15, 0],
-  });
-  const style = {
-    transform: [{translateX: interpolated}],
-  };
+  const animationStyle = ShakeAnimation(inEditMode);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -138,11 +113,11 @@ const RecipesView = ({navigation}) => {
         source={require('../components/assets/Recipes.jpeg')}
         style={styles.image}>
         <Pressable
-          style={{flex: 1}}
+          style={styles.pressable}
           onLongPress={() => {
             setInEditMode(true);
           }}>
-          <Animated.View style={[style, styles.ListItem]}>
+          <Animated.View style={[animationStyle, styles.ListItem]}>
             <FlatList data={recipes} renderItem={renderItem} />
           </Animated.View>
         </Pressable>
@@ -170,6 +145,7 @@ const RecipesView = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: myBlack},
   image: {width: '100%', height: '100%', flex: 1},
+  pressable: {flex: 1},
   footerContainer: {
     backgroundColor: '#CD7F32' + 'CC',
     height: EStyleSheet.value('50rem'),
