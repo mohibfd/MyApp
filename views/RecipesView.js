@@ -1,10 +1,15 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState, useRef, useMemo} from 'react';
 import {
   SafeAreaView,
   FlatList,
   ImageBackground,
   StyleSheet,
+  Pressable,
+  Animated,
+  Easing,
+  Text,
 } from 'react-native';
+import EStyleSheet from 'react-native-extended-stylesheet';
 import uuid from 'react-native-uuid';
 
 import RecipeItem from '../components/flatListRendering/RecipeItem';
@@ -26,6 +31,12 @@ const RecipesView = ({navigation}) => {
 
   const [focus, setFocus] = useState(false);
 
+  const [inEditMode, setInEditMode] = useState(false);
+
+  const animation = useMemo(() => new Animated.Value(0), []);
+
+  const interval = useRef(null);
+
   useEffect(() => {
     isMountedRef.current = true;
     if (isMountedRef) {
@@ -41,6 +52,26 @@ const RecipesView = ({navigation}) => {
     }
     return (isMountedRef.current = false);
   }, [recipes, refresh]);
+
+  useEffect(() => {
+    const triggerAnimation = () => {
+      animation.setValue(0);
+      Animated.timing(animation, {
+        duration: 400,
+        toValue: 3,
+        useNativeDriver: true, // <-- Add this
+        ease: Easing.bounce,
+      }).start();
+    };
+
+    if (inEditMode) {
+      interval.current = setInterval(() => {
+        triggerAnimation();
+      }, 2000);
+    } else {
+      clearInterval(interval.current);
+    }
+  }, [animation, inEditMode]);
 
   const createRecipe = newRecipeName => {
     setRecipes(prevItems => {
@@ -86,16 +117,43 @@ const RecipesView = ({navigation}) => {
         navigation={navigation}
         refresh={setRefresh}
         focus={focus}
+        inEditMode={inEditMode}
+        setInEditMode={setInEditMode}
       />
     );
   };
+
+  const interpolated = animation.interpolate({
+    inputRange: [0, 0.5, 1, 1.5, 2, 2.5, 3],
+    outputRange: [0, -15, 0, 15, 0, -15, 0],
+  });
+  const style = {
+    transform: [{translateX: interpolated}],
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Header title="My Recipes" instantAdd={createRecipe} />
       <ImageBackground
         source={require('../components/assets/Recipes.jpeg')}
         style={styles.image}>
-        <FlatList data={recipes} renderItem={renderItem} />
+        <Pressable
+          style={{flex: 1}}
+          onLongPress={() => {
+            setInEditMode(true);
+          }}>
+          <Animated.View style={[style, styles.ListItem]}>
+            <FlatList data={recipes} renderItem={renderItem} />
+          </Animated.View>
+        </Pressable>
+
+        {inEditMode && (
+          <Pressable
+            style={styles.footerContainer}
+            onPress={() => setInEditMode(false)}>
+            <Text style={styles.text}>Exit Edit Mode</Text>
+          </Pressable>
+        )}
       </ImageBackground>
 
       {isDeleteOrCancel && (
@@ -112,6 +170,19 @@ const RecipesView = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: myBlack},
   image: {width: '100%', height: '100%', flex: 1},
+  footerContainer: {
+    backgroundColor: '#CD7F32' + 'CC',
+    height: EStyleSheet.value('50rem'),
+    borderColor: myRed,
+    borderWidth: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  text: {
+    color: myBlack,
+    fontSize: EStyleSheet.value('20rem'),
+    fontWeight: 'bold',
+  },
 });
 
 export default RecipesView;

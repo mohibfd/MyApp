@@ -1,6 +1,13 @@
 import PropTypes from 'prop-types';
 import React, {useState, useEffect, useRef} from 'react';
-import {View, StyleSheet, TextInput} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  TextInput,
+  Animated,
+  Pressable,
+  Easing,
+} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -11,6 +18,8 @@ const RecipeItem = ({
   refresh,
   ingredient,
   focus,
+  inEditMode,
+  setInEditMode,
 }) => {
   const isCookingStep = useRef(false);
 
@@ -85,11 +94,12 @@ const RecipeItem = ({
           />
           {!isCookingStep.current && (
             <TextInput
-              style={[styles.listItemText, styles.widthTwo]}
+              style={styles.listItemText}
               value={instructionQuantity}
               onChangeText={changeQuantity}
               placeholder="amount"
               multiline={true}
+              maxWidth={'30%'}
             />
           )}
           <View style={styles.iconContainer}>
@@ -109,29 +119,33 @@ const RecipeItem = ({
       <View style={styles.ListItem}>
         <View style={styles.ListItemView}>
           <TextInput
-            style={[styles.listItemText, styles.widthThree]}
+            style={styles.listItemText}
             value={recipe.name}
             onChangeText={changeName}
             placeholder="add name"
             multiline={true}
             autoFocus={focus}
+            maxWidth={'65%'}
           />
 
           <View style={styles.iconContainer}>
-            <Icon
-              style={styles.redCross}
-              name="arrow-right"
-              size={EStyleSheet.value('40rem')}
-              color="gold"
-              onPress={() => navigateTo()}
-            />
-            <Icon
-              style={[styles.redCross, styles.marginLeft]}
-              name="remove"
-              size={EStyleSheet.value('40rem')}
-              color="firebrick"
-              onPress={() => deleteItemFromStorage(recipe)}
-            />
+            {inEditMode ? (
+              <Icon
+                style={[styles.redCross, styles.marginLeft]}
+                name="bin"
+                size={EStyleSheet.value('40rem')}
+                color="firebrick"
+                onPress={() => deleteItemFromStorage(recipe)}
+              />
+            ) : (
+              <Icon
+                style={styles.redCross}
+                name="arrow-right"
+                size={EStyleSheet.value('40rem')}
+                color="gold"
+                onPress={() => navigateTo()}
+              />
+            )}
           </View>
         </View>
       </View>
@@ -140,6 +154,22 @@ const RecipeItem = ({
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  button: {
+    width: '100%',
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    borderRadius: 30,
+    backgroundColor: '#333',
+  },
+  text: {
+    color: '#FFF',
+  },
+
   ListItem: {
     backgroundColor: '#CD7F32' + 99,
     paddingVertical: EStyleSheet.value('10rem'),
@@ -154,12 +184,6 @@ const styles = StyleSheet.create({
     fontSize: EStyleSheet.value('22rem'),
     marginLeft: EStyleSheet.value('10rem'),
     color: myWhite,
-  },
-  widthTwo: {
-    width: '30%',
-  },
-  widthThree: {
-    width: '65%',
   },
   iconContainer: {
     flexDirection: 'row',
@@ -187,6 +211,8 @@ RecipeItem.propTypes = {
   navigation: PropTypes.object,
   ingredient: PropTypes.object,
   focus: PropTypes.bool.isRequired,
+  inEditMode: PropTypes.bool.isRequired,
+  setInEditMode: PropTypes.func.isRequired,
 };
 
 export default RecipeItem;
