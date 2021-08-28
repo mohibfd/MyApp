@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef, useMemo} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {
   SafeAreaView,
   FlatList,
@@ -6,7 +6,6 @@ import {
   StyleSheet,
   Pressable,
   Animated,
-  Easing,
   Text,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
@@ -33,10 +32,6 @@ const RecipesView = ({navigation}) => {
   const [focus, setFocus] = useState(false);
 
   const [inEditMode, setInEditMode] = useState(false);
-
-  // const animation = useMemo(() => new Animated.Value(0), []);
-
-  // const interval = useRef(null);
 
   useEffect(() => {
     isMountedRef.current = true;
@@ -126,7 +121,7 @@ const RecipesView = ({navigation}) => {
           <Pressable
             style={styles.footerContainer}
             onPress={() => setInEditMode(false)}>
-            <Text style={styles.text}>Exit Edit Mode</Text>
+            <Text style={styles.text}>Exit edit mode</Text>
           </Pressable>
         )}
       </ImageBackground>

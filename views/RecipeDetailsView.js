@@ -10,14 +10,16 @@ import {
   View,
   TextInput,
   Pressable,
+  Animated,
 } from 'react-native';
 import uuid from 'react-native-uuid';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 import RecipeItem from '../components/flatListRendering/RecipeItem';
 import Header from '../components/Header';
 import DeleteOrCancel from '../components/modals/DeleteOrCancel';
 import {launchImageLibrary} from 'react-native-image-picker';
-import EStyleSheet from 'react-native-extended-stylesheet';
+import ShakeAnimation from '../components/ShakeAnimation';
 
 const RecipeDetailsView = ({route}) => {
   const {recipe, refresh} = route.params;
@@ -35,6 +37,8 @@ const RecipeDetailsView = ({route}) => {
   const order = [...recipe.ingredients, ...recipe.cookingSteps].length;
 
   const [focus, setFocus] = useState(false);
+
+  const [inEditMode, setInEditMode] = useState(false);
 
   const addInstruction = () => {
     recipe.ingredients.push({name: '', quantity: '', key: uuid.v4(), order});
@@ -181,9 +185,15 @@ const RecipeDetailsView = ({route}) => {
         refresh={refresh}
         ingredient={item.item}
         focus={focus}
+        inEditMode={inEditMode}
+        setInEditMode={setInEditMode}
       />
     );
   };
+
+  const animationStyle = ShakeAnimation(inEditMode);
+
+  const color = inEditMode ? myBlack : 'green';
 
   return (
     <SafeAreaView style={styles.container}>
@@ -205,15 +215,28 @@ const RecipeDetailsView = ({route}) => {
         />
       </View>
       <ImageBackground source={imageSource()} style={styles.image}>
-        <FlatList
-          data={[...recipe.ingredients, ...recipe.cookingSteps].sort((a, b) =>
-            a.order > b.order ? 1 : -1,
-          )}
-          renderItem={renderItem}
-          extraData={refreshFlastList}
-        />
-        <Pressable style={styles.footerContainer} onPress={addCookingStep}>
-          <Text style={styles.text4}>Add cooking step</Text>
+        <Pressable
+          style={styles.pressable}
+          onLongPress={() => {
+            setInEditMode(true);
+          }}>
+          <Animated.View style={[animationStyle, styles.ListItem]}>
+            <FlatList
+              data={[...recipe.ingredients, ...recipe.cookingSteps].sort(
+                (a, b) => (a.order > b.order ? 1 : -1),
+              )}
+              renderItem={renderItem}
+              extraData={refreshFlastList}
+            />
+          </Animated.View>
+        </Pressable>
+
+        <Pressable
+          style={styles.footerContainer}
+          onPress={inEditMode ? () => setInEditMode(false) : addCookingStep}>
+          <Text style={[styles.text4, {color}]}>
+            {inEditMode ? 'Exit edit mode' : 'Add cooking step'}
+          </Text>
         </Pressable>
       </ImageBackground>
 
@@ -228,6 +251,7 @@ const RecipeDetailsView = ({route}) => {
   );
 };
 const styles = StyleSheet.create({
+  pressable: {flex: 1},
   container: {flex: 1, backgroundColor: myBlack},
   image: {
     width: '100%',
@@ -255,7 +279,6 @@ const styles = StyleSheet.create({
     marginLeft: 0,
   },
   text4: {
-    color: myBlack,
     fontSize: EStyleSheet.value('20rem'),
     fontWeight: 'bold',
   },

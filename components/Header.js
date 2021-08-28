@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 import AddItemHeader from './AddItemHeader';
 
@@ -35,7 +36,9 @@ const Header = ({
         {leftHeaderIcon()}
       </View>
       <View style={styles.textContainer}>
-        <Text style={styles.text}>{title}</Text>
+        <Text style={styles.text} numberOfLines={2}>
+          {title}
+        </Text>
       </View>
       <View style={styles.plusButtonContainer}>{rightHeaderIcon()}</View>
     </View>
@@ -53,9 +56,11 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   text: {
-    textAlign: 'left',
+    alignSelf: 'center',
+    textAlign: 'center',
     color: '#FAEEFF',
     fontSize: EStyleSheet.value('25rem'),
+    width: '50%',
   },
   developerPlusButtonContainer: {
     position: 'absolute',

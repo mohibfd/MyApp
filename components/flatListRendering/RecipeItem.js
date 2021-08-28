@@ -1,13 +1,6 @@
 import PropTypes from 'prop-types';
 import React, {useState, useEffect, useRef} from 'react';
-import {
-  View,
-  StyleSheet,
-  TextInput,
-  Animated,
-  Pressable,
-  Easing,
-} from 'react-native';
+import {View, StyleSheet, TextInput} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -19,7 +12,6 @@ const RecipeItem = ({
   ingredient,
   focus,
   inEditMode,
-  setInEditMode,
 }) => {
   const isCookingStep = useRef(false);
 
@@ -72,8 +64,6 @@ const RecipeItem = ({
 
   const borderColor = isCookingStep.current ? 'green' : 'black';
 
-  const width = isCookingStep.current ? '80%' : '50%';
-
   if (ingredient) {
     return (
       <View
@@ -84,14 +74,16 @@ const RecipeItem = ({
           },
         ]}>
         <View style={styles.ListItemView}>
-          <TextInput
-            style={[styles.listItemText, {width}]}
-            value={instructionName}
-            onChangeText={changeName}
-            placeholder="add name"
-            multiline={true}
-            autoFocus={focus}
-          />
+          <View style={styles.ingredientsNameContainer}>
+            <TextInput
+              style={styles.listItemText}
+              value={instructionName}
+              onChangeText={changeName}
+              placeholder="add name"
+              multiline={true}
+              autoFocus={focus}
+            />
+          </View>
           {!isCookingStep.current && (
             <TextInput
               style={styles.listItemText}
@@ -103,13 +95,15 @@ const RecipeItem = ({
             />
           )}
           <View style={styles.iconContainer}>
-            <Icon
-              style={styles.redCross}
-              name="remove"
-              size={EStyleSheet.value('40rem')}
-              color="firebrick"
-              onPress={() => deleteItemFromStorage(ingredient)}
-            />
+            {inEditMode ? (
+              <Icon
+                style={styles.redCross}
+                name="remove"
+                size={EStyleSheet.value('40rem')}
+                color="firebrick"
+                onPress={() => deleteItemFromStorage(ingredient)}
+              />
+            ) : null}
           </View>
         </View>
       </View>
@@ -125,7 +119,7 @@ const RecipeItem = ({
             placeholder="add name"
             multiline={true}
             autoFocus={focus}
-            maxWidth={'65%'}
+            maxWidth={'75%'}
           />
 
           <View style={styles.iconContainer}>
@@ -169,7 +163,6 @@ const styles = StyleSheet.create({
   text: {
     color: '#FFF',
   },
-
   ListItem: {
     backgroundColor: '#CD7F32' + 99,
     paddingVertical: EStyleSheet.value('10rem'),
@@ -185,6 +178,7 @@ const styles = StyleSheet.create({
     marginLeft: EStyleSheet.value('10rem'),
     color: myWhite,
   },
+  ingredientsNameContainer: {flexDirection: 'row', flex: 3},
   iconContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
@@ -212,7 +206,6 @@ RecipeItem.propTypes = {
   ingredient: PropTypes.object,
   focus: PropTypes.bool.isRequired,
   inEditMode: PropTypes.bool.isRequired,
-  setInEditMode: PropTypes.func.isRequired,
 };
 
 export default RecipeItem;
