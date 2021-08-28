@@ -220,7 +220,7 @@ const RecipeDetailsView = ({route}) => {
           onLongPress={() => {
             setInEditMode(true);
           }}>
-          <Animated.View style={[animationStyle, styles.ListItem]}>
+          <Animated.View style={animationStyle}>
             <FlatList
               data={[...recipe.ingredients, ...recipe.cookingSteps].sort(
                 (a, b) => (a.order > b.order ? 1 : -1),

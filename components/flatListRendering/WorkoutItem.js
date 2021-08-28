@@ -19,6 +19,7 @@ const WorkoutItem = ({
   workout,
   refresh,
   focus,
+  inEditMode,
 }) => {
   const [showDropDownPicker, setShowDropDownPicker] = useState(false);
   const [dropDownPickerValue, setDropDownPickerValue] = useState(
@@ -134,6 +135,7 @@ const WorkoutItem = ({
   if (deleteItemFromStorage) {
     return (
       <View style={[styles.musclesContainer, styles.detailsContainer]}>
+        {/* <View style={styles.textContainer}> */}
         <TextInput
           style={styles.text}
           value={workout.name}
@@ -142,7 +144,9 @@ const WorkoutItem = ({
           placeholderTextColor={'grey'}
           multiline={true}
           autoFocus={focus}
+          maxWidth={'100%'}
         />
+        {/* </View> */}
         <View>
           <View style={styles.minMaxContainer}>
             <TextInput
@@ -201,6 +205,7 @@ const WorkoutItem = ({
         </View>
 
         <View style={styles.iconContainer}>
+          {/* {inEditMode && ( */}
           <Icon
             style={styles.redCross}
             name="remove"
@@ -208,6 +213,7 @@ const WorkoutItem = ({
             color="firebrick"
             onPress={() => deleteItemFromStorage(workout)}
           />
+          {/* )} */}
         </View>
       </View>
     );
@@ -228,7 +234,7 @@ const styles = StyleSheet.create({
     borderColor: myRed,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
   },
   detailsContainer: {
     height: EStyleSheet.value('100rem'),
@@ -242,9 +248,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  textContainer: {
+    flex: 1,
+  },
   text: {
     flex: 1,
-    height: '100%',
     fontSize: EStyleSheet.value('17rem'),
     marginLeft: EStyleSheet.value('10rem'),
     color: 'white',
@@ -262,9 +270,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   smallFont: {
-    // flex: 1,
     fontSize: EStyleSheet.value('18rem'),
-    // width: 50,
     color: 'white',
   },
   goldBorder: {borderBottomWidth: 2, borderBottomColor: 'gold'},
@@ -303,6 +309,7 @@ WorkoutItem.defaultProps = {
   workout: null,
   refresh: null,
   focus: false,
+  inEditMode: false,
 };
 
 WorkoutItem.propTypes = {
@@ -312,6 +319,7 @@ WorkoutItem.propTypes = {
   workout: PropTypes.object,
   refresh: PropTypes.func,
   focus: PropTypes.bool,
+  inEditMode: PropTypes.bool,
 };
 
 export default WorkoutItem;

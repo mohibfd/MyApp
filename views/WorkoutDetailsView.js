@@ -8,6 +8,8 @@ import {
   StyleSheet,
   View,
   Text,
+  Pressable,
+  Animated,
 } from 'react-native';
 import uuid from 'react-native-uuid';
 import WorkoutItem from '../components/flatListRendering/WorkoutItem';
@@ -15,6 +17,7 @@ import WorkoutItem from '../components/flatListRendering/WorkoutItem';
 import Header from '../components/Header';
 import DeleteOrCancel from '../components/modals/DeleteOrCancel';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import ShakeAnimation from '../components/ShakeAnimation';
 
 const WorkoutDetailsView = ({route}) => {
   const {muscle} = route.params;
@@ -34,6 +37,8 @@ const WorkoutDetailsView = ({route}) => {
   const [refresh, setRefresh] = useState('');
 
   const [focus, setFocus] = useState(false);
+
+  const [inEditMode, setInEditMode] = useState(false);
 
   useEffect(() => {
     isMountedRef.current = true;
@@ -95,9 +100,12 @@ const WorkoutDetailsView = ({route}) => {
         workout={item.item}
         refresh={setRefresh}
         focus={focus}
+        inEditMode={inEditMode}
       />
     );
   };
+
+  const animationStyle = ShakeAnimation(inEditMode);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -112,7 +120,15 @@ const WorkoutDetailsView = ({route}) => {
         </View>
         <View style={styles.lineDivider} />
 
-        <FlatList data={workouts} renderItem={renderItem} />
+        <Pressable
+          style={styles.pressable}
+          onLongPress={() => {
+            setInEditMode(true);
+          }}>
+          <Animated.View style={animationStyle}>
+            <FlatList data={workouts} renderItem={renderItem} />
+          </Animated.View>
+        </Pressable>
       </ImageBackground>
 
       {isDeleteOrCancel && (

@@ -112,7 +112,7 @@ const RecipesView = ({navigation}) => {
           onLongPress={() => {
             setInEditMode(true);
           }}>
-          <Animated.View style={[animationStyle, styles.ListItem]}>
+          <Animated.View style={animationStyle}>
             <FlatList data={recipes} renderItem={renderItem} />
           </Animated.View>
         </Pressable>
