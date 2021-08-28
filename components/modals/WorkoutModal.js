@@ -6,18 +6,31 @@ import {
   View,
   StyleSheet,
   Dimensions,
+  Text,
+  TextInput,
+  KeyboardAvoidingView,
 } from 'react-native';
+import {launchImageLibrary} from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 import generalStyles from '../../stylesheets/generalStylesheet';
 
-const WorkoutModal = ({
-  modalVisible,
-  setModalVisible,
-  openImageLibrary,
-  imagePickedStorage,
-}) => {
+const WorkoutModal = ({modalVisible, setModalVisible}) => {
+  const [imagePickedStorage, setImagePickedStorage] =
+    useStorage('imagePickedd');
+
+  const [pinCodeStorage, setPinCodeStorage] = useStorage('pinCodee');
+
+  const openImageLibrary = () => {
+    let options = {};
+    launchImageLibrary(options, response => {
+      if (response.assets) {
+        setImagePickedStorage(response.assets[0].uri);
+      }
+    });
+  };
+
   return (
     <Modal
       animationType="slide"
@@ -25,37 +38,66 @@ const WorkoutModal = ({
       onRequestClose={() => {
         setModalVisible(false);
       }}>
-      <SafeAreaView style={{flex: 1}}>
-        <View style={[generalStyles.centeredView, styles.imageContainer]}>
-          <Image
-            style={styles.qrCodeImage}
-            source={{
-              uri: imagePickedStorage,
-            }}
-          />
-        </View>
-        <Icon
-          style={[generalStyles.modalClose, {zIndex: 1}]}
-          name="remove"
-          size={EStyleSheet.value('50rem')}
-          color="red"
-          onPress={() => setModalVisible(false)}
-        />
-        <View style={styles.cameraIconContainer}>
+      <SafeAreaView style={styles.container}>
+        <KeyboardAvoidingView behavior={'height'} style={styles.container}>
+          <View style={[generalStyles.centeredView, styles.imageContainer]}>
+            <Image
+              style={styles.qrCodeImage}
+              source={{
+                uri: imagePickedStorage,
+              }}
+            />
+          </View>
+
           <Icon
-            name="camera-retro"
-            size={Dimensions.get('window').width * 0.9}
-            color={imagePickedStorage ? 'transparent' : 'gold'}
-            onPress={() => openImageLibrary()}
+            style={styles.icon}
+            name="arrow-left"
+            size={EStyleSheet.value('50rem')}
+            color="grey"
+            onPress={() => setModalVisible(false)}
           />
-        </View>
+
+          <View style={styles.pinCodeContainer}>
+            <Text style={styles.text}>Pin Code: </Text>
+
+            <TextInput
+              style={styles.text}
+              value={pinCodeStorage}
+              onChangeText={setPinCodeStorage}
+              placeholder="add code"
+              placeholderTextColor={'grey'}
+            />
+          </View>
+
+          <View style={styles.cameraIconContainer}>
+            <Icon
+              name="camera-retro"
+              size={Dimensions.get('window').width * 0.9}
+              color={imagePickedStorage ? 'transparent' : 'gold'}
+              onPress={() => openImageLibrary()}
+            />
+          </View>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </Modal>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {flex: 1, backgroundColor: myBlack},
+  container: {flex: 1},
+  icon: {
+    paddingTop: EStyleSheet.value('10rem'),
+    paddingLeft: EStyleSheet.value('10rem'),
+    zIndex: 1,
+  },
+  pinCodeContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  text: {
+    paddingTop: '10%',
+    fontSize: EStyleSheet.value('20rem'),
+  },
   imageContainer: {
     position: 'absolute',
     alignSelf: 'center',

@@ -6,7 +6,6 @@ import {
   ImageBackground,
   FlatList,
 } from 'react-native';
-import {launchImageLibrary} from 'react-native-image-picker';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import uuid from 'react-native-uuid';
 
@@ -15,9 +14,6 @@ import WorkoutModal from '../components/modals/WorkoutModal';
 import WorkoutItem from '../components/flatListRendering/WorkoutItem';
 
 const WorkoutView = ({navigation}) => {
-  const [imagePickedStorage, setImagePickedStorage] =
-    useStorage('imagePickedd');
-
   const [modalVisible, setModalVisible] = useState(false);
 
   const differentMuscles = [
@@ -31,15 +27,6 @@ const WorkoutView = ({navigation}) => {
 
   const renderItem = item => {
     return <WorkoutItem muscle={item.item.name} navigation={navigation} />;
-  };
-
-  const openImageLibrary = () => {
-    let options = {};
-    launchImageLibrary(options, response => {
-      if (response.assets) {
-        setImagePickedStorage(response.assets[0].uri);
-      }
-    });
   };
 
   return (
@@ -58,8 +45,6 @@ const WorkoutView = ({navigation}) => {
         <WorkoutModal
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
-          openImageLibrary={openImageLibrary}
-          imagePickedStorage={imagePickedStorage}
         />
       )}
     </SafeAreaView>

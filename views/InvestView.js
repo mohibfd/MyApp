@@ -174,7 +174,6 @@ const InvestView = ({navigation}) => {
       investments.forEach(investment => {
         investment.assets.forEach(asset => {
           if (asset.interest) {
-            console.log('has interest');
             const interest = asset.interest;
             const {earnedInterest, interval, percentage, startDate} = interest;
             const {name} = asset;
@@ -203,10 +202,6 @@ const InvestView = ({navigation}) => {
                   break;
               }
 
-              console.log('time passed: ', timePassed);
-
-              console.log('maths: ', until * globalOneDayInMilliSeconds);
-
               if (timePassed > until * globalOneDayInMilliSeconds) {
                 Alert.alert(
                   'Interest ended',
@@ -215,8 +210,6 @@ const InvestView = ({navigation}) => {
                 );
                 delete asset.interest;
               }
-
-              // console.log(interest.until);
             }
 
             switch (interval) {
