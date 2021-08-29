@@ -1,68 +1,49 @@
 import PropTypes from 'prop-types';
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useRef} from 'react';
 import {View, StyleSheet, TextInput} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const RecipeItem = ({
-  recipe,
+const BookItem = ({
+  book,
   deleteItemFromStorage,
   navigation,
   refresh,
-  ingredient,
+  chapter,
   focus,
   inEditMode,
 }) => {
-  const isCookingStep = useRef(false);
+  const isChapterDetails = useRef(false);
 
   const [instructionName, setInstructionName] = useState(
-    ingredient ? ingredient.name : '',
+    chapter ? chapter.name : '',
   );
 
-  const [instructionQuantity, setInstructionQuantity] = useState(
-    ingredient ? ingredient.quantity : '',
-  );
-
-  if (ingredient) {
-    if (ingredient.quantity === undefined) {
-      isCookingStep.current = true;
+  if (chapter) {
+    if (chapter.details === undefined) {
+      isChapterDetails.current = true;
     }
-  }
-
-  if (ingredient) {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-      setInstructionQuantity(ingredient.quantity);
-    }, [ingredient.quantity]);
   }
 
   const changeName = newName => {
-    if (ingredient) {
-      ingredient.name = newName;
+    if (chapter) {
+      chapter.name = newName;
     } else {
-      recipe.name = newName;
+      book.name = newName;
     }
     setInstructionName(newName);
-    refresh(recipe.name);
-  };
-
-  const changeQuantity = newQuantity => {
-    ingredient.quantity = newQuantity;
-    setInstructionQuantity(newQuantity);
-    refresh(ingredient.quantity);
+    refresh(book.name);
   };
 
   //tells you which page to go to
   const navigateTo = () => {
     if (navigation) {
-      navigation.navigate('Recipe Details View', {
-        recipe,
+      navigation.navigate('Book Details View', {
+        book,
         refresh,
       });
     }
   };
-
-  const borderColor = isCookingStep.current ? 'green' : 'black';
 
   const bin = () => (
     <Icon
@@ -70,40 +51,30 @@ const RecipeItem = ({
       name="trash"
       size={EStyleSheet.value('40rem')}
       color="firebrick"
-      onPress={() => deleteItemFromStorage(ingredient)}
+      onPress={() => deleteItemFromStorage(chapter)}
     />
   );
 
-  if (ingredient) {
+  if (chapter) {
     return (
       <View
-        style={[
-          styles.ListItem,
-          {
-            borderColor,
-          },
-        ]}>
+        style={
+          isChapterDetails.current ? styles.detailsListItem : styles.ListItem
+        }>
         <View style={styles.ListItemView}>
-          <View style={styles.ingredientsNameContainer}>
+          <View style={styles.chaptersNameContainer}>
             <TextInput
               style={styles.listItemText}
               value={instructionName}
               onChangeText={changeName}
-              placeholder="add name"
+              placeholder={
+                isChapterDetails.current ? 'add details' : 'add chapter'
+              }
               multiline={true}
               autoFocus={focus}
             />
           </View>
-          {!isCookingStep.current && (
-            <TextInput
-              style={styles.listItemText}
-              value={instructionQuantity}
-              onChangeText={changeQuantity}
-              placeholder="amount"
-              multiline={true}
-              maxWidth={'30%'}
-            />
-          )}
+
           <View style={styles.iconContainer}>{inEditMode ? bin() : null}</View>
         </View>
       </View>
@@ -114,9 +85,9 @@ const RecipeItem = ({
         <View style={styles.ListItemView}>
           <TextInput
             style={styles.listItemText}
-            value={recipe.name}
+            value={book.name}
             onChangeText={changeName}
-            placeholder="add name"
+            placeholder="add book name"
             multiline={true}
             autoFocus={focus}
             maxWidth={'75%'}
@@ -124,19 +95,13 @@ const RecipeItem = ({
 
           <View style={styles.iconContainer}>
             {inEditMode ? (
-              <Icon
-                style={[styles.redCross, styles.marginLeft]}
-                name="trash"
-                size={EStyleSheet.value('40rem')}
-                color="firebrick"
-                onPress={() => deleteItemFromStorage(recipe)}
-              />
+              bin()
             ) : (
               <Icon
                 style={styles.redCross}
                 name="arrow-right"
                 size={EStyleSheet.value('40rem')}
-                color="gold"
+                color={myGreen}
                 onPress={() => navigateTo()}
               />
             )}
@@ -157,9 +122,16 @@ const styles = StyleSheet.create({
     color: '#FFF',
   },
   ListItem: {
-    backgroundColor: '#CD7F32' + 99,
-    paddingVertical: EStyleSheet.value('10rem'),
+    height: EStyleSheet.value('70rem'),
+    backgroundColor: '#FFFFFF' + 99,
     borderWidth: EStyleSheet.value('2rem'),
+    borderColor: myWhite,
+    // borderBottomWidth: 0,
+  },
+  detailsListItem: {
+    borderWidth: EStyleSheet.value('2rem'),
+    // borderTopWidth: 0,
+    height: EStyleSheet.value('50rem'),
   },
   ListItemView: {
     flexDirection: 'row',
@@ -169,9 +141,9 @@ const styles = StyleSheet.create({
   listItemText: {
     fontSize: EStyleSheet.value('22rem'),
     marginLeft: EStyleSheet.value('10rem'),
-    color: myWhite,
+    color: 'black',
   },
-  ingredientsNameContainer: {flexDirection: 'row', flex: 3},
+  chaptersNameContainer: {flexDirection: 'row', flex: 3},
   iconContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
@@ -186,19 +158,19 @@ const styles = StyleSheet.create({
   },
 });
 
-RecipeItem.defaultProps = {
+BookItem.defaultProps = {
   navigation: null,
-  ingredient: null,
+  chapter: null,
 };
 
-RecipeItem.propTypes = {
-  recipe: PropTypes.object.isRequired,
+BookItem.propTypes = {
+  book: PropTypes.object.isRequired,
   deleteItemFromStorage: PropTypes.func.isRequired,
   refresh: PropTypes.func.isRequired,
   navigation: PropTypes.object,
-  ingredient: PropTypes.object,
+  chapter: PropTypes.object,
   focus: PropTypes.bool.isRequired,
   inEditMode: PropTypes.bool.isRequired,
 };
 
-export default RecipeItem;
+export default BookItem;

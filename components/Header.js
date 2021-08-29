@@ -36,7 +36,7 @@ const Header = ({
         {leftHeaderIcon()}
       </View>
       <View style={styles.textContainer}>
-        <Text style={styles.text} numberOfLines={2}>
+        <Text style={styles.text} numberOfLines={2} maxWidth={'60%'}>
           {title}
         </Text>
       </View>
@@ -54,13 +54,13 @@ const styles = StyleSheet.create({
   textContainer: {
     position: 'absolute',
     alignSelf: 'center',
+    width: '70%',
   },
   text: {
     alignSelf: 'center',
     textAlign: 'center',
     color: '#FAEEFF',
     fontSize: EStyleSheet.value('25rem'),
-    width: '50%',
   },
   developerPlusButtonContainer: {
     position: 'absolute',
