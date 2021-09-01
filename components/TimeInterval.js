@@ -86,7 +86,7 @@ const TimeInterval = props => {
           id: newId,
           date: specificDate,
           title,
-          message: `Reminder to water ${title} now`,
+          message: `Reminder for ${title}`,
           allowWhileIdle: true,
         });
       });

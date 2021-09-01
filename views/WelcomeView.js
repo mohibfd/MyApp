@@ -22,7 +22,7 @@ import NotificationsModal from '../components/modals/NotificationsModal';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 const WelcomeView = ({navigation}) => {
-  const [item1, setItem1] = useStorage('PlantsId');
+  // const [item1, setItem1] = useStorage('PlantsId');
   const [item2, setItem2] = useStorage('InvestId');
   const [item3, setItem3] = useStorage('WorkoutId');
   const [item4, setItem4] = useStorage('MeditateId');
@@ -44,7 +44,7 @@ const WelcomeView = ({navigation}) => {
     useState(false);
 
   const menuItems = [
-    {name: 'Plants', icon: 'envira', color: myGreen, key: uuid.v4()},
+    // {name: 'Plants', icon: 'envira', color: myGreen, key: uuid.v4()},
     {name: 'Invest', icon: 'money', color: 'green', key: uuid.v4()},
     {name: 'Workout', icon: 'heartbeat', color: myRed, key: uuid.v4()},
     {name: 'Meditate', icon: 'pause', color: myWhite, key: uuid.v4()},
@@ -56,9 +56,41 @@ const WelcomeView = ({navigation}) => {
   ];
 
   useEffect(() => {
+    const readItemFromStorage = async () => {
+      let newList = [];
+      // if (item1) {
+      //   newList.push(item1);
+      // }
+      if (item2) {
+        newList.push(item2);
+      }
+      if (item3) {
+        newList.push(item3);
+      }
+      if (item4) {
+        newList.push(item4);
+      }
+      if (item5) {
+        newList.push(item5);
+      }
+      if (item6) {
+        newList.push(item6);
+      }
+      if (item7) {
+        newList.push(item7);
+      }
+      if (item8) {
+        newList.push(item8);
+      }
+      if (item9) {
+        newList.push(item9);
+      }
+      setItems(newList);
+    };
+
     readItemFromStorage();
     createChannels();
-  }, []);
+  }, [item2, item3, item4, item5, item6, item7, item8, item9]);
 
   const toggleDeleteOrCancel = () => {
     setIsDeleteOrCancel(!isDeleteOrCancel);
@@ -71,38 +103,6 @@ const WelcomeView = ({navigation}) => {
     });
   };
 
-  const readItemFromStorage = async () => {
-    newList = [];
-    if (item1) {
-      newList.push(item1);
-    }
-    if (item2) {
-      newList.push(item2);
-    }
-    if (item3) {
-      newList.push(item3);
-    }
-    if (item4) {
-      newList.push(item4);
-    }
-    if (item5) {
-      newList.push(item5);
-    }
-    if (item6) {
-      newList.push(item6);
-    }
-    if (item7) {
-      newList.push(item7);
-    }
-    if (item8) {
-      newList.push(item8);
-    }
-    if (item9) {
-      newList.push(item9);
-    }
-    setItems(newList);
-  };
-
   //adding list to storage
   const addMainItem = mainItem => {
     if (isDuplicate(mainItem)) {
@@ -110,9 +110,9 @@ const WelcomeView = ({navigation}) => {
     }
 
     switch (mainItem.name) {
-      case 'Plants':
-        setItem1(mainItem);
-        break;
+      // case 'Plants':
+      //   setItem1(mainItem);
+      //   break;
       case 'Invest':
         setItem2(mainItem);
         break;
@@ -151,7 +151,7 @@ const WelcomeView = ({navigation}) => {
   const isDuplicate = mainItem => {
     let breakFunction = false;
     items.map(item => {
-      if (item.name == mainItem.name) {
+      if (item.name === mainItem.name) {
         breakFunction = true;
       }
     });
@@ -170,7 +170,7 @@ const WelcomeView = ({navigation}) => {
     MMKV.removeItem(deleteItem.name + 'Id');
 
     setItems(prevItems => {
-      return prevItems.filter(item => item != deleteItem);
+      return prevItems.filter(item => item !== deleteItem);
     });
   };
 
@@ -178,7 +178,7 @@ const WelcomeView = ({navigation}) => {
     <SafeAreaView style={styles.container}>
       <Header
         title="My Items"
-        openNotifications={() => setIsNotificationsModalOpen(true)}
+        openNotifications={() => navigation.navigate('Plants View')}
       />
       <ImageBackground
         source={require('../components/assets/WelcomeView.jpeg')}
@@ -210,7 +210,7 @@ const WelcomeView = ({navigation}) => {
           onPress={() => setOpenModal(true)}
         />
 
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+        <View style={styles.buttonContainer}>
           <Pressable
             style={styles.button}
             onPress={() => navigation.navigate('Developer View')}>
@@ -248,9 +248,8 @@ const WelcomeView = ({navigation}) => {
 
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: myBlack},
-
   image: {flex: 1, width: '100%', height: '100%'},
-
+  buttonContainer: {flexDirection: 'row', justifyContent: 'space-between'},
   button: {
     borderWidth: 1,
     borderColor: myWhite,

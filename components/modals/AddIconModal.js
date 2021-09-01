@@ -1,12 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  Modal,
-  FlatList,
-  Pressable,
-  SafeAreaView,
-  StyleSheet,
-} from 'react-native';
+import {Modal, FlatList, SafeAreaView, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
@@ -21,28 +15,26 @@ const AddIconModal = ({menuItems, addMainItem, setModalVisible}) => {
         setModalVisible(false);
       }}>
       <SafeAreaView style={styles.container}>
-        <Pressable style={{flex: 1}}>
-          <Icon
-            style={styles.modalClose}
-            name="remove"
-            size={EStyleSheet.value(75)}
-            color="red"
-            onPress={() => setModalVisible(false)}
-          />
+        <Icon
+          style={styles.modalClose}
+          name="remove"
+          size={EStyleSheet.value(75)}
+          color="red"
+          onPress={() => setModalVisible(false)}
+        />
 
-          <FlatList
-            data={menuItems}
-            renderItem={({item}) => (
-              <RenderIcons
-                item={item}
-                toggleMainModal={() => setModalVisible(false)}
-                addMainItem={addMainItem}
-              />
-            )}
-            removeClippedSubviews={false}
-            numColumns={3}
-          />
-        </Pressable>
+        <FlatList
+          data={menuItems}
+          renderItem={({item}) => (
+            <RenderIcons
+              item={item}
+              toggleMainModal={() => setModalVisible(false)}
+              addMainItem={addMainItem}
+            />
+          )}
+          removeClippedSubviews={false}
+          numColumns={3}
+        />
       </SafeAreaView>
     </Modal>
   );

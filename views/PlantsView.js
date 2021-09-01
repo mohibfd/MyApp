@@ -85,10 +85,10 @@ const PlantsView = () => {
       <ImageBackground
         source={require('../components/assets/Plants.jpeg')}
         style={styles.image}>
-        <Header title="My Plants" add={createPlant} />
+        <Header title="My Notifications" add={createPlant} />
 
         <Text style={styles.warning}>
-          Each plant's notifications will trigger 70 times before stopping
+          Each notifications will trigger 70 times before stopping
         </Text>
         <ScrollView>
           {plants &&
