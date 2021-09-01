@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
   text: {
     paddingTop: '10%',
     fontSize: EStyleSheet.value('20rem'),
+    color: 'black',
   },
   imageContainer: {
     position: 'absolute',

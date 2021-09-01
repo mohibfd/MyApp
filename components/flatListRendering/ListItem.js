@@ -9,9 +9,9 @@ const ListItem = ({item, deleteItemFromStorage, navigation}) => {
   const navigateTo = () => {
     if (navigation) {
       switch (item.name) {
-        case 'Plants':
-          navigation.navigate('Plants View');
-          break;
+        // case 'Plants':
+        //   navigation.navigate('Plants View');
+        //   break;
         case 'Invest':
           navigation.navigate('Invest View');
           break;
@@ -50,7 +50,7 @@ const ListItem = ({item, deleteItemFromStorage, navigation}) => {
         <Text style={styles.listItemText}>{item.name}</Text>
         <Icon
           style={styles.redCross}
-          name="remove"
+          name="trash"
           size={EStyleSheet.value('40rem')}
           color="#90271F"
           onPress={() => deleteItemFromStorage(item)}

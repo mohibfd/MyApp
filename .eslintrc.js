@@ -13,5 +13,7 @@ module.exports = {
     myBlue: 'readonly',
     myGreen: 'readonly',
     myPurple: 'readonly',
+    myBrown: 'readonly',
+    myYellow: 'readonly',
   },
 };

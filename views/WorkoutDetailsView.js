@@ -129,6 +129,14 @@ const WorkoutDetailsView = ({route}) => {
             <FlatList data={workouts} renderItem={renderItem} />
           </Animated.View>
         </Pressable>
+
+        {inEditMode && (
+          <Pressable
+            style={styles.footerContainer}
+            onPress={() => setInEditMode(false)}>
+            <Text style={styles.text}>Exit delete mode</Text>
+          </Pressable>
+        )}
       </ImageBackground>
 
       {isDeleteOrCancel && (
@@ -152,6 +160,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: EStyleSheet.value('2rem'),
     borderColor: myRed,
   },
+  pressable: {
+    flex: 1,
+  },
   text: {
     fontSize: EStyleSheet.value('20rem'),
     color: 'white',
@@ -165,8 +176,17 @@ const styles = StyleSheet.create({
     paddingRight: EStyleSheet.value('15rem'),
   },
   image: {
+    flex: 1,
     width: '100%',
     height: '100%',
+  },
+  footerContainer: {
+    // backgroundColor: '#CD7F32' + 'CC',
+    height: EStyleSheet.value('50rem'),
+    borderColor: myRed,
+    borderWidth: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 WorkoutDetailsView.propTypes = {

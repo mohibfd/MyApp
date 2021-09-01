@@ -204,16 +204,18 @@ const WorkoutItem = ({
           </View>
         </View>
 
-        <View style={styles.iconContainer}>
-          {/* {inEditMode && ( */}
-          <Icon
-            style={styles.redCross}
-            name="remove"
-            size={EStyleSheet.value('40rem')}
-            color="firebrick"
-            onPress={() => deleteItemFromStorage(workout)}
-          />
-          {/* )} */}
+        <View>
+          {inEditMode ? (
+            <Icon
+              style={styles.redCross}
+              name="trash"
+              size={EStyleSheet.value('40rem')}
+              color="firebrick"
+              onPress={() => deleteItemFromStorage(workout)}
+            />
+          ) : (
+            <View style={{width: EStyleSheet.value('40rem')}} />
+          )}
         </View>
       </View>
     );
