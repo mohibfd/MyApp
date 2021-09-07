@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, {useState, useEffect, useRef} from 'react';
-import {View, StyleSheet, TextInput} from 'react-native';
+import {View, StyleSheet, TextInput, Pressable, Text} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -12,6 +12,9 @@ const RecipeItem = ({
   ingredient,
   focus,
   inEditMode,
+  addInstruction,
+  addCookingStep,
+  index,
 }) => {
   const isCookingStep = useRef(false);
 
@@ -76,37 +79,59 @@ const RecipeItem = ({
 
   if (ingredient) {
     return (
-      <View
-        style={[
-          styles.ListItem,
-          {
-            borderColor,
-          },
-        ]}>
-        <View style={styles.ListItemView}>
-          <View style={styles.ingredientsNameContainer}>
-            <TextInput
-              style={styles.listItemText}
-              value={instructionName}
-              onChangeText={changeName}
-              placeholder="add name"
-              multiline={true}
-              autoFocus={focus}
+      <>
+        {inEditMode && (
+          <View style={styles.editModeContainer}>
+            <Pressable
+              style={styles.cookingStepContainer}
+              onPress={() => addCookingStep(index)}>
+              <Text style={styles.cookingStepText}>Add cooking step</Text>
+            </Pressable>
+
+            <Icon
+              style={styles.plus}
+              name="plus"
+              size={EStyleSheet.value('40rem')}
+              color="green"
+              onPress={() => addInstruction(index)}
             />
           </View>
-          {!isCookingStep.current && (
-            <TextInput
-              style={styles.listItemText}
-              value={instructionQuantity}
-              onChangeText={changeQuantity}
-              placeholder="amount"
-              multiline={true}
-              maxWidth={'30%'}
-            />
-          )}
-          <View style={styles.iconContainer}>{inEditMode ? bin() : null}</View>
+        )}
+
+        <View
+          style={[
+            styles.ListItem,
+            {
+              borderColor,
+            },
+          ]}>
+          <View style={styles.ListItemView}>
+            <View style={styles.ingredientsNameContainer}>
+              <TextInput
+                style={styles.listItemText}
+                value={instructionName}
+                onChangeText={changeName}
+                placeholder="add name"
+                multiline={true}
+                autoFocus={focus}
+              />
+            </View>
+            {!isCookingStep.current && (
+              <TextInput
+                style={styles.listItemText}
+                value={instructionQuantity}
+                onChangeText={changeQuantity}
+                placeholder="amount"
+                multiline={true}
+                maxWidth={'30%'}
+              />
+            )}
+            <View style={styles.iconContainer}>
+              {inEditMode ? bin() : null}
+            </View>
+          </View>
         </View>
-      </View>
+      </>
     );
   } else {
     return (
@@ -153,6 +178,32 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  editModeContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+  },
+  cookingStepContainer: {
+    borderRightWidth: 2,
+    borderLeftWidth: 2,
+    borderColor: 'white',
+    paddingRight: EStyleSheet.value('5rem'),
+    paddingLeft: EStyleSheet.value('5rem'),
+    height: EStyleSheet.value('40rem'),
+    justifyContent: 'center',
+    backgroundColor: '#FFFFFF' + 99,
+  },
+  cookingStepText: {
+    fontSize: EStyleSheet.value('20rem'),
+    color: 'green',
+  },
+  plus: {
+    borderColor: 'white',
+    borderRightWidth: 2,
+    borderLeftWidth: 2,
+    paddingRight: EStyleSheet.value('5rem'),
+    paddingLeft: EStyleSheet.value('5rem'),
+    backgroundColor: '#FFFFFF' + 99,
+  },
   text: {
     color: '#FFF',
   },
@@ -189,6 +240,9 @@ const styles = StyleSheet.create({
 RecipeItem.defaultProps = {
   navigation: null,
   ingredient: null,
+  addInstruction: null,
+  addCookingStep: null,
+  index: 0,
 };
 
 RecipeItem.propTypes = {
@@ -199,6 +253,9 @@ RecipeItem.propTypes = {
   ingredient: PropTypes.object,
   focus: PropTypes.bool.isRequired,
   inEditMode: PropTypes.bool.isRequired,
+  addInstruction: PropTypes.func,
+  addCookingStep: PropTypes.func,
+  index: PropTypes.number,
 };
 
 export default RecipeItem;

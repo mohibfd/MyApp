@@ -153,10 +153,6 @@ const RecipeDetailsView = ({route}) => {
 
         const numberToBeChanged = Number(numberArr.join('')) / divideByTen;
 
-        // console.log('number to change', numberToBeChanged);
-        // console.log('number inputed', numberInputed);
-        // console.log('number multiplier', recipe.multiplier);
-
         const newNumber = (
           (numberToBeChanged * numberInputed) /
           recipe.multiplier
@@ -177,16 +173,54 @@ const RecipeDetailsView = ({route}) => {
     }
   };
 
-  const renderItem = item => {
+  const addOrderedInstruction = itemOrder => {
+    recipe.ingredients.forEach(i => {
+      if (i.order >= itemOrder) {
+        i.order += 1;
+      }
+    });
+    recipe.ingredients.push({
+      name: '',
+      quantity: '',
+      key: uuid.v4(),
+      order: itemOrder,
+    });
+
+    refresh();
+    setRefreshFlatList(uuid.v4());
+
+    setFocus(true);
+  };
+
+  const addOrderedCookingStep = itemOrder => {
+    recipe.cookingSteps.forEach(i => {
+      if (i.order >= itemOrder) {
+        i.order += 1;
+      }
+    });
+    recipe.cookingSteps.push({
+      name: '',
+      key: uuid.v4(),
+      order: itemOrder,
+    });
+
+    refresh();
+    setRefreshFlatList(uuid.v4());
+  };
+
+  const renderItem = ({item, index}) => {
     return (
       <RecipeItem
         recipe={recipe}
         deleteItemFromStorage={openDeleteOrCancel}
         refresh={refresh}
-        ingredient={item.item}
+        ingredient={item}
         focus={focus}
         inEditMode={inEditMode}
         setInEditMode={setInEditMode}
+        addInstruction={addOrderedInstruction}
+        addCookingStep={addOrderedCookingStep}
+        index={index}
       />
     );
   };

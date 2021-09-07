@@ -134,7 +134,7 @@ const WorkoutDetailsView = ({route}) => {
           <Pressable
             style={styles.footerContainer}
             onPress={() => setInEditMode(false)}>
-            <Text style={styles.text}>Exit delete mode</Text>
+            <Text style={styles.text}>Exit edit mode</Text>
           </Pressable>
         )}
       </ImageBackground>
