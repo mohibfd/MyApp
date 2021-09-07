@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
     borderColor: myRed,
     flexDirection: 'row',
     alignItems: 'center',
-    // justifyContent: 'center',
+    justifyContent: 'center',
   },
   detailsContainer: {
     height: EStyleSheet.value('100rem'),

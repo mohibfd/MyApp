@@ -45,8 +45,8 @@ const AddItemHeader = ({
     let color = 'green';
     let size = EStyleSheet.value('40rem');
     if (cameraAdd) {
-      icon = 'camera';
-      color = 'yellow';
+      icon = 'camera-retro';
+      color = 'white';
     } else if (openNotifications) {
       icon = 'bell';
       color = 'white';

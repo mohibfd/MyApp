@@ -17,7 +17,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 
 import RecipeItem from '../components/flatListRendering/RecipeItem';
 import Header from '../components/Header';
-import DeleteOrCancel from '../components/modals/DeleteOrCancel';
+// import DeleteOrCancel from '../components/modals/DeleteOrCancel';
 import {launchImageLibrary} from 'react-native-image-picker';
 import ShakeAnimation from '../components/ShakeAnimation';
 
@@ -26,9 +26,9 @@ const RecipeDetailsView = ({route}) => {
 
   const {ingredients, cookingSteps} = recipe;
 
-  const [isDeleteOrCancel, setIsDeleteOrCancel] = useState(false);
+  // const [isDeleteOrCancel, setIsDeleteOrCancel] = useState(false);
 
-  const [deleteItem, setDeleteItem] = useState(null);
+  // const [deleteItem, setDeleteItem] = useState(null);
 
   const [refreshFlastList, setRefreshFlatList] = useState('');
 
@@ -72,51 +72,51 @@ const RecipeDetailsView = ({route}) => {
     setRefreshFlatList(uuid.v4());
   };
 
-  const toggleDeleteOrCancel = () => {
-    setIsDeleteOrCancel(!isDeleteOrCancel);
-  };
+  // const toggleDeleteOrCancel = () => {
+  //   setIsDeleteOrCancel(!isDeleteOrCancel);
+  // };
 
-  const openDeleteOrCancel = mainItem => {
-    toggleDeleteOrCancel();
-    setDeleteItem(mainItem);
-  };
+  // const openDeleteOrCancel = mainItem => {
+  //   toggleDeleteOrCancel();
+  //   setDeleteItem(mainItem);
+  // };
 
-  const sortList = () => {
-    let sortedList = [...recipe.ingredients, ...recipe.cookingSteps].sort(
-      (a, b) => (a.order > b.order ? 1 : -1),
-    );
+  // const sortList = () => {
+  //   let sortedList = [...recipe.ingredients, ...recipe.cookingSteps].sort(
+  //     (a, b) => (a.order > b.order ? 1 : -1),
+  //   );
 
-    let whereToChangeOrder = 0;
-    for (let i = 0; i < sortedList.length; i++) {
-      if (sortedList[i].key === deleteItem.key) {
-        whereToChangeOrder = i;
-      }
-    }
+  //   let whereToChangeOrder = 0;
+  //   for (let i = 0; i < sortedList.length; i++) {
+  //     if (sortedList[i].key === deleteItem.key) {
+  //       whereToChangeOrder = i;
+  //     }
+  //   }
 
-    recipe.ingredients.forEach(ingredient => {
-      if (ingredient.order >= whereToChangeOrder) {
-        ingredient.order -= 1;
-      }
-    });
+  //   recipe.ingredients.forEach(ingredient => {
+  //     if (ingredient.order >= whereToChangeOrder) {
+  //       ingredient.order -= 1;
+  //     }
+  //   });
 
-    recipe.cookingSteps.forEach(i => {
-      if (i.order >= whereToChangeOrder) {
-        i.order -= 1;
-      }
-    });
-  };
+  //   recipe.cookingSteps.forEach(i => {
+  //     if (i.order >= whereToChangeOrder) {
+  //       i.order -= 1;
+  //     }
+  //   });
+  // };
 
-  const completeDeletion = () => {
-    toggleDeleteOrCancel();
+  // const completeDeletion = () => {
+  //   toggleDeleteOrCancel();
 
-    sortList();
+  //   sortList();
 
-    recipe.ingredients = ingredients.filter(i => i.key !== deleteItem.key);
+  //   recipe.ingredients = ingredients.filter(i => i.key !== deleteItem.key);
 
-    recipe.cookingSteps = cookingSteps.filter(i => i.key !== deleteItem.key);
+  //   recipe.cookingSteps = cookingSteps.filter(i => i.key !== deleteItem.key);
 
-    refresh();
-  };
+  //   refresh();
+  // };
 
   const instantDelete = ingredient => {
     recipe.ingredients = ingredients.filter(i => i.key !== ingredient.key);
@@ -324,13 +324,13 @@ const RecipeDetailsView = ({route}) => {
         </Pressable>
       </ImageBackground>
 
-      {isDeleteOrCancel && (
+      {/* {isDeleteOrCancel && (
         <DeleteOrCancel
           name={deleteItem.name}
           deletion={completeDeletion}
           closeOverlay={toggleDeleteOrCancel}
         />
-      )}
+      )} */}
     </SafeAreaView>
   );
 };

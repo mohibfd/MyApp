@@ -63,8 +63,8 @@ const WorkoutDetailsView = ({route}) => {
         {
           name: '',
           key: uuid.v4(),
-          minimumWeight: 0,
-          maximumWeight: 0,
+          minimumWeight: '',
+          maximumWeight: '',
           measurement: 'kg',
           sets: '',
           reps: '',
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: myBlack,
   },
-  headerContainer: {flexDirection: 'row'},
+  headerContainer: {flexDirection: 'row', paddingVertical: '2%'},
   lineDivider: {
     borderBottomWidth: EStyleSheet.value('2rem'),
     borderColor: myRed,
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   marginLeft: {
-    flex: 1.2,
+    flex: 1.5,
     marginLeft: EStyleSheet.value('10rem'),
   },
   paddingRight: {
