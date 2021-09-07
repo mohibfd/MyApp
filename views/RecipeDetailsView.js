@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 
 import {
@@ -39,6 +39,20 @@ const RecipeDetailsView = ({route}) => {
   const [focus, setFocus] = useState(false);
 
   const [inEditMode, setInEditMode] = useState(false);
+
+  const [orderedList, setOrderedList] = useState(
+    [...recipe.ingredients, ...recipe.cookingSteps].sort((a, b) =>
+      a.order > b.order ? 1 : -1,
+    ),
+  );
+
+  useEffect(() => {
+    setOrderedList(
+      [...recipe.ingredients, ...recipe.cookingSteps].sort((a, b) =>
+        a.order > b.order ? 1 : -1,
+      ),
+    );
+  }, [recipe.cookingSteps, recipe.ingredients, refreshFlastList]);
 
   const addInstruction = () => {
     recipe.ingredients.push({name: '', quantity: '', key: uuid.v4(), order});
@@ -100,6 +114,15 @@ const RecipeDetailsView = ({route}) => {
     recipe.cookingSteps = cookingSteps.filter(i => i.key !== deleteItem.key);
 
     refresh();
+  };
+
+  const instantDelete = ingredient => {
+    recipe.ingredients = ingredients.filter(i => i.key !== ingredient.key);
+
+    recipe.cookingSteps = cookingSteps.filter(i => i.key !== ingredient.key);
+
+    refresh();
+    setRefreshFlatList(uuid.v4());
   };
 
   const openImageLibrary = () => {
@@ -174,11 +197,8 @@ const RecipeDetailsView = ({route}) => {
   };
 
   const addOrderedInstruction = itemOrder => {
-    recipe.ingredients.forEach(i => {
-      if (i.order >= itemOrder) {
-        i.order += 1;
-      }
-    });
+    incrementOrder(itemOrder);
+
     recipe.ingredients.push({
       name: '',
       quantity: '',
@@ -191,13 +211,10 @@ const RecipeDetailsView = ({route}) => {
 
     setFocus(true);
   };
+  console.log(orderedList);
 
   const addOrderedCookingStep = itemOrder => {
-    recipe.cookingSteps.forEach(i => {
-      if (i.order >= itemOrder) {
-        i.order += 1;
-      }
-    });
+    incrementOrder(itemOrder);
     recipe.cookingSteps.push({
       name: '',
       key: uuid.v4(),
@@ -208,11 +225,25 @@ const RecipeDetailsView = ({route}) => {
     setRefreshFlatList(uuid.v4());
   };
 
+  const incrementOrder = itemOrder => {
+    recipe.cookingSteps.forEach(i => {
+      if (i.order >= itemOrder) {
+        i.order += 1;
+      }
+    });
+    recipe.ingredients.forEach(i => {
+      if (i.order >= itemOrder) {
+        i.order += 1;
+      }
+    });
+  };
+  const showIngredientsOnly = () => {};
+
   const renderItem = ({item, index}) => {
     return (
       <RecipeItem
         recipe={recipe}
-        deleteItemFromStorage={openDeleteOrCancel}
+        deleteItemFromStorage={instantDelete}
         refresh={refresh}
         ingredient={item}
         focus={focus}
@@ -237,7 +268,13 @@ const RecipeDetailsView = ({route}) => {
         cameraAdd={openImageLibrary}
       />
       <View style={styles.textContainer}>
-        <Text style={[styles.text, styles.text1]}>ingredients</Text>
+        <Pressable
+          style={styles.ingredientsContainer}
+          onLongPress={() => {
+            showIngredientsOnly();
+          }}>
+          <Text style={[styles.text, styles.text1]}>ingredients</Text>
+        </Pressable>
         <Text style={[styles.text, styles.text2]}>Quantity</Text>
         <Text style={[styles.text]}>X</Text>
         <TextInput
@@ -256,9 +293,7 @@ const RecipeDetailsView = ({route}) => {
           }}>
           <Animated.View style={animationStyle}>
             <FlatList
-              data={[...recipe.ingredients, ...recipe.cookingSteps].sort(
-                (a, b) => (a.order > b.order ? 1 : -1),
-              )}
+              data={orderedList}
               renderItem={renderItem}
               extraData={refreshFlastList}
             />
@@ -298,14 +333,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: myBlue,
   },
+  ingredientsContainer: {
+    width: '50%',
+    // backgroundColor: 'gold',
+  },
   text: {
+    // flex: 1,
     fontSize: EStyleSheet.value('22rem'),
     marginLeft: EStyleSheet.value('10rem'),
     color: myWhite,
   },
-  text1: {
-    width: '50%',
-  },
+  // text1: {
+  //   width: '50%',
+  // },
   text2: {
     width: '30%',
   },
