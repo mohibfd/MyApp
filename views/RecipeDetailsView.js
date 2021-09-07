@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
 
 import {
@@ -48,6 +48,8 @@ const RecipeDetailsView = ({route}) => {
 
   const [onlyShowIngredients, setOnlyShowIngredients] = useState(false);
 
+  const refListView = useRef(null);
+
   useEffect(() => {
     setOrderedList(
       [...recipe.ingredients, ...recipe.cookingSteps].sort((a, b) =>
@@ -62,6 +64,7 @@ const RecipeDetailsView = ({route}) => {
     refresh();
     setRefreshFlatList(uuid.v4());
 
+    refListView.current.scrollToEnd();
     setFocus(true);
   };
 
@@ -70,6 +73,7 @@ const RecipeDetailsView = ({route}) => {
 
     refresh();
     setRefreshFlatList(uuid.v4());
+    refListView.current.scrollToEnd();
   };
 
   // const toggleDeleteOrCancel = () => {
@@ -311,6 +315,9 @@ const RecipeDetailsView = ({route}) => {
               data={orderedList}
               renderItem={renderItem}
               extraData={refreshFlastList}
+              ref={listView => {
+                refListView.current = listView;
+              }}
             />
           </Animated.View>
         </Pressable>
