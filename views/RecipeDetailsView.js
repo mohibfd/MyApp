@@ -46,6 +46,8 @@ const RecipeDetailsView = ({route}) => {
     ),
   );
 
+  const [onlyShowIngredients, setOnlyShowIngredients] = useState(false);
+
   useEffect(() => {
     setOrderedList(
       [...recipe.ingredients, ...recipe.cookingSteps].sort((a, b) =>
@@ -211,7 +213,6 @@ const RecipeDetailsView = ({route}) => {
 
     setFocus(true);
   };
-  console.log(orderedList);
 
   const addOrderedCookingStep = itemOrder => {
     incrementOrder(itemOrder);
@@ -237,7 +238,19 @@ const RecipeDetailsView = ({route}) => {
       }
     });
   };
-  const showIngredientsOnly = () => {};
+  const showIngredientsOnly = () => {
+    setOrderedList(recipe.ingredients);
+    setOnlyShowIngredients(true);
+  };
+
+  const showAll = () => {
+    setOnlyShowIngredients(false);
+    setOrderedList(
+      [...recipe.ingredients, ...recipe.cookingSteps].sort((a, b) =>
+        a.order > b.order ? 1 : -1,
+      ),
+    );
+  };
 
   const renderItem = ({item, index}) => {
     return (
@@ -271,9 +284,11 @@ const RecipeDetailsView = ({route}) => {
         <Pressable
           style={styles.ingredientsContainer}
           onLongPress={() => {
-            showIngredientsOnly();
+            onlyShowIngredients ? showAll() : showIngredientsOnly();
           }}>
-          <Text style={[styles.text, styles.text1]}>ingredients</Text>
+          <Text style={[styles.text, styles.text1]}>
+            {onlyShowIngredients ? 'show all' : 'ingredients'}
+          </Text>
         </Pressable>
         <Text style={[styles.text, styles.text2]}>Quantity</Text>
         <Text style={[styles.text]}>X</Text>
