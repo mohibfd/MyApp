@@ -180,7 +180,7 @@ const InvestView = ({navigation}) => {
             let intervalInNumbers;
 
             //this is for testing different dates//
-            // let dateNow = Date.now() + globalOneDayInMilliSeconds * 31;
+            // let dateNow = Date.now() + globalOneDayInMilliSeconds * 61;
             let dateNow = Date.now();
 
             let timePassed = dateNow - startDate;
@@ -205,8 +205,8 @@ const InvestView = ({navigation}) => {
               if (timePassed > until * globalOneDayInMilliSeconds) {
                 Alert.alert(
                   'Interest ended',
-                  `your  ${name} from ${investment.name} has finished its ${period} period`,
-                  [{text: 'OK'}],
+                  `your ${name} from ${investment.name} has finished its ${period} staking period`,
+                  [{text: 'Understood'}],
                 );
                 delete asset.interest;
               }

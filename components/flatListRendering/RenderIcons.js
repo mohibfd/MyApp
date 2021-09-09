@@ -16,6 +16,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CurrencyInput from 'react-native-currency-input';
 import DropDownPicker from 'react-native-dropdown-picker';
+import PushNotification from 'react-native-push-notification';
 
 import generalStyles from '../../stylesheets/generalStylesheet';
 
@@ -94,6 +95,36 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
             until: dropDownPickerValueTwo,
             startDate: Date.now(),
           };
+
+          if (dropDownPickerValueTwo) {
+            let period;
+            switch (dropDownPickerValueTwo) {
+              case 15:
+                period = '15 days';
+                break;
+              case 30:
+                period = '30 days';
+                break;
+              case 60:
+                period = '60 days';
+                break;
+              case 90:
+                period = '90 days';
+                break;
+            }
+
+            const specificDate = new Date(
+              Date.now() + globalOneDayInMilliSeconds * dropDownPickerValueTwo,
+            );
+
+            PushNotification.localNotificationSchedule({
+              channelId: 'test-channel1',
+              date: specificDate,
+              title: 'Interest ended',
+              message: `your ${item.name} has finished its ${period} staking period`,
+              allowWhileIdle: true,
+            });
+          }
         }
 
         addMainItem(item);
