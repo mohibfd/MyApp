@@ -15,5 +15,6 @@ module.exports = {
     myPurple: 'readonly',
     myBrown: 'readonly',
     myYellow: 'readonly',
+    useKeyboardState: 'readonly',
   },
 };

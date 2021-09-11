@@ -1,7 +1,8 @@
 // import {useState, useEffect, useRef, useCallback} from 'react';
 import MMKVStorage, {useMMKVStorage} from 'react-native-mmkv-storage';
-import {Dimensions} from 'react-native';
+import {Dimensions, Keyboard} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import {useState, useEffect} from 'react';
 
 const myGreen = '#033E3E';
 const myBlue = '#323766';
@@ -28,36 +29,6 @@ const useStorage = key => {
   return [value, setValue];
 };
 
-// const useStateWithPromise = initialState => {
-//   const [state, setState] = useState(initialState);
-//   const resolverRef = useRef(null);
-
-//   useEffect(() => {
-//     if (resolverRef.current) {
-//       resolverRef.current(state);
-//       resolverRef.current = null;
-//     }
-//     /**
-//      * Since a state update could be triggered with the exact same state again,
-//      * it's not enough to specify state as the only dependency of this useEffect.
-//      * That's why resolverRef.current is also a dependency, because it will guarantee,
-//      * that handleSetState was called in previous render
-//      */
-//   }, [resolverRef.current, state]);
-
-//   const handleSetState = useCallback(
-//     stateAction => {
-//       setState(stateAction);
-//       return new Promise(resolve => {
-//         resolverRef.current = resolve;
-//       });
-//     },
-//     [setState],
-//   );
-
-//   return [state, handleSetState];
-// };
-
 const repeatNotifications = 70;
 
 const entireScreenWidth = Dimensions.get('window').width;
@@ -73,10 +44,28 @@ global.MMKV = MMKV;
 
 global.useStorage = useStorage;
 
-// global.useStateWithPromise = useStateWithPromise;
-
 global.globalRepeatNotifications = repeatNotifications;
 
 global.EStyleSheet = EStyleSheet;
 
 global.globalOneDayInMilliSeconds = 86400000;
+
+const useKeyboardState = () => {
+  useEffect(() => {
+    Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
+    Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
+
+    return () => {
+      Keyboard.removeListener('keyboardDidShow', _keyboardDidShow);
+      Keyboard.removeListener('keyboardDidHide', _keyboardDidHide);
+    };
+  }, []);
+
+  const [keyboardStatus, setKeyboardStatus] = useState(undefined);
+  const _keyboardDidShow = () => setKeyboardStatus('Keyboard Shown');
+  const _keyboardDidHide = () => setKeyboardStatus('Keyboard Hidden');
+
+  return [keyboardStatus, setKeyboardStatus];
+};
+
+global.useKeyboardState = useKeyboardState;

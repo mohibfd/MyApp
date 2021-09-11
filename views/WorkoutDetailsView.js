@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
+import generalStyles from '../stylesheets/generalStylesheet';
 
 import {
   SafeAreaView,
@@ -10,9 +11,11 @@ import {
   Text,
   Pressable,
   Animated,
+  TextInput,
 } from 'react-native';
 import uuid from 'react-native-uuid';
 import WorkoutItem from '../components/flatListRendering/WorkoutItem';
+import {Overlay} from 'react-native-elements';
 
 import Header from '../components/Header';
 import DeleteOrCancel from '../components/modals/DeleteOrCancel';
@@ -40,6 +43,13 @@ const WorkoutDetailsView = ({route}) => {
 
   const [inEditMode, setInEditMode] = useState(false);
 
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+
+  const [repOne, setRepOne] = useState();
+
+  // eslint-disable-next-line no-unused-vars
+  const [keyboardStatus, setKeyboardStatus] = useKeyboardState();
+
   useEffect(() => {
     isMountedRef.current = true;
     if (isMountedRef) {
@@ -57,6 +67,7 @@ const WorkoutDetailsView = ({route}) => {
   }, [refresh, workouts]);
 
   const createWorkout = () => {
+    setIsAddModalOpen(false);
     setWorkouts(prevItems => {
       return [
         ...prevItems,
@@ -66,8 +77,7 @@ const WorkoutDetailsView = ({route}) => {
           minimumWeight: '',
           maximumWeight: '',
           measurement: 'kg',
-          sets: '',
-          reps: '',
+          reps: [],
         },
       ];
     });
@@ -107,9 +117,11 @@ const WorkoutDetailsView = ({route}) => {
 
   const animationStyle = ShakeAnimation(inEditMode);
 
+  const bottom = keyboardStatus === 'Keyboard Shown' ? '10%' : null;
+
   return (
     <SafeAreaView style={styles.container}>
-      <Header title={muscle} instantAdd={createWorkout} />
+      <Header title={muscle} instantAdd={() => setIsAddModalOpen(true)} />
       <ImageBackground
         source={require('../components/assets/Workout.jpeg')}
         style={styles.image}>
@@ -146,6 +158,42 @@ const WorkoutDetailsView = ({route}) => {
           closeOverlay={toggleDeleteOrCancel}
         />
       )}
+      {isAddModalOpen && (
+        <Overlay
+          isVisible={true}
+          overlayStyle={[
+            styles.overlay,
+            generalStyles.borderContainer,
+            {bottom},
+          ]}
+          onBackdropPress={() => setIsAddModalOpen(false)}>
+          <>
+            <Text style={styles.overlayText}>How many reps?</Text>
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.input}
+                value={repOne}
+                onChangeText={setRepOne}
+                maxLength={1}
+                keyboardType="numeric"
+              />
+              <Text style={styles.overlaySlash}>/</Text>
+              <TextInput
+                style={styles.input}
+                value={repOne}
+                onChangeText={setRepOne}
+                maxLength={1}
+                keyboardType="numeric"
+              />
+            </View>
+            <Pressable
+              style={[generalStyles.darkButtonContainer, styles.overlayButton]}
+              onPress={createWorkout}>
+              <Text style={generalStyles.textStylesDark}>Create</Text>
+            </Pressable>
+          </>
+        </Overlay>
+      )}
     </SafeAreaView>
   );
 };
@@ -181,13 +229,44 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   footerContainer: {
-    // backgroundColor: '#CD7F32' + 'CC',
     height: EStyleSheet.value('50rem'),
     borderColor: myRed,
     borderWidth: 5,
     alignItems: 'center',
     justifyContent: 'center',
   },
+  overlay: {
+    height: EStyleSheet.value('200rem'),
+    flex: 1,
+    position: 'absolute',
+  },
+  overlayText: {
+    fontSize: EStyleSheet.value('25rem'),
+    alignSelf: 'center',
+    color: myWhite,
+  },
+  inputContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  input: {
+    // backgroundColor: 'gold',
+    borderBottomColor: 'gold',
+    borderWidth: 2,
+    color: 'white',
+    fontSize: EStyleSheet.value('25rem'),
+    height: '60%',
+    width: EStyleSheet.value('25rem'),
+  },
+  overlaySlash: {
+    color: 'white',
+    fontSize: EStyleSheet.value('25rem'),
+    // height: '60%',
+  },
+  overlayButtonContainer: {flex: 1},
+  overlayButton: {alignSelf: 'center', bottom: 0},
 });
 WorkoutDetailsView.propTypes = {
   route: PropTypes.object.isRequired,

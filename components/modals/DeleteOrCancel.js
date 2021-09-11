@@ -4,6 +4,7 @@ import {Pressable, View, Text, StyleSheet} from 'react-native';
 import {Overlay} from 'react-native-elements';
 
 import generalStyles from '../../stylesheets/generalStylesheet';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 const DeleteOrCancel = ({name, extraName, deletion, closeOverlay}) => {
   return (
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
   deleteOverlayText: {
     flex: 1,
     paddingLeft: '5%',
-    fontSize: EStyleSheet.value('25rem'),
+    fontSize: EStyleSheet.value('22rem'),
     color: myWhite,
   },
   buttonsContainer: {flexDirection: 'row', justifyContent: 'space-evenly'},

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import React, {useState, useEffect} from 'react';
-import {Pressable, View, Text, StyleSheet, Keyboard} from 'react-native';
+import React, {useState} from 'react';
+import {Pressable, View, Text, StyleSheet} from 'react-native';
 import {Overlay, Input} from 'react-native-elements';
 import generalStyles from '../stylesheets/generalStylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -15,20 +15,8 @@ const AddItemHeader = ({
   const [overlayVisible, setOverlayVisible] = useState(false);
   const [newItemName, setNewItemName] = useState('');
 
-  useEffect(() => {
-    Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
-    Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
-
-    // cleanup function
-    return () => {
-      Keyboard.removeListener('keyboardDidShow', _keyboardDidShow);
-      Keyboard.removeListener('keyboardDidHide', _keyboardDidHide);
-    };
-  }, []);
-
-  const [keyboardStatus, setKeyboardStatus] = useState(undefined);
-  const _keyboardDidShow = () => setKeyboardStatus('Keyboard Shown');
-  const _keyboardDidHide = () => setKeyboardStatus('Keyboard Hidden');
+  // eslint-disable-next-line no-unused-vars
+  const [keyboardStatus, setKeyboardStatus] = useKeyboardState();
 
   const overlayFunction = () => {
     if (instantAdd) {
