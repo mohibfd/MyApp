@@ -103,26 +103,6 @@ const WorkoutItem = ({
       refresh(workout.maximumWeight);
     }
   };
-  const changeSets = value => {
-    let number = Number(value);
-    if (value === '') {
-      workout.sets = '';
-      refresh(workout.sets);
-    } else if (!isNaN(number)) {
-      workout.sets = number;
-      refresh(workout.sets);
-    }
-  };
-  const changeReps = value => {
-    let number = Number(value);
-    if (value === '') {
-      workout.reps = '';
-      refresh(workout.reps);
-    } else if (!isNaN(number)) {
-      workout.reps = number;
-      refresh(workout.reps);
-    }
-  };
 
   const navigateTo = () => {
     if (navigation) {
@@ -132,10 +112,33 @@ const WorkoutItem = ({
     }
   };
 
+  const reps = () => {
+    const stringStart = 'Reps: ';
+    console.log(workout.reps[4]);
+    if (workout.reps[4]) {
+      return (
+        stringStart +
+        `${workout.reps[0]}/${workout.reps[1]}/${workout.reps[2]}/${workout.reps[3]}/${workout.reps[4]}`
+      );
+    } else if (workout.reps[3]) {
+      return (
+        stringStart +
+        `${workout.reps[0]}/${workout.reps[1]}/${workout.reps[2]}/${workout.reps[3]}`
+      );
+    } else if (workout.reps[2]) {
+      return (
+        stringStart + `${workout.reps[0]}/${workout.reps[1]}/${workout.reps[2]}`
+      );
+    } else if (workout.reps[1]) {
+      return stringStart + `${workout.reps[0]}/${workout.reps[1]}`;
+    } else if (workout.reps[0]) {
+      return stringStart + `${workout.reps[0]}`;
+    }
+  };
+
   if (deleteItemFromStorage) {
     return (
       <View style={[styles.musclesContainer, styles.detailsContainer]}>
-        {/* <View style={styles.textContainer}> */}
         <TextInput
           style={styles.text}
           value={workout.name}
@@ -146,8 +149,7 @@ const WorkoutItem = ({
           autoFocus={focus}
           maxWidth={'100%'}
         />
-        {/* </View> */}
-        <View>
+        <View style={styles.flexOne}>
           <View style={styles.minMaxContainer}>
             <TextInput
               style={[styles.numbers, styles.rightAlign]}
@@ -185,22 +187,7 @@ const WorkoutItem = ({
             </View>
           </View>
           <View style={styles.minMaxContainer}>
-            <Text style={styles.smallFont}>Sets:</Text>
-            <TextInput
-              style={[styles.smallFont, styles.goldBorder]}
-              value={`${workout.sets}`}
-              onChangeText={changeSets}
-              maxLength={1}
-              keyboardType="numeric"
-            />
-            <Text style={styles.smallFont}>Reps:</Text>
-            <TextInput
-              style={[styles.smallFont, styles.goldBorder, styles.reps]}
-              value={`${workout.reps}`}
-              onChangeText={changeReps}
-              maxLength={2}
-              keyboardType="numeric"
-            />
+            <Text style={styles.smallFont}>{reps()}</Text>
           </View>
         </View>
 
@@ -245,6 +232,7 @@ const styles = StyleSheet.create({
     fontSize: EStyleSheet.value('40rem'),
     color: 'white',
   },
+  flexOne: {flex: 1},
   minMaxContainer: {
     flex: 1,
     flexDirection: 'row',
@@ -274,6 +262,7 @@ const styles = StyleSheet.create({
   smallFont: {
     fontSize: EStyleSheet.value('18rem'),
     color: 'white',
+    paddingLeft: EStyleSheet.value('18rem'),
   },
   goldBorder: {borderBottomWidth: 2, borderBottomColor: 'gold'},
   reps: {width: EStyleSheet.value('36rem')},

@@ -47,6 +47,14 @@ const WorkoutDetailsView = ({route}) => {
 
   const [repOne, setRepOne] = useState();
 
+  const [repTwo, setRepTwo] = useState();
+
+  const [repThree, setRepThree] = useState();
+
+  const [repFour, setRepFour] = useState();
+
+  const [repFive, setRepFive] = useState();
+
   // eslint-disable-next-line no-unused-vars
   const [keyboardStatus, setKeyboardStatus] = useKeyboardState();
 
@@ -77,7 +85,7 @@ const WorkoutDetailsView = ({route}) => {
           minimumWeight: '',
           maximumWeight: '',
           measurement: 'kg',
-          reps: [],
+          reps: [repOne, repTwo, repThree, repFour, repFive],
         },
       ];
     });
@@ -177,11 +185,39 @@ const WorkoutDetailsView = ({route}) => {
                 maxLength={1}
                 keyboardType="numeric"
               />
+
               <Text style={styles.overlaySlash}>/</Text>
               <TextInput
                 style={styles.input}
-                value={repOne}
-                onChangeText={setRepOne}
+                value={repTwo}
+                onChangeText={setRepTwo}
+                maxLength={1}
+                keyboardType="numeric"
+              />
+
+              <Text style={styles.overlaySlash}>/</Text>
+              <TextInput
+                style={styles.input}
+                value={repThree}
+                onChangeText={setRepThree}
+                maxLength={1}
+                keyboardType="numeric"
+              />
+
+              <Text style={styles.overlaySlash}>/</Text>
+              <TextInput
+                style={styles.input}
+                value={repFour}
+                onChangeText={setRepFour}
+                maxLength={1}
+                keyboardType="numeric"
+              />
+
+              <Text style={styles.overlaySlash}>/</Text>
+              <TextInput
+                style={styles.input}
+                value={repFive}
+                onChangeText={setRepFive}
                 maxLength={1}
                 keyboardType="numeric"
               />
