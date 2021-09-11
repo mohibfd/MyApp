@@ -38,7 +38,7 @@ const PlantsView = () => {
     if (plants.length === 7) {
       Alert.alert(
         'Too many plants',
-        'Sorry you cannot have more than 7 plants at a time',
+        'Sorry you cannot have more than 7 notifications at a time',
         [{text: 'OK'}],
       );
       return;
@@ -122,6 +122,7 @@ const styles = StyleSheet.create({
   image: {width: '100%', height: '100%'},
   container: {backgroundColor: myBlack, flex: 1},
   warning: {
+    height: EStyleSheet.value('20rem'),
     fontSize: EStyleSheet.value('12rem'),
     textAlign: 'center',
     color: myWhite,

@@ -65,17 +65,16 @@ const AddItemHeader = ({
     );
   };
 
+  const bottom = keyboardStatus === 'Keyboard Shown' ? '10%' : null;
+
   return (
     <>
       <Overlay
         isVisible={overlayVisible}
         overlayStyle={[
           generalStyles.borderContainer,
-          {
-            flex: 1,
-            position: 'absolute',
-            bottom: keyboardStatus == 'Keyboard Shown' ? '10%' : null,
-          },
+          styles.container,
+          {bottom},
         ]}
         onBackdropPress={() => setOverlayVisible(false)}>
         <>
@@ -110,6 +109,10 @@ const AddItemHeader = ({
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    position: 'absolute',
+  },
   buttonContainer: {flexDirection: 'row', justifyContent: 'space-evenly'},
 });
 

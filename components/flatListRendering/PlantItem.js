@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Dimensions} from 'react-native';
 import {ListItem} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -84,6 +84,12 @@ const PlantItem = ({
 
   //the margin left is the size of the icon
   const marginLeft = plant.notificationId ? EStyleSheet.value('40rem') : 0;
+
+  const windowHeightMinusWarning =
+    Dimensions.get('window').height - EStyleSheet.value('20rem');
+
+  const height = windowHeightMinusWarning * 0.1324;
+
   return (
     <>
       <ActionSheet
@@ -98,13 +104,13 @@ const PlantItem = ({
         onPress={() => {
           setActionSheetVisible(true);
         }}
-        containerStyle={styles.container}
+        containerStyle={[styles.container, {height}]}
         bottomDivider>
         <ListItem.Content style={styles.listItemContainer}>
           <View style={styles.insideContainer}>
-            <ListItem.Title style={[styles.plantName, {marginLeft}]}>
+            <Text style={[styles.plantName, {marginLeft}]} numberOfLines={1}>
               {plant.name}
-            </ListItem.Title>
+            </Text>
             {plant.notificationId && (
               <Icon
                 name="check"
@@ -130,7 +136,9 @@ const PlantItem = ({
 };
 
 const styles = StyleSheet.create({
-  container: {backgroundColor: myGreen + '99'},
+  container: {
+    backgroundColor: myGreen + '99',
+  },
   text: {
     color: myRed,
   },
@@ -142,7 +150,7 @@ const styles = StyleSheet.create({
   },
   plantName: {
     flex: 1,
-    fontSize: EStyleSheet.value('40rem'),
+    fontSize: EStyleSheet.value('30rem'),
     color: myWhite,
     textAlign: 'center',
   },

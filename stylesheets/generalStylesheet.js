@@ -4,7 +4,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 const styles = StyleSheet.create({
   plusButton: {
     alignSelf: 'flex-end',
-    marginRight: EStyleSheet.value('7rem'),
+    marginHorizontal: EStyleSheet.value('7rem'),
   },
   modalClose: {
     paddingTop: EStyleSheet.value('10rem'),
