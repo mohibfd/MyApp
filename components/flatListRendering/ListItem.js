@@ -1,10 +1,17 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {View, Text, Pressable, StyleSheet, Alert} from 'react-native';
+import {Text, Pressable, StyleSheet, Alert, Animated} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import ShakeAnimation from '../ShakeAnimation';
 
-const ListItem = ({item, deleteItemFromStorage, navigation}) => {
+const ListItem = ({
+  item,
+  deleteItemFromStorage,
+  navigation,
+  inEditMode,
+  setInEditMode,
+}) => {
   //tells you which page to go to
   const navigateTo = () => {
     if (navigation) {
@@ -36,26 +43,33 @@ const ListItem = ({item, deleteItemFromStorage, navigation}) => {
         case 'Wakeboarding':
           navigation.navigate('Wakeboarding View');
           break;
-
         default:
           Alert.alert('NOT FOUND');
       }
     }
   };
 
-  //return our items alongside a delete icon that calls on deleteList function taking the element's id
+  const animationStyle = ShakeAnimation(inEditMode);
+
   return (
-    <Pressable style={styles.ListItem} onPress={() => navigateTo()}>
-      <View style={styles.ListItemView}>
+    <Pressable
+      style={styles.ListItem}
+      onPress={() => navigateTo()}
+      onLongPress={() => {
+        setInEditMode(true);
+      }}>
+      <Animated.View style={[styles.ListItemView, animationStyle]}>
         <Text style={styles.listItemText}>{item.name}</Text>
-        <Icon
-          style={styles.redCross}
-          name="trash"
-          size={EStyleSheet.value('40rem')}
-          color="#90271F"
-          onPress={() => deleteItemFromStorage(item)}
-        />
-      </View>
+        {inEditMode && (
+          <Icon
+            style={styles.redCross}
+            name="trash"
+            size={EStyleSheet.value('35rem')}
+            color="firebrick"
+            onPress={() => deleteItemFromStorage(item)}
+          />
+        )}
+      </Animated.View>
     </Pressable>
   );
 };
@@ -75,7 +89,7 @@ const styles = StyleSheet.create({
   listItemText: {
     flex: 4,
     fontSize: EStyleSheet.value('25rem'),
-    marginLeft: EStyleSheet.value('10rem'),
+    textAlign: 'center',
     color: myWhite,
   },
   redCross: {
@@ -92,6 +106,8 @@ ListItem.propTypes = {
   item: PropTypes.object.isRequired,
   deleteItemFromStorage: PropTypes.func.isRequired,
   navigation: PropTypes.object,
+  inEditMode: PropTypes.bool.isRequired,
+  setInEditMode: PropTypes.func.isRequired,
 };
 
 export default ListItem;

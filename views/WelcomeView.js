@@ -43,6 +43,8 @@ const WelcomeView = ({navigation}) => {
   const [isNotificationsModalOpen, setIsNotificationsModalOpen] =
     useState(false);
 
+  const [inEditMode, setInEditMode] = useState(false);
+
   const menuItems = [
     // {name: 'Plants', icon: 'envira', color: myGreen, key: uuid.v4()},
     {name: 'Invest', icon: 'money', color: 'green', key: uuid.v4()},
@@ -190,6 +192,8 @@ const WelcomeView = ({navigation}) => {
               item={item}
               deleteItemFromStorage={openDeleteOrCancel}
               navigation={navigation}
+              inEditMode={inEditMode}
+              setInEditMode={setInEditMode}
             />
           )}
           numColumns={2}
@@ -210,22 +214,31 @@ const WelcomeView = ({navigation}) => {
           onPress={() => setOpenModal(true)}
         />
 
-        <View style={styles.buttonContainer}>
+        {inEditMode ? (
           <Pressable
-            style={styles.button}
-            onPress={() => navigation.navigate('Developer View')}>
-            <Text style={[styles.textStylesDark, styles.developerButtonColour]}>
-              Go to developer menu
-            </Text>
+            style={styles.footerContainer}
+            onPress={() => setInEditMode(false)}>
+            <Text style={styles.text}>Exit edit mode</Text>
           </Pressable>
-          <Pressable
-            style={styles.button}
-            onPress={() => navigation.navigate('Online View')}>
-            <Text style={[styles.textStylesDark, styles.onlineButtonColour]}>
-              Go to online section
-            </Text>
-          </Pressable>
-        </View>
+        ) : (
+          <View style={styles.buttonContainer}>
+            <Pressable
+              style={styles.button}
+              onPress={() => navigation.navigate('Developer View')}>
+              <Text
+                style={[styles.textStylesDark, styles.developerButtonColour]}>
+                Go to developer menu
+              </Text>
+            </Pressable>
+            <Pressable
+              style={styles.button}
+              onPress={() => navigation.navigate('Online View')}>
+              <Text style={[styles.textStylesDark, styles.onlineButtonColour]}>
+                Go to online section
+              </Text>
+            </Pressable>
+          </View>
+        )}
       </ImageBackground>
 
       {isDeleteOrCancel && (
@@ -275,6 +288,18 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: '12%',
     right: '5%',
+  },
+  footerContainer: {
+    height: EStyleSheet.value('50rem'),
+    borderColor: myRed,
+    borderWidth: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: EStyleSheet.value('20rem'),
+  },
+  text: {
+    fontSize: EStyleSheet.value('20rem'),
+    color: 'white',
   },
 });
 
