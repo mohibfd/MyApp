@@ -12,7 +12,7 @@ const ListItem = ({
   inEditMode,
   setInEditMode,
 }) => {
-  //tells you which page to go to
+  //Which page to go to
   const navigateTo = () => {
     if (navigation) {
       switch (item.name) {
