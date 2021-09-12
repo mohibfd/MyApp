@@ -16,9 +16,6 @@ const ListItem = ({
   const navigateTo = () => {
     if (navigation) {
       switch (item.name) {
-        // case 'Plants':
-        //   navigation.navigate('Plants View');
-        //   break;
         case 'Invest':
           navigation.navigate('Invest View');
           break;

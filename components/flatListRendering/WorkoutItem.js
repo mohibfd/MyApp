@@ -201,7 +201,7 @@ const WorkoutItem = ({
               onPress={() => deleteItemFromStorage(workout)}
             />
           ) : (
-            <View style={{width: EStyleSheet.value('40rem')}} />
+            <View style={{width: EStyleSheet.value('10rem')}} />
           )}
         </View>
       </View>
@@ -260,9 +260,9 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   smallFont: {
-    fontSize: EStyleSheet.value('18rem'),
+    fontSize: EStyleSheet.value('15rem'),
     color: 'white',
-    paddingLeft: EStyleSheet.value('18rem'),
+    paddingLeft: EStyleSheet.value('23rem'),
   },
   goldBorder: {borderBottomWidth: 2, borderBottomColor: 'gold'},
   reps: {width: EStyleSheet.value('36rem')},

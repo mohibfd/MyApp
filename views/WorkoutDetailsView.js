@@ -182,7 +182,7 @@ const WorkoutDetailsView = ({route}) => {
                 style={styles.input}
                 value={repOne}
                 onChangeText={setRepOne}
-                maxLength={1}
+                maxLength={2}
                 keyboardType="numeric"
               />
 
@@ -191,7 +191,7 @@ const WorkoutDetailsView = ({route}) => {
                 style={styles.input}
                 value={repTwo}
                 onChangeText={setRepTwo}
-                maxLength={1}
+                maxLength={2}
                 keyboardType="numeric"
               />
 
@@ -200,7 +200,7 @@ const WorkoutDetailsView = ({route}) => {
                 style={styles.input}
                 value={repThree}
                 onChangeText={setRepThree}
-                maxLength={1}
+                maxLength={2}
                 keyboardType="numeric"
               />
 
@@ -209,7 +209,7 @@ const WorkoutDetailsView = ({route}) => {
                 style={styles.input}
                 value={repFour}
                 onChangeText={setRepFour}
-                maxLength={1}
+                maxLength={2}
                 keyboardType="numeric"
               />
 
@@ -218,7 +218,7 @@ const WorkoutDetailsView = ({route}) => {
                 style={styles.input}
                 value={repFive}
                 onChangeText={setRepFive}
-                maxLength={1}
+                maxLength={2}
                 keyboardType="numeric"
               />
             </View>
@@ -288,18 +288,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   input: {
-    // backgroundColor: 'gold',
     borderBottomColor: 'gold',
     borderWidth: 2,
     color: 'white',
     fontSize: EStyleSheet.value('25rem'),
     height: '60%',
-    width: EStyleSheet.value('25rem'),
+    width: EStyleSheet.value('40rem'),
+    textAlign: 'center',
   },
   overlaySlash: {
     color: 'white',
     fontSize: EStyleSheet.value('25rem'),
-    // height: '60%',
   },
   overlayButtonContainer: {flex: 1},
   overlayButton: {alignSelf: 'center', bottom: 0},
