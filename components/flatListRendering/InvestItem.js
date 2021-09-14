@@ -362,7 +362,9 @@ const InvestItem = ({
             </View>
             <View style={styles.textAndCurrencyContainer}>
               <View style={styles.investmentTextContainer}>
-                <Text style={styles.investmentText}>Initial investment: </Text>
+                <Text style={[styles.investmentText, styles.width]}>
+                  Initial investment:{' '}
+                </Text>
                 <CurrencyInput
                   style={styles.currencyInputContainer}
                   value={originalInvestmentState}
@@ -377,7 +379,9 @@ const InvestItem = ({
                 />
               </View>
               <View style={styles.investmentTextContainer}>
-                <Text style={styles.investmentText}>Current amount: </Text>
+                <Text style={[styles.investmentText, styles.width]}>
+                  Current amount:{' '}
+                </Text>
                 <Text style={styles.currencyInputContainer}>
                   {showCurrentAmount()}
                 </Text>
@@ -472,6 +476,7 @@ const styles = StyleSheet.create({
     fontSize: EStyleSheet.value('13rem'),
     textAlign: 'center',
     alignSelf: 'center',
+    backgroundColor: 'gold',
   },
   imageContainer: {
     marginLeft: EStyleSheet.value('7rem'),
@@ -493,6 +498,9 @@ const styles = StyleSheet.create({
     width: '10%',
     height: '100%',
     marginVertical: EStyleSheet.value('12rem'),
+  },
+  width: {
+    width: '52%',
   },
 });
 
