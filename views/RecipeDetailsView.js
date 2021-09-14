@@ -290,14 +290,14 @@ const RecipeDetailsView = ({route}) => {
           onLongPress={() => {
             onlyShowIngredients ? showAll() : showIngredientsOnly();
           }}>
-          <Text style={[styles.text, styles.text1]}>
+          <Text style={styles.text}>
             {onlyShowIngredients ? 'show all' : 'ingredients'}
           </Text>
         </Pressable>
-        <Text style={[styles.text, styles.text2]}>Quantity</Text>
-        <Text style={[styles.text]}>X</Text>
+        <Text style={styles.text}>Quantity</Text>
+        <Text style={styles.text}>X</Text>
         <TextInput
-          style={[styles.text, styles.text3]}
+          style={[styles.text, styles.text1]}
           value={multiplier}
           onChangeText={multiplierFunc}
           maxLength={1}
@@ -351,12 +351,12 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: myBlue,
   },
   ingredientsContainer: {
-    width: '50%',
+    flex: 1,
     // backgroundColor: 'gold',
   },
   text: {
@@ -365,13 +365,7 @@ const styles = StyleSheet.create({
     marginLeft: EStyleSheet.value('10rem'),
     color: myWhite,
   },
-  // text1: {
-  //   width: '50%',
-  // },
-  text2: {
-    width: '30%',
-  },
-  text3: {
+  text1: {
     marginLeft: 0,
   },
   text4: {

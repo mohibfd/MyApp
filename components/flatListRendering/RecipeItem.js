@@ -126,16 +126,18 @@ const RecipeItem = ({
                 maxWidth={'30%'}
               />
             )}
-            <View style={styles.iconContainer}>
-              {inEditMode ? bin() : null}
-            </View>
+            {inEditMode ? (
+              <View style={styles.iconContainer}>{bin()}</View>
+            ) : (
+              <View style={{width: EStyleSheet.value('10rem')}} />
+            )}
           </View>
         </View>
       </>
     );
   } else {
     return (
-      <View style={styles.ListItem}>
+      <View style={[styles.ListItem, styles.verticalPadding]}>
         <View style={styles.ListItemView}>
           <TextInput
             style={styles.listItemText}
@@ -209,7 +211,6 @@ const styles = StyleSheet.create({
   },
   ListItem: {
     backgroundColor: '#CD7F32' + 99,
-    paddingVertical: EStyleSheet.value('10rem'),
     borderWidth: EStyleSheet.value('2rem'),
   },
   ListItemView: {
@@ -218,7 +219,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   listItemText: {
-    fontSize: EStyleSheet.value('22rem'),
+    flex: 1.2,
+    fontSize: EStyleSheet.value('20rem'),
     marginLeft: EStyleSheet.value('10rem'),
     color: myWhite,
   },
@@ -234,6 +236,9 @@ const styles = StyleSheet.create({
   },
   marginLeft: {
     marginLeft: EStyleSheet.value('15rem'),
+  },
+  verticalPadding: {
+    paddingVertical: EStyleSheet.value('10rem'),
   },
 });
 
