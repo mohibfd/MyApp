@@ -13,23 +13,12 @@ const myBlack = '#121212';
 const myBrown = '#964B00';
 const myYellow = '#c1c71e';
 
-global.myGreen = myGreen;
-global.myBlue = myBlue;
-global.myPurple = myPurple;
-global.myRed = myRed;
-global.myWhite = myWhite;
-global.myBlack = myBlack;
-global.myBrown = myBrown;
-global.myYellow = myYellow;
-
 const MMKV = new MMKVStorage.Loader().initialize();
 
 const useStorage = key => {
   const [value, setValue] = useMMKVStorage(key, MMKV);
   return [value, setValue];
 };
-
-const repeatNotifications = 70;
 
 const entireScreenWidth = Dimensions.get('window').width;
 const entireScreenHeight = Dimensions.get('window').height;
@@ -39,16 +28,6 @@ const rem =
     : entireScreenWidth / 380;
 
 EStyleSheet.build({$rem: rem});
-
-global.MMKV = MMKV;
-
-global.useStorage = useStorage;
-
-global.globalRepeatNotifications = repeatNotifications;
-
-global.EStyleSheet = EStyleSheet;
-
-global.globalOneDayInMilliSeconds = 86400000;
 
 const useKeyboardState = () => {
   useEffect(() => {
@@ -67,5 +46,22 @@ const useKeyboardState = () => {
 
   return [keyboardStatus, setKeyboardStatus];
 };
+global.myGreen = myGreen;
+global.myBlue = myBlue;
+global.myPurple = myPurple;
+global.myRed = myRed;
+global.myWhite = myWhite;
+global.myBlack = myBlack;
+global.myBrown = myBrown;
+global.myYellow = myYellow;
+
+global.EStyleSheet = EStyleSheet;
+
+global.MMKV = MMKV;
+global.useStorage = useStorage;
+
+global.globalRepeatNotifications = 3;
+
+global.globalOneDayInMilliSeconds = 86400000;
 
 global.useKeyboardState = useKeyboardState;

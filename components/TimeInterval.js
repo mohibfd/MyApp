@@ -89,6 +89,18 @@ const TimeInterval = props => {
           message: `Reminder for ${title}`,
           allowWhileIdle: true,
         });
+
+        if (i === globalRepeatNotifications - 1) {
+          console.log('reached');
+          PushNotification.localNotificationSchedule({
+            channelId: 'test-channel1',
+            id: newId,
+            date: specificDate,
+            title: `notifications for ${title} are finished`,
+            message: `Please reset the notifications for ${title} as the ${globalRepeatNotifications} notifications limit has been reached`,
+            allowWhileIdle: true,
+          });
+        }
       });
     };
 

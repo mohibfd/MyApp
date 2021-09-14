@@ -30,7 +30,7 @@ const PlantItem = ({
 
   const actions = [
     {
-      title: 'Delete plant',
+      title: 'Delete notification',
       action: () => {
         deletion(plant);
       },
