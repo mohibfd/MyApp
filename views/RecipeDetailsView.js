@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {
   SafeAreaView,
@@ -294,6 +295,15 @@ const RecipeDetailsView = ({route}) => {
             {onlyShowIngredients ? 'show all' : 'ingredients'}
           </Text>
         </Pressable>
+        <Icon
+          style={styles.penIcon}
+          name="pencil"
+          size={EStyleSheet.value('30rem')}
+          color="gold"
+          onPress={() =>
+            inEditMode ? setInEditMode(false) : setInEditMode(true)
+          }
+        />
         <Text style={styles.text}>Quantity</Text>
         <Text style={styles.text}>X</Text>
         <TextInput
@@ -305,11 +315,7 @@ const RecipeDetailsView = ({route}) => {
         />
       </View>
       <ImageBackground source={imageSource()} style={styles.image}>
-        <Pressable
-          style={styles.pressable}
-          onLongPress={() => {
-            setInEditMode(true);
-          }}>
+        <Pressable style={styles.pressable}>
           <Animated.View style={animationStyle}>
             <FlatList
               data={orderedList}
@@ -356,8 +362,8 @@ const styles = StyleSheet.create({
     backgroundColor: myBlue,
   },
   ingredientsContainer: {
-    flex: 1,
-    // backgroundColor: 'gold',
+    flex: 2.5,
+    // alignItems: 'center',
   },
   text: {
     // flex: 1,
@@ -388,6 +394,10 @@ const styles = StyleSheet.create({
   transparentIcon: {
     alignSelf: 'flex-end',
     paddingHorizontal: EStyleSheet.value('5rem'),
+  },
+  penIcon: {
+    flex: 1,
+    alignSelf: 'center',
   },
 });
 
