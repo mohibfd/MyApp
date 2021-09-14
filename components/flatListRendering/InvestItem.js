@@ -476,7 +476,6 @@ const styles = StyleSheet.create({
     fontSize: EStyleSheet.value('13rem'),
     textAlign: 'center',
     alignSelf: 'center',
-    backgroundColor: 'gold',
   },
   imageContainer: {
     marginLeft: EStyleSheet.value('7rem'),
