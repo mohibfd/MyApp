@@ -91,7 +91,6 @@ const TimeInterval = props => {
         });
 
         if (i === globalRepeatNotifications - 1) {
-          console.log('reached');
           PushNotification.localNotificationSchedule({
             channelId: 'test-channel1',
             id: newId,

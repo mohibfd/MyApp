@@ -114,7 +114,6 @@ const WorkoutItem = ({
 
   const reps = () => {
     const stringStart = 'Reps: ';
-    console.log(workout.reps[4]);
     if (workout.reps[4]) {
       return (
         stringStart +

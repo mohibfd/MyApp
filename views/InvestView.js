@@ -83,12 +83,8 @@ const InvestView = ({navigation}) => {
               return;
             }
             investments.map(investment => {
-              // console.log(investment);
-
               let currentAmount = 0;
               investment.assets.map(asset => {
-                // console.log(asset);
-
                 let oldCurrentAmount = currentAmount;
 
                 switch (asset.name) {
