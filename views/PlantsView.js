@@ -35,10 +35,10 @@ const PlantsView = () => {
   };
 
   const createPlant = newPlantName => {
-    if (plants.length === 7) {
+    if (plants.length === 10) {
       Alert.alert(
-        'Too many plants',
-        'Sorry you cannot have more than 7 notifications at a time',
+        'Too many notifications',
+        'Sorry you cannot have more than 10 notifications at a time',
         [{text: 'OK'}],
       );
       return;
@@ -88,7 +88,7 @@ const PlantsView = () => {
         <Header title="My Notifications" add={createPlant} />
 
         <Text style={styles.warning}>
-          Each notifications will trigger 70 times before stopping
+          {`Each notifications will trigger ${globalRepeatNotifications} times before stopping`}
         </Text>
         <ScrollView>
           {plants &&

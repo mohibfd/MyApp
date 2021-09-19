@@ -88,7 +88,7 @@ const PlantItem = ({
   const windowHeightMinusWarning =
     Dimensions.get('window').height - EStyleSheet.value('20rem');
 
-  const height = windowHeightMinusWarning * 0.1324;
+  const height = windowHeightMinusWarning * 0.0927;
 
   return (
     <>
