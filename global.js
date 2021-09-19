@@ -60,7 +60,7 @@ global.EStyleSheet = EStyleSheet;
 global.MMKV = MMKV;
 global.useStorage = useStorage;
 
-global.globalRepeatNotifications = 50;
+// global.globalRepeatNotifications = 250;
 
 global.globalOneDayInMilliSeconds = 86400000;
 

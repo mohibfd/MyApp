@@ -66,10 +66,11 @@ const PlantItem = ({
   };
 
   const deleteTimeInterval = () => {
-    [...Array(globalRepeatNotifications)].map((e, i) => {
-      const id = plant.notificationId + i;
-      PushNotification.cancelLocalNotifications({id});
-    });
+    const id = plant.notificationId;
+    PushNotification.cancelLocalNotifications({id});
+    // [...Array(globalRepeatNotifications)].map((e, i) => {
+    //   PushNotification.cancelLocalNotifications({id});
+    // });
 
     //delete all notifications
     // PushNotification.cancelAllLocalNotifications();
@@ -88,12 +89,13 @@ const PlantItem = ({
 
   const windowHeightMinusWarning =
     Dimensions.get('window').height -
-    EStyleSheet.value('20rem') -
+    // EStyleSheet.value('20rem') -
     Dimensions.get('window').height * 0.07;
   //header takes 7% of screen
   //and warning takes 20 rem from screen
 
-  const height = windowHeightMinusWarning * (1 / maxNotifications);
+  // const height = windowHeightMinusWarning * (1 / maxNotifications);
+  const height = windowHeightMinusWarning * (1 / 10);
 
   return (
     <>

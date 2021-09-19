@@ -74,34 +74,47 @@ const TimeInterval = props => {
     const notificationId = Platform.OS === 'ios' ? dateId : numberId;
 
     const addNotification = () => {
-      [...Array(globalRepeatNotifications)].map((e, i) => {
-        const specificDate = new Date(
-          Date.now() + globalOneDayInMilliSeconds * i * repeatTime,
-        );
-
-        const newId = notificationId + i;
-
-        PushNotification.localNotificationSchedule({
-          channelId: 'test-channel1',
-          id: newId,
-          date: specificDate,
-          title,
-          message: `Reminder for ${title}`,
-          allowWhileIdle: true,
-        });
-
-        if (i === globalRepeatNotifications - 1) {
-          PushNotification.localNotificationSchedule({
-            channelId: 'test-channel1',
-            id: newId,
-            date: specificDate,
-            title: `notifications for ${title} are finished`,
-            message: `Please reset the notifications for ${title} as the ${globalRepeatNotifications} notifications limit has been reached`,
-            allowWhileIdle: true,
-          });
-        }
+      PushNotification.localNotificationSchedule({
+        channelId: 'test-channel1',
+        id: notificationId,
+        date: new Date(Date.now()),
+        title,
+        message: `Reminder for ${title}`,
+        allowWhileIdle: true,
+        repeatType: 'day',
+        repeatTime,
       });
     };
+
+    // const addNotification = () => {
+    //   [...Array(globalRepeatNotifications)].map((e, i) => {
+    //     const specificDate = new Date(
+    //       Date.now() + globalOneDayInMilliSeconds * i * repeatTime,
+    //     );
+
+    //     const newId = notificationId + i;
+
+    //     PushNotification.localNotificationSchedule({
+    //       channelId: 'test-channel1',
+    //       id: newId,
+    //       date: specificDate,
+    //       title,
+    //       message: `Reminder for ${title}`,
+    //       allowWhileIdle: true,
+    //     });
+
+    //     if (i === globalRepeatNotifications - 1) {
+    //       PushNotification.localNotificationSchedule({
+    //         channelId: 'test-channel1',
+    //         id: newId,
+    //         date: specificDate,
+    //         title: `notifications for ${title} are finished`,
+    //         message: `Please reset the notifications for ${title} as the ${globalRepeatNotifications} notifications limit has been reached`,
+    //         allowWhileIdle: true,
+    //       });
+    //     }
+    //   });
+    // };
 
     if (timeIntervalAction === 'edit') {
       deletion();

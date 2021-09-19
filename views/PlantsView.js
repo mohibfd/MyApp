@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
-  Alert,
+  // Alert,
   Text,
   StyleSheet,
   ImageBackground,
@@ -37,14 +37,14 @@ const PlantsView = () => {
   const maxNotifications = Math.floor(500 / globalRepeatNotifications);
 
   const createPlant = newPlantName => {
-    if (plants.length === maxNotifications) {
-      Alert.alert(
-        'Too many notifications',
-        `Sorry you cannot have more than ${maxNotifications} notifications at a time`,
-        [{text: 'OK'}],
-      );
-      return;
-    }
+    // if (plants.length === 5) {
+    //   Alert.alert(
+    //     'Too many notifications',
+    //     `Sorry you cannot have more than ${maxNotifications} notifications at a time`,
+    //     [{text: 'OK'}],
+    //   );
+    //   return;
+    // }
 
     setPlants(prevItems => {
       return [
@@ -71,10 +71,13 @@ const PlantsView = () => {
     toggleDeleteOrCancel();
 
     if (deletePlant.notificationId) {
-      [...Array(globalRepeatNotifications)].map((e, i) => {
-        const id = deletePlant.notificationId + i;
-        PushNotification.cancelLocalNotifications({id});
-      });
+      const id = deletePlant.notificationId;
+      PushNotification.cancelLocalNotifications({id});
+
+      // [...Array(globalRepeatNotifications)].map((e, i) => {
+      // const id = deletePlant.notificationId + i;
+      //   PushNotification.cancelLocalNotifications({id});
+      // });
     }
 
     setPlants(prevItems => {
@@ -89,9 +92,9 @@ const PlantsView = () => {
         style={styles.image}>
         <Header title="My Notifications" add={createPlant} />
 
-        <Text style={styles.warning}>
+        {/* <Text style={styles.warning}>
           {`Each notifications will trigger ${globalRepeatNotifications} times before stopping`}
-        </Text>
+        </Text> */}
         <ScrollView>
           {plants &&
             plants.map(plant =>
