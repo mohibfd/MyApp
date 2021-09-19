@@ -15,6 +15,7 @@ const PlantItem = ({
   plants,
   setPlantsStorage,
   openTimeInterval,
+  maxNotifications,
 }) => {
   const [actionSheetVisible, setActionSheetVisible] = useState(false);
 
@@ -86,9 +87,13 @@ const PlantItem = ({
   const marginLeft = plant.notificationId ? EStyleSheet.value('40rem') : 0;
 
   const windowHeightMinusWarning =
-    Dimensions.get('window').height - EStyleSheet.value('20rem');
+    Dimensions.get('window').height -
+    EStyleSheet.value('20rem') -
+    Dimensions.get('window').height * 0.07;
+  //header takes 7% of screen
+  //and warning takes 20 rem from screen
 
-  const height = windowHeightMinusWarning * 0.0927;
+  const height = windowHeightMinusWarning * (1 / maxNotifications);
 
   return (
     <>

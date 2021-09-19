@@ -34,11 +34,13 @@ const PlantsView = () => {
     setIsDeleteOrCancel(!isDeleteOrCancel);
   };
 
+  const maxNotifications = Math.floor(500 / globalRepeatNotifications);
+
   const createPlant = newPlantName => {
-    if (plants.length === 10) {
+    if (plants.length === maxNotifications) {
       Alert.alert(
         'Too many notifications',
-        'Sorry you cannot have more than 10 notifications at a time',
+        `Sorry you cannot have more than ${maxNotifications} notifications at a time`,
         [{text: 'OK'}],
       );
       return;
@@ -101,6 +103,7 @@ const PlantsView = () => {
                   plants={plants}
                   setPlantsStorage={setPlantsStorage}
                   openTimeInterval={openTimeInterval}
+                  maxNotifications={maxNotifications}
                 />
               ) : null,
             )}
