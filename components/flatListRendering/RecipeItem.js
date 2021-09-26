@@ -146,7 +146,6 @@ const RecipeItem = ({
             placeholder="add name"
             multiline={true}
             autoFocus={focus}
-            maxWidth={'75%'}
           />
 
           <View style={styles.iconContainer}>
@@ -219,7 +218,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   listItemText: {
-    flex: 1.2,
+    flex: 1,
     fontSize: EStyleSheet.value('20rem'),
     marginLeft: EStyleSheet.value('10rem'),
     color: myWhite,
@@ -228,7 +227,6 @@ const styles = StyleSheet.create({
   iconContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    flex: 1,
   },
   redCross: {
     alignSelf: 'flex-end',

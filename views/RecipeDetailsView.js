@@ -357,16 +357,13 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     flexDirection: 'row',
-    // justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: myBlue,
   },
   ingredientsContainer: {
-    flex: 2.5,
-    // alignItems: 'center',
+    width: '46%',
   },
   text: {
-    // flex: 1,
     fontSize: EStyleSheet.value('22rem'),
     marginLeft: EStyleSheet.value('10rem'),
     color: myWhite,

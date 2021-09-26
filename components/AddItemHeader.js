@@ -11,6 +11,7 @@ const AddItemHeader = ({
   instantAdd,
   cameraAdd,
   openNotifications,
+  penAdd,
 }) => {
   const [overlayVisible, setOverlayVisible] = useState(false);
   const [newItemName, setNewItemName] = useState('');
@@ -38,6 +39,10 @@ const AddItemHeader = ({
     } else if (openNotifications) {
       icon = 'bell';
       color = 'white';
+      size = EStyleSheet.value('30rem');
+    } else if (penAdd) {
+      icon = 'pencil';
+      color = 'yellow';
       size = EStyleSheet.value('30rem');
     }
     return (
@@ -108,12 +113,16 @@ AddItemHeader.defaultProps = {
   createItem: null,
   instantAdd: null,
   openNotifications: null,
+  cameraAdd: false,
+  penAdd: false,
 };
 
 AddItemHeader.propTypes = {
   createItem: PropTypes.func,
   instantAdd: PropTypes.func,
   openNotifications: PropTypes.func,
+  cameraAdd: PropTypes.bool,
+  penAdd: PropTypes.bool,
 };
 
 export default AddItemHeader;

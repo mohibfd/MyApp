@@ -7,6 +7,7 @@ import {
   Pressable,
   Animated,
   Text,
+  View,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import uuid from 'react-native-uuid';
@@ -103,19 +104,19 @@ const RecipesView = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="My Recipes" instantAdd={createRecipe} />
+      <Header
+        title="My Recipes"
+        instantAdd={createRecipe}
+        penAdd={() => setInEditMode(true)}
+      />
       <ImageBackground
         source={require('../components/assets/Recipes.jpeg')}
         style={styles.image}>
-        <Pressable
-          style={styles.pressable}
-          onLongPress={() => {
-            setInEditMode(true);
-          }}>
+        <View style={styles.listContainer}>
           <Animated.View style={animationStyle}>
             <FlatList data={recipes} renderItem={renderItem} />
           </Animated.View>
-        </Pressable>
+        </View>
 
         {inEditMode && (
           <Pressable
@@ -140,7 +141,7 @@ const RecipesView = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: myBlack},
   image: {width: '100%', height: '100%', flex: 1},
-  pressable: {flex: 1},
+  listContainer: {flex: 1},
   footerContainer: {
     backgroundColor: '#CD7F32' + 'CC',
     height: EStyleSheet.value('50rem'),

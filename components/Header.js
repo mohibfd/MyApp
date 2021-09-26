@@ -13,12 +13,15 @@ const Header = ({
   instantAdd,
   cameraAdd,
   openNotifications,
+  penAdd,
 }) => {
   const leftHeaderIcon = () => {
     if (developerAdd) {
       return <AddItemHeader createItem={developerAdd} />;
     } else if (cameraAdd) {
       return <AddItemHeader cameraAdd={true} instantAdd={cameraAdd} />;
+    } else if (penAdd) {
+      return <AddItemHeader penAdd={true} instantAdd={penAdd} />;
     }
   };
 
@@ -36,7 +39,7 @@ const Header = ({
         {leftHeaderIcon()}
       </View>
       <View style={styles.textContainer}>
-        <Text style={styles.text} numberOfLines={2} maxWidth={'60%'}>
+        <Text style={styles.text} numberOfLines={1} maxWidth={'60%'}>
           {title}
         </Text>
       </View>
@@ -78,6 +81,7 @@ Header.defaultProps = {
   instantAdd: null,
   cameraAdd: null,
   openNotifications: null,
+  penAdd: null,
 };
 
 Header.propTypes = {
@@ -87,6 +91,7 @@ Header.propTypes = {
   instantAdd: PropTypes.func,
   cameraAdd: PropTypes.func,
   openNotifications: PropTypes.func,
+  penAdd: PropTypes.func,
 };
 
 export default Header;
