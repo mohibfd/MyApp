@@ -15,6 +15,7 @@ const RecipeItem = ({
   addInstruction,
   addCookingStep,
   index,
+  onlyShowIngredients,
 }) => {
   const isCookingStep = useRef(false);
 
@@ -26,17 +27,21 @@ const RecipeItem = ({
     ingredient ? ingredient.quantity : '',
   );
 
+  const [crossIngredient, setCrossIngredient] = useState(false);
+
   if (ingredient) {
     if (ingredient.quantity === undefined) {
       isCookingStep.current = true;
     }
-  }
-
-  if (ingredient) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
       setInstructionQuantity(ingredient.quantity);
     }, [ingredient.quantity]);
+
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useEffect(() => {
+      setCrossIngredient(false);
+    }, [onlyShowIngredients]);
   }
 
   const changeName = newName => {
@@ -79,7 +84,8 @@ const RecipeItem = ({
 
   if (ingredient) {
     return (
-      <>
+      <Pressable onPress={() => setCrossIngredient(!crossIngredient)}>
+        {crossIngredient && <View style={styles.crossedLine} />}
         {inEditMode && (
           <View style={styles.editModeContainer}>
             <Pressable
@@ -105,7 +111,9 @@ const RecipeItem = ({
               borderColor,
             },
           ]}>
-          <View style={styles.ListItemView}>
+          <View
+            style={styles.ListItemView}
+            pointerEvents={onlyShowIngredients ? 'none' : 'auto'}>
             <View style={styles.ingredientsNameContainer}>
               <TextInput
                 style={styles.listItemText}
@@ -133,7 +141,7 @@ const RecipeItem = ({
             )}
           </View>
         </View>
-      </>
+      </Pressable>
     );
   } else {
     return (
@@ -238,6 +246,14 @@ const styles = StyleSheet.create({
   verticalPadding: {
     paddingVertical: EStyleSheet.value('10rem'),
   },
+  crossedLine: {
+    zIndex: 1,
+    height: '50%',
+    width: '100%',
+    borderBottomWidth: 4,
+    position: 'absolute',
+    borderColor: 'red',
+  },
 });
 
 RecipeItem.defaultProps = {
@@ -246,6 +262,7 @@ RecipeItem.defaultProps = {
   addInstruction: null,
   addCookingStep: null,
   index: 0,
+  onlyShowIngredients: false,
 };
 
 RecipeItem.propTypes = {
@@ -259,6 +276,7 @@ RecipeItem.propTypes = {
   addInstruction: PropTypes.func,
   addCookingStep: PropTypes.func,
   index: PropTypes.number,
+  onlyShowIngredients: PropTypes.bool,
 };
 
 export default RecipeItem;

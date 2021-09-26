@@ -59,6 +59,13 @@ const RecipeDetailsView = ({route}) => {
     );
   }, [recipe.cookingSteps, recipe.ingredients, refreshFlastList]);
 
+  useEffect(() => {
+    if (focus) {
+      setFocus(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inEditMode, onlyShowIngredients]);
+
   const addInstruction = () => {
     recipe.ingredients.push({name: '', quantity: '', key: uuid.v4(), order});
 
@@ -75,6 +82,7 @@ const RecipeDetailsView = ({route}) => {
     refresh();
     setRefreshFlatList(uuid.v4());
     refListView.current.scrollToEnd();
+    setFocus(true);
   };
 
   // const toggleDeleteOrCancel = () => {
@@ -270,13 +278,40 @@ const RecipeDetailsView = ({route}) => {
         addInstruction={addOrderedInstruction}
         addCookingStep={addOrderedCookingStep}
         index={index}
+        onlyShowIngredients={onlyShowIngredients}
       />
     );
   };
 
   const animationStyle = ShakeAnimation(inEditMode);
 
-  const color = inEditMode ? myBlack : 'green';
+  const color = () => {
+    if (inEditMode || onlyShowIngredients) {
+      return myBlack;
+    } else {
+      return 'green';
+    }
+  };
+
+  const footerMessage = () => {
+    if (inEditMode) {
+      return 'Exit edit mode';
+    } else if (onlyShowIngredients) {
+      return 'Exit ingredients only mode';
+    } else {
+      return 'Add cooking step';
+    }
+  };
+
+  const footerAction = () => {
+    if (inEditMode) {
+      setInEditMode(false);
+    } else if (onlyShowIngredients) {
+      showAll(false);
+    } else {
+      addCookingStep();
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -330,9 +365,9 @@ const RecipeDetailsView = ({route}) => {
 
         <Pressable
           style={styles.footerContainer}
-          onPress={inEditMode ? () => setInEditMode(false) : addCookingStep}>
-          <Text style={[styles.text4, {color}]}>
-            {inEditMode ? 'Exit edit mode' : 'Add cooking step'}
+          onPress={() => footerAction()}>
+          <Text style={[styles.text4, {color: color()}]}>
+            {footerMessage()}
           </Text>
         </Pressable>
       </ImageBackground>
