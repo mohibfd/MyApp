@@ -15,7 +15,7 @@ const PlantItem = ({
   plants,
   setPlantsStorage,
   openTimeInterval,
-  maxNotifications,
+  // maxNotifications,
 }) => {
   const [actionSheetVisible, setActionSheetVisible] = useState(false);
 

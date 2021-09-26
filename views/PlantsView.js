@@ -34,9 +34,9 @@ const PlantsView = () => {
     setIsDeleteOrCancel(!isDeleteOrCancel);
   };
 
-  const maxNotifications = Math.floor(500 / globalRepeatNotifications);
+  // const maxNotifications = Math.floor(500 / globalRepeatNotifications);
 
-  const createPlant = newPlantName => {
+  const createPlant = (newPlantName, notificationText) => {
     // if (plants.length === 5) {
     //   Alert.alert(
     //     'Too many notifications',
@@ -54,6 +54,7 @@ const PlantsView = () => {
           key: uuid.v4(),
           notificationId: null,
           interval: '',
+          notificationText,
         },
       ];
     });
@@ -90,7 +91,7 @@ const PlantsView = () => {
       <ImageBackground
         source={require('../components/assets/Plants.jpeg')}
         style={styles.image}>
-        <Header title="My Notifications" add={createPlant} />
+        <Header title="My Notifications" notificationAdd={createPlant} />
 
         {/* <Text style={styles.warning}>
           {`Each notifications will trigger ${globalRepeatNotifications} times before stopping`}
@@ -106,7 +107,7 @@ const PlantsView = () => {
                   plants={plants}
                   setPlantsStorage={setPlantsStorage}
                   openTimeInterval={openTimeInterval}
-                  maxNotifications={maxNotifications}
+                  // maxNotifications={maxNotifications}
                 />
               ) : null,
             )}

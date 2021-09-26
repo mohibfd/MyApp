@@ -17,7 +17,7 @@ const TimeInterval = props => {
     deleteTimeInterval,
   } = props;
 
-  const plantName = plant.name;
+  const {name, notificationText} = plant;
 
   const [overlayVisible, setOverlayVisible] = useState(true);
 
@@ -35,7 +35,7 @@ const TimeInterval = props => {
 
   const [showSplashText, setShowSplashText] = useState(false);
 
-  const handleNotification = async (interval, title) => {
+  const handleNotification = async interval => {
     if (!interval) {
       setShowSplashText(true);
 
@@ -78,8 +78,8 @@ const TimeInterval = props => {
         channelId: 'test-channel1',
         id: notificationId,
         date: new Date(Date.now()),
-        title,
-        message: `Reminder for ${title}`,
+        title: name,
+        message: notificationText,
         allowWhileIdle: true,
         repeatType: 'day',
         repeatTime,
@@ -179,7 +179,7 @@ const TimeInterval = props => {
               ...styles.addButton,
             },
           ]}
-          onPress={() => handleNotification(dropDownPickerValue, plantName)}>
+          onPress={() => handleNotification(dropDownPickerValue)}>
           <Text style={generalStyles.textStylesDark}>Add</Text>
         </Pressable>
       </>

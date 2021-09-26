@@ -12,9 +12,11 @@ const AddItemHeader = ({
   cameraAdd,
   openNotifications,
   penAdd,
+  notificationAdd,
 }) => {
   const [overlayVisible, setOverlayVisible] = useState(false);
   const [newItemName, setNewItemName] = useState('');
+  const [notificationText, setNotificationText] = useState('');
 
   // eslint-disable-next-line no-unused-vars
   const [keyboardStatus, setKeyboardStatus] = useKeyboardState();
@@ -58,6 +60,16 @@ const AddItemHeader = ({
     );
   };
 
+  const onPressfunc = () => {
+    setOverlayVisible(false);
+
+    if (notificationAdd) {
+      createItem(newItemName, notificationText);
+    } else {
+      createItem(newItemName);
+    }
+  };
+
   const bottom = keyboardStatus === 'Keyboard Shown' ? '10%' : null;
 
   return (
@@ -72,11 +84,22 @@ const AddItemHeader = ({
         onBackdropPress={() => setOverlayVisible(false)}>
         <>
           <Input
-            placeholder="New Item Name"
+            placeholder={
+              notificationAdd ? 'Notification Title' : 'New Item Name'
+            }
             onChangeText={text => setNewItemName(text)}
             autoFocus={true}
             style={{color: myWhite}}
           />
+          {notificationAdd && (
+            <Input
+              placeholder="Notification Message"
+              onChangeText={text => setNotificationText(text)}
+              // autoFocus={true}
+              multiline={true}
+              style={{color: myWhite}}
+            />
+          )}
           <View style={styles.buttonContainer}>
             <Pressable
               style={generalStyles.darkButtonContainer}
@@ -87,10 +110,7 @@ const AddItemHeader = ({
             </Pressable>
             <Pressable
               style={generalStyles.darkButtonContainer}
-              onPress={() => {
-                setOverlayVisible(false);
-                createItem(newItemName);
-              }}>
+              onPress={() => onPressfunc()}>
               <Text style={generalStyles.textStylesDark}>Create</Text>
             </Pressable>
           </View>
