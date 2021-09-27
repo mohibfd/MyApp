@@ -7,6 +7,7 @@ import PushNotification from 'react-native-push-notification';
 
 // import DeleteOrCancel from '../components/modals/DeleteOrCancel.js';
 import generalStyles from '../stylesheets/generalStylesheet';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 const TimeInterval = props => {
   const {
@@ -29,8 +30,9 @@ const TimeInterval = props => {
     {label: 'Every 2 days', value: 'every two days'},
     {label: 'Every 3 days', value: 'every three days'},
     {label: 'Twice a week', value: 'twice a week'},
-    {label: 'Every week', value: 'once a week'},
+    {label: 'Weekly', value: 'once a week'},
     {label: 'Every two weeks', value: 'once every two weeks'},
+    {label: 'Monthly', value: 'once a month'},
   ]);
 
   const [showSplashText, setShowSplashText] = useState(false);
@@ -65,6 +67,9 @@ const TimeInterval = props => {
         break;
       case 'once every two weeks':
         repeatTime = 14;
+        break;
+      case 'once a month':
+        repeatTime = 30;
         break;
     }
 
@@ -166,7 +171,10 @@ const TimeInterval = props => {
           arrowIconStyle={{tintColor: myWhite}}
           tickIconStyle={{tintColor: myWhite}}
           style={{backgroundColor: myGreen}}
-          dropDownContainerStyle={{backgroundColor: myGreen}}
+          dropDownContainerStyle={{
+            backgroundColor: myGreen,
+            minHeight: EStyleSheet.value('265rem'),
+          }}
           textStyle={{color: myWhite}}
         />
         <Text style={generalStyles.splashText}>
@@ -190,7 +198,7 @@ const TimeInterval = props => {
 
 const styles = StyleSheet.create({
   overlay: {
-    height: '40%',
+    height: EStyleSheet.value('350rem'),
     justifyContent: 'space-between',
   },
   addButton: {
