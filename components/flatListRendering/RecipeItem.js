@@ -82,9 +82,15 @@ const RecipeItem = ({
     />
   );
 
+  const crossIngredientFunction = () => {
+    if (onlyShowIngredients) {
+      setCrossIngredient(!crossIngredient);
+    }
+  };
+
   if (ingredient) {
     return (
-      <Pressable onPress={() => setCrossIngredient(!crossIngredient)}>
+      <Pressable onPress={() => crossIngredientFunction()}>
         {crossIngredient && <View style={styles.crossedLine} />}
         {inEditMode && (
           <View style={styles.editModeContainer}>
