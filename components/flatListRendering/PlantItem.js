@@ -95,7 +95,7 @@ const PlantItem = ({
   //and warning takes 20 rem from screen
 
   // const height = windowHeightMinusWarning * (1 / maxNotifications);
-  const height = windowHeightMinusWarning * (1 / 10);
+  const height = windowHeightMinusWarning * (1 / 7);
 
   return (
     <>
@@ -126,7 +126,10 @@ const PlantItem = ({
               />
             )}
           </View>
-          <Text style={styles.text}>{plant.interval}</Text>
+          <Text style={styles.text1} numberOfLines={1}>
+            {plant.notificationText}
+          </Text>
+          <Text style={styles.text2}>{plant.interval}</Text>
         </ListItem.Content>
       </ListItem>
       {showTimeInterval && (
@@ -146,7 +149,10 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: myGreen + '99',
   },
-  text: {
+  text1: {
+    color: myWhite,
+  },
+  text2: {
     color: myRed,
   },
   listItemContainer: {
