@@ -47,6 +47,10 @@ const RecipeDetailsView = ({route}) => {
     ),
   );
 
+  orderedList.forEach(i => {
+    console.log(i.name, i.order);
+  });
+
   const [onlyShowIngredients, setOnlyShowIngredients] = useState(false);
 
   const refListView = useRef(null);
@@ -135,6 +139,8 @@ const RecipeDetailsView = ({route}) => {
     recipe.ingredients = ingredients.filter(i => i.key !== ingredient.key);
 
     recipe.cookingSteps = cookingSteps.filter(i => i.key !== ingredient.key);
+
+    decrementOrder(ingredient.order);
 
     refresh();
     setRefreshFlatList(uuid.v4());
@@ -251,6 +257,20 @@ const RecipeDetailsView = ({route}) => {
       }
     });
   };
+
+  const decrementOrder = itemOrder => {
+    recipe.cookingSteps.forEach(i => {
+      if (i.order >= itemOrder) {
+        i.order -= 1;
+      }
+    });
+    recipe.ingredients.forEach(i => {
+      if (i.order >= itemOrder) {
+        i.order -= 1;
+      }
+    });
+  };
+
   const showIngredientsOnly = () => {
     setOrderedList(recipe.ingredients);
     setOnlyShowIngredients(true);
