@@ -132,10 +132,6 @@ const TimeInterval = props => {
     createTimeInterval(notificationId, interval);
   };
 
-  // const onPressFunction = async () => {
-  //   handleNotification(dropDownPickerValue, plantName);
-  // };
-
   const closeOverlays = () => {
     setOverlayVisible(false);
     closeModal();
@@ -146,15 +142,6 @@ const TimeInterval = props => {
     deleteTimeInterval();
   };
 
-  // if (timeIntervalAction === 'delete') {
-  //   return (
-  //     <DeleteOrCancel
-  //       name={'this notification'}
-  //       deletion={() => deletion()}
-  //       closeOverlay={() => closeOverlays()}
-  //     />
-  //   );
-  // } else {
   return (
     <Overlay
       isVisible={overlayVisible}

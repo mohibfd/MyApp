@@ -13,6 +13,7 @@ const AddItemHeader = ({
   openNotifications,
   penAdd,
   notificationAdd,
+  hiddenIcon,
 }) => {
   const [overlayVisible, setOverlayVisible] = useState(false);
   const [newItemName, setNewItemName] = useState('');
@@ -46,6 +47,8 @@ const AddItemHeader = ({
       icon = 'pencil';
       color = 'yellow';
       size = EStyleSheet.value('30rem');
+    } else if (hiddenIcon) {
+      color = 'transparent';
     }
     return (
       <Icon
@@ -135,6 +138,7 @@ AddItemHeader.defaultProps = {
   openNotifications: null,
   cameraAdd: false,
   penAdd: false,
+  hiddenIcon: false,
 };
 
 AddItemHeader.propTypes = {
@@ -143,6 +147,7 @@ AddItemHeader.propTypes = {
   openNotifications: PropTypes.func,
   cameraAdd: PropTypes.bool,
   penAdd: PropTypes.bool,
+  hiddenIcon: PropTypes.bool,
 };
 
 export default AddItemHeader;

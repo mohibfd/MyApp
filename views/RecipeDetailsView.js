@@ -47,10 +47,6 @@ const RecipeDetailsView = ({route}) => {
     ),
   );
 
-  orderedList.forEach(i => {
-    console.log(i.name, i.order);
-  });
-
   const [onlyShowIngredients, setOnlyShowIngredients] = useState(false);
 
   const refListView = useRef(null);

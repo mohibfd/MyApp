@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
-  // Alert,
+  Alert,
   // Text,
   StyleSheet,
   ImageBackground,
@@ -26,6 +26,9 @@ const PlantsView = () => {
 
   const [openTimeInterval, setOpenTimeInterval] = useState(false);
 
+  const [deleteAllNotificationsCounter, setDeleteAllNotificationsCounter] =
+    useState(0);
+
   useEffect(() => {
     setPlantsStorage(plants);
   }, [plants, setPlantsStorage]);
@@ -38,11 +41,11 @@ const PlantsView = () => {
 
   const createPlant = (newPlantName, notificationText) => {
     // if (plants.length === 5) {
-    //   Alert.alert(
-    //     'Too many notifications',
-    //     `Sorry you cannot have more than ${maxNotifications} notifications at a time`,
-    //     [{text: 'OK'}],
-    //   );
+    // Alert.alert(
+    //   'Too many notifications',
+    //   `Sorry you cannot have more than ${maxNotifications} notifications at a time`,
+    //   [{text: 'OK'}],
+    // );
     //   return;
     // }
 
@@ -86,12 +89,30 @@ const PlantsView = () => {
     });
   };
 
+  const deleteAllNotifications = () => {
+    setDeleteAllNotificationsCounter(deleteAllNotificationsCounter + 1);
+    if (deleteAllNotificationsCounter === 5) {
+      //delete all notifications
+      PushNotification.cancelAllLocalNotifications();
+
+      Alert.alert(
+        'All notifications deleted',
+        'Please reset your notifications by clicking change reminder',
+        [{text: 'OK'}],
+      );
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground
         source={require('../components/assets/Plants.jpeg')}
         style={styles.image}>
-        <Header title="My Notifications" notificationAdd={createPlant} />
+        <Header
+          hiddenIcon={deleteAllNotifications}
+          title="My Notifications"
+          notificationAdd={createPlant}
+        />
 
         {/* <Text style={styles.warning}>
           {`Each notifications will trigger ${globalRepeatNotifications} times before stopping`}

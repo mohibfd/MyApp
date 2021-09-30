@@ -15,6 +15,7 @@ const Header = ({
   openNotifications,
   penAdd,
   notificationAdd,
+  hiddenIcon,
 }) => {
   const leftHeaderIcon = () => {
     if (developerAdd) {
@@ -23,6 +24,8 @@ const Header = ({
       return <AddItemHeader cameraAdd={true} instantAdd={cameraAdd} />;
     } else if (penAdd) {
       return <AddItemHeader penAdd={true} instantAdd={penAdd} />;
+    } else if (hiddenIcon) {
+      return <AddItemHeader hiddenIcon={true} instantAdd={hiddenIcon} />;
     }
   };
 
@@ -88,6 +91,7 @@ Header.defaultProps = {
   openNotifications: null,
   penAdd: null,
   notificationAdd: null,
+  hiddenIcon: null,
 };
 
 Header.propTypes = {
@@ -99,6 +103,7 @@ Header.propTypes = {
   openNotifications: PropTypes.func,
   penAdd: PropTypes.func,
   notificationAdd: PropTypes.func,
+  hiddenIcon: PropTypes.func,
 };
 
 export default Header;

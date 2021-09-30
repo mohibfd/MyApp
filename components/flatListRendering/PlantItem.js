@@ -72,9 +72,6 @@ const PlantItem = ({
     //   PushNotification.cancelLocalNotifications({id});
     // });
 
-    //delete all notifications
-    // PushNotification.cancelAllLocalNotifications();
-
     for (let i of plants) {
       if (i.key === plant.key) {
         i.notificationId = null;
