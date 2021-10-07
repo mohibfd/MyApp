@@ -134,7 +134,9 @@ const WorkoutDetailsView = ({route}) => {
         source={require('../components/assets/Workout.jpeg')}
         style={styles.image}>
         <View style={styles.headerContainer}>
-          <Text style={[styles.text, styles.marginLeft]}>Excercise</Text>
+          <Text style={[styles.text, styles.marginLeft, styles.excercise]}>
+            Excercise
+          </Text>
           <Text style={styles.text}>Min /</Text>
           <Text style={[styles.text, styles.paddingRight]}> Max</Text>
         </View>
@@ -257,8 +259,8 @@ const styles = StyleSheet.create({
   },
   paddingRight: {
     flex: 1,
-    paddingRight: EStyleSheet.value('15rem'),
   },
+  excercise: {flex: 1.75},
   image: {
     flex: 1,
     width: '100%',
