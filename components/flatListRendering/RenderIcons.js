@@ -113,13 +113,16 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
                 break;
             }
 
-            const specificDate = new Date(
-              Date.now() + globalOneDayInMilliSeconds * dropDownPickerValueTwo,
+            //we add 2 more days delay because of binance's staking delay
+            const notifDate = new Date(
+              Date.now() +
+                globalOneDayInMilliSeconds * dropDownPickerValueTwo +
+                globalOneDayInMilliSeconds * 2,
             );
 
             PushNotification.localNotificationSchedule({
               channelId: 'test-channel1',
-              date: specificDate,
+              date: notifDate,
               title: 'Interest ended',
               message: `your ${item.name} has finished its ${period} staking period`,
               allowWhileIdle: true,
