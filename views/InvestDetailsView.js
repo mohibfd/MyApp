@@ -8,12 +8,14 @@ import {
   StyleSheet,
   Image,
   LogBox,
+  Pressable,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {useState} from 'react';
 
 import DeleteOrCancel from '../components/modals/DeleteOrCancel';
+import AddInterestModal from '../components/modals/AddInterestModal';
 import Header from '../components/Header';
 
 LogBox.ignoreLogs([
@@ -34,9 +36,13 @@ const DeveloperDetailsView = ({route}) => {
 
   const [isDeleteOrCancelOpen, setIsDeleteOrCancelOpen] = useState(false);
 
+  const [isNewInterestOpen, setIsNewInterestOpen] = useState(false);
+
   const [assetToDelete, setAssetToDelete] = useState();
 
   const [isDeletingInterest, setIsDeletingInterest] = useState(false);
+
+  const [assetToChange, setAssetToChange] = useState();
 
   const toggleDeleteOrCancel = () => {
     setIsDeleteOrCancelOpen(!isDeleteOrCancelOpen);
@@ -52,19 +58,35 @@ const DeveloperDetailsView = ({route}) => {
     setAssetToDelete(asset);
   };
 
+  const toggleNewInterest = () => {
+    setIsNewInterestOpen(!isNewInterestOpen);
+  };
+
+  const openNewInterest = asset => {
+    toggleNewInterest();
+    setAssetToChange(asset);
+  };
+
+  const refreshing = () => {
+    setRefresh(!refresh);
+    refreshMainPage();
+  };
+
   const deleteAsset = () => {
     toggleDeleteOrCancel();
 
     const filteredAssets = assets.filter(
-      asset => asset.key != assetToDelete.key,
+      asset => asset.key !== assetToDelete.key,
     );
 
     investments.forEach(i => {
-      if (i.key == investment.key) {
+      if (i.key === investment.key) {
         if (isDeletingInterest) {
-          let asset = assets.filter(asset => asset.key == assetToDelete.key)[0];
+          let newAsset = assets.filter(
+            asset => asset.key === assetToDelete.key,
+          )[0];
           i.assets.forEach(j => {
-            if (j.key == asset.key) {
+            if (j.key === newAsset.key) {
               delete j.interest;
             }
           });
@@ -73,24 +95,23 @@ const DeveloperDetailsView = ({route}) => {
         }
       }
     });
-
-    setRefresh(!refresh);
-    refreshMainPage();
+    refreshing();
   };
 
   const renderItem = ({item, index}) => {
     const asset = item;
     let firstTopBorder = false;
     let lastBottomBorder = false;
-    if (index == 0) {
+    if (index === 0) {
       firstTopBorder = true;
     }
 
-    if (index == assets.length - 1) {
+    if (index === assets.length - 1) {
       lastBottomBorder = true;
     }
 
     const {name, imageSource, quantity, totalValue, interest} = asset;
+
     let earnedInterest, interval, percentage;
     if (interest) {
       earnedInterest = interest.earnedInterest;
@@ -155,14 +176,14 @@ const DeveloperDetailsView = ({route}) => {
             £{totalValue.toFixed(2)}
           </Text>
           <Icon
-            style={{marginRight: '1%'}}
+            style={styles.deleteButton}
             name="remove"
             size={EStyleSheet.value('30rem')}
             color="#800000"
             onPress={() => openDeleteOrCancel(asset, false)}
           />
         </View>
-        {interest != undefined && (
+        {interest !== undefined ? (
           <View
             style={[
               styles.listContainer,
@@ -181,13 +202,28 @@ const DeveloperDetailsView = ({route}) => {
               {earnedInterest.toFixed(2)}
             </Text>
             <Icon
-              style={{marginRight: '1%'}}
+              style={styles.deleteButton}
               name="remove"
               size={EStyleSheet.value('25rem')}
               color="#800000"
               onPress={() => openDeleteOrCancel(asset, true)}
             />
           </View>
+        ) : (
+          <Pressable
+            style={[
+              styles.listContainer,
+              {
+                borderBottomWidth: interestBottomBorder(),
+                borderBottomColor: bordercolour(),
+                borderTopWidth: EStyleSheet.hairlineWidth,
+              },
+            ]}
+            onPress={() => openNewInterest(asset)}>
+            <Text style={[styles.interestText, styles.newInterest]}>
+              Add new interest
+            </Text>
+          </Pressable>
         )}
       </>
     );
@@ -219,9 +255,16 @@ const DeveloperDetailsView = ({route}) => {
       {isDeleteOrCancelOpen && (
         <DeleteOrCancel
           name={assetToDelete.name}
-          extraName={isDeletingInterest ? `'s interest` : ''}
+          extraName={isDeletingInterest ? "'s interest" : ''}
           deletion={deleteAsset}
           closeOverlay={toggleDeleteOrCancel}
+        />
+      )}
+      {isNewInterestOpen && (
+        <AddInterestModal
+          setModalVisible={() => toggleNewInterest()}
+          asset={assetToChange}
+          refresh={() => refreshing()}
         />
       )}
     </SafeAreaView>
@@ -293,6 +336,12 @@ const styles = StyleSheet.create({
   },
   valueText: {
     textAlign: 'center',
+  },
+  deleteButton: {marginRight: '1%'},
+  newInterest: {
+    flex: 1,
+    textAlign: 'center',
+    fontSize: EStyleSheet.value('13rem'),
   },
 });
 

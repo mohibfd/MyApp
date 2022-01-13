@@ -21,10 +21,6 @@ const wait = timeout => {
   return new Promise(resolve => setTimeout(resolve, timeout));
 };
 
-// const sortListByOrder = list => {
-//   return list.sort((a, b) => (a.order > b.order ? 1 : -1));
-// };
-
 const InvestView = ({navigation}) => {
   const [investmentsStorage, setInvestmentsStorage] =
     useStorage('investmentss');
@@ -176,7 +172,7 @@ const InvestView = ({navigation}) => {
             let intervalInNumbers;
 
             //this is for testing different dates//
-            // let dateNow = Date.now() + globalOneDayInMilliSeconds * 61;
+            // let dateNow = Date.now() + globalOneDayInMilliSeconds * 3000;
             let dateNow = Date.now();
 
             let timePassed = dateNow - startDate;

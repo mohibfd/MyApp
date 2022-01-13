@@ -230,7 +230,7 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
                   style={styles.currencyInputContainer}
                   value={interestInput}
                   onChangeValue={setInterestInputFunc}
-                  prefix="%"
+                  suffix="%"
                   delimiter=","
                   separator="."
                   maxLength={10}

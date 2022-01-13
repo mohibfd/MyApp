@@ -387,14 +387,6 @@ const RecipeDetailsView = ({route}) => {
           </Text>
         </Pressable>
       </ImageBackground>
-
-      {/* {isDeleteOrCancel && (
-        <DeleteOrCancel
-          name={deleteItem.name}
-          deletion={completeDeletion}
-          closeOverlay={toggleDeleteOrCancel}
-        />
-      )} */}
     </SafeAreaView>
   );
 };
