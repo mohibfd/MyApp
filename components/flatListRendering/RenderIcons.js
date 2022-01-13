@@ -126,6 +126,7 @@ const RenderIcons = ({item, toggleMainModal, addMainItem}) => {
               title: 'Interest ended',
               message: `your ${item.name} has finished its ${period} staking period`,
               allowWhileIdle: true,
+              actions: ['Take me there'],
             });
           }
         }

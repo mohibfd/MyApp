@@ -20,8 +20,20 @@ import DeleteOrCancel from '../components/modals/DeleteOrCancel';
 import NotificationsModal from '../components/modals/NotificationsModal';
 
 import EStyleSheet from 'react-native-extended-stylesheet';
+import {Platform} from 'react-native';
 
 const WelcomeView = ({navigation}) => {
+  //sets up notifications
+  PushNotification.configure({
+    onNotification: function (notification) {
+      console.log('NOTIFICATION:', notification);
+      if (notification.action === 'Take me there') {
+        navigation.navigate('Invest View');
+      }
+    },
+    requestPermissions: Platform.OS === 'ios',
+  });
+
   // const [item1, setItem1] = useStorage('PlantsId');
   const [item2, setItem2] = useStorage('InvestId');
   const [item3, setItem3] = useStorage('WorkoutId');
