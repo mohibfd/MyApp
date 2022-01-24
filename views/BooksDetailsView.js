@@ -117,7 +117,11 @@ const BookDetailsView = ({route}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header title={book.name} instantAdd={addInstruction} />
+      <Header
+        title={book.name}
+        instantAdd={addInstruction}
+        penAdd={() => setInEditMode(true)}
+      />
 
       <ImageBackground
         source={require('../components/assets/Book.jpeg')}

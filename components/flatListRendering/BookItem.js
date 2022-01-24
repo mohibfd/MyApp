@@ -51,7 +51,9 @@ const BookItem = ({
       name="trash"
       size={EStyleSheet.value('40rem')}
       color="firebrick"
-      onPress={() => deleteItemFromStorage(chapter)}
+      onPress={() =>
+        chapter ? deleteItemFromStorage(chapter) : deleteItemFromStorage(book)
+      }
     />
   );
 
@@ -70,8 +72,8 @@ const BookItem = ({
               placeholder={
                 isChapterDetails.current ? 'add details' : 'add chapter'
               }
-              multiline={true}
               autoFocus={focus}
+              multiline={true}
             />
           </View>
 
@@ -90,7 +92,6 @@ const BookItem = ({
             placeholder="add book name"
             multiline={true}
             autoFocus={focus}
-            maxWidth={'75%'}
           />
 
           <View style={styles.iconContainer}>
@@ -122,16 +123,13 @@ const styles = StyleSheet.create({
     color: '#FFF',
   },
   ListItem: {
-    height: EStyleSheet.value('70rem'),
     backgroundColor: '#FFFFFF' + 99,
     borderWidth: EStyleSheet.value('2rem'),
     borderColor: myWhite,
-    // borderBottomWidth: 0,
   },
   detailsListItem: {
     borderWidth: EStyleSheet.value('2rem'),
-    // borderTopWidth: 0,
-    height: EStyleSheet.value('50rem'),
+    // height: EStyleSheet.value('50rem'),
   },
   ListItemView: {
     flexDirection: 'row',
@@ -139,6 +137,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   listItemText: {
+    flex: 1,
     fontSize: EStyleSheet.value('22rem'),
     marginLeft: EStyleSheet.value('10rem'),
     color: 'black',
@@ -147,7 +146,6 @@ const styles = StyleSheet.create({
   iconContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    flex: 1,
   },
   redCross: {
     alignSelf: 'flex-end',
