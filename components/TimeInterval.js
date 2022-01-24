@@ -5,7 +5,6 @@ import {Overlay} from 'react-native-elements';
 import DropDownPicker from 'react-native-dropdown-picker';
 import PushNotification from 'react-native-push-notification';
 
-// import DeleteOrCancel from '../components/modals/DeleteOrCancel.js';
 import generalStyles from '../stylesheets/generalStylesheet';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
@@ -90,36 +89,6 @@ const TimeInterval = props => {
         repeatTime,
       });
     };
-
-    // const addNotification = () => {
-    //   [...Array(globalRepeatNotifications)].map((e, i) => {
-    //     const specificDate = new Date(
-    //       Date.now() + globalOneDayInMilliSeconds * i * repeatTime,
-    //     );
-
-    //     const newId = notificationId + i;
-
-    //     PushNotification.localNotificationSchedule({
-    //       channelId: 'test-channel1',
-    //       id: newId,
-    //       date: specificDate,
-    //       title,
-    //       message: `Reminder for ${title}`,
-    //       allowWhileIdle: true,
-    //     });
-
-    //     if (i === globalRepeatNotifications - 1) {
-    //       PushNotification.localNotificationSchedule({
-    //         channelId: 'test-channel1',
-    //         id: newId,
-    //         date: specificDate,
-    //         title: `notifications for ${title} are finished`,
-    //         message: `Please reset the notifications for ${title} as the ${globalRepeatNotifications} notifications limit has been reached`,
-    //         allowWhileIdle: true,
-    //       });
-    //     }
-    //   });
-    // };
 
     if (timeIntervalAction === 'edit') {
       deletion();
