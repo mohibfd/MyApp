@@ -7,6 +7,11 @@ import generalStyles from '../../stylesheets/generalStylesheet';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 const DeleteOrCancel = ({name, extraName, deletion, closeOverlay}) => {
+  const n = 30;
+  if (name.length > n) {
+    name = name.slice(0, n) + '...';
+  }
+
   return (
     <Overlay
       isVisible={true}
