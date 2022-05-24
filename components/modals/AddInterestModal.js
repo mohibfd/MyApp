@@ -123,7 +123,7 @@ const AddIconModal = ({setModalVisible, asset, refresh}) => {
               style={styles.currencyInputContainer}
               value={interestLength}
               onChangeText={setInterestLengthFunc}
-              maxLength={2}
+              maxLength={3}
               placeholder="0"
               keyboardType="numeric"
             />
