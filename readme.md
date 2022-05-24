@@ -10,6 +10,16 @@ source ~/.bash_profile && npx react-native run-android
 
 # Install app on your personal mobile
 
+cd Library
+
+cd Android
+
+source ~/.bash_profile
+
+adb pair {ipaddr:port}
+
+{pairing code}
+
 npx react-native run-android --variant=release
 
 # App demonstration
