@@ -167,7 +167,11 @@ const InvestView = ({navigation}) => {
         investment.assets.forEach(asset => {
           if (asset.interest) {
             const interest = asset.interest;
-            const {earnedInterest, interval, percentage, startDate} = interest;
+
+            //uncomment below for popup
+            // const {earnedInterest, interval, percentage, startDate} = interest;
+            const {interval, percentage, startDate} = interest;
+
             const {name} = asset;
             let intervalInNumbers;
 
@@ -222,7 +226,7 @@ const InvestView = ({navigation}) => {
             const timeUntilInterest =
               intervalInNumbers * globalOneDayInMilliSeconds;
 
-            let showPopup = false;
+            // let showPopup = false;
             while (timePassed >= timeUntilInterest) {
               interest.startDate += timeUntilInterest;
 
@@ -245,21 +249,22 @@ const InvestView = ({navigation}) => {
               interest.earnedInterest += earnedInterestInPrice;
 
               timePassed = dateNow - interest.startDate;
-
-              showPopup = true;
+              //uncomment below for popup
+              //   showPopup = true;
             }
-            const newEarnedInterest = interest.earnedInterest - earnedInterest;
-            if (showPopup) {
-              Alert.alert(
-                'Congratulations!!',
-                `You have earned £${newEarnedInterest.toFixed(
-                  2,
-                )} worth of ${name} from ${
-                  investment.name
-                } through your ${interval} interest`,
-                [{text: 'OK'}],
-              );
-            }
+            //uncomment below for popup
+            // const newEarnedInterest = interest.earnedInterest - earnedInterest;
+            // if (showPopup) {
+            //   Alert.alert(
+            //     'Congratulations!!',
+            //     `You have earned £${newEarnedInterest.toFixed(
+            //       2,
+            //     )} worth of ${name} from ${
+            //       investment.name
+            //     } through your ${interval} interest`,
+            //     [{text: 'OK'}],
+            //   );
+            // }
           }
         });
       });
