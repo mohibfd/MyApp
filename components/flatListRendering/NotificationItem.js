@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
-import {StyleSheet, Text, View, Dimensions} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {ListItem} from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {ActionSheet} from '../online_components/ActionSheet';
 import TimeInterval from '../TimeInterval';
@@ -81,20 +80,15 @@ const NotificationItem = ({
     setNotificationsStorage(notifications);
   };
 
-  //the margin left is the size of the icon
-  const marginLeft = notification.notificationId
-    ? EStyleSheet.value('40rem')
-    : 0;
+  //   const windowHeightMinusWarning =
+  //     Dimensions.get('window').height -
+  //     // EStyleSheet.value('20rem') -
+  //     Dimensions.get('window').height * 0.07;
+  //   //header takes 7% of screen
+  //   //and warning takes 20 rem from screen
 
-  const windowHeightMinusWarning =
-    Dimensions.get('window').height -
-    // EStyleSheet.value('20rem') -
-    Dimensions.get('window').height * 0.07;
-  //header takes 7% of screen
-  //and warning takes 20 rem from screen
-
-  // const height = windowHeightMinusWarning * (1 / maxNotifications);
-  const height = windowHeightMinusWarning * (1 / 7);
+  //   // const height = windowHeightMinusWarning * (1 / maxNotifications);
+  //   const height = windowHeightMinusWarning * (1 / 7);
 
   return (
     <>
@@ -110,22 +104,13 @@ const NotificationItem = ({
         onPress={() => {
           setActionSheetVisible(true);
         }}
-        containerStyle={[styles.container, {height}]}
+        containerStyle={styles.container}
         bottomDivider>
         <ListItem.Content style={styles.listItemContainer}>
           <View style={styles.insideContainer}>
-            <Text
-              style={[styles.notificationName, {marginLeft}]}
-              numberOfLines={1}>
+            <Text style={styles.notificationName} numberOfLines={1}>
               {notification.name}
             </Text>
-            {notification.notificationId && (
-              <Icon
-                name="check"
-                size={EStyleSheet.value('40rem')}
-                color={'#00FF004D'}
-              />
-            )}
           </View>
           <Text style={styles.text1} numberOfLines={1}>
             {notification.notificationText}
@@ -164,7 +149,7 @@ const styles = StyleSheet.create({
   },
   notificationName: {
     flex: 1,
-    fontSize: EStyleSheet.value('30rem'),
+    fontSize: EStyleSheet.value('20rem'),
     color: myWhite,
     textAlign: 'center',
   },
