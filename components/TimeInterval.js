@@ -12,12 +12,12 @@ const TimeInterval = props => {
   const {
     createTimeInterval,
     closeModal,
-    plant,
+    notification,
     timeIntervalAction,
     deleteTimeInterval,
   } = props;
 
-  const {name, notificationText} = plant;
+  const {name, notificationText} = notification;
 
   const [overlayVisible, setOverlayVisible] = useState(true);
 
@@ -150,7 +150,6 @@ const TimeInterval = props => {
     </Overlay>
   );
 };
-// }
 
 const styles = StyleSheet.create({
   overlay: {
@@ -166,7 +165,7 @@ const styles = StyleSheet.create({
 TimeInterval.propTypes = {
   createTimeInterval: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
-  plant: PropTypes.object.isRequired,
+  notification: PropTypes.object.isRequired,
   timeIntervalAction: PropTypes.string.isRequired,
   deleteTimeInterval: PropTypes.func.isRequired,
 };

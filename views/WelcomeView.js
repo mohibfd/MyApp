@@ -34,7 +34,7 @@ const WelcomeView = ({navigation}) => {
     requestPermissions: Platform.OS === 'ios',
   });
 
-  // const [item1, setItem1] = useStorage('PlantsId');
+  // const [item1, setItem1] = useStorage('NotificationsId');
   const [item2, setItem2] = useStorage('InvestId');
   const [item3, setItem3] = useStorage('WorkoutId');
   const [item4, setItem4] = useStorage('MeditateId');
@@ -58,7 +58,7 @@ const WelcomeView = ({navigation}) => {
   const [inEditMode, setInEditMode] = useState(false);
 
   const menuItems = [
-    // {name: 'Plants', icon: 'envira', color: myGreen, key: uuid.v4()},
+    // {name: 'Notifications', icon: 'envira', color: myGreen, key: uuid.v4()},
     {name: 'Invest', icon: 'money', color: 'green', key: uuid.v4()},
     {name: 'Workout', icon: 'heartbeat', color: myRed, key: uuid.v4()},
     // {name: 'Meditate', icon: 'pause', color: myWhite, key: uuid.v4()},
@@ -124,7 +124,7 @@ const WelcomeView = ({navigation}) => {
     }
 
     switch (mainItem.name) {
-      // case 'Plants':
+      // case 'Notifications':
       //   setItem1(mainItem);
       //   break;
       case 'Invest':
@@ -192,7 +192,7 @@ const WelcomeView = ({navigation}) => {
     <SafeAreaView style={styles.container}>
       <Header
         title="My Items"
-        openNotifications={() => navigation.navigate('Plants View')}
+        openNotifications={() => navigation.navigate('Notifications View')}
       />
       <ImageBackground
         source={require('../components/assets/WelcomeView.jpeg')}

@@ -11,18 +11,21 @@ import uuid from 'react-native-uuid';
 import PushNotification from 'react-native-push-notification';
 
 import Header from '../components/Header';
-import PlantItem from '../components/flatListRendering/PlantItem';
+import NotificationItem from '../components/flatListRendering/NotificationItem';
 import DeleteOrCancel from '../components/modals/DeleteOrCancel.js';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
-const PlantsView = () => {
-  const [plantsStorage, setPlantsStorage] = useStorage('plantss');
+const NotificationsView = () => {
+  const [notificationsStorage, setNotificationsStorage] =
+    useStorage('notificationss');
 
-  const [plants, setPlants] = useState(plantsStorage ? plantsStorage : []);
+  const [notifications, setNotifications] = useState(
+    notificationsStorage ? notificationsStorage : [],
+  );
 
   const [isDeleteOrCancel, setIsDeleteOrCancel] = useState(false);
 
-  const [deletePlant, setDeletePlant] = useState(null);
+  const [deleteNotification, setDeleteNotification] = useState(null);
 
   const [openTimeInterval, setOpenTimeInterval] = useState(false);
 
@@ -30,8 +33,8 @@ const PlantsView = () => {
     useState(0);
 
   useEffect(() => {
-    setPlantsStorage(plants);
-  }, [plants, setPlantsStorage]);
+    setNotificationsStorage(notifications);
+  }, [notifications, setNotificationsStorage]);
 
   const toggleDeleteOrCancel = () => {
     setIsDeleteOrCancel(!isDeleteOrCancel);
@@ -39,8 +42,8 @@ const PlantsView = () => {
 
   // const maxNotifications = Math.floor(500 / globalRepeatNotifications);
 
-  const createPlant = (newPlantName, notificationText) => {
-    // if (plants.length === 5) {
+  const createNotification = (newNotificationName, notificationText) => {
+    // if (notifications.length === 5) {
     // Alert.alert(
     //   'Too many notifications',
     //   `Sorry you cannot have more than ${maxNotifications} notifications at a time`,
@@ -49,11 +52,11 @@ const PlantsView = () => {
     //   return;
     // }
 
-    setPlants(prevItems => {
+    setNotifications(prevItems => {
       return [
         ...prevItems,
         {
-          name: newPlantName,
+          name: newNotificationName,
           key: uuid.v4(),
           notificationId: null,
           interval: '',
@@ -65,27 +68,27 @@ const PlantsView = () => {
     setOpenTimeInterval(true);
   };
 
-  //also returns plant to be deleted
+  //also returns notification to be deleted
   const openDeleteOrCancel = mainItem => {
     toggleDeleteOrCancel();
-    setDeletePlant(mainItem);
+    setDeleteNotification(mainItem);
   };
 
   const completeDeletion = () => {
     toggleDeleteOrCancel();
 
-    if (deletePlant.notificationId) {
-      const id = deletePlant.notificationId;
+    if (deleteNotification.notificationId) {
+      const id = deleteNotification.notificationId;
       PushNotification.cancelLocalNotifications({id});
 
       // [...Array(globalRepeatNotifications)].map((e, i) => {
-      // const id = deletePlant.notificationId + i;
+      // const id = deleteNotification.notificationId + i;
       //   PushNotification.cancelLocalNotifications({id});
       // });
     }
 
-    setPlants(prevItems => {
-      return prevItems.filter(item => item.key !== deletePlant.key);
+    setNotifications(prevItems => {
+      return prevItems.filter(item => item.key !== deleteNotification.key);
     });
   };
 
@@ -106,27 +109,27 @@ const PlantsView = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground
-        source={require('../components/assets/Plants.jpeg')}
+        source={require('../components/assets/Notifications.jpeg')}
         style={styles.image}>
         <Header
           hiddenIcon={deleteAllNotifications}
           title="My Notifications"
-          notificationAdd={createPlant}
+          notificationAdd={createNotification}
         />
 
         {/* <Text style={styles.warning}>
           {`Each notifications will trigger ${globalRepeatNotifications} times before stopping`}
         </Text> */}
         <ScrollView>
-          {plants &&
-            plants.map(plant =>
-              plant ? (
-                <PlantItem
-                  key={plant.key}
-                  plant={plant}
+          {notifications &&
+            notifications.map(notification =>
+              notification ? (
+                <NotificationItem
+                  key={notification.key}
+                  notification={notification}
                   deletion={openDeleteOrCancel}
-                  plants={plants}
-                  setPlantsStorage={setPlantsStorage}
+                  notifications={notifications}
+                  setNotificationsStorage={setNotificationsStorage}
                   openTimeInterval={openTimeInterval}
                   // maxNotifications={maxNotifications}
                 />
@@ -136,7 +139,7 @@ const PlantsView = () => {
 
         {isDeleteOrCancel && (
           <DeleteOrCancel
-            name={deletePlant.name}
+            name={deleteNotification.name}
             deletion={completeDeletion}
             closeOverlay={toggleDeleteOrCancel}
           />
@@ -157,4 +160,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PlantsView;
+export default NotificationsView;

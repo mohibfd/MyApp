@@ -1,13 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Pressable,
-  View,
-  Text,
-  StyleSheet,
-  Modal,
-  SafeAreaView,
-} from 'react-native';
+import {StyleSheet, Modal, SafeAreaView} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
@@ -40,16 +33,9 @@ const styles = StyleSheet.create({
   },
 });
 
-NotificationsModal.defaultProps = {
-  // name: '',
-  // extraName: '',
-};
-
 NotificationsModal.propTypes = {
   modalVisible: PropTypes.bool.isRequired,
   closeModal: PropTypes.func.isRequired,
-  // deletion: PropTypes.func.isRequired,
-  // closeOverlay: PropTypes.func.isRequired,
 };
 
 export default NotificationsModal;

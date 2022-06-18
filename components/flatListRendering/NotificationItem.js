@@ -4,16 +4,16 @@ import {StyleSheet, Text, View, Dimensions} from 'react-native';
 import {ListItem} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import {ActionSheet} from './../online_components/ActionSheet';
+import {ActionSheet} from '../online_components/ActionSheet';
 import TimeInterval from '../TimeInterval';
 import PushNotification from 'react-native-push-notification';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
-const PlantItem = ({
-  plant,
+const NotificationItem = ({
+  notification,
   deletion,
-  plants,
-  setPlantsStorage,
+  notifications,
+  setNotificationsStorage,
   openTimeInterval,
   // maxNotifications,
 }) => {
@@ -33,7 +33,7 @@ const PlantItem = ({
     {
       title: 'Delete notification',
       action: () => {
-        deletion(plant);
+        deletion(notification);
       },
     },
   ];
@@ -43,7 +43,7 @@ const PlantItem = ({
     setTimeIntervalAction(action);
   };
 
-  if (!plant.notificationId) {
+  if (!notification.notificationId) {
     actions.push({
       title: 'Set reminder',
       action: () => changeReminder('add'),
@@ -56,33 +56,35 @@ const PlantItem = ({
   }
 
   const createTimeInterval = (notificationId, interval) => {
-    for (let i of plants) {
-      if (i.key === plant.key) {
+    for (let i of notifications) {
+      if (i.key === notification.key) {
         i.notificationId = notificationId;
         i.interval = interval;
       }
     }
-    setPlantsStorage(plants);
+    setNotificationsStorage(notifications);
   };
 
   const deleteTimeInterval = () => {
-    const id = plant.notificationId;
+    const id = notification.notificationId;
     PushNotification.cancelLocalNotifications({id});
     // [...Array(globalRepeatNotifications)].map((e, i) => {
     //   PushNotification.cancelLocalNotifications({id});
     // });
 
-    for (let i of plants) {
-      if (i.key === plant.key) {
+    for (let i of notifications) {
+      if (i.key === notification.key) {
         i.notificationId = null;
       }
     }
 
-    setPlantsStorage(plants);
+    setNotificationsStorage(notifications);
   };
 
   //the margin left is the size of the icon
-  const marginLeft = plant.notificationId ? EStyleSheet.value('40rem') : 0;
+  const marginLeft = notification.notificationId
+    ? EStyleSheet.value('40rem')
+    : 0;
 
   const windowHeightMinusWarning =
     Dimensions.get('window').height -
@@ -112,10 +114,12 @@ const PlantItem = ({
         bottomDivider>
         <ListItem.Content style={styles.listItemContainer}>
           <View style={styles.insideContainer}>
-            <Text style={[styles.plantName, {marginLeft}]} numberOfLines={1}>
-              {plant.name}
+            <Text
+              style={[styles.notificationName, {marginLeft}]}
+              numberOfLines={1}>
+              {notification.name}
             </Text>
-            {plant.notificationId && (
+            {notification.notificationId && (
               <Icon
                 name="check"
                 size={EStyleSheet.value('40rem')}
@@ -124,16 +128,16 @@ const PlantItem = ({
             )}
           </View>
           <Text style={styles.text1} numberOfLines={1}>
-            {plant.notificationText}
+            {notification.notificationText}
           </Text>
-          <Text style={styles.text2}>{plant.interval}</Text>
+          <Text style={styles.text2}>{notification.interval}</Text>
         </ListItem.Content>
       </ListItem>
       {showTimeInterval && (
         <TimeInterval
           createTimeInterval={createTimeInterval}
           closeModal={toggleShowTimeInterval}
-          plant={plant}
+          notification={notification}
           timeIntervalAction={timeIntervalAction}
           deleteTimeInterval={deleteTimeInterval}
         />
@@ -158,7 +162,7 @@ const styles = StyleSheet.create({
   insideContainer: {
     flexDirection: 'row',
   },
-  plantName: {
+  notificationName: {
     flex: 1,
     fontSize: EStyleSheet.value('30rem'),
     color: myWhite,
@@ -168,17 +172,17 @@ const styles = StyleSheet.create({
 
 TimeInterval.defaultProps = {
   delete: null,
-  plants: null,
-  setPlantsStorage: null,
+  notifications: null,
+  setNotificationsStorage: null,
   openTimeInterval: null,
 };
 
 TimeInterval.propTypes = {
-  plant: PropTypes.object.isRequired,
+  notification: PropTypes.object.isRequired,
   deletion: PropTypes.func,
-  plants: PropTypes.array,
-  setPlantsStorage: PropTypes.func,
+  notifications: PropTypes.array,
+  setNotificationsStorage: PropTypes.func,
   openTimeInterval: PropTypes.bool,
 };
 
-export default PlantItem;
+export default NotificationItem;

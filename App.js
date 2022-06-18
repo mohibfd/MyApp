@@ -7,7 +7,7 @@ import {AuthProvider} from './providers/AuthProvider';
 import {TasksProvider} from './providers/TasksProvider';
 
 import WelcomeView from './views/WelcomeView';
-import PlantsView from './views/PlantsView';
+import NotificationsView from './views/NotificationsView';
 import InvestView from './views/InvestView';
 import InvestDetailsView from './views/InvestDetailsView';
 import WorkoutView from './views/WorkoutView';
@@ -44,8 +44,8 @@ const App = () => {
             options={{headerShown: false}}
           />
           <Stack.Screen
-            name="Plants View"
-            component={PlantsView}
+            name="Notifications View"
+            component={NotificationsView}
             options={{headerShown: false}}
           />
           <Stack.Screen
