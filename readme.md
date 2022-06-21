@@ -6,7 +6,7 @@ npm install
 
 ## Run emulator
 
-source ~/.bash_profile && npx react-native run-android
+. ~/.bash_profile && npx react-native run-android
 
 # Install app on your personal mobile
 
@@ -14,7 +14,7 @@ cd Library
 
 cd Android
 
-source ~/.bash_profile
+. ~/.bash_profile
 
 adb pair {ipaddr:port}
 
