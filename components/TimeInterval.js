@@ -90,13 +90,13 @@ const TimeInterval = props => {
       case 'Twice a week':
         interval = 3.5;
         break;
-      case 'Once a week':
+      case 'Weekly':
         interval = 7;
         break;
-      case 'Once every two weeks':
+      case 'Every two weeks':
         interval = 14;
         break;
-      case 'Once a month':
+      case 'Monthly':
         interval = 30;
         break;
     }
